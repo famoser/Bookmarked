@@ -1,0 +1,107 @@
+﻿<Page
+    x:Class="Famoser.LectureSync.Presentation.Universal.Pages.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded"
+    DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="WeekDayDataTemplate">
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <TextBlock Grid.Column="0" Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="ApiTraceDataTemplate">
+            <TextBlock Style="{StaticResource TraceTextBlock}" Text="{Binding FullDescription}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+        </DataTemplate>
+        <DataTemplate x:Key="CoursesDataTemplate">
+            <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                <TextBlock Grid.Column="0" Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="LectureDataTemplate">
+            <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Course.Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Lecturer}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Converter={StaticResource LectureTimesConverter}}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                    <TextBlock Grid.Column="2" Style="{StaticResource BigTexBlock}" Text="{Binding Place}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+    <SplitView x:Name="LocationSplitView" DisplayMode="CompactOverlay" IsPaneOpen="False" 
+               CompactPaneLength="0" OpenPaneLength="300" PaneBackground="{ThemeResource SystemControlBackgroundAccentBrush}">
+        <SplitView.Pane>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <ListView Grid.Row="0" ScrollViewer.VerticalScrollMode="Disabled" ItemClick="ListViewBase_OnItemClick" IsItemClickEnabled="True" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" SelectedItem="{Binding SelectedWeekDay, Mode=TwoWay}"  ItemTemplate="{StaticResource WeekDayDataTemplate}" ItemsSource="{Binding WeekDays}" />
+                <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <TextBlock Grid.Column="0" Style="{StaticResource BigTexBlock}" Text="Courses" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Tapped="TextBlock_Tapped"  />
+                </Grid>
+                <TextBlock Grid.Row="2" FontFamily="Segoe UI" Margin="10" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <Run Text="made with &#x2661; by" />
+                    <Hyperlink NavigateUri="http://famoser.ch" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                        <Run Text="famoser"/>
+                    </Hyperlink>
+                    <LineBreak />
+                    <Run Text="source code on" />
+                    <Hyperlink NavigateUri="https://github.com/famoser/Study" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                        <Run Text="github"/>
+                    </Hyperlink>
+                </TextBlock>
+                <Border BorderThickness="0,1,0,0" Grid.Row="3" BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <TextBlock Text="Synchronization info" FontFamily="Segoe UI" Margin="10" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                </Border>
+                <ListView Grid.Row="4" ItemContainerStyle="{StaticResource SmallStretchListViewItemStyle}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformations, Source={StaticResource Locator}}" />
+            </Grid>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid>
+                <Grid x:Name="WeekDayGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{Binding SelectedWeekDay.Name}" Style="{StaticResource BigTexBlock}" />
+                    <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
+                    <ListView Grid.Row="1" ItemTemplate="{StaticResource LectureDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SelectedWeekDay.Lectures}" ItemClick="ListView_ItemClick" />
+                </Grid>
+                <Grid x:Name="CoursesGrid" Visibility="Collapsed" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Courses" Style="{StaticResource BigTexBlock}" />
+                    <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
+                    <ListView AllowDrop="True" CanReorderItems="True" Grid.Row="1" ItemTemplate="{StaticResource CoursesDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding Courses}" ItemClick="ListView_ItemClick" />
+                </Grid>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
+
+    <Page.BottomAppBar>
+        <CommandBar >
+            <CommandBar.PrimaryCommands>
+                <AppBarButton IsCompact="True" Icon="ShowResults" Label="ShowAll" Tapped="UIElement_OnTapped" />
+                <AppBarButton IsCompact="True" Command="{Binding RefreshCommand}" Icon="Refresh" Label="Refresh" />
+                <AppBarButton IsCompact="True" Command="{Binding AddCourseCommand}" Icon="Add" Label="Add" />
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

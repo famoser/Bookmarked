@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="Famoser.LectureSync.Presentation.Universal.Pages.EditLecturePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding LectureViewModel, Source={StaticResource Locator}}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Style="{StaticResource BigTexBlock}" >
+            <Run Text="Lecture of" />
+            <Run Text="{Binding Lecture.Course.Name}" />
+        </TextBlock>
+        <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
+        <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
+            <StackPanel Margin="10,0">
+                <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="lecturer" />
+                <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding Lecture.Lecturer, Mode=TwoWay}" />
+
+                <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="place" />
+                <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding Lecture.Place, Mode=TwoWay}" />
+
+                <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="start time" />
+                <TimePicker Style="{StaticResource ValueTimePicker}" Time="{Binding Lecture.StartTime, Mode=TwoWay}" />
+
+                <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="end time" />
+                <TimePicker Style="{StaticResource ValueTimePicker}" Time="{Binding Lecture.EndTime, Mode=TwoWay}" />
+
+                <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="wochentag" />
+                <ComboBox Style="{StaticResource ValueComboBox}"  ItemsSource="{Binding DayOfWeeks}" SelectedItem="{Binding Lecture.DayOfWeek, Mode=TwoWay}" />
+
+                <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="description" />
+                <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding Lecture.Description, Mode=TwoWay}" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar >
+            <CommandBar.PrimaryCommands>
+                <AppBarButton IsCompact="True" Command="{Binding SaveLectureCommand}" Icon="Save" Label="Save" />
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

@@ -1,0 +1,76 @@
+﻿<Page
+    x:Class="Famoser.LectureSync.Presentation.Universal.Pages.CoursePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding CourseViewModel, Source={StaticResource Locator}}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="LectureDataTemplate">
+            <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Course.Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Text="{Binding Lecturer}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                <TextBlock Style="{StaticResource BigTexBlock}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+                    <Run Text="{Binding DayOfWeek}" />
+                    <Run Text="{Binding Converter={StaticResource LectureTimesConverter}}" />
+                </TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="{Binding Course.Name}" Style="{StaticResource BigTexBlock}" />
+            <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
+            <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
+                <StackPanel Margin="10,0">
+                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="name" />
+                    <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding Course.Name}" />
+
+                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="lecturer" />
+                    <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding Course.Lecturer}" />
+
+                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="info url" />
+                    <TextBlock Style="{StaticResource ValueTextBlock}" >
+                        <Hyperlink NavigateUri="{Binding Course.InfoUrl}">
+                            <Run Text="open browser"/>
+                        </Hyperlink>
+                    </TextBlock>
+
+                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="webpage url" />
+                    <TextBlock Style="{StaticResource ValueTextBlock}" >
+                        <Hyperlink NavigateUri="{Binding Course.WebpageUrl}">
+                            <Run Text="open browser"/>
+                        </Hyperlink>
+                    </TextBlock>
+
+                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="exercise url" />
+                    <TextBlock Style="{StaticResource ValueTextBlock}" >
+                        <Hyperlink NavigateUri="{Binding Course.ExerciseUrl}">
+                            <Run Text="open browser"/>
+                        </Hyperlink>
+                    </TextBlock>
+
+                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="description" />
+                    <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding Course.Description}" />
+
+                    <ListView ItemTemplate="{StaticResource LectureDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding Course.Lectures}" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+    
+    <Page.BottomAppBar>
+        <CommandBar >
+            <CommandBar.PrimaryCommands>
+                <AppBarButton IsCompact="True" Command="{Binding EditCourseCommand}" Icon="Edit" Label="Edit" />
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
