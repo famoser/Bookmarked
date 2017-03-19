@@ -1,12 +1,6 @@
-﻿using Famoser.FrameworkEssentials.Services.Interfaces;
-using Famoser.LectureSync.Business.Services.Interfaces;
-using Famoser.SyncApi.Helpers;
-using Famoser.SyncApi.Models;
-using Famoser.SyncApi.Models.Interfaces;
-using Famoser.SyncApi.Repositories.Interfaces;
-using Famoser.SyncApi.Services.Interfaces;
+﻿using Famoser.Bookmarked.Business.Services.Interfaces;
 
-namespace Famoser.LectureSync.Business.Services
+namespace Famoser.Bookmarked.Business.Services
 {
     public class ApiService : IApiService
     {

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Famoser.LectureSync.Business.Models;
-using Famoser.LectureSync.Business.Repositories.Interfaces;
-using Famoser.LectureSync.View.Models;
-using Famoser.LectureSync.View.Services.Interfaces;
+using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.View.Models;
+using Famoser.Bookmarked.View.Services.Interfaces;
 
-namespace Famoser.LectureSync.View.Services
+namespace Famoser.Bookmarked.View.Services
 {
     public class WeekDayService : IWeekDayService
     {

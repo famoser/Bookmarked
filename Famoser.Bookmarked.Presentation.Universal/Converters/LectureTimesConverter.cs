@@ -1,8 +1,7 @@
-﻿using System;
-using Windows.UI.Xaml.Data;
-using Famoser.LectureSync.Business.Models;
+﻿using Windows.UI.Xaml.Data;
+using Famoser.Bookmarked.Business.Models;
 
-namespace Famoser.LectureSync.Presentation.Universal.Converters
+namespace Famoser.Bookmarked.Presentation.Universal.Converters
 {
     class LectureTimesConverter : IValueConverter
     {

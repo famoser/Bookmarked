@@ -3,12 +3,12 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Famoser.LectureSync.Business.Models;
-using Famoser.LectureSync.View.ViewModels;
+using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.View.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace Famoser.LectureSync.Presentation.Universal.Pages
+namespace Famoser.Bookmarked.Presentation.Universal.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

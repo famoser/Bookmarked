@@ -8,8 +8,8 @@
     <ProjectGuid>{39C0D243-1577-4116-AB74-A9EFE407B241}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Famoser.LectureSync.View</RootNamespace>
-    <AssemblyName>Famoser.LectureSync.View</AssemblyName>
+    <RootNamespace>Famoser.Bookmarked.View</RootNamespace>
+    <AssemblyName>Famoser.Bookmarked.View</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -37,9 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\Famoser.LectureSync.Business\Famoser.LectureSync.Business.csproj">
+    <ProjectReference Include="..\Famoser.Bookmarked.Business\Famoser.Bookmarked.Business.csproj">
       <Project>{43fbf634-6626-4202-a447-fb312f52cb24}</Project>
-      <Name>Famoser.LectureSync.Business</Name>
+      <Name>Famoser.Bookmarked.Business</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Famoser.LectureSync.View.ViewModels.Base;
-using Famoser.SyncApi.Api.Communication.Request.Base;
-using Famoser.SyncApi.Enums;
-using Famoser.SyncApi.Models;
-using Famoser.SyncApi.Models.Interfaces;
-using Famoser.SyncApi.Services.Interfaces;
+using Famoser.Bookmarked.View.ViewModels.Base;
 
-namespace Famoser.LectureSync.View.Mocks
+namespace Famoser.Bookmarked.View.Mocks
 {
     public class MockApiViewModel : BaseViewModel, IApiTraceService
     {

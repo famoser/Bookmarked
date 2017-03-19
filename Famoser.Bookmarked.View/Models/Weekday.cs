@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Famoser.LectureSync.Business.Models;
+using Famoser.Bookmarked.Business.Models;
 
-namespace Famoser.LectureSync.View.Models
+namespace Famoser.Bookmarked.View.Models
 {
     public class WeekDay
     {

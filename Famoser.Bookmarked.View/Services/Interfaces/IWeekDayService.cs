@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using Famoser.LectureSync.View.Models;
+using Famoser.Bookmarked.View.Models;
 
-namespace Famoser.LectureSync.View.Services.Interfaces
+namespace Famoser.Bookmarked.View.Services.Interfaces
 {
     public interface IWeekDayService
     {

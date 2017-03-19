@@ -1,6 +1,4 @@
-﻿using GalaSoft.MvvmLight;
-
-namespace Famoser.LectureSync.View.ViewModels.Base
+﻿namespace Famoser.Bookmarked.View.ViewModels.Base
 {
     public class BaseViewModel : ViewModelBase
     {

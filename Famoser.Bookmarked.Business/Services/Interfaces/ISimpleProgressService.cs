@@ -1,4 +1,4 @@
-﻿namespace Famoser.LectureSync.Business.Services.Interfaces
+﻿namespace Famoser.Bookmarked.Business.Services.Interfaces
 {
     public interface ISimpleProgressService
     {

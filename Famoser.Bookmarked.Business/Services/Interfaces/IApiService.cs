@@ -1,8 +1,4 @@
-﻿using Famoser.SyncApi.Models;
-using Famoser.SyncApi.Models.Interfaces;
-using Famoser.SyncApi.Repositories.Interfaces;
-
-namespace Famoser.LectureSync.Business.Services.Interfaces
+﻿namespace Famoser.Bookmarked.Business.Services.Interfaces
 {
     public interface IApiService
     {

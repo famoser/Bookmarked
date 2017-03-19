@@ -1,14 +1,12 @@
-﻿using Famoser.LectureSync.Business.Repositories;
-using Famoser.LectureSync.Business.Repositories.Interfaces;
-using Famoser.LectureSync.Business.Services;
-using Famoser.LectureSync.Business.Services.Interfaces;
-using Famoser.LectureSync.View.Mocks;
-using Famoser.LectureSync.View.Services;
-using Famoser.LectureSync.View.Services.Interfaces;
-using Famoser.SyncApi.Services.Interfaces;
-using GalaSoft.MvvmLight.Ioc;
+﻿using Famoser.Bookmarked.Business.Repositories;
+using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.Business.Services;
+using Famoser.Bookmarked.Business.Services.Interfaces;
+using Famoser.Bookmarked.View.Mocks;
+using Famoser.Bookmarked.View.Services;
+using Famoser.Bookmarked.View.Services.Interfaces;
 
-namespace Famoser.LectureSync.View.ViewModels.Base
+namespace Famoser.Bookmarked.View.ViewModels.Base
 {
     public class BaseViewModelLocator : BaseViewModel
     {

@@ -1,16 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Famoser.FrameworkEssentials.Services.Interfaces;
-using Famoser.FrameworkEssentials.View.Commands;
-using Famoser.LectureSync.Business.Models;
-using Famoser.LectureSync.Business.Repositories.Interfaces;
-using Famoser.LectureSync.View.Enum;
-using Famoser.LectureSync.View.Models;
-using Famoser.LectureSync.View.Services.Interfaces;
-using Famoser.LectureSync.View.ViewModels.Base;
-using GalaSoft.MvvmLight.Messaging;
+using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.View.Enum;
+using Famoser.Bookmarked.View.Models;
+using Famoser.Bookmarked.View.Services.Interfaces;
+using Famoser.Bookmarked.View.ViewModels.Base;
 
-namespace Famoser.LectureSync.View.ViewModels
+namespace Famoser.Bookmarked.View.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {

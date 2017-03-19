@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Famoser.LectureSync.Business.Models.Base;
-using Famoser.SyncApi.Models.Interfaces;
+using Famoser.Bookmarked.Business.Models.Base;
 
-namespace Famoser.LectureSync.Business.Models
+namespace Famoser.Bookmarked.Business.Models
 {
     public class Course : BaseEventModel, ISyncModel
     {

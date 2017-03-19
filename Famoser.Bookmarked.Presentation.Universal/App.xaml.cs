@@ -1,13 +1,11 @@
-﻿using System;
-using Windows.ApplicationModel;
+﻿using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Famoser.LectureSync.Presentation.Universal.Pages;
-using GalaSoft.MvvmLight.Threading;
+using Famoser.Bookmarked.Presentation.Universal.Pages;
 
-namespace Famoser.LectureSync.Presentation.Universal
+namespace Famoser.Bookmarked.Presentation.Universal
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

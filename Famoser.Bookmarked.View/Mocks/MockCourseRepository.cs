@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Famoser.LectureSync.Business.Models;
-using Famoser.LectureSync.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.Business.Repositories.Interfaces;
 
-namespace Famoser.LectureSync.View.Mocks
+namespace Famoser.Bookmarked.View.Mocks
 {
     internal class MockCourseRepository : ICourseRepository
     {

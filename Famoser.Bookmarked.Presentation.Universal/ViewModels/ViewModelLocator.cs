@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using Famoser.FrameworkEssentials.Services.Interfaces;
-using Famoser.FrameworkEssentials.UniversalWindows.Platform;
-using Famoser.LectureSync.Presentation.Universal.Pages;
-using Famoser.LectureSync.Presentation.Universal.Platform;
-using Famoser.LectureSync.View.Services.Interfaces;
-using Famoser.LectureSync.View.ViewModels.Base;
-using GalaSoft.MvvmLight.Ioc;
+﻿using Famoser.Bookmarked.Presentation.Universal.Pages;
+using Famoser.Bookmarked.Presentation.Universal.Platform;
+using Famoser.Bookmarked.View.Services.Interfaces;
+using Famoser.Bookmarked.View.ViewModels.Base;
 
-namespace Famoser.LectureSync.Presentation.Universal.ViewModels
+namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
 {
     public class ViewModelLocator : BaseViewModelLocator
     {

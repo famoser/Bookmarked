@@ -1,10 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Famoser.LectureSync.View.Services.Interfaces;
-using GalaSoft.MvvmLight.Threading;
+﻿using Windows.UI.Popups;
+using Famoser.Bookmarked.View.Services.Interfaces;
 
-namespace Famoser.LectureSync.Presentation.Universal.Platform
+namespace Famoser.Bookmarked.Presentation.Universal.Platform
 {
     internal class InteractionService : IInteractionService
     {

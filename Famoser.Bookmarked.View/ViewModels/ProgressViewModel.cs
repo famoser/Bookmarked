@@ -1,8 +1,8 @@
-﻿using Famoser.LectureSync.Business.Services.Interfaces;
-using Famoser.LectureSync.View.Services.Interfaces;
-using Famoser.LectureSync.View.ViewModels.Base;
+﻿using Famoser.Bookmarked.Business.Services.Interfaces;
+using Famoser.Bookmarked.View.Services.Interfaces;
+using Famoser.Bookmarked.View.ViewModels.Base;
 
-namespace Famoser.LectureSync.View.ViewModels
+namespace Famoser.Bookmarked.View.ViewModels
 {
     public class ProgressViewModel : BaseViewModel, ISimpleProgressService
     {

@@ -2,17 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using Famoser.FrameworkEssentials.Services.Interfaces;
-using Famoser.FrameworkEssentials.View.Commands;
-using Famoser.FrameworkEssentials.View.Interfaces;
-using Famoser.LectureSync.Business.Models;
-using Famoser.LectureSync.Business.Repositories.Interfaces;
-using Famoser.LectureSync.View.Enum;
-using Famoser.LectureSync.View.ViewModels.Base;
-using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
+using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.View.Enum;
+using Famoser.Bookmarked.View.ViewModels.Base;
 
-namespace Famoser.LectureSync.View.ViewModels
+namespace Famoser.Bookmarked.View.ViewModels
 {
     public class LectureViewModel : BaseViewModel, INavigationBackNotifier
     {

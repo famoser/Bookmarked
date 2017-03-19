@@ -1,4 +1,4 @@
-﻿namespace Famoser.LectureSync.View.Enum
+﻿namespace Famoser.Bookmarked.View.Enum
 {
     public enum Messages
     {

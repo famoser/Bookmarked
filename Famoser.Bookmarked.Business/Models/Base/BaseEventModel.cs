@@ -1,4 +1,4 @@
-﻿namespace Famoser.LectureSync.Business.Models.Base
+﻿namespace Famoser.Bookmarked.Business.Models.Base
 {
     public class BaseEventModel : BaseModel
     {

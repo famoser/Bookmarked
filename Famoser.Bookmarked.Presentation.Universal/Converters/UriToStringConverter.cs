@@ -1,7 +1,6 @@
-﻿using System;
-using Windows.UI.Xaml.Data;
+﻿using Windows.UI.Xaml.Data;
 
-namespace Famoser.LectureSync.Presentation.Universal.Converters
+namespace Famoser.Bookmarked.Presentation.Universal.Converters
 {
     public class UriToStringConverter : IValueConverter
     {

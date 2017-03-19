@@ -1,8 +1,7 @@
 ﻿using System;
-using Famoser.LectureSync.Business.Models.Base;
-using Newtonsoft.Json;
+using Famoser.Bookmarked.Business.Models.Base;
 
-namespace Famoser.LectureSync.Business.Models
+namespace Famoser.Bookmarked.Business.Models
 {
     public class Lecture : BaseEventModel
     {

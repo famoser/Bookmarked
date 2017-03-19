@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Famoser.LectureSync.View.Services.Interfaces
+namespace Famoser.Bookmarked.View.Services.Interfaces
 {
     public interface IInteractionService
     {

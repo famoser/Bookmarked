@@ -7,8 +7,8 @@
     <ProjectGuid>{2C9968DF-D34C-4A9D-9455-ADECA6C4C4C8}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Famoser.LectureSync.Presentation.Universal</RootNamespace>
-    <AssemblyName>Famoser.LectureSync.Presentation.Universal</AssemblyName>
+    <RootNamespace>Famoser.Bookmarked.Presentation.Universal</RootNamespace>
+    <AssemblyName>Famoser.Bookmarked.Presentation.Universal</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
@@ -187,13 +187,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Famoser.LectureSync.Business\Famoser.LectureSync.Business.csproj">
+    <ProjectReference Include="..\Famoser.Bookmarked.Business\Famoser.Bookmarked.Business.csproj">
       <Project>{43fbf634-6626-4202-a447-fb312f52cb24}</Project>
-      <Name>Famoser.LectureSync.Business</Name>
+      <Name>Famoser.Bookmarked.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Famoser.LectureSync.View\Famoser.LectureSync.View.csproj">
+    <ProjectReference Include="..\Famoser.Bookmarked.View\Famoser.Bookmarked.View.csproj">
       <Project>{39c0d243-1577-4116-ab74-a9efe407b241}</Project>
-      <Name>Famoser.LectureSync.View</Name>
+      <Name>Famoser.Bookmarked.View</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

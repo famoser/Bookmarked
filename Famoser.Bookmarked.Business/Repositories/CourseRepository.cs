@@ -1,13 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
-using Famoser.LectureSync.Business.Models;
-using Famoser.LectureSync.Business.Repositories.Interfaces;
-using Famoser.LectureSync.Business.Services.Interfaces;
-using Famoser.SyncApi.Models;
-using Famoser.SyncApi.Repositories.Interfaces;
+using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.Business.Services.Interfaces;
 
-namespace Famoser.LectureSync.Business.Repositories
+namespace Famoser.Bookmarked.Business.Repositories
 {
     public class CourseRepository : ICourseRepository
     {
