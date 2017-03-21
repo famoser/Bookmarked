@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Data;
+﻿using System;
+using Windows.UI.Xaml.Data;
 using Famoser.Bookmarked.Business.Models;
 
 namespace Famoser.Bookmarked.Presentation.Universal.Converters
@@ -7,10 +8,12 @@ namespace Famoser.Bookmarked.Presentation.Universal.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var lecture = value as Lecture;
-            if (lecture != null)
+            if (value is Lecture lecture)
             {
-                return TimeSpanToString(lecture.StartTime) + " - " + TimeSpanToString(lecture.EndTime);
+                if (lecture != null)
+                {
+                    return TimeSpanToString(lecture.StartTime) + " - " + TimeSpanToString(lecture.EndTime);
+                }
             }
             return null;
         }

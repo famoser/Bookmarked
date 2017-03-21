@@ -1,9 +1,11 @@
-﻿using Windows.ApplicationModel;
+﻿using System;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Famoser.Bookmarked.Presentation.Universal.Pages;
+using GalaSoft.MvvmLight.Threading;
 
 namespace Famoser.Bookmarked.Presentation.Universal
 {

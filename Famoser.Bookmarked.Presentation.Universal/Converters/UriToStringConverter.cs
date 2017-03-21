@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Data;
+﻿using System;
+using Windows.UI.Xaml.Data;
 
 namespace Famoser.Bookmarked.Presentation.Universal.Converters
 {
@@ -17,8 +18,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Converters
             {
                 return new Uri(value as string);
             }
-            catch (Exception e)
-            {
+            catch {
                 return null;
             }
         }

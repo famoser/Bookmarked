@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
+using Famoser.SyncApi.Models;
+using Famoser.SyncApi.Repositories.Interfaces;
 
 namespace Famoser.Bookmarked.Business.Repositories
 {
@@ -43,12 +45,12 @@ namespace Famoser.Bookmarked.Business.Repositories
                 case NotifyCollectionChangedAction.Reset:
                     foreach (var newItem in notifyCollectionChangedEventArgs.NewItems)
                     {
-                        var course = newItem as Course;
-                        if (course != null)
-                            foreach (var courseLecture in course.Lectures)
-                            {
-                                courseLecture.Course = course;
-                            }
+                        if (newItem is Course course)
+                            if (course != null)
+                                foreach (var courseLecture in course.Lectures)
+                                {
+                                    courseLecture.Course = course;
+                                }
                     }
                     break;
 

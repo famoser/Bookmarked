@@ -1,10 +1,10 @@
 ﻿<Application
-    x:Class="Famoser.LectureSync.Presentation.Universal.App"
+    x:Class="Famoser.Bookmarked.Presentation.Universal.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:visibility="using:Famoser.FrameworkEssentials.UniversalWindows.Converters.Visibility"
-    xmlns:viewModels="using:Famoser.LectureSync.Presentation.Universal.ViewModels"
-    xmlns:converters="using:Famoser.LectureSync.Presentation.Universal.Converters"
+    xmlns:viewModels="using:Famoser.Bookmarked.Presentation.Universal.ViewModels"
+    xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
     RequestedTheme="Light">
     <Application.Resources>
         <ResourceDictionary>

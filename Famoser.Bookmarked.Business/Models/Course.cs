@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Famoser.Bookmarked.Business.Models.Base;
+using Famoser.SyncApi.Models.Interfaces;
 
 namespace Famoser.Bookmarked.Business.Models
 {

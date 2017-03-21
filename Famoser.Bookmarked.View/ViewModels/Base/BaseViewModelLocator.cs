@@ -5,6 +5,8 @@ using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Mocks;
 using Famoser.Bookmarked.View.Services;
 using Famoser.Bookmarked.View.Services.Interfaces;
+using Famoser.SyncApi.Services.Interfaces;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Famoser.Bookmarked.View.ViewModels.Base
 {

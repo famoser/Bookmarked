@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.LectureSync.Presentation.Universal", "Famoser.Bookmarked.Presentation.Universal\Famoser.LectureSync.Presentation.Universal.csproj", "{2C9968DF-D34C-4A9D-9455-ADECA6C4C4C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.Bookmarked.Presentation.Universal", "Famoser.Bookmarked.Presentation.Universal\Famoser.Bookmarked.Presentation.Universal.csproj", "{2C9968DF-D34C-4A9D-9455-ADECA6C4C4C8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portable", "Portable", "{101E7D13-0798-4FFA-8E51-821D08B24A97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.LectureSync.Business", "Famoser.Bookmarked.Business\Famoser.LectureSync.Business.csproj", "{43FBF634-6626-4202-A447-FB312F52CB24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.Bookmarked.Business", "Famoser.Bookmarked.Business\Famoser.Bookmarked.Business.csproj", "{43FBF634-6626-4202-A447-FB312F52CB24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.LectureSync.View", "Famoser.Bookmarked.View\Famoser.LectureSync.View.csproj", "{39C0D243-1577-4116-AB74-A9EFE407B241}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.Bookmarked.View", "Famoser.Bookmarked.View\Famoser.Bookmarked.View.csproj", "{39C0D243-1577-4116-AB74-A9EFE407B241}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

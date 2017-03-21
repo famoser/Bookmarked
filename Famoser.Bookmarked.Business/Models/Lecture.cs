@@ -1,5 +1,6 @@
 ﻿using System;
 using Famoser.Bookmarked.Business.Models.Base;
+using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Models
 {

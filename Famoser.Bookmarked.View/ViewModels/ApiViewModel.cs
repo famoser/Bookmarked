@@ -2,6 +2,11 @@
 using System.Collections.ObjectModel;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
+using Famoser.SyncApi.Api.Communication.Request.Base;
+using Famoser.SyncApi.Enums;
+using Famoser.SyncApi.Models;
+using Famoser.SyncApi.Models.Interfaces;
+using Famoser.SyncApi.Services.Interfaces;
 
 namespace Famoser.Bookmarked.View.ViewModels
 {

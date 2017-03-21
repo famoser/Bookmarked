@@ -6,6 +6,10 @@ using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
+using Famoser.FrameworkEssentials.Services.Interfaces;
+using Famoser.FrameworkEssentials.View.Commands;
+using Famoser.FrameworkEssentials.View.Interfaces;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Famoser.Bookmarked.View.ViewModels
 {
@@ -94,10 +98,12 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public void HandleNavigationBack(object message)
         {
-            var back = message as Course;
-            if (back != null)
+            if (message is Course back)
             {
-                Course = back;
+                if (back != null)
+                {
+                    Course = back;
+                }
             }
         }
     }

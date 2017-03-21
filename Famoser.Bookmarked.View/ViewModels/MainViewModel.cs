@@ -6,6 +6,9 @@ using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Models;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
+using Famoser.FrameworkEssentials.Services.Interfaces;
+using Famoser.FrameworkEssentials.View.Commands;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Famoser.Bookmarked.View.ViewModels
 {
