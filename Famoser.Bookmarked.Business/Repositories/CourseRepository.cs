@@ -9,67 +9,65 @@ using Famoser.SyncApi.Repositories.Interfaces;
 
 namespace Famoser.Bookmarked.Business.Repositories
 {
-    public class CourseRepository : ICourseRepository
+    public class FolderRepository : IFolderRepository
     {
-        private readonly IApiRepository<Course, CollectionModel> _repository;
+        private readonly IApiRepository<Folder, CollectionModel> _folderRepository;
+        private readonly IApiRepository<Entry, CollectionModel> _entryRepository;
 
-        public CourseRepository(IApiService apiService)
+        public FolderRepository(IApiService apiService)
         {
-            _repository = apiService.ResolveRepository<Course>();
+            _folderRepository = apiService.ResolveRepository<Folder>();
+            _entryRepository = apiService.ResolveRepository<Entry>();
         }
 
-        private ObservableCollection<Course> _courses;
-        public ObservableCollection<Course> GetCoursesLazy()
+        private ObservableCollection<Folder> _folders;
+        private ObservableCollection<Folder> _folderDic;
+        private Folder _root;
+
+        public Folder GetRootFolder()
         {
-            if (_courses == null)
-            {
-                _courses = _repository.GetAllLazy();
-                foreach (var course in _courses)
-                {
-                    foreach (var courseLecture in course.Lectures)
-                    {
-                        courseLecture.Course = course;
-                    }
-                }
-                _courses.CollectionChanged += CoursesOnCollectionChanged;
-            }
-            return _courses;
+            return _root;
         }
 
-        private void CoursesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        public async Task<bool> SyncAsnyc()
         {
-            switch (notifyCollectionChangedEventArgs.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                case NotifyCollectionChangedAction.Replace:
-                case NotifyCollectionChangedAction.Reset:
-                    foreach (var newItem in notifyCollectionChangedEventArgs.NewItems)
-                    {
-                        if (newItem is Course course)
-                            if (course != null)
-                                foreach (var courseLecture in course.Lectures)
-                                {
-                                    courseLecture.Course = course;
-                                }
-                    }
-                    break;
-
-            }
+            var res = await _folderRepository.SyncAsync();
+            //enforce both try to sync
+            return await _entryRepository.SyncAsync() && res;
         }
 
-        public Task<bool> SaveCourseAsync(Course course)
+        public Task<bool> SaveFolderAsync(Folder folder)
         {
-            return _repository.SaveAsync(course);
+            return _folderRepository.SaveAsync(folder);
         }
 
-        public Task<bool> RemoveCourseAsync(Course course)
+        public Task<bool> RemoveFolderAsync(Folder folder)
         {
-            return _repository.RemoveAsync(course);
+            folder.IsDeleted = true;
+            folder.Parent.Children.Remove(folder);
+            return _folderRepository.RemoveAsync(folder);
         }
 
-        public Task<bool> SyncAsnyc()
+        public Folder CreateFolderAsync(Folder parentFolder)
         {
-            return _repository.SyncAsync();
+            throw new System.NotImplementedException();
+        }
+
+        public Task<bool> SaveEntryAsync(Entry entry)
+        {
+            return _folderRepository.SaveAsync(entry);
+        }
+
+        public Task<bool> RemoveEntryAsync(Entry entry)
+        {
+            entry.IsDeleted = true;
+            entry.Parent.Children.Remove(entry);
+            return _entryRepository.RemoveAsync(entry);
+        }
+
+        public Entry CreateEntryAsync(Folder parentFolder)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

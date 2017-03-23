@@ -16,17 +16,17 @@ namespace Famoser.Bookmarked.View.ViewModels
 {
     public class LectureViewModel : BaseViewModel, INavigationBackNotifier
     {
-        private readonly ICourseRepository _courseRepository;
+        private readonly IFolderRepository _folderRepository;
         private readonly IHistoryNavigationService _navigationService;
 
-        public LectureViewModel(ICourseRepository courseRepository, IHistoryNavigationService navigationService)
+        public LectureViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService)
         {
-            _courseRepository = courseRepository;
+            _folderRepository = folderRepository;
             _navigationService = navigationService;
             Messenger.Default.Register<Lecture>(this, Messages.Select, SelectLecture);
             if (IsInDesignModeStatic)
             {
-                Lecture = courseRepository.GetCoursesLazy().FirstOrDefault().Lectures.FirstOrDefault();
+                Lecture = folderRepository.GetRootFolder().FirstOrDefault().Lectures.FirstOrDefault();
             }
         }
 
@@ -57,7 +57,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             var vm = SimpleIoc.Default.GetInstance<CourseViewModel>();
             if (!vm.Course.Lectures.Contains(Lecture))
                 vm.Course.Lectures.Add(Lecture);
-            _courseRepository.SaveCourseAsync(vm.Course);
+            _folderRepository.SaveCourseAsync(vm.Course);
             _navigationService.GoBack();
         });
 
