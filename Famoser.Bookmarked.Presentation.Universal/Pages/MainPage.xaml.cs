@@ -51,7 +51,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                     ViewModel.SelectCourseCommand.Execute(lecture.Course);
                 }
             }
-            var course = e.ClickedItem as Course;
+            var course = e.ClickedItem as Folder;
             if (course != null)
             {
                 if (ViewModel.SelectCourseCommand.CanExecute(course))

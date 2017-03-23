@@ -14,19 +14,19 @@ namespace Famoser.Bookmarked.View.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly ICourseRepository _courseRepository;
+        private readonly IFolderRepository _folderRepository;
         private readonly IHistoryNavigationService _navigationService;
         private readonly IWeekDayService _weekDayService;
 
-        public MainViewModel(ICourseRepository courseRepository, IHistoryNavigationService navigationService, IWeekDayService weekDayService)
+        public MainViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService, IWeekDayService weekDayService)
         {
-            _courseRepository = courseRepository;
+            _folderRepository = folderRepository;
             _navigationService = navigationService;
             _weekDayService = weekDayService;
             _selectedWeekDay = _weekDayService.GetToday();
         }
 
-        public ObservableCollection<Course> Courses => _courseRepository.GetCoursesLazy();
+        public ObservableCollection<Folder> Courses => _folderRepository.GetRootFolder();
 
         public ObservableCollection<WeekDay> WeekDays => _weekDayService.GetWeekDays();
 
@@ -37,18 +37,18 @@ namespace Famoser.Bookmarked.View.ViewModels
             set { Set(ref _selectedWeekDay, value); }
         }
 
-        public ICommand RefreshCommand => new LoadingRelayCommand(() => _courseRepository.SyncAsnyc());
+        public ICommand RefreshCommand => new LoadingRelayCommand(() => _folderRepository.SyncAsnyc());
 
-        public ICommand SelectCourseCommand => new LoadingRelayCommand<Course>((c) =>
+        public ICommand SelectCourseCommand => new LoadingRelayCommand<Folder>((c) =>
         {
             _navigationService.NavigateTo(Pages.ViewCourse.ToString());
             Messenger.Default.Send(c, Messages.Select);
         });
 
-        public ICommand AddCourseCommand => new LoadingRelayCommand<Course>((c) =>
+        public ICommand AddCourseCommand => new LoadingRelayCommand<Folder>((c) =>
         {
             _navigationService.NavigateTo(Pages.AddEditCourse.ToString());
-            Messenger.Default.Send(new Course(), Messages.Select);
+            Messenger.Default.Send(new Folder(), Messages.Select);
         });
     }
 }

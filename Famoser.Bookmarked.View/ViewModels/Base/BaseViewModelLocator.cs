@@ -19,12 +19,12 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
             SimpleIoc.Default.Register<IWeekDayService, WeekDayService>();
             if (IsInDesignModeStatic)
             {
-                SimpleIoc.Default.Register<ICourseRepository, MockCourseRepository>();
+                SimpleIoc.Default.Register<IFolderRepository, MockFolderRepository>();
                 SimpleIoc.Default.Register<IApiTraceService, ApiViewModel>();
             }
             else
             {
-                SimpleIoc.Default.Register<ICourseRepository, CourseRepository>();
+                SimpleIoc.Default.Register<IFolderRepository, CourseRepository>();
                 SimpleIoc.Default.Register<IApiTraceService, ApiViewModel>();
             }
 

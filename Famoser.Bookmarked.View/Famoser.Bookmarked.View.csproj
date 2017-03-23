@@ -48,7 +48,7 @@
     <Compile Include="Mocks\MockApiViewModel.cs" />
     <Compile Include="Services\Interfaces\IWeekDayService.cs" />
     <Compile Include="Services\WeekDayService.cs" />
-    <Compile Include="Mocks\MockCourseRepository.cs" />
+    <Compile Include="Mocks\MockFolderRepository.cs" />
     <Compile Include="Models\WeekDay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IInteractionService.cs" />

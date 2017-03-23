@@ -15,39 +15,39 @@ namespace Famoser.Bookmarked.View.ViewModels
 {
     public class CourseViewModel : BaseViewModel, INavigationBackNotifier
     {
-        private readonly ICourseRepository _courseRepository;
+        private readonly IFolderRepository _folderRepository;
         private readonly IHistoryNavigationService _navigationService;
         private readonly IInteractionService _interactionService;
         private readonly IWeekDayService _weekDayService;
 
-        public CourseViewModel(ICourseRepository courseRepository, IHistoryNavigationService navigationService, IInteractionService interactionService, IWeekDayService weekDayService)
+        public CourseViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService, IInteractionService interactionService, IWeekDayService weekDayService)
         {
-            _courseRepository = courseRepository;
+            _folderRepository = folderRepository;
             _navigationService = navigationService;
             _interactionService = interactionService;
             _weekDayService = weekDayService;
-            Messenger.Default.Register<Course>(this, Messages.Select, SelectCourse);
+            Messenger.Default.Register<Folder>(this, Messages.Select, SelectCourse);
             if (IsInDesignModeStatic)
             {
-                Course = courseRepository.GetCoursesLazy().FirstOrDefault();
+                Course = folderRepository.GetRootFolder().FirstOrDefault();
             }
         }
 
-        private Course _course;
-        public Course Course
+        private Folder _course;
+        public Folder Course
         {
             get { return _course; }
             set { Set(ref _course, value); }
         }
 
-        private void SelectCourse(Course obj)
+        private void SelectCourse(Folder obj)
         {
             Course = obj;
         }
 
         public ICommand SaveCourseCommand => new LoadingRelayCommand(async () =>
         {
-            await _courseRepository.SaveCourseAsync(Course);
+            await _folderRepository.SaveCourseAsync(Course);
             _navigationService.GoBack();
         });
 
@@ -60,7 +60,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             if (await _interactionService.ConfirmMessage("do you really want to delete this course?"))
             {
-                await _courseRepository.RemoveCourseAsync(Course);
+                await _folderRepository.RemoveCourseAsync(Course);
                 _navigationService.GoBack();
             }
         });
@@ -91,14 +91,14 @@ namespace Famoser.Bookmarked.View.ViewModels
                 if (Course.Lectures.Contains(l))
                 {
                     Course.Lectures.Remove(l);
-                    await _courseRepository.SaveCourseAsync(Course);
+                    await _folderRepository.SaveCourseAsync(Course);
                 }
             }
         });
 
         public void HandleNavigationBack(object message)
         {
-            if (message is Course back)
+            if (message is Folder back)
             {
                 if (back != null)
                 {

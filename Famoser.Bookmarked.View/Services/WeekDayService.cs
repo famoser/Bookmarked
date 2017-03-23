@@ -11,13 +11,13 @@ namespace Famoser.Bookmarked.View.Services
 {
     public class WeekDayService : IWeekDayService
     {
-        private readonly ObservableCollection<Course> _courses;
+        private readonly ObservableCollection<Folder> _courses;
         private readonly ObservableCollection<WeekDay> _weekDays = new ObservableCollection<WeekDay>();
         private readonly Dictionary<DayOfWeek, WeekDay> _weekDayDictionary = new Dictionary<DayOfWeek, WeekDay>();
 
-        public WeekDayService(ICourseRepository repository)
+        public WeekDayService(IFolderRepository repository)
         {
-            _courses = repository.GetCoursesLazy();
+            _courses = repository.GetRootFolder();
             var today = new WeekDay("Today " + DateTime.Now.DayOfWeek, DateTime.Now.DayOfWeek);
             _weekDays.Add(today);
             _weekDayDictionary[DateTime.Now.DayOfWeek] = today;
@@ -35,17 +35,17 @@ namespace Famoser.Bookmarked.View.Services
             {
                 case NotifyCollectionChangedAction.Add:
                     foreach (var newItem in notifyCollectionChangedEventArgs.NewItems)
-                        AddCourse(newItem as Course);
+                        AddCourse(newItem as Folder);
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     foreach (var oldItem in notifyCollectionChangedEventArgs.OldItems)
-                        RemoveCourse(oldItem as Course);
+                        RemoveCourse(oldItem as Folder);
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     foreach (var oldItem in notifyCollectionChangedEventArgs.OldItems)
-                        RemoveCourse(oldItem as Course);
+                        RemoveCourse(oldItem as Folder);
                     foreach (var newItem in notifyCollectionChangedEventArgs.NewItems)
-                        AddCourse(newItem as Course);
+                        AddCourse(newItem as Folder);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     ResetService();
@@ -92,7 +92,7 @@ namespace Famoser.Bookmarked.View.Services
                 AddCourse(course);
         }
 
-        private void AddCourse(Course course)
+        private void AddCourse(Folder course)
         {
             course.Lectures.CollectionChanged += LecturesOnCollectionChanged;
             foreach (var courseLecture in course.Lectures)
@@ -123,7 +123,7 @@ namespace Famoser.Bookmarked.View.Services
             _weekDayDictionary[lecture.DayOfWeek].AddLecture(lecture);
         }
 
-        private void RemoveCourse(Course course)
+        private void RemoveCourse(Folder course)
         {
             course.Lectures.CollectionChanged -= LecturesOnCollectionChanged;
             foreach (var courseLecture in course.Lectures)

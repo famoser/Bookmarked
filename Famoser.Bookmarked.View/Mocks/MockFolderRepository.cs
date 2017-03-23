@@ -6,13 +6,13 @@ using Famoser.Bookmarked.Business.Repositories.Interfaces;
 
 namespace Famoser.Bookmarked.View.Mocks
 {
-    internal class MockCourseRepository : ICourseRepository
+    internal class MockFolderRepository : IFolderRepository
     {
-        public ObservableCollection<Course> GetCoursesLazy()
+        public ObservableCollection<Folder> GetRootFolder()
         {
-            var coll = new ObservableCollection<Course>()
+            var coll = new ObservableCollection<Folder>()
             {
-                new Course()
+                new Folder()
                 {
                     Name = "Software Architecture and Engineering",
                     InfoUrl = new Uri("http://www.vvz.ethz.ch/Vorlesungsverzeichnis/lerneinheitPre.do?lerneinheitId=111927&semkez=2017S&lang=de"),
@@ -48,12 +48,12 @@ namespace Famoser.Bookmarked.View.Mocks
         }
 
 #pragma warning disable 1998
-        public async Task<bool> SaveCourseAsync(Course course)
+        public async Task<bool> SaveCourseAsync(Folder course)
         {
             return true;
         }
 
-        public async Task<bool> RemoveCourseAsync(Course course)
+        public async Task<bool> RemoveCourseAsync(Folder course)
         {
             return true;
         }
