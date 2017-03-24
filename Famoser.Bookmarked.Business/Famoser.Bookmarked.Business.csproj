@@ -37,6 +37,7 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ObservableCollection.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Base\ParentModel.cs" />
     <Compile Include="Models\Entry.cs" />
