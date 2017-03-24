@@ -11,17 +11,8 @@ namespace Famoser.Bookmarked.Business.Models.Base
 {
     public abstract class ParentModel : BaseModel, ISyncModel
     {
-        [JsonIgnore]
-        public Folder Parent { get; set; }
-
-        internal Guid ParentId { get; set; }
-        public int Order { get; set; }
-
-        [OnSerializing]
-        internal virtual void OnSerializingMethod(StreamingContext context)
-        {
-            ParentId = Parent.GetId();
-        }
+        internal List<Guid> ParentIds { get; set; }
+        public List<int> ParentOrders { get; set; }
 
         #region SyncApi implementation
         private Guid _guid;

@@ -25,7 +25,7 @@ namespace Famoser.Bookmarked.Business.Repositories
         private ObservableCollection<Folder> _folders;
         private ObservableCollection<Entry> _entries;
         private readonly Dictionary<Guid, Folder> _folderDic = new Dictionary<Guid, Folder>();
-        private readonly Dictionary<Guid, List<Folder>> _missingFolderParents = new Dictionary<Guid, List<Folder>>();
+        private readonly Dictionary<Guid, List<Tuple<Folder, int>>> _missingFolderParents = new Dictionary<Guid, List<Tuple<Folder, int>>>();
         private readonly Folder _root = new Folder { Name = "root", Description = "the root folder" };
 
         public Folder GetRootFolder()
@@ -78,27 +78,31 @@ namespace Famoser.Bookmarked.Business.Repositories
                             _missingFolderParents.Remove(folder.GetId());
                         }
 
-                        //look for parent
-                        if (folder.ParentId == Guid.Empty)
+                        foreach (var folderParentId in folder.ParentIds)
                         {
-                            _root.Folders.Add(folder);
-                        }
-                        else
-                        {
-                            if (_folderDic.ContainsKey(folder.ParentId))
+                            //look for parent
+                            if (folderParentId == Guid.Empty)
                             {
-                                _folderDic[folder.ParentId].Folders.Add(folder);
+                                _root.Folders.Add(folder);
                             }
                             else
                             {
-                                //parent not found; put into waiting list
-                                if (!_missingFolderParents.ContainsKey(folder.ParentId))
+                                if (_folderDic.ContainsKey(folderParentId))
                                 {
-                                    _missingFolderParents[folder.ParentId] = new List<Folder>();
+                                    _folderDic[folderParentId].Folders.Add(folder);
                                 }
-                                _missingFolderParents[folder.ParentId].Add(folder);
+                                else
+                                {
+                                    //parent not found; put into waiting list
+                                    if (!_missingFolderParents.ContainsKey(folderParentId))
+                                    {
+                                        _missingFolderParents[folderParentId] = new List<Folder>();
+                                    }
+                                    _missingFolderParents[folderParentId].Add(folder);
+                                }
                             }
                         }
+                        
                     }
 
                 }
