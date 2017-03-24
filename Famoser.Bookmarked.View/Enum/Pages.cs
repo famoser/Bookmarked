@@ -3,10 +3,11 @@
     public enum Pages
     {
         Main,
-        
-        ViewCourse,
-        AddEditCourse,
-        
-        AddEditLecture
+
+        ViewFolder,
+        AddEditFolder,
+
+        ViewEntry,
+        AddEditEntry
     }
 }

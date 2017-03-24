@@ -12,7 +12,6 @@ namespace Famoser.Bookmarked.Business.Models.Base
     public abstract class ParentModel : BaseModel, ISyncModel
     {
         internal List<Guid> ParentIds { get; set; }
-        public List<int> ParentOrders { get; set; }
 
         #region SyncApi implementation
         private Guid _guid;

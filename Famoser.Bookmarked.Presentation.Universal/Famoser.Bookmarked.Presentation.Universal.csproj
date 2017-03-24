@@ -100,7 +100,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\LectureTimesConverter.cs" />
     <Compile Include="Converters\UriToStringConverter.cs" />
     <Compile Include="Pages\CoursePage.xaml.cs">
       <DependentUpon>CoursePage.xaml</DependentUpon>

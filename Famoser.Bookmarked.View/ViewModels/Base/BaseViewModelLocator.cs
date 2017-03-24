@@ -16,7 +16,6 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
         {
             SimpleIoc.Default.Register<IApiService, ApiService>();
             SimpleIoc.Default.Register<ISimpleProgressService, ProgressViewModel>();
-            SimpleIoc.Default.Register<IWeekDayService, WeekDayService>();
             if (IsInDesignModeStatic)
             {
                 SimpleIoc.Default.Register<IFolderRepository, MockFolderRepository>();
@@ -24,19 +23,15 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
             }
             else
             {
-                SimpleIoc.Default.Register<IFolderRepository, CourseRepository>();
+                SimpleIoc.Default.Register<IFolderRepository, FolderRepository>();
                 SimpleIoc.Default.Register<IApiTraceService, ApiViewModel>();
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<CourseViewModel>();
-            SimpleIoc.Default.Register<LectureViewModel>();
         }
        
 
         public MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();
-        public CourseViewModel CourseViewModel => SimpleIoc.Default.GetInstance<CourseViewModel>();
-        public LectureViewModel LectureViewModel => SimpleIoc.Default.GetInstance<LectureViewModel>();
         public ProgressViewModel ProgressViewModel => SimpleIoc.Default.GetInstance<ISimpleProgressService>() as ProgressViewModel;
         public ApiViewModel ApiViewModel => SimpleIoc.Default.GetInstance<IApiTraceService>() as ApiViewModel;
     }

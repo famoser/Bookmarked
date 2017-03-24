@@ -9,26 +9,20 @@ namespace Famoser.Bookmarked.Business.Extensions
 {
     public static class ObservableCollection
     {
-        public static void Sort<TSource, TKey>(this ObservableCollection<TSource> source, Func<TSource, TKey> keySelector, bool isAZ)
+        public static void AddUniqueSorted<TValue>(this ObservableCollection<TValue> source, TValue value) where TValue : IComparable
         {
-            if (isAZ)
+            if (source.Contains(value))
+                return;
+            for (var index = 0; index < source.Count; index++)
             {
-                List<TSource> sortedList = source.OrderBy(keySelector).ToList();
-                source.Clear();
-                foreach (var sortedItem in sortedList)
+                var source1 = source[index];
+                if (source1.CompareTo(value) < 0)
                 {
-                    source.Add(sortedItem);
+                    source.Insert(index, value);
+                    return;
                 }
             }
-            else
-            {
-                List<TSource> sortedList = source.OrderByDescending(keySelector).ToList();
-                source.Clear();
-                foreach (var sortedItem in sortedList)
-                {
-                    source.Add(sortedItem);
-                }
-            }
+            source.Add(value);
         }
     }
 }

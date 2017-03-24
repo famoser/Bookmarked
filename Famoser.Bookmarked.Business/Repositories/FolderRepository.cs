@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
+using Famoser.Bookmarked.Business.Extensions;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
@@ -24,9 +26,11 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         private ObservableCollection<Folder> _folders;
         private ObservableCollection<Entry> _entries;
+
         private readonly Dictionary<Guid, Folder> _folderDic = new Dictionary<Guid, Folder>();
-        private readonly Dictionary<Guid, List<Tuple<Folder, int>>> _missingFolderParents = new Dictionary<Guid, List<Tuple<Folder, int>>>();
+        private readonly Dictionary<Guid, List<Folder>> _missingFolderParents = new Dictionary<Guid, List<Folder>>();
         private readonly Folder _root = new Folder { Name = "root", Description = "the root folder" };
+        private readonly Folder _garbage = new Folder { Name = "garbage", Description = "the garbage collection" };
 
         public Folder GetRootFolder()
         {
@@ -53,62 +57,110 @@ namespace Famoser.Bookmarked.Business.Repositories
             switch (notifyCollectionChangedEventArgs.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    AddFoldersFromNotify(notifyCollectionChangedEventArgs);
+                    AddFolders(notifyCollectionChangedEventArgs.NewItems as IList<Folder>);
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    RemoveFolders(notifyCollectionChangedEventArgs.NewItems as IList<Folder>);
+                    break;
+                case NotifyCollectionChangedAction.Replace:
+                    RemoveFolders(notifyCollectionChangedEventArgs.NewItems as IList<Folder>);
+                    AddFolders(notifyCollectionChangedEventArgs.NewItems as IList<Folder>);
+                    break;
+                case NotifyCollectionChangedAction.Reset:
+                    _root.Folders.Clear();
+                    _garbage.Folders.Clear();
+                    _folderDic.Clear();
+                    _missingFolderParents.Clear();
+                    AddFolders(_folders);
                     break;
             }
         }
 
-        private void AddFoldersFromNotify(NotifyCollectionChangedEventArgs args)
+        private void AddFolders(IList<Folder> list)
         {
-            foreach (var newItem in args.NewItems)
+            foreach (var folder in list)
             {
-                if (newItem is Folder folder)
+                //put it into lookup
+                _folderDic[folder.GetId()] = folder;
+                //add elements in waiting queue
+                if (_missingFolderParents.ContainsKey(folder.GetId()))
                 {
-                    if (!folder.IsDeleted)
+                    foreach (var folder1 in _missingFolderParents[folder.GetId()])
                     {
-                        //put it into lookup
-                        _folderDic[folder.GetId()] = folder;
-                        //add elements in waiting queue
-                        if (_missingFolderParents.ContainsKey(folder.GetId()))
-                        {
-                            foreach (var folder1 in _missingFolderParents[folder.GetId()])
-                            {
-                                folder.Folders.Add(folder1);
-                            }
-                            _missingFolderParents.Remove(folder.GetId());
-                        }
+                        folder.Folders.AddUniqueSorted(folder1);
+                    }
+                    _missingFolderParents.Remove(folder.GetId());
+                }
 
-                        foreach (var folderParentId in folder.ParentIds)
+                foreach (var folderParentId in folder.ParentIds)
+                {
+                    //look for parent
+                    if (folderParentId == Guid.Empty)
+                    {
+                        if (folder.IsDeleted)
+                            _garbage.Folders.AddUniqueSorted(folder);
+                        else
+                            _root.Folders.AddUniqueSorted(folder);
+                    }
+                    else
+                    {
+                        if (_folderDic.ContainsKey(folderParentId))
                         {
-                            //look for parent
-                            if (folderParentId == Guid.Empty)
+                            if (folder.IsDeleted)
                             {
-                                _root.Folders.Add(folder);
+                                if (_folderDic[folderParentId].IsDeleted)
+                                    _folderDic[folderParentId].Folders.AddUniqueSorted(folder);
+                                else
+                                    _garbage.Folders.AddUniqueSorted(folder);
                             }
                             else
-                            {
-                                if (_folderDic.ContainsKey(folderParentId))
-                                {
-                                    _folderDic[folderParentId].Folders.Add(folder);
-                                }
-                                else
-                                {
-                                    //parent not found; put into waiting list
-                                    if (!_missingFolderParents.ContainsKey(folderParentId))
-                                    {
-                                        _missingFolderParents[folderParentId] = new List<Folder>();
-                                    }
-                                    _missingFolderParents[folderParentId].Add(folder);
-                                }
-                            }
+                                _folderDic[folderParentId].Folders.AddUniqueSorted(folder);
                         }
-                        
+                        else
+                        {
+                            //parent not found; put into waiting list
+                            if (!_missingFolderParents.ContainsKey(folderParentId))
+                            {
+                                _missingFolderParents[folderParentId] = new List<Folder>();
+                            }
+                            _missingFolderParents[folderParentId].Add(folder);
+                        }
                     }
+                }
+            }
 
+        }
+
+        private void RemoveFolders(IList<Folder> list)
+        {
+            foreach (var folder in list)
+            {
+                foreach (var folderParentId in folder.ParentIds)
+                {
+                    if (_folderDic.ContainsKey(folderParentId))
+                    {
+                        if (folder.IsDeleted)
+                        {
+                            if (_folderDic[folderParentId].IsDeleted)
+                                _folderDic[folderParentId].Folders.Remove(folder);
+                            else
+                                _garbage.Folders.Remove(folder);
+                        }
+                        else
+                            _folderDic[folderParentId].Folders.Remove(folder);
+                    }
+                    else
+                    {
+                        //parent not found; put into waiting list
+                        if (_missingFolderParents.ContainsKey(folderParentId))
+                        {
+                            _missingFolderParents.Remove(folderParentId);
+                        }
+                    }
                 }
             }
         }
-
+        
         public async Task<bool> SyncAsnyc()
         {
             var res = await _folderRepository.SyncAsync();
@@ -124,13 +176,15 @@ namespace Famoser.Bookmarked.Business.Repositories
         public Task<bool> RemoveFolderAsync(Folder folder)
         {
             folder.IsDeleted = true;
-            folder.Parent.Folders.Remove(folder);
-            return _folderRepository.RemoveAsync(folder);
+            //todo: delete in structure
+            return _folderRepository.SaveAsync(folder);
         }
 
         public Folder CreateFolderAsync(Folder parentFolder)
         {
-            var entry = new Folder { Parent = parentFolder };
+            var entry = new Folder { };
+            parentFolder.Folders.AddUniqueSorted(entry);
+            entry.ParentIds.Add(parentFolder.GetId());
             return entry;
         }
 
@@ -142,13 +196,15 @@ namespace Famoser.Bookmarked.Business.Repositories
         public Task<bool> RemoveEntryAsync(Entry entry)
         {
             entry.IsDeleted = true;
-            entry.Parent.Folders.Remove(entry);
+            //todo: delete in structure
             return _entryRepository.RemoveAsync(entry);
         }
 
         public Entry CreateEntryAsync(Folder parentFolder)
         {
-            var entry = new Entry { Parent = parentFolder };
+            var entry = new Entry { };
+            parentFolder.Entries.AddUniqueSorted(entry);
+            entry.ParentIds.Add(parentFolder.GetId());
             return entry;
         }
     }

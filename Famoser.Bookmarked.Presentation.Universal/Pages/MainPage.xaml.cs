@@ -43,20 +43,11 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var lecture = e.ClickedItem as Lecture;
-            if (lecture != null)
+            if (e.ClickedItem is Folder folder)
             {
-                if (ViewModel.SelectCourseCommand.CanExecute(lecture.Course))
+                if (ViewModel.SelectFolderCommand.CanExecute(folder))
                 {
-                    ViewModel.SelectCourseCommand.Execute(lecture.Course);
-                }
-            }
-            var course = e.ClickedItem as Folder;
-            if (course != null)
-            {
-                if (ViewModel.SelectCourseCommand.CanExecute(course))
-                {
-                    ViewModel.SelectCourseCommand.Execute(course);
+                    ViewModel.SelectFolderCommand.Execute(folder);
                 }
             }
         }

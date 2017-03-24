@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Models.Base
 {
-    public class BaseModel : ObservableObject
+    public class BaseModel : ObservableObject, IComparable
     {
         private string _name;
         public string Name
@@ -26,6 +26,15 @@ namespace Famoser.Bookmarked.Business.Models.Base
         {
             get { return _isDeleted; }
             set { Set(ref _isDeleted, value); }
+        }
+
+        public int CompareTo(object other)
+        {
+            if (other is BaseModel obj)
+            {
+                return String.Compare(obj.Name, Name, StringComparison.Ordinal);
+            }
+            return -1;
         }
     }
 }

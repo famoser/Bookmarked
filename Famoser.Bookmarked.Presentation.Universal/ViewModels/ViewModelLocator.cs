@@ -22,9 +22,8 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
         {
             var ngs = new HistoryNavigationService();
             ngs.Configure(View.Enum.Pages.Main.ToString(), typeof(MainPage));
-            ngs.Configure(View.Enum.Pages.ViewCourse.ToString(), typeof(CoursePage));
-            ngs.Configure(View.Enum.Pages.AddEditCourse.ToString(), typeof(EditCoursePage));
-            ngs.Configure(View.Enum.Pages.AddEditLecture.ToString(), typeof(EditLecturePage));
+            ngs.Configure(View.Enum.Pages.ViewFolder.ToString(), typeof(CoursePage));
+            ngs.Configure(View.Enum.Pages.AddEditFolder.ToString(), typeof(EditCoursePage));
 
             return ngs;
         }

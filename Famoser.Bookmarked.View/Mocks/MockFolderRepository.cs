@@ -8,59 +8,72 @@ namespace Famoser.Bookmarked.View.Mocks
 {
     internal class MockFolderRepository : IFolderRepository
     {
-        public ObservableCollection<Folder> GetRootFolder()
+        public Task<bool> SyncAsnyc()
         {
-            var coll = new ObservableCollection<Folder>()
+            throw new NotImplementedException();
+        }
+
+        public Folder GetRootFolder()
+        {
+            return new Folder()
             {
-                new Folder()
+                Folders = new ObservableCollection<Folder>()
                 {
-                    Name = "Software Architecture and Engineering",
-                    InfoUrl = new Uri("http://www.vvz.ethz.ch/Vorlesungsverzeichnis/lerneinheitPre.do?lerneinheitId=111927&semkez=2017S&lang=de"),
-                    Lecturer = "P.Müller, M.Vechev",
-                    Place = "CAB G 61",
-                    Lectures = new ObservableCollection<Lecture>()
+                    new Folder()
                     {
-                        new Lecture()
-                        {
-                            DayOfWeek = DayOfWeek.Monday,
-                            Lecturer = "P.Müller, M.Vechev",
-                            Place = "CAB G 61",
-                            StartTime = TimeSpan.FromHours(10),
-                            EndTime = TimeSpan.FromHours(11)
-                        },
-                        new Lecture()
-                        {
-                            DayOfWeek = DayOfWeek.Tuesday,
-                            Lecturer = "P.Müller, M.Vechev",
-                            Place = "CAB G 63",
-                            StartTime = TimeSpan.FromHours(14),
-                            EndTime = TimeSpan.FromHours(15)
-                        }
+                        Name = "my folder",
+                        Description = "small utils"
+                    },
+                    new Folder()
+                    {
+                        Name = "my folder 2",
+                        Description = "sutff utils"
+                    },
+                    new Folder()
+                    {
+                        Name = "banana pics",
+                        Description = "all abourd the banana train"
+                    }
+                },
+                Entries = new ObservableCollection<Entry>()
+                {
+                    new Entry()
+                    {
+                        Name = "stuff",
+                        Description = "content"
                     }
                 }
             };
-
-            foreach (var course in coll)
-                foreach (var courseLecture in course.Lectures)
-                    courseLecture.Course = course;
-
-            return coll;
         }
 
-#pragma warning disable 1998
-        public async Task<bool> SaveCourseAsync(Folder course)
+        public Task<bool> SaveFolderAsync(Folder folder)
         {
-            return true;
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> RemoveCourseAsync(Folder course)
+        public Task<bool> RemoveFolderAsync(Folder folder)
         {
-            return true;
+            throw new NotImplementedException();
         }
 
-        public async Task<bool> SyncAsnyc()
+        public Folder CreateFolderAsync(Folder parentFolder)
         {
-            return true;
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> SaveEntryAsync(Entry entry)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> RemoveEntryAsync(Entry entry)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Entry CreateEntryAsync(Folder parentFolder)
+        {
+            throw new NotImplementedException();
         }
     }
 }

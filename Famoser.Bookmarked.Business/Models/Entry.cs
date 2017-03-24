@@ -32,10 +32,9 @@ namespace Famoser.Bookmarked.Business.Models
         }
 
         [OnSerializing]
-        internal override void OnSerializingMethod(StreamingContext context)
+        internal void OnSerializingMethod(StreamingContext context)
         {
             Base64Image = Convert.ToBase64String(Image);
-            base.OnSerializingMethod(context);
         }
 
         [OnDeserialized]
