@@ -10,15 +10,13 @@ namespace famoser.Bookmarked.Tests
         [TestMethod]
         public void TestDictionary()
         {
-            var dic = new Dictionary<string, int>();
-            dic["hi mom"] = 2;
+            var dic = new Dictionary<string, int> {["hi mom"] = 2};
             Assert.IsTrue(true);
         }
         [TestMethod]
         public void TestDictionarySerialize()
         {
-            var dic = new Dictionary<string, int>();
-            dic["hi mom"] = 2;
+            var dic = new Dictionary<string, int> {["hi mom"] = 2};
             //todo: jsonconvert dictionary
             Assert.IsTrue(true);
         }

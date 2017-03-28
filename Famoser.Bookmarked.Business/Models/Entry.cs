@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
+using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models.Base;
 using Famoser.SyncApi.Models.Interfaces;
 using Newtonsoft.Json;
@@ -9,40 +10,20 @@ namespace Famoser.Bookmarked.Business.Models
 {
     public class Entry : ParentModel
     {
-        private Uri _webpageUrl;
-        public Uri WebpageUrl
+        private string _content;
+        internal string Content
         {
-            get { return _webpageUrl; }
-            set { Set(ref _webpageUrl, value); }
+            get { return _content; }
+            set { Set(ref _content, value); }
+        }
+
+        private ContentType _contentType;
+        internal ContentType ContentType
+        {
+            get { return _contentType; }
+            set { Set(ref _contentType, value); }
         }
         
-        private string _base64Image;
-        internal string Base64Image
-        {
-            get { return _base64Image; }
-            set { Set(ref _base64Image, value); }
-        }
-
-        private byte[] _image;
-        [JsonIgnore]
-        public byte[] Image
-        {
-            get { return _image; }
-            set { Set(ref _image, value); }
-        }
-
-        [OnSerializing]
-        internal void OnSerializingMethod(StreamingContext context)
-        {
-            Base64Image = Convert.ToBase64String(Image);
-        }
-
-        [OnDeserialized]
-        internal void OnDeserializedMethod(StreamingContext context)
-        {
-            Image = Convert.FromBase64String(Base64Image);
-        }
-
         #region SyncApi implementation
         public override string GetClassIdentifier()
         {
