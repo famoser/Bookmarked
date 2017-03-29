@@ -9,7 +9,7 @@ namespace Famoser.Bookmarked.Business.Services.Interfaces
 {
     public interface IEncryptionService
     {
-        string GetJsonAsync(string content, string password);
-        string GetContentAsync(string json, string password);
+        string Decrypt(string content, string password);
+        string Encrypt(string json, string password);
     }
 }

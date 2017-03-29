@@ -10,6 +10,7 @@ using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.Bookmarked.View.ViewModels.Entry;
 using Famoser.Bookmarked.View.ViewModels.Entry.Abstract;
+using Famoser.Bookmarked.View.ViewModels.Folder;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.FrameworkEssentials.View.Commands;
 using GalaSoft.MvvmLight.Ioc;
@@ -17,13 +18,13 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace Famoser.Bookmarked.View.ViewModels
 {
-    public class FolderViewModel : BaseViewModel
+    public class NavigationViewModel : BaseViewModel
     {
         private readonly IFolderRepository _folderRepository;
         private readonly IHistoryNavigationService _navigationService;
         private readonly Stack<FolderModel> _folderHistory = new Stack<FolderModel>();
 
-        public FolderViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService)
+        public NavigationViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService)
         {
             _folderRepository = folderRepository;
             _navigationService = navigationService;
@@ -54,13 +55,14 @@ namespace Famoser.Bookmarked.View.ViewModels
         public ICommand AddFolderCommand => new LoadingRelayCommand(() =>
         {
             _navigationService.NavigateTo(Pages.AddFolder.ToString());
-            SimpleIoc.Default.GetInstance<EntryViewModel>();
+            var folder = _folderRepository.CreateFolderAsync(SelectedFolder);
+            SimpleIoc.Default.GetInstance<EditFolderViewModel>().SetFolder(folder);
         });
 
         public ICommand EditFolderCommand => new LoadingRelayCommand<FolderModel>(c =>
         {
             _navigationService.NavigateTo(Pages.EditFolder.ToString());
-            Messenger.Default.Send(c, Messages.Select);
+            SimpleIoc.Default.GetInstance<EditFolderViewModel>().SetFolder(c);
         });
 
         public ICommand ViewEntryCommand => new LoadingRelayCommand<EntryModel>(async c =>
@@ -68,7 +70,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             if (c.ContentType == ContentType.Webpage)
             {
                 _navigationService.NavigateTo(Pages.ViewWebpage.ToString());
-                await SimpleIoc.Default.GetInstance<WebpageViewModel>().SetEntryModel(c, CrudState.View);
+                await SimpleIoc.Default.GetInstance<WebpageViewModel>().SetEntry(c, CrudState.View);
             }
         });
     }

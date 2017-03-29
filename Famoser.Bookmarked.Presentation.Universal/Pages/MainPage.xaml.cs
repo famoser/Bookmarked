@@ -1,10 +1,14 @@
 ﻿using Windows.Foundation.Metadata;
+using Windows.Security.Cryptography;
+using Windows.Security.Cryptography.Core;
+using Windows.Storage.Streams;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.View.ViewModels;
+using Famoser.Bookmarked.View.ViewModels.Folder.Base;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -37,8 +41,8 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                 return;
 
             _firstTime = false;
-            
-            
+
+
             if (ViewModel.RefreshCommand.CanExecute(null))
                 ViewModel.RefreshCommand.Execute(null);
         }
@@ -64,6 +68,19 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
             UIElement_OnTapped();
             WeekDayGrid.Visibility = Visibility.Visible;
             CoursesGrid.Visibility = Visibility.Collapsed;
+        }
+
+        private string HashPassword(string password)
+        {
+            // put the string in a buffer
+            IBuffer input = CryptographicBuffer.ConvertStringToBinary(password, BinaryStringEncoding.Utf8);
+
+            // hash it with SHA 256
+            var hasher = HashAlgorithmProvider.OpenAlgorithm("SHA256");
+            IBuffer hashed = hasher.HashData(input);
+
+            // return as base64
+            return CryptographicBuffer.EncodeToBase64String(hashed);
         }
 
         private void TextBlock_Tapped(object sender, TappedRoutedEventArgs e)

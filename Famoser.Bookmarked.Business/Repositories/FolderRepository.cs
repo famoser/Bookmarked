@@ -303,7 +303,9 @@ namespace Famoser.Bookmarked.Business.Repositories
             {
                 var json = JsonConvert.SerializeObject(contentModel);
                 var pw = await _passwordService.GetPasswordAsync();
-                var encrypted = _encryptionService.GetContentAsync(json, pw);
+                if (pw == null)
+                    return false;
+                var encrypted = _encryptionService.Encrypt(json, pw);
                 entryModel.Content = encrypted;
                 entryModel.ContentType = contentModel.GetContentType();
                 return await _entryRepository.SaveAsync(entryModel);
@@ -336,9 +338,11 @@ namespace Famoser.Bookmarked.Business.Repositories
             try
             {
                 var pw = await _passwordService.GetPasswordAsync();
+                if (pw == null)
+                    return null;
                 if (!string.IsNullOrEmpty(entryModel.Content))
                 {
-                    var json = _encryptionService.GetContentAsync(entryModel.Content, pw);
+                    var json = _encryptionService.Decrypt(entryModel.Content, pw);
                     return JsonConvert.DeserializeObject<T>(json);
                 }
                 return new T();

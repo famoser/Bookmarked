@@ -10,6 +10,13 @@ namespace Famoser.Bookmarked.Business.Models
 {
     public class EntryModel : ParentModel
     {
+        /// <summary>
+        /// make sure this model is constructed inside business
+        /// </summary>
+        internal EntryModel()
+        {
+        }
+
         private string _content;
         internal string Content
         {

@@ -17,7 +17,7 @@ namespace Famoser.Bookmarked.Business.Services
                 2, 1, 42, 14, 1, 2, 12, 4, 51, 21, 12, 3, 12, 3, 14, 12
             };
 
-        public string GetJsonAsync(string content, string password)
+        public string Decrypt(string content, string password)
         {
             var key = Encoding.UTF8.GetBytes(password);
             var data = Convert.FromBase64String(content);
@@ -27,7 +27,7 @@ namespace Famoser.Bookmarked.Business.Services
             return Encoding.UTF8.GetString(bytes,0,bytes.Length);
         }
 
-        public string GetContentAsync(string json, string password)
+        public string Encrypt(string json, string password)
         {
             var key = Encoding.UTF8.GetBytes(password);
             var data = Encoding.UTF8.GetBytes(json);

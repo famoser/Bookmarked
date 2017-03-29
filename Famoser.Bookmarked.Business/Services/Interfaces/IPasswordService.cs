@@ -8,6 +8,8 @@ namespace Famoser.Bookmarked.Business.Services.Interfaces
 {
     public interface IPasswordService
     {
-        Task<string> GetPasswordAsync();
+        string GetPasswordAsync();
+        Task<bool> SetPassword(string password);
+        Task<bool> TryPassword(string password);
     }
 }

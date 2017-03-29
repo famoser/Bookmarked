@@ -61,7 +61,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             });
         }
 
-        public void LogException(Exception ex, object @from = null)
+        public void LogException(Exception ex, object from = null)
         {
             // i dont care
         }

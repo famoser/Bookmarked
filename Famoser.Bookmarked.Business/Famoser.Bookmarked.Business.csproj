@@ -56,6 +56,7 @@
     <Compile Include="Services\Interfaces\IEncryptionService.cs" />
     <Compile Include="Services\Interfaces\IPasswordService.cs" />
     <Compile Include="Services\Interfaces\ISimpleProgressService.cs" />
+    <Compile Include="Services\PasswordService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Famoser.FrameworkEssentials, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

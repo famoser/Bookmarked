@@ -14,9 +14,9 @@ using Famoser.FrameworkEssentials.View.Commands;
 
 namespace Famoser.Bookmarked.View.ViewModels.Folder
 {
-    public class AddFolderViewModel : FolderViewModel
+    public class EditFolderViewModel : FolderViewModel
     {
-        public AddFolderViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService) : base(folderRepository, navigationService)
+        public EditFolderViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService) : base(folderRepository, navigationService)
         {
         }
 
@@ -24,7 +24,13 @@ namespace Famoser.Bookmarked.View.ViewModels.Folder
         {
             await _folderRepository.SaveFolderAsync(Folder);
             _navigationService.GoBack();
-            _navigationService.NavigateTo(Pages.ViewFolder.ToString());
+        });
+
+        public ICommand DeleteEntryCommand => new LoadingRelayCommand(async () =>
+        {
+            await _folderRepository.RemoveFolderAsync(Folder);
+            _navigationService.GoBack();
+            _navigationService.GoBack();
         });
     }
 }

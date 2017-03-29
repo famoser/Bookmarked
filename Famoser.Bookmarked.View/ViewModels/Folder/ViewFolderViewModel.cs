@@ -14,17 +14,21 @@ using Famoser.FrameworkEssentials.View.Commands;
 
 namespace Famoser.Bookmarked.View.ViewModels.Folder
 {
-    public class AddFolderViewModel : FolderViewModel
+    public class ViewFolderViewModel : FolderViewModel
     {
-        public AddFolderViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService) : base(folderRepository, navigationService)
+        public ViewFolderViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService) : base(folderRepository, navigationService)
         {
         }
 
-        public ICommand SaveEntryCommand => new LoadingRelayCommand(async () =>
+        public ICommand EditEntryCommand => new LoadingRelayCommand(() =>
         {
-            await _folderRepository.SaveFolderAsync(Folder);
+            _navigationService.NavigateTo(Pages.EditFolder.ToString());
+        });
+
+        public ICommand DeleteEntryCommand => new LoadingRelayCommand(async () =>
+        {
+            await _folderRepository.RemoveFolderAsync(Folder);
             _navigationService.GoBack();
-            _navigationService.NavigateTo(Pages.ViewFolder.ToString());
         });
     }
 }
