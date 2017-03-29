@@ -7,17 +7,17 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
 {
     public interface IFolderRepository
     {
-        Folder GetRootFolder();
+        FolderModel GetRootFolder();
 
         Task<bool> SyncAsnyc();
 
-        Task<bool> SaveFolderAsync(Folder folder);
-        Task<bool> RemoveFolderAsync(Folder folder);
-        Folder CreateFolderAsync(Folder parentFolder);
+        Task<bool> SaveFolderAsync(FolderModel folderModel);
+        Task<bool> RemoveFolderAsync(FolderModel folderModel);
+        FolderModel CreateFolderAsync(FolderModel parentFolderModel);
 
-        Task<ContentModel> GetEntryContent(Entry entry);
-        Task<bool> SaveEntryAsync(Entry entry, ContentModel contentModel);
-        Task<bool> RemoveEntryAsync(Entry entry);
-        Entry CreateEntryAsync(Folder parentFolder);
+        Task<T> GetEntryContent<T>(EntryModel entryModel) where T : ContentModel, new();
+        Task<bool> SaveEntryAsync(EntryModel entryModel, ContentModel contentModel);
+        Task<bool> RemoveEntryAsync(EntryModel entryModel);
+        EntryModel CreateEntryAsync(FolderModel parentFolderModel);
     }
 }

@@ -27,11 +27,11 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
                 SimpleIoc.Default.Register<IApiTraceService, ApiViewModel>();
             }
 
-            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<FolderViewModel>();
         }
        
 
-        public MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();
+        public FolderViewModel MainViewModel => SimpleIoc.Default.GetInstance<FolderViewModel>();
         public ProgressViewModel ProgressViewModel => SimpleIoc.Default.GetInstance<ISimpleProgressService>() as ProgressViewModel;
         public ApiViewModel ApiViewModel => SimpleIoc.Default.GetInstance<IApiTraceService>() as ApiViewModel;
     }

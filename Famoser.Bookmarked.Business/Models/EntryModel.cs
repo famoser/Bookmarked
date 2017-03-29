@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Models
 {
-    public class Entry : ParentModel
+    public class EntryModel : ParentModel
     {
         private string _content;
         internal string Content
@@ -18,7 +18,7 @@ namespace Famoser.Bookmarked.Business.Models
         }
 
         private ContentType _contentType;
-        internal ContentType ContentType
+        public ContentType ContentType
         {
             get { return _contentType; }
             set { Set(ref _contentType, value); }
@@ -27,7 +27,7 @@ namespace Famoser.Bookmarked.Business.Models
         #region SyncApi implementation
         public override string GetClassIdentifier()
         {
-            return typeof(Entry).Name;
+            return typeof(EntryModel).Name;
         }
         #endregion
     }

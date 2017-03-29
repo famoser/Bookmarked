@@ -28,7 +28,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
             }
         }
 
-        private MainViewModel ViewModel => DataContext as MainViewModel;
+        private FolderViewModel ViewModel => DataContext as FolderViewModel;
 
         private static bool _firstTime = true;
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -45,7 +45,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (e.ClickedItem is Folder folder)
+            if (e.ClickedItem is FolderModel folder)
             {
                 if (ViewModel.SelectFolderCommand.CanExecute(folder))
                 {

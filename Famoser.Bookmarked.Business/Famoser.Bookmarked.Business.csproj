@@ -41,13 +41,12 @@
   <ItemGroup>
     <Compile Include="Enum\ContentType.cs" />
     <Compile Include="Extensions\ObservableCollection.cs" />
-    <Compile Include="Helper\ContentTypeHelper.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Base\ParentModel.cs" />
     <Compile Include="Models\Entries\Base\ContentModel.cs" />
     <Compile Include="Models\Entries\WebpageModel.cs" />
-    <Compile Include="Models\Entry.cs" />
-    <Compile Include="Models\Folder.cs" />
+    <Compile Include="Models\EntryModel.cs" />
+    <Compile Include="Models\FolderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FolderRepository.cs" />
     <Compile Include="Repositories\Interfaces\IFolderRepository.cs" />

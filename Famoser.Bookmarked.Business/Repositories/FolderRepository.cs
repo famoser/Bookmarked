@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Extensions;
-using Famoser.Bookmarked.Business.Helper;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
@@ -19,30 +18,30 @@ namespace Famoser.Bookmarked.Business.Repositories
 {
     public class FolderRepository : IFolderRepository
     {
-        private readonly IApiRepository<Folder, CollectionModel> _folderRepository;
-        private readonly IApiRepository<Entry, CollectionModel> _entryRepository;
+        private readonly IApiRepository<FolderModel, CollectionModel> _folderRepository;
+        private readonly IApiRepository<EntryModel, CollectionModel> _entryRepository;
 
         private readonly IPasswordService _passwordService;
         private readonly IEncryptionService _encryptionService;
 
         public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService)
         {
-            _folderRepository = apiService.ResolveRepository<Folder>();
-            _entryRepository = apiService.ResolveRepository<Entry>();
+            _folderRepository = apiService.ResolveRepository<FolderModel>();
+            _entryRepository = apiService.ResolveRepository<EntryModel>();
             _passwordService = passwordService;
             _encryptionService = encryptionService;
         }
 
-        private ObservableCollection<Folder> _folders;
-        private ObservableCollection<Entry> _entries;
+        private ObservableCollection<FolderModel> _folders;
+        private ObservableCollection<EntryModel> _entries;
 
-        private readonly Dictionary<Guid, Folder> _folderDic = new Dictionary<Guid, Folder>();
-        private readonly Dictionary<Guid, List<Folder>> _missingFolderParents = new Dictionary<Guid, List<Folder>>();
-        private readonly Dictionary<Guid, List<Entry>> _missingEntryParents = new Dictionary<Guid, List<Entry>>();
-        private readonly Folder _root = new Folder { Name = "root", Description = "the root folder" };
-        private readonly Folder _garbage = new Folder { Name = "garbage", Description = "the garbage collection" };
+        private readonly Dictionary<Guid, FolderModel> _folderDic = new Dictionary<Guid, FolderModel>();
+        private readonly Dictionary<Guid, List<FolderModel>> _missingFolderParents = new Dictionary<Guid, List<FolderModel>>();
+        private readonly Dictionary<Guid, List<EntryModel>> _missingEntryParents = new Dictionary<Guid, List<EntryModel>>();
+        private readonly FolderModel _root = new FolderModel { Name = "root", Description = "the root folder" };
+        private readonly FolderModel _garbage = new FolderModel { Name = "garbage", Description = "the garbage collection" };
 
-        public Folder GetRootFolder()
+        public FolderModel GetRootFolder()
         {
             lock (this)
             {
@@ -62,14 +61,14 @@ namespace Famoser.Bookmarked.Business.Repositories
             switch (notifyCollectionChangedEventArgs.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    AddEntries(notifyCollectionChangedEventArgs.NewItems as IList<Entry>);
+                    AddEntries(notifyCollectionChangedEventArgs.NewItems as IList<EntryModel>);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    RemoveEntries(notifyCollectionChangedEventArgs.NewItems as IList<Entry>);
+                    RemoveEntries(notifyCollectionChangedEventArgs.NewItems as IList<EntryModel>);
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    RemoveEntries(notifyCollectionChangedEventArgs.OldItems as IList<Entry>);
-                    AddEntries(notifyCollectionChangedEventArgs.NewItems as IList<Entry>);
+                    RemoveEntries(notifyCollectionChangedEventArgs.OldItems as IList<EntryModel>);
+                    AddEntries(notifyCollectionChangedEventArgs.NewItems as IList<EntryModel>);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     RemoveAllEntries();
@@ -78,7 +77,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        private void AddEntries(IList<Entry> entries)
+        private void AddEntries(IList<EntryModel> entries)
         {
             foreach (var entry in entries)
             {
@@ -98,7 +97,7 @@ namespace Famoser.Bookmarked.Business.Repositories
                         {
                             if (!_missingEntryParents.ContainsKey(entryParentId))
                             {
-                                _missingEntryParents[entryParentId] = new List<Entry>();
+                                _missingEntryParents[entryParentId] = new List<EntryModel>();
                             }
 
                             _missingEntryParents[entryParentId].Add(entry);
@@ -108,7 +107,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        private void RemoveEntries(IList<Entry> entries)
+        private void RemoveEntries(IList<EntryModel> entries)
         {
             foreach (var entry in entries)
             {
@@ -146,14 +145,14 @@ namespace Famoser.Bookmarked.Business.Repositories
             switch (notifyCollectionChangedEventArgs.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    AddFolders(notifyCollectionChangedEventArgs.NewItems as IList<Folder>);
+                    AddFolders(notifyCollectionChangedEventArgs.NewItems as IList<FolderModel>);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    RemoveFolders(notifyCollectionChangedEventArgs.NewItems as IList<Folder>);
+                    RemoveFolders(notifyCollectionChangedEventArgs.NewItems as IList<FolderModel>);
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    RemoveFolders(notifyCollectionChangedEventArgs.OldItems as IList<Folder>);
-                    AddFolders(notifyCollectionChangedEventArgs.NewItems as IList<Folder>);
+                    RemoveFolders(notifyCollectionChangedEventArgs.OldItems as IList<FolderModel>);
+                    AddFolders(notifyCollectionChangedEventArgs.NewItems as IList<FolderModel>);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     RemoveAllFolders(_garbage);
@@ -163,7 +162,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        private void AddFolders(IList<Folder> list)
+        private void AddFolders(IList<FolderModel> list)
         {
             foreach (var folder in list)
             {
@@ -216,7 +215,7 @@ namespace Famoser.Bookmarked.Business.Repositories
                             //parent not found; put into waiting list
                             if (!_missingFolderParents.ContainsKey(folderParentId))
                             {
-                                _missingFolderParents[folderParentId] = new List<Folder>();
+                                _missingFolderParents[folderParentId] = new List<FolderModel>();
                             }
                             _missingFolderParents[folderParentId].Add(folder);
                         }
@@ -226,7 +225,7 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         }
 
-        private void RemoveFolders(IList<Folder> list)
+        private void RemoveFolders(IList<FolderModel> list)
         {
             foreach (var folder in list)
             {
@@ -261,13 +260,13 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        private void RemoveAllFolders(Folder folder)
+        private void RemoveAllFolders(FolderModel folderModel)
         {
-            foreach (var item in folder.Folders)
+            foreach (var item in folderModel.Folders)
             {
                 RemoveAllFolders(item);
             }
-            folder.Folders.Clear();
+            folderModel.Folders.Clear();
         }
 
         public async Task<bool> SyncAsnyc()
@@ -277,37 +276,37 @@ namespace Famoser.Bookmarked.Business.Repositories
             return await _entryRepository.SyncAsync() && res;
         }
 
-        public Task<bool> SaveFolderAsync(Folder folder)
+        public Task<bool> SaveFolderAsync(FolderModel folderModel)
         {
-            return _folderRepository.SaveAsync(folder);
+            return _folderRepository.SaveAsync(folderModel);
         }
 
-        public Task<bool> RemoveFolderAsync(Folder folder)
+        public Task<bool> RemoveFolderAsync(FolderModel folderModel)
         {
-            RemoveFolders(new List<Folder>() { folder });
-            folder.IsDeleted = true;
-            AddFolders(new List<Folder>() { folder });
-            return _folderRepository.SaveAsync(folder);
+            RemoveFolders(new List<FolderModel>() { folderModel });
+            folderModel.IsDeleted = true;
+            AddFolders(new List<FolderModel>() { folderModel });
+            return _folderRepository.SaveAsync(folderModel);
         }
 
-        public Folder CreateFolderAsync(Folder parentFolder)
+        public FolderModel CreateFolderAsync(FolderModel parentFolderModel)
         {
-            var entry = new Folder { };
-            parentFolder.Folders.AddUniqueSorted(entry);
-            entry.ParentIds.Add(parentFolder.GetId());
+            var entry = new FolderModel { };
+            parentFolderModel.Folders.AddUniqueSorted(entry);
+            entry.ParentIds.Add(parentFolderModel.GetId());
             return entry;
         }
 
-        public async Task<bool> SaveEntryAsync(Entry entry, ContentModel contentModel)
+        public async Task<bool> SaveEntryAsync(EntryModel entryModel, ContentModel contentModel)
         {
             try
             {
                 var json = JsonConvert.SerializeObject(contentModel);
                 var pw = await _passwordService.GetPasswordAsync();
                 var encrypted = _encryptionService.GetContentAsync(json, pw);
-                entry.Content = encrypted;
-                entry.ContentType = contentModel.GetContentType();
-                return await _entryRepository.SaveAsync(entry);
+                entryModel.Content = encrypted;
+                entryModel.ContentType = contentModel.GetContentType();
+                return await _entryRepository.SaveAsync(entryModel);
             }
             catch (Exception e)
             {
@@ -316,29 +315,33 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        public Task<bool> RemoveEntryAsync(Entry entry)
+        public Task<bool> RemoveEntryAsync(EntryModel entryModel)
         {
-            entry.IsDeleted = true;
-            RemoveEntries(new List<Entry>() { entry });
-            AddEntries(new List<Entry>() { entry });
-            return _entryRepository.RemoveAsync(entry);
+            entryModel.IsDeleted = true;
+            RemoveEntries(new List<EntryModel>() { entryModel });
+            AddEntries(new List<EntryModel>() { entryModel });
+            return _entryRepository.RemoveAsync(entryModel);
         }
 
-        public Entry CreateEntryAsync(Folder parentFolder)
+        public EntryModel CreateEntryAsync(FolderModel parentFolderModel)
         {
-            var entry = new Entry { };
-            parentFolder.Entries.AddUniqueSorted(entry);
-            entry.ParentIds.Add(parentFolder.GetId());
+            var entry = new EntryModel { };
+            parentFolderModel.Entries.AddUniqueSorted(entry);
+            entry.ParentIds.Add(parentFolderModel.GetId());
             return entry;
         }
 
-        public async Task<ContentModel> GetEntryContent(Entry entry)
+        public async Task<T> GetEntryContent<T>(EntryModel entryModel) where T : ContentModel, new()
         {
             try
             {
                 var pw = await _passwordService.GetPasswordAsync();
-                var json = _encryptionService.GetContentAsync(entry.Content, pw);
-                return ContentTypeHelper.Deserialize(json, entry.ContentType);
+                if (!string.IsNullOrEmpty(entryModel.Content))
+                {
+                    var json = _encryptionService.GetContentAsync(entryModel.Content, pw);
+                    return JsonConvert.DeserializeObject<T>(json);
+                }
+                return new T();
             }
             catch (Exception e)
             {

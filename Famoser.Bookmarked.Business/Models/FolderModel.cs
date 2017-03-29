@@ -7,17 +7,17 @@ using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Models
 {
-    public class Folder : ParentModel
+    public class FolderModel : ParentModel
     {
         [JsonIgnore]
-        public ObservableCollection<Folder> Folders { get; set; } = new ObservableCollection<Folder>();
+        public ObservableCollection<FolderModel> Folders { get; set; } = new ObservableCollection<FolderModel>();
         
         [JsonIgnore]
-        public ObservableCollection<Entry> Entries { get; set; } = new ObservableCollection<Entry>();
+        public ObservableCollection<EntryModel> Entries { get; set; } = new ObservableCollection<EntryModel>();
 
         public override string GetClassIdentifier()
         {
-            return typeof(Folder).Name;
+            return typeof(FolderModel).Name;
         }
     }
 }

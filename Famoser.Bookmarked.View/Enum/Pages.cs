@@ -4,10 +4,12 @@
     {
         Main,
 
+        AddFolder,
+        EditFolder,
         ViewFolder,
-        AddEditFolder,
 
-        ViewEntry,
-        AddEditEntry
+        AddWebpage,
+        EditWebpage,
+        ViewWebpage
     }
 }

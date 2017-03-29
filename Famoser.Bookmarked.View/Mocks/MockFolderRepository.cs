@@ -16,31 +16,31 @@ namespace Famoser.Bookmarked.View.Mocks
             throw new NotImplementedException();
         }
 
-        public Folder GetRootFolder()
+        public FolderModel GetRootFolder()
         {
-            return new Folder()
+            return new FolderModel()
             {
-                Folders = new ObservableCollection<Folder>()
+                Folders = new ObservableCollection<FolderModel>()
                 {
-                    new Folder()
+                    new FolderModel()
                     {
                         Name = "my folder",
                         Description = "small utils"
                     },
-                    new Folder()
+                    new FolderModel()
                     {
                         Name = "my folder 2",
                         Description = "sutff utils"
                     },
-                    new Folder()
+                    new FolderModel()
                     {
                         Name = "banana pics",
                         Description = "all abourd the banana train"
                     }
                 },
-                Entries = new ObservableCollection<Entry>()
+                Entries = new ObservableCollection<EntryModel>()
                 {
-                    new Entry()
+                    new EntryModel()
                     {
                         Name = "stuff",
                         Description = "content"
@@ -49,37 +49,37 @@ namespace Famoser.Bookmarked.View.Mocks
             };
         }
 
-        public Task<bool> SaveFolderAsync(Folder folder)
+        public Task<bool> SaveFolderAsync(FolderModel folderModel)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> RemoveFolderAsync(Folder folder)
+        public Task<bool> RemoveFolderAsync(FolderModel folderModel)
         {
             throw new NotImplementedException();
         }
 
-        public Folder CreateFolderAsync(Folder parentFolder)
+        public FolderModel CreateFolderAsync(FolderModel parentFolderModel)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SaveEntryAsync(Entry entry)
+        public Task<bool> SaveEntryAsync(EntryModel entryModel)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> RemoveEntryAsync(Entry entry)
+        public Task<bool> RemoveEntryAsync(EntryModel entryModel)
         {
             throw new NotImplementedException();
         }
 
-        public Entry CreateEntryAsync(Folder parentFolder)
+        public EntryModel CreateEntryAsync(FolderModel parentFolderModel)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<ContentModel> GetEntryContent(Entry entry)
+        public async Task<ContentModel> GetEntryContent(EntryModel entryModel)
         {
             return new WebpageModel()
             {
@@ -88,7 +88,7 @@ namespace Famoser.Bookmarked.View.Mocks
             };
         }
 
-        public Task<bool> SaveEntryAsync(Entry entry, ContentModel contentModel)
+        public Task<bool> SaveEntryAsync(EntryModel entryModel, ContentModel contentModel)
         {
             throw new NotImplementedException();
         }
