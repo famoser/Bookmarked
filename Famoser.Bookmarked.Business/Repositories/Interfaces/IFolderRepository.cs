@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
 
@@ -13,11 +14,11 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
 
         Task<bool> SaveFolderAsync(FolderModel folderModel);
         Task<bool> RemoveFolderAsync(FolderModel folderModel);
-        FolderModel CreateFolderAsync(FolderModel parentFolderModel);
+        FolderModel CreateFolder(FolderModel parentFolderModel);
 
-        Task<T> GetEntryContent<T>(EntryModel entryModel) where T : ContentModel, new();
+        T GetEntryContent<T>(EntryModel entryModel) where T : ContentModel, new();
         Task<bool> SaveEntryAsync(EntryModel entryModel, ContentModel contentModel);
         Task<bool> RemoveEntryAsync(EntryModel entryModel);
-        EntryModel CreateEntryAsync(FolderModel parentFolderModel);
+        EntryModel CreateEntry(FolderModel parentFolderModel, ContentType type);
     }
 }

@@ -55,7 +55,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         public ICommand AddFolderCommand => new LoadingRelayCommand(() =>
         {
             _navigationService.NavigateTo(Pages.AddFolder.ToString());
-            var folder = _folderRepository.CreateFolderAsync(SelectedFolder);
+            var folder = _folderRepository.CreateFolder(SelectedFolder);
             SimpleIoc.Default.GetInstance<EditFolderViewModel>().SetFolder(folder);
         });
 
@@ -65,12 +65,12 @@ namespace Famoser.Bookmarked.View.ViewModels
             SimpleIoc.Default.GetInstance<EditFolderViewModel>().SetFolder(c);
         });
 
-        public ICommand ViewEntryCommand => new LoadingRelayCommand<EntryModel>(async c =>
+        public ICommand ViewEntryCommand => new LoadingRelayCommand<EntryModel>(c =>
         {
             if (c.ContentType == ContentType.Webpage)
             {
                 _navigationService.NavigateTo(Pages.ViewWebpage.ToString());
-                await SimpleIoc.Default.GetInstance<WebpageViewModel>().SetEntry(c, CrudState.View);
+                SimpleIoc.Default.GetInstance<WebpageViewModel>().SetEntry(c, CrudState.View);
             }
         });
     }

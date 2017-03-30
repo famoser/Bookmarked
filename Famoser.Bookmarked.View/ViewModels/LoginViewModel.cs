@@ -48,16 +48,16 @@ namespace Famoser.Bookmarked.View.ViewModels
         }
 
 
-        public ICommand LoginCommand => new LoadingRelayCommand(() =>
+        public ICommand LoginCommand => new LoadingRelayCommand(async () =>
         {
-            if (_passwordService.SetPassword(Password))
+            if (await _passwordService.TryPassword(Password))
             {
                 _navigationService.NavigateTo(Pages.ViewFolder.ToString());
             }
             else
             {
                 PasswordUnlockFailed = true;
-                Task.Delay(TimeSpan.FromSeconds(2));
+                await Task.Delay(TimeSpan.FromSeconds(2));
                 PasswordUnlockFailed = false;
             }
         });

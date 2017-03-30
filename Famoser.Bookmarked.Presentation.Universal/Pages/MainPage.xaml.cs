@@ -32,7 +32,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
             }
         }
 
-        private FolderViewModel ViewModel => DataContext as FolderViewModel;
+        private NavigationViewModel ViewModel => DataContext as NavigationViewModel;
 
         private static bool _firstTime = true;
         private void Page_Loaded(object sender, RoutedEventArgs e)

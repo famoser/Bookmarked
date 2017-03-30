@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
+using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Extensions;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
@@ -289,7 +290,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             return _folderRepository.SaveAsync(folderModel);
         }
 
-        public FolderModel CreateFolderAsync(FolderModel parentFolderModel)
+        public FolderModel CreateFolder(FolderModel parentFolderModel)
         {
             var entry = new FolderModel { };
             parentFolderModel.Folders.AddUniqueSorted(entry);
@@ -302,7 +303,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             try
             {
                 var json = JsonConvert.SerializeObject(contentModel);
-                var pw = await _passwordService.GetPasswordAsync();
+                var pw = _passwordService.GetPasswordAsync();
                 if (pw == null)
                     return false;
                 var encrypted = _encryptionService.Encrypt(json, pw);
@@ -325,19 +326,19 @@ namespace Famoser.Bookmarked.Business.Repositories
             return _entryRepository.RemoveAsync(entryModel);
         }
 
-        public EntryModel CreateEntryAsync(FolderModel parentFolderModel)
+        public EntryModel CreateEntry(FolderModel parentFolderModel, ContentType type)
         {
-            var entry = new EntryModel { };
+            var entry = new EntryModel { ContentType = type};
             parentFolderModel.Entries.AddUniqueSorted(entry);
             entry.ParentIds.Add(parentFolderModel.GetId());
             return entry;
         }
 
-        public async Task<T> GetEntryContent<T>(EntryModel entryModel) where T : ContentModel, new()
+        public T GetEntryContent<T>(EntryModel entryModel) where T : ContentModel, new()
         {
             try
             {
-                var pw = await _passwordService.GetPasswordAsync();
+                var pw = _passwordService.GetPasswordAsync();
                 if (pw == null)
                     return null;
                 if (!string.IsNullOrEmpty(entryModel.Content))

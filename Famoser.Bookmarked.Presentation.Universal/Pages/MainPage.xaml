@@ -32,7 +32,7 @@
                         <ColumnDefinition Width="20" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Converter={StaticResource LectureTimesConverter}}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                    <TextBlock Style="{StaticResource BigTexBlock}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                     <TextBlock Grid.Column="2" Style="{StaticResource BigTexBlock}" Text="{Binding Place}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                 </Grid>
             </StackPanel>

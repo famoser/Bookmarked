@@ -25,7 +25,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             _navigationService = navigationService;
         }
 
-        internal async Task SetEntry(EntryModel model, CrudState state)
+        internal void SetEntry(EntryModel model, CrudState state)
         {
             if (SelectedEntry != null)
                 SelectedEntry.PropertyChanged -= SelectedEntryOnPropertyChanged;
@@ -34,7 +34,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
 
             if (SelectedEntryContent != null)
                 SelectedEntryContent.PropertyChanged -= SelectedEntryContentOnPropertyChanged;
-            SelectedEntryContent = await _folderRepository.GetEntryContent<T>(model);
+            SelectedEntryContent = _folderRepository.GetEntryContent<T>(model);
             SelectedEntryContent.PropertyChanged += SelectedEntryContentOnPropertyChanged;
 
             _state = state;
@@ -93,12 +93,12 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             SetCrudState(CrudState.Edit);
         });
 
-        public ICommand AbortCommand => new LoadingRelayCommand(async () =>
+        public ICommand AbortCommand => new LoadingRelayCommand(() =>
         {
             if (_state == CrudState.Edit)
             {
                 //resets vm
-                await SetEntry(SelectedEntry, CrudState.View);
+                 SetEntry(SelectedEntry, CrudState.View);
                 _navigationService.GoBack();
             }
             else if (_state == CrudState.Add)
