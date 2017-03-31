@@ -20,7 +20,13 @@
             <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                 <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Descriptio }" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-               
+
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="EntryDataTemplate">
+            <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Descriptio }" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
@@ -36,7 +42,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                 <!-- <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <!-- <Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <TextBlock Grid.Column="0" Style="{StaticResource BigTexBlock}" Text="Garbage" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" Tapped="TextBlock_Tapped"  />
                 </Grid>-->
                 <TextBlock Grid.Row="2" FontFamily="Segoe UI" Margin="10" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -63,9 +69,16 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="{Binding SelectedFolder.Name}" Style="{StaticResource BigTexBlock}" />
                     <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
-                    <ListView Grid.Row="1" ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SelectedFolder.Folders}" ItemClick="ListView_ItemClick" />
+                    <TextBlock Grid.Row="0" Text="{Binding SelectedFolder.Name}" Style="{StaticResource BigTexBlock}" />
+                    <ScrollViewer Grid.Row="1">
+                        <StackPanel>
+                            <ListView ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SelectedFolder.Folders}" ItemClick="ListView_ItemClick" />
+                            <TextBlock Text="Entries" Style="{StaticResource BigTexBlock}" />
+                            <ListView ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SelectedFolder.Entries}" ItemClick="ListView_ItemClick" />
+                        </StackPanel>
+                    </ScrollViewer>
+
                 </Grid>
             </Grid>
         </SplitView.Content>

@@ -47,6 +47,13 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                     ViewModel.SelectFolderCommand.Execute(folder);
                 }
             }
+            if (e.ClickedItem is EntryModel entry)
+            {
+                if (ViewModel.SelectEntryCommand.CanExecute(entry))
+                {
+                    ViewModel.SelectEntryCommand.Execute(entry);
+                }
+            }
         }
 
         private void UIElement_OnTapped(object sender = null, TappedRoutedEventArgs e = null)

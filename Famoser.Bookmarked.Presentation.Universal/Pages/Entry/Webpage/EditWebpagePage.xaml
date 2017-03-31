@@ -1,37 +1,34 @@
 ﻿<Page
-    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.CoursePage"
+    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage.EditWebpagePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
-
-
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="{Binding SelectedEntry.Name}" Style="{StaticResource BigTexBlock}" />
-            <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
+            <TextBlock Grid.Row="0" Text="Edit Webpage" Style="{StaticResource BigTexBlock}" />
             <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
                 <StackPanel Margin="10,0">
                     <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="description" />
-                    <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntry.Description}" />
-
-                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
-                    <TextBlock Style="{StaticResource ValueTextBlock}" >
-                        <Hyperlink NavigateUri="{Binding SelectedEntryContent.WebpageUrl}">
-                            <Run Text="open browser"/>
-                        </Hyperlink>
-                    </TextBlock>
+                    <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntry.Description}" />
+                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="name" />
+                    <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntry.Name}" />
+                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="name" />
+                    <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.WebpageUrl}" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>
     </Grid>
-    
+
+
+
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
@@ -42,7 +39,7 @@
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
-                <AppBarButton IsCompact="True" Command="{Binding EditEntryCommand}" Icon="Edit" Label="Edit" />
+                <AppBarButton IsCompact="True" Command="{Binding SaveEntryCommand}" Icon="Save" Label="Save" />
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

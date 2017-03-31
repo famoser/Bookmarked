@@ -101,14 +101,14 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\UriToStringConverter.cs" />
-    <Compile Include="Pages\CoursePage.xaml.cs">
-      <DependentUpon>CoursePage.xaml</DependentUpon>
+    <Compile Include="Pages\Entry\Webpage\EditWebpagePage.xaml.cs">
+      <DependentUpon>EditWebpagePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EditLecturePage.xaml.cs">
-      <DependentUpon>EditLecturePage.xaml</DependentUpon>
+    <Compile Include="Pages\Entry\Webpage\ViewWebpagePage.xaml.cs">
+      <DependentUpon>ViewWebpagePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\EditCoursePage.xaml.cs">
-      <DependentUpon>EditCoursePage.xaml</DependentUpon>
+    <Compile Include="Pages\Entry\Webpage\AddWebpagePage.xaml.cs">
+      <DependentUpon>AddWebpagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -171,17 +171,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\CoursePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\EditLecturePage.xaml">
+    <Page Include="Pages\Entry\Webpage\EditWebpagePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\EditCoursePage.xaml">
+    <Page Include="Pages\Entry\Webpage\ViewWebpagePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Entry\Webpage\AddWebpagePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
@@ -207,6 +207,7 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

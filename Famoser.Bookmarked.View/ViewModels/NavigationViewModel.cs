@@ -60,7 +60,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             SimpleIoc.Default.GetInstance<EditFolderViewModel>().SetFolder(c);
         });
 
-        public ICommand ViewEntryCommand => new LoadingRelayCommand<EntryModel>(c =>
+        public ICommand SelectEntryCommand => new LoadingRelayCommand<EntryModel>(c =>
         {
             if (c.ContentType == ContentType.Webpage)
             {
