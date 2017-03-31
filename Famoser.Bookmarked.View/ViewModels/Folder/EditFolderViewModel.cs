@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Famoser.Bookmarked.Business.Models;
+﻿using System.Windows.Input;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
-using Famoser.Bookmarked.View.Enum;
-using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.Bookmarked.View.ViewModels.Folder.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.FrameworkEssentials.View.Commands;

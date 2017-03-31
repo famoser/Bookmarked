@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Famoser.Bookmarked.Presentation.Universal.Pages;
+﻿using Famoser.Bookmarked.Presentation.Universal.Pages;
 using Famoser.Bookmarked.Presentation.Universal.Platform;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;

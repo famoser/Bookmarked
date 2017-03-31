@@ -4,44 +4,27 @@ using Famoser.FrameworkEssentials.Logging;
 
 namespace Famoser.Bookmarked.Business.Helper
 {
-    public class BinaryDecoder
+    public class StringDecoder
     {
-        private byte[] _payload;
-        private string _result;
+        private readonly string _payload;
+        private byte[] _result;
         private int _faillureCode = 0;
-        public BinaryDecoder(byte[] payload)
+        public StringDecoder(string payload)
         {
             _payload = payload;
         }
 
-        public bool Decode()
+        public bool Encode()
         {
             try
             {
                 if (_payload == null)
                 {
-                    _faillureCode = 1;
-                    return false;
-                }
-
-                if (_payload.Length < 1)
-                {
-                    _faillureCode = 2;
-                    return false;
-                }
-
-                //first bit marks file info
-                if (_payload[0] == 0)
-                {
-                    _result = null;
+                    _result = new byte[] { 0 };
                     return true;
                 }
-                if (_payload[0] == 1)
-                {
-                    return DecodeYEnc();
-                }
-                _faillureCode = 3;
-                return false;
+
+                return EncodeYEnc();
             }
             catch (Exception e)
             {
@@ -51,16 +34,17 @@ namespace Famoser.Bookmarked.Business.Helper
             return false;
         }
 
-        private bool DecodeYEnc()
+        private bool EncodeYEnc()
         {
-            _result = "";
-            var bytes = new byte[_payload.Length];
+            var content = Encoding.GetEncoding("ASCII").GetBytes(_payload);
+            _result = new byte[_payload.Length * 2];
             var byteIndex = 0;
 
-            for (int i = 1; i < _payload.Length; i++)
+            for (int i = 0; i < content.Length; i++)
             {
-                int current = _payload[i];
-                if (current == 61)
+                int current = content[i];
+                //check for escapes
+                if (true)//current == 0 || current == 10 || current == )
                 {
                     //escape caracter, so we need next
                     if (++i == _payload.Length)
@@ -78,11 +62,9 @@ namespace Famoser.Bookmarked.Business.Helper
                 current -= 42;
                 if (current < 0)
                     current += 256;
-                bytes[byteIndex++] = (byte) current;
+                _result[byteIndex++] = (byte)current;
             }
 
-            if (byteIndex > 0)
-                _result += Encoding.GetEncoding("ASCII").GetString(bytes, 0, byteIndex);
             return true;
         }
 
@@ -109,7 +91,7 @@ namespace Famoser.Bookmarked.Business.Helper
             }
         }
 
-        public string GetResult()
+        public byte[] GetResult()
         {
             return _result;
         }

@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Enum;
-using Famoser.Bookmarked.Business.Models.Base;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
-using GalaSoft.MvvmLight;
 using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Models.Entries

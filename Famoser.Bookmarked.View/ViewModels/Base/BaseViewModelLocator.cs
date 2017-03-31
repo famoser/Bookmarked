@@ -3,11 +3,8 @@ using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Mocks;
-using Famoser.Bookmarked.View.Services;
-using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Entry;
 using Famoser.Bookmarked.View.ViewModels.Folder;
-using Famoser.Bookmarked.View.ViewModels.Folder.Base;
 using Famoser.SyncApi.Services.Interfaces;
 using GalaSoft.MvvmLight.Ioc;
 

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using GalaSoft.MvvmLight;
-using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Models.Base
 {

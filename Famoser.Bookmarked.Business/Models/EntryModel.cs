@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Runtime.Serialization;
-using Famoser.Bookmarked.Business.Enum;
+﻿using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models.Base;
-using Famoser.SyncApi.Models.Interfaces;
-using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Models
 {
