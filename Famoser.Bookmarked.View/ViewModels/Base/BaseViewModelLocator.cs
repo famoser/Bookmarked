@@ -15,6 +15,8 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
         static BaseViewModelLocator()
         {
             SimpleIoc.Default.Register<IApiService, ApiService>();
+            SimpleIoc.Default.Register<IEncryptionService, EncryptionService>();
+            SimpleIoc.Default.Register<IPasswordService, PasswordService>();
             SimpleIoc.Default.Register<ISimpleProgressService, ProgressViewModel>();
             if (IsInDesignModeStatic)
             {
@@ -27,6 +29,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
                 SimpleIoc.Default.Register<IApiTraceService, ApiViewModel>();
             }
 
+            SimpleIoc.Default.Register<NavigationViewModel>();
             SimpleIoc.Default.Register<AddFolderViewModel>();
             SimpleIoc.Default.Register<EditFolderViewModel>();
             SimpleIoc.Default.Register<ViewFolderViewModel>();
@@ -36,6 +39,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
 
 
         public AddFolderViewModel AddFolderViewModel => SimpleIoc.Default.GetInstance<AddFolderViewModel>();
+        public NavigationViewModel NavigationViewModel => SimpleIoc.Default.GetInstance<NavigationViewModel>();
         public EditFolderViewModel EditFolderViewModel => SimpleIoc.Default.GetInstance<EditFolderViewModel>();
         public ViewFolderViewModel ViewFolderViewModel => SimpleIoc.Default.GetInstance<ViewFolderViewModel>();
         public WebpageViewModel WebpageViewModel => SimpleIoc.Default.GetInstance<WebpageViewModel>();

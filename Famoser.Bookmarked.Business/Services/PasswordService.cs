@@ -16,12 +16,12 @@ namespace Famoser.Bookmarked.Business.Services
         }
 
         private string _password;
-        public string GetPasswordAsync()
+        public string GetPassword()
         {
             return _password;
         }
 
-        public async Task<bool> SetPassword(string password)
+        public async Task<bool> SetPasswordAsync(string password)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace Famoser.Bookmarked.Business.Services
             return false;
         }
 
-        public async Task<bool> TryPassword(string password)
+        public async Task<bool> TryPasswordAsync(string password)
         {
             try
             {
@@ -79,6 +79,23 @@ namespace Famoser.Bookmarked.Business.Services
                 LogHelper.Instance.LogException(ex);
             }
             return false;
+        }
+
+        public async Task<bool> CheckIsFirstTimeAsync()
+        {
+            try
+            {
+                var fileContent = await _storageService.GetCachedTextFileAsync(".pw");
+                if (!string.IsNullOrEmpty(fileContent))
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                // ignored: file does not exist or is corrupt os fuck it
+            }
+            return true;
         }
     }
 }

@@ -20,9 +20,9 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
         private static HistoryNavigationService ConstructNavigationService()
         {
             var ngs = new HistoryNavigationService();
-            ngs.Configure(View.Enum.Pages.Main.ToString(), typeof(MainPage));
+            ngs.Configure(View.Enum.Pages.Login.ToString(), typeof(LoginPage));
+            ngs.Configure(View.Enum.Pages.Navigation.ToString(), typeof(NavigationPage));
             ngs.Configure(View.Enum.Pages.ViewFolder.ToString(), typeof(CoursePage));
-            ngs.Configure(View.Enum.Pages.AddEditFolder.ToString(), typeof(EditCoursePage));
 
             return ngs;
         }

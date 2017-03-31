@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Enum;
+using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.FrameworkEssentials.View.Commands;
@@ -15,12 +16,20 @@ namespace Famoser.Bookmarked.View.ViewModels
     {
         private readonly IHistoryNavigationService _navigationService;
         private readonly IPasswordService _passwordService;
-        private readonly Stack<FolderModel> _folderHistory = new Stack<FolderModel>();
+        private readonly IInteractionService _interactionService;
 
-        public LoginViewModel(IHistoryNavigationService navigationService, IPasswordService passwordService)
+        public LoginViewModel(IHistoryNavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService)
         {
             _navigationService = navigationService;
             _passwordService = passwordService;
+            _interactionService = interactionService;
+
+            InitializeAsync();
+        }
+
+        private async void InitializeAsync()
+        {
+            IsFirstTime = await _passwordService.CheckIsFirstTimeAsync();
         }
 
         private string _password;
@@ -37,12 +46,19 @@ namespace Famoser.Bookmarked.View.ViewModels
             set { Set(ref _passwordUnlockFailed, value); }
         }
 
-
+        private bool _isFirstTime;
+        public bool IsFirstTime
+        {
+            get { return _isFirstTime; }
+            set { Set(ref _isFirstTime, value); }
+        }
+        
         public ICommand LoginCommand => new LoadingRelayCommand(async () =>
         {
-            if (await _passwordService.TryPassword(Password))
+            var hash = _interactionService.HashPassword(Password);
+            if (await _passwordService.TryPasswordAsync(hash))
             {
-                _navigationService.NavigateTo(Pages.ViewFolder.ToString());
+                _navigationService.NavigateTo(Pages.Navigation.ToString());
             }
             else
             {

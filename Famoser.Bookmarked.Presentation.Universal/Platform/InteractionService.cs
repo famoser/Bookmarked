@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Windows.Security.Cryptography;
+using Windows.Security.Cryptography.Core;
+using Windows.Storage.Streams;
 using Windows.UI.Popups;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using GalaSoft.MvvmLight.Threading;
@@ -32,6 +35,19 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
 
             var result = await dialog.ShowAsync();
             return (int)result.Id == 0;
+        }
+
+        public string HashPassword(string password)
+        {
+            // put the string in a buffer
+            IBuffer input = CryptographicBuffer.ConvertStringToBinary(password, BinaryStringEncoding.Utf8);
+
+            // hash it with SHA 256
+            var hasher = HashAlgorithmProvider.OpenAlgorithm("SHA256");
+            IBuffer hashed = hasher.HashData(input);
+
+            // return as base64
+            return CryptographicBuffer.EncodeToBase64String(hashed);
         }
     }
 }

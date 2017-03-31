@@ -7,6 +7,7 @@ namespace Famoser.Bookmarked.View.Services.Interfaces
     {
         void OpenInBrowser(Uri uri);
         void CheckBeginInvokeOnUi(Action action);
+        string HashPassword(string input);
 
         Task<bool> ConfirmMessage(string message);
     }

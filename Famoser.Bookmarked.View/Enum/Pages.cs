@@ -2,7 +2,8 @@
 {
     public enum Pages
     {
-        Main,
+        Login,
+        Navigation,
 
         AddFolder,
         EditFolder,
