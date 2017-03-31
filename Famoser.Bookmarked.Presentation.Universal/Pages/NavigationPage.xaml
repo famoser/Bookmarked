@@ -16,12 +16,6 @@
         <DataTemplate x:Key="ApiTraceDataTemplate">
             <TextBlock Style="{StaticResource TraceTextBlock}" Text="{Binding FullDescription}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
         </DataTemplate>
-        <DataTemplate x:Key="CoursesDataTemplate">
-            <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}">
-                <TextBlock Grid.Column="0" Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-            </Grid>
-        </DataTemplate>
-
         <DataTemplate x:Key="FolderDataTemplate">
             <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
