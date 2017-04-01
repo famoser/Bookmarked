@@ -101,8 +101,20 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\UriToStringConverter.cs" />
+    <Compile Include="Pages\Entry\Common\EditEntry.xaml.cs">
+      <DependentUpon>EditEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Entry\Common\ViewEntry.xaml.cs">
+      <DependentUpon>ViewEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Entry\Webpage\EditWebpage.xaml.cs">
+      <DependentUpon>EditWebpage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Entry\Webpage\EditWebpagePage.xaml.cs">
       <DependentUpon>EditWebpagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Entry\Webpage\ViewWebpage.xaml.cs">
+      <DependentUpon>ViewWebpage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Entry\Webpage\ViewWebpagePage.xaml.cs">
       <DependentUpon>ViewWebpagePage.xaml</DependentUpon>
@@ -171,9 +183,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\Entry\Common\EditEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Entry\Common\ViewEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Entry\Webpage\EditWebpage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Entry\Webpage\EditWebpagePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Entry\Webpage\ViewWebpage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Entry\Webpage\ViewWebpagePage.xaml">
       <SubType>Designer</SubType>
