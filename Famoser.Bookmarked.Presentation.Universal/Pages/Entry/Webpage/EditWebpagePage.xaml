@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:webpage="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"
     mc:Ignorable="d"
     DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
     
@@ -16,12 +17,7 @@
             <TextBlock Grid.Row="0" Text="Edit Webpage" Style="{StaticResource BigTexBlock}" />
             <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
                 <StackPanel Margin="10,0">
-                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="description" />
-                    <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntry.Description}" />
-                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="name" />
-                    <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntry.Name}" />
-                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="name" />
-                    <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.WebpageUrl}" />
+                    <webpage:EditWebpage DataContext="{Binding }" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>

@@ -4,9 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:webpage="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"
     mc:Ignorable="d"
     DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
-
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -18,20 +18,12 @@
             <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
             <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
                 <StackPanel Margin="10,0">
-                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="description" />
-                    <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntry.Description}" />
-
-                    <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
-                    <TextBlock Style="{StaticResource ValueTextBlock}" >
-                        <Hyperlink NavigateUri="{Binding SelectedEntryContent.WebpageUrl}">
-                            <Run Text="open browser"/>
-                        </Hyperlink>
-                    </TextBlock>
+                    <webpage:ViewWebpage DataContext="{Binding }" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>
     </Grid>
-    
+
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
