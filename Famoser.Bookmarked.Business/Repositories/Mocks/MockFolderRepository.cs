@@ -88,5 +88,25 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
         {
             return new EntryModel();
         }
+
+        public async Task<bool> MoveFolderOutOfGarbageAsync(FolderModel folderModel)
+        {
+            return true;
+        }
+
+        public async Task<bool> RemoveFolderAsync(FolderModel folderModel)
+        {
+            return true;
+        }
+
+        public async Task<bool> MoveEntryOutOfGarbageAsync(EntryModel entryModel)
+        {
+            return true;
+        }
+
+        public async Task<bool> RemoveEntryAsync(EntryModel entryModel)
+        {
+            return true;
+        }
     }
 }
