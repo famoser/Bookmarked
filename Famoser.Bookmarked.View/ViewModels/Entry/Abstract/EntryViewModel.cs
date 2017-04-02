@@ -5,6 +5,7 @@ using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.View.Enum;
+using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;
@@ -79,7 +80,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             }
             if (_state == CrudState.Add)
             {
-                _navigationService.NavigateTo(GetViewPage().ToString(), true);
+                _navigationService.NavigateTo(GetContentTypeModel().ViewPage.ToString(), true);
                 SetCrudState(CrudState.View);
             }
             await _folderRepository.SaveEntryAsync(SelectedEntry, SelectedEntryContent);
@@ -87,7 +88,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
 
         public ICommand EditEntryCommand => new LoadingRelayCommand(() =>
         {
-            _navigationService.NavigateTo(GetEditPage().ToString());
+            _navigationService.NavigateTo(GetContentTypeModel().EditPage.ToString());
             SetCrudState(CrudState.Edit);
         });
 
@@ -119,8 +120,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
                 _navigationService.GoBack();
             }
         });
-        
-        protected abstract Pages GetViewPage();
-        protected abstract Pages GetEditPage();
+
+        protected abstract ContentTypeModel GetContentTypeModel();
     }
 }

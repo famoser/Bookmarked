@@ -1,5 +1,6 @@
 ﻿using Famoser.Bookmarked.Business.Repositories;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.Business.Repositories.Mocks;
 using Famoser.Bookmarked.Business.Services;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Mocks;
@@ -21,7 +22,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
             if (IsInDesignModeStatic)
             {
                 SimpleIoc.Default.Register<IFolderRepository, MockFolderRepository>();
-                SimpleIoc.Default.Register<IApiTraceService, ApiViewModel>();
+                SimpleIoc.Default.Register<IApiTraceService, MockApiViewModel>();
             }
             else
             {

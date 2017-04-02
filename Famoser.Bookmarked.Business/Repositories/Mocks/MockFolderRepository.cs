@@ -4,61 +4,73 @@ using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
-using Famoser.Bookmarked.Business.Repositories;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 
-namespace Famoser.Bookmarked.View.Mocks
+namespace Famoser.Bookmarked.Business.Repositories.Mocks
 {
 #pragma warning disable 1998
-    internal class MockFolderRepository : IFolderRepository
+    public class MockFolderRepository : IFolderRepository
     {
-        public Task<bool> SyncAsnyc()
+        public async Task<bool> SyncAsnyc()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public FolderModel GetRootFolder()
         {
-            var fr = new FolderRepository(null, null, null);
-            var rf = fr.GetRootFolder();
-            var nf = fr.CreateFolder(rf);
+            var rf = new FolderModel();
+            var nf = new FolderModel();
             rf.Folders.Add(nf);
             nf.Name = "my stuff";
             nf.Description = "contains all that is well";
-            var ne = fr.CreateEntry(nf, ContentType.Webpage);
-            ne.Description = "hi mom";
-            ne.Name = "private stuff";
+            rf.Folders.Add(nf);
+            nf.Name = "my stuff 2";
+            nf.Description = "contains all that is well 2";
+            var ne = new EntryModel
+            {
+                ContentType = ContentType.Webpage,
+                Description = "hi mom",
+                Name = "private stuff"
+            };
+            rf.Entries.Add(ne);
+            ne = new EntryModel
+            {
+                ContentType = ContentType.Webpage,
+                Description = "hi mom 2",
+                Name = "private stuff 2"
+            };
+            rf.Entries.Add(ne);
             return rf;
         }
 
-        public Task<bool> SaveFolderAsync(FolderModel folderModel)
+        public async Task<bool> SaveFolderAsync(FolderModel folderModel)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
-        public Task<bool> RemoveFolderAsync(FolderModel folderModel)
+        public async Task<bool> RemoveFolderAsync(FolderModel folderModel)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public FolderModel CreateFolder(FolderModel parentFolderModel)
         {
-            throw new NotImplementedException();
+            return new FolderModel();
         }
 
-        public Task<bool> SaveEntryAsync(EntryModel entryModel)
+        public async Task<bool> SaveEntryAsync(EntryModel entryModel)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
-        public Task<bool> RemoveEntryAsync(EntryModel entryModel)
+        public async Task<bool> RemoveEntryAsync(EntryModel entryModel)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
-        public Task<bool> SaveEntryAsync(EntryModel entryModel, ContentModel contentModel)
+        public async Task<bool> SaveEntryAsync(EntryModel entryModel, ContentModel contentModel)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public T GetEntryContent<T>(EntryModel entryModel) where T : ContentModel, new()
@@ -74,7 +86,7 @@ namespace Famoser.Bookmarked.View.Mocks
 
         public EntryModel CreateEntry(FolderModel parentFolderModel, ContentType type)
         {
-            throw new NotImplementedException();
+            return new EntryModel();
         }
     }
 }

@@ -4,6 +4,8 @@ using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.View.Enum;
+using Famoser.Bookmarked.View.Helper;
+using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.Bookmarked.View.ViewModels.Entry;
@@ -49,6 +51,13 @@ namespace Famoser.Bookmarked.View.ViewModels
             SimpleIoc.Default.GetInstance<AddFolderViewModel>().SetFolder(folder);
         });
 
+        public ICommand AddContentTypeCommand => new LoadingRelayCommand<ContentTypeModel>((cm) =>
+        {
+            _navigationService.NavigateTo(cm.AddPage.ToString());
+            var entry = _folderRepository.CreateEntry(SelectedFolder, cm.ContentType);
+            cm.SetEntryToViewModel(entry, CrudState.Add);
+        });
+
         public ICommand EditFolderCommand => new LoadingRelayCommand<FolderModel>(c =>
         {
             _navigationService.NavigateTo(Pages.EditFolder.ToString());
@@ -63,5 +72,7 @@ namespace Famoser.Bookmarked.View.ViewModels
                 SimpleIoc.Default.GetInstance<WebpageViewModel>().SetEntry(c, CrudState.View);
             }
         });
+
+        public List<ContentTypeModel> ContentTypeModels { get; set; } = ContentHelper.GetContentTypeModels();
     }
 }

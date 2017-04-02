@@ -25,8 +25,11 @@
         <DataTemplate x:Key="EntryDataTemplate">
             <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-                <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Descriptio }" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
             </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ContentTypeModelTemplate">
+            <TextBlock Text="{Binding Name}" />
         </DataTemplate>
     </Page.Resources>
 
@@ -86,10 +89,23 @@
     <Page.BottomAppBar>
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarButton IsCompact="True" Icon="ShowResults" Label="ShowAll" Tapped="UIElement_OnTapped" />
-                <AppBarButton IsCompact="True" Command="{Binding RefreshCommand}" Icon="Refresh" Label="Refresh" />
-                <AppBarButton IsCompact="True" Command="{Binding AddFolderCommand}" Icon="Add" Label="Add" />
+                <AppBarButton IsCompact="True" Command="{Binding AddFolderCommand}" Icon="NewFolder" Label="New Folder" />
+                <AppBarButton IsCompact="True" Icon="Add" Label="New Entry" >
+                    <AppBarButton.Flyout>
+                        <Flyout Placement="Bottom">
+                            <ListView 
+                                ItemsSource="{Binding ContentTypeModels}" 
+                                ItemTemplate="{StaticResource ContentTypeModelTemplate}"
+                                ItemContainerStyle="{StaticResource StretchListViewItemStyle}" 
+                                IsItemClickEnabled="True" ItemClick="ListView_ItemClick"/>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
             </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Command="{Binding RefreshCommand}" Icon="Refresh" Label="Refresh" />
+                <AppBarButton IsCompact="True" Icon="ShowResults" Label="More Info" Tapped="UIElement_OnTapped" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

@@ -34,7 +34,7 @@ namespace Famoser.Bookmarked.View.Mocks
             set { Set(ref _requestCount, value); }
         }
 
-        private ObservableCollection<SyncActionInformation> _syncActionInformations;
+        private ObservableCollection<SyncActionInformation> _syncActionInformations = new ObservableCollection<SyncActionInformation>();
         public ObservableCollection<SyncActionInformation> SyncActionInformations
         {
             get { return _syncActionInformations; }

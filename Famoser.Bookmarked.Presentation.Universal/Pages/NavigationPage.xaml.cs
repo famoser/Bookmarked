@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -53,6 +54,13 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                 if (ViewModel.SelectEntryCommand.CanExecute(entry))
                 {
                     ViewModel.SelectEntryCommand.Execute(entry);
+                }
+            }
+            if (e.ClickedItem is ContentTypeModel contentType)
+            {
+                if (ViewModel.AddContentTypeCommand.CanExecute(contentType))
+                {
+                    ViewModel.AddContentTypeCommand.Execute(contentType);
                 }
             }
         }
