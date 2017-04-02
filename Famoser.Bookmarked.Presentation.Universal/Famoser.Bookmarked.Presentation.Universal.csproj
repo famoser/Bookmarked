@@ -138,6 +138,7 @@
       <DependentUpon>NavigationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Platform\InteractionService.cs" />
+    <Compile Include="Platform\NavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>

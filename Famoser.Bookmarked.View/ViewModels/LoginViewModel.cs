@@ -14,11 +14,11 @@ namespace Famoser.Bookmarked.View.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        private readonly IHistoryNavigationService _navigationService;
+        private readonly INavigationService _navigationService;
         private readonly IPasswordService _passwordService;
         private readonly IInteractionService _interactionService;
 
-        public LoginViewModel(IHistoryNavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService)
+        public LoginViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService)
         {
             _navigationService = navigationService;
             _passwordService = passwordService;
@@ -58,7 +58,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             var hash = _interactionService.HashPassword(Password);
             if (await _passwordService.TryPasswordAsync(hash))
             {
-                _navigationService.NavigateTo(Pages.Navigation.ToString());
+                _navigationService.NavigateTo(Pages.Navigation.ToString(), true);
                 IsFirstTime = false;
             }
             else

@@ -4,6 +4,7 @@ using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.View.Enum;
+using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.Bookmarked.View.ViewModels.Entry;
 using Famoser.Bookmarked.View.ViewModels.Folder;
@@ -16,15 +17,13 @@ namespace Famoser.Bookmarked.View.ViewModels
     public class NavigationViewModel : BaseViewModel
     {
         private readonly IFolderRepository _folderRepository;
-        private readonly IHistoryNavigationService _navigationService;
-        private readonly Stack<FolderModel> _folderHistory = new Stack<FolderModel>();
+        private readonly INavigationService _navigationService;
 
-        public NavigationViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService)
+        public NavigationViewModel(IFolderRepository folderRepository, INavigationService navigationService)
         {
             _folderRepository = folderRepository;
             _navigationService = navigationService;
-            _folderHistory.Push(_folderRepository.GetRootFolder());
-            SelectedFolder = _folderHistory.Peek();
+            SelectedFolder = _folderRepository.GetRootFolder();
         }
 
         private FolderModel _selectedFolder;
@@ -38,20 +37,16 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public ICommand SelectFolderCommand => new LoadingRelayCommand<FolderModel>(c =>
         {
-            _folderHistory.Push(c);
+            var folder = SelectedFolder;
+            _navigationService.FakeNavigation(() => SelectedFolder = folder);
             SelectedFolder = c;
         });
-
-        public ICommand GoBackCommand => new LoadingRelayCommand<FolderModel>(c =>
-        {
-            SelectedFolder = _folderHistory.Pop();
-        }, c => _folderHistory.Count > 1);
 
         public ICommand AddFolderCommand => new LoadingRelayCommand(() =>
         {
             _navigationService.NavigateTo(Pages.AddFolder.ToString());
             var folder = _folderRepository.CreateFolder(SelectedFolder);
-            SimpleIoc.Default.GetInstance<EditFolderViewModel>().SetFolder(folder);
+            SimpleIoc.Default.GetInstance<AddFolderViewModel>().SetFolder(folder);
         });
 
         public ICommand EditFolderCommand => new LoadingRelayCommand<FolderModel>(c =>

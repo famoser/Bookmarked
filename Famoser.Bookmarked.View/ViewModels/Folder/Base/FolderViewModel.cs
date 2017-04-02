@@ -1,5 +1,6 @@
 ﻿using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 
@@ -8,9 +9,9 @@ namespace Famoser.Bookmarked.View.ViewModels.Folder.Base
     public class FolderViewModel : BaseViewModel
     {
         protected readonly IFolderRepository _folderRepository;
-        protected readonly IHistoryNavigationService _navigationService;
+        protected readonly INavigationService _navigationService;
 
-        public FolderViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService)
+        public FolderViewModel(IFolderRepository folderRepository, INavigationService navigationService)
         {
             _folderRepository = folderRepository;
             _navigationService = navigationService;

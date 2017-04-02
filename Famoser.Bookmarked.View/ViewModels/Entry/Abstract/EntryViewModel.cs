@@ -5,6 +5,7 @@ using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.View.Enum;
+using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.FrameworkEssentials.View.Commands;
@@ -14,10 +15,10 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
     public abstract class EntryViewModel<T> : BaseViewModel where T : ContentModel, new()
     {
         private readonly IFolderRepository _folderRepository;
-        private readonly IHistoryNavigationService _navigationService;
+        private readonly INavigationService _navigationService;
         private readonly Stack<FolderModel> _folderHistory = new Stack<FolderModel>();
 
-        public EntryViewModel(IFolderRepository folderRepository, IHistoryNavigationService navigationService)
+        public EntryViewModel(IFolderRepository folderRepository, INavigationService navigationService)
         {
             _folderRepository = folderRepository;
             _navigationService = navigationService;
@@ -78,8 +79,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             }
             if (_state == CrudState.Add)
             {
-                _navigationService.GoBack();
-                _navigationService.NavigateTo(GetViewPage().ToString());
+                _navigationService.NavigateTo(GetViewPage().ToString(), true);
                 SetCrudState(CrudState.View);
             }
             await _folderRepository.SaveEntryAsync(SelectedEntry, SelectedEntryContent);

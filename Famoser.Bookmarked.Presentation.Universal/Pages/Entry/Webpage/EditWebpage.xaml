@@ -14,6 +14,6 @@
     <StackPanel>
         <common:EditEntry DataContext="{Binding SelectedEntry}" />
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="name" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.WebpageUrl}" />
+        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.WebpageUrl, Mode=TwoWay}" />
     </StackPanel>
 </UserControl>

@@ -6,7 +6,7 @@ namespace Famoser.Bookmarked.Business.Models.Base
 {
     public abstract class ParentModel : BaseModel, ISyncModel
     {
-        internal List<Guid> ParentIds { get; set; }
+        internal List<Guid> ParentIds { get; set; } = new List<Guid>();
 
         #region SyncApi implementation
         private Guid _guid;

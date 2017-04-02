@@ -291,7 +291,7 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         public FolderModel CreateFolder(FolderModel parentFolderModel)
         {
-            var entry = new FolderModel { };
+            var entry = new FolderModel {};
             parentFolderModel.Folders.AddUniqueSorted(entry);
             entry.ParentIds.Add(parentFolderModel.GetId());
             return entry;

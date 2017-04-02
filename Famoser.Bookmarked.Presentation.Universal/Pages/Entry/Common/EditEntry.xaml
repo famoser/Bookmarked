@@ -12,8 +12,8 @@
 
     <StackPanel>
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="description" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding Description}" />
+        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding Description, Mode=TwoWay}" />
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="name" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding Name}" />
+        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding Name, Mode=TwoWay}" />
     </StackPanel>
 </UserControl>

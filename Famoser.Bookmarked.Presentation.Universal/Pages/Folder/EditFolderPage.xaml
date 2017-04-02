@@ -18,7 +18,7 @@
             <TextBlock Grid.Row="0" Text="Edit Webpage" Style="{StaticResource BigTexBlock}" />
             <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
                 <StackPanel Margin="10,0">
-                    <folder:EditFolder DataContext="{Binding Folder}"></folder:EditFolder>
+                    <folder:EditFolder DataContext="{Binding Folder}" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>

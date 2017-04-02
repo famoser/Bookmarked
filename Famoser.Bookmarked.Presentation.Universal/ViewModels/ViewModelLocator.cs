@@ -1,5 +1,6 @@
 ﻿using Famoser.Bookmarked.Presentation.Universal.Pages;
 using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage;
+using Famoser.Bookmarked.Presentation.Universal.Pages.Folder;
 using Famoser.Bookmarked.Presentation.Universal.Platform;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
@@ -14,13 +15,13 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
         static ViewModelLocator()
         {
             SimpleIoc.Default.Register<IStorageService>(() => new StorageService());
-            SimpleIoc.Default.Register<IHistoryNavigationService>(ConstructNavigationService);
+            SimpleIoc.Default.Register<INavigationService>(ConstructNavigationService);
             SimpleIoc.Default.Register<IInteractionService, InteractionService>();
         }
 
-        private static HistoryNavigationService ConstructNavigationService()
+        private static NavigationService ConstructNavigationService()
         {
-            var ngs = new HistoryNavigationService();
+            var ngs = new NavigationService();
             ngs.Configure(View.Enum.Pages.Login.ToString(), typeof(LoginPage));
             ngs.Configure(View.Enum.Pages.Navigation.ToString(), typeof(NavigationPage));
             ngs.Configure(View.Enum.Pages.ViewWebpage.ToString(), typeof(ViewWebpagePage));

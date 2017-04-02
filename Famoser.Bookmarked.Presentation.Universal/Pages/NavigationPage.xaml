@@ -19,8 +19,7 @@
         <DataTemplate x:Key="FolderDataTemplate">
             <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-                <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Descriptio }" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-
+                <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="EntryDataTemplate">
