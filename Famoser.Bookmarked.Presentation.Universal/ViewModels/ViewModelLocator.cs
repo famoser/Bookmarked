@@ -26,6 +26,8 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             ngs.Configure(View.Enum.Pages.ViewWebpage.ToString(), typeof(ViewWebpagePage));
             ngs.Configure(View.Enum.Pages.EditWebpage.ToString(), typeof(EditWebpagePage));
             ngs.Configure(View.Enum.Pages.AddWebpage.ToString(), typeof(AddWebpagePage));
+            ngs.Configure(View.Enum.Pages.AddFolder.ToString(), typeof(AddFolderPage));
+            ngs.Configure(View.Enum.Pages.EditFolder.ToString(), typeof(EditFolderPage));
             return ngs;
         }
     }

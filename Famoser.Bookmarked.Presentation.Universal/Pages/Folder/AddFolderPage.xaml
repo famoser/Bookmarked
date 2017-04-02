@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Folder.AddFolderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:webpage="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"
+    xmlns:folder="using:Famoser.Bookmarked.Presentation.Universal.Pages.Folder"
+    mc:Ignorable="d"
+    DataContext="{Binding AddFolderViewModel, Source={StaticResource Locator}}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Add Folder" Style="{StaticResource BigTexBlock}" />
+            <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
+                <StackPanel Margin="10,0">
+                    <folder:EditFolder DataContext="{Binding }" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+
+
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton IsCompact="True" Command="{Binding SaveFolderCommand}" Icon="Save" Label="Save" />
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

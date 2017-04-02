@@ -7,7 +7,6 @@
 
         AddFolder,
         EditFolder,
-        ViewFolder,
 
         AddWebpage,
         EditWebpage,

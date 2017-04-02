@@ -122,6 +122,15 @@
     <Compile Include="Pages\Entry\Webpage\AddWebpagePage.xaml.cs">
       <DependentUpon>AddWebpagePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Folder\AddFolderPage.xaml.cs">
+      <DependentUpon>AddFolderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Folder\EditFolder.xaml.cs">
+      <DependentUpon>EditFolder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Folder\EditFolderPage.xaml.cs">
+      <DependentUpon>EditFolderPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -208,6 +217,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Entry\Webpage\AddWebpagePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Folder\AddFolderPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Folder\EditFolder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Folder\EditFolderPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

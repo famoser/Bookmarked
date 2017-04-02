@@ -12,13 +12,13 @@ namespace Famoser.Bookmarked.View.ViewModels.Folder
         {
         }
 
-        public ICommand SaveEntryCommand => new LoadingRelayCommand(async () =>
+        public ICommand SaveFolderCommand => new LoadingRelayCommand(async () =>
         {
             await _folderRepository.SaveFolderAsync(Folder);
             _navigationService.GoBack();
         });
 
-        public ICommand DeleteEntryCommand => new LoadingRelayCommand(async () =>
+        public ICommand RemoveFolderCommand => new LoadingRelayCommand(async () =>
         {
             await _folderRepository.RemoveFolderAsync(Folder);
             _navigationService.GoBack();
