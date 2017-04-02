@@ -19,13 +19,6 @@ namespace Famoser.Bookmarked.Business.Models.Base
             set { Set(ref _description, value); }
         }
 
-        private bool _isDeleted;
-        internal bool IsDeleted
-        {
-            get { return _isDeleted; }
-            set { Set(ref _isDeleted, value); }
-        }
-
         public int CompareTo(object other)
         {
             if (other is BaseModel obj)

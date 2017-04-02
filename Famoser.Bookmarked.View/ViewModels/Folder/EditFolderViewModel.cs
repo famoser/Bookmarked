@@ -21,7 +21,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Folder
 
         public ICommand RemoveFolderCommand => new LoadingRelayCommand(async () =>
         {
-            await _folderRepository.RemoveFolderAsync(Folder);
+            await _folderRepository.MoveFolderToGarbageAsync(Folder);
             _navigationService.GoBack();
             _navigationService.GoBack();
         });

@@ -16,7 +16,7 @@ namespace Famoser.Bookmarked.Business.Models.Entries
         }
 
         private string _image;
-        internal string Image
+        public string Image
         {
             get { return _image; }
             set { Set(ref _image, value); }
@@ -33,13 +33,15 @@ namespace Famoser.Bookmarked.Business.Models.Entries
         [OnSerializing]
         internal void OnSerializingMethod(StreamingContext context)
         {
-            Image = Convert.ToBase64String(Icon);
+            if (Icon != null)
+                Image = Convert.ToBase64String(Icon);
         }
 
         [OnDeserialized]
         internal void OnDeserializedMethod(StreamingContext context)
         {
-            Icon = Convert.FromBase64String(Image);
+            if (Image != null)
+                Icon = Convert.FromBase64String(Image);
         }
 
         public override ContentType GetContentType()

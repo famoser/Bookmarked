@@ -48,7 +48,7 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return true;
         }
 
-        public async Task<bool> RemoveFolderAsync(FolderModel folderModel)
+        public async Task<bool> MoveFolderToGarbageAsync(FolderModel folderModel)
         {
             return true;
         }
@@ -63,7 +63,7 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return true;
         }
 
-        public async Task<bool> RemoveEntryAsync(EntryModel entryModel)
+        public async Task<bool> MoveEntryToGarbageAsync(EntryModel entryModel)
         {
             return true;
         }

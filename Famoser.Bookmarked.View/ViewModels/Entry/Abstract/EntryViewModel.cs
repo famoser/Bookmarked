@@ -108,7 +108,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
 
         public ICommand RemoveEntryCommand => new LoadingRelayCommand(async () =>
         {
-            await _folderRepository.RemoveEntryAsync(SelectedEntry);
+            await _folderRepository.MoveEntryToGarbageAsync(SelectedEntry);
             if (_state == CrudState.Edit)
             {
                 //go back to View and then go back for real

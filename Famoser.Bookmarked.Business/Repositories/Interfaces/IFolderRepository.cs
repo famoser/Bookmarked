@@ -12,12 +12,16 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
         Task<bool> SyncAsnyc();
 
         Task<bool> SaveFolderAsync(FolderModel folderModel);
-        Task<bool> RemoveFolderAsync(FolderModel folderModel);
+        Task<bool> MoveFolderToGarbageAsync(FolderModel folderModel);
+        Task<bool> MoveFolderOutOfGarbageAsync(FolderModel folderModel);
         FolderModel CreateFolder(FolderModel parentFolderModel);
+        Task<bool> RemoveFolderAsync(FolderModel folderModel);
 
         T GetEntryContent<T>(EntryModel entryModel) where T : ContentModel, new();
         Task<bool> SaveEntryAsync(EntryModel entryModel, ContentModel contentModel);
-        Task<bool> RemoveEntryAsync(EntryModel entryModel);
+        Task<bool> MoveEntryToGarbageAsync(EntryModel entryModel);
+        Task<bool> MoveEntryOutOfGarbageAsync(EntryModel entryModel);
         EntryModel CreateEntry(FolderModel parentFolderModel, ContentType type);
+        Task<bool> RemoveEntryAsync(EntryModel entryModel);
     }
 }

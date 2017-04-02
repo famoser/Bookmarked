@@ -6,14 +6,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:common="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common"
+    xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
     d:DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
+    
+    <UserControl.Resources>
+        <converters:UriToStringConverter x:Key="UriToStringConverter" />
+    </UserControl.Resources>
 
     <StackPanel>
         <common:EditEntry DataContext="{Binding SelectedEntry}" />
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="name" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.WebpageUrl, Mode=TwoWay}" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
+        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.WebpageUrl, Mode=TwoWay, Converter={StaticResource UriToStringConverter}}" />
     </StackPanel>
 </UserControl>
