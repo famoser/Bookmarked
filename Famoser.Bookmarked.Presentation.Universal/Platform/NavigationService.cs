@@ -12,6 +12,9 @@ using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.FrameworkEssentials.View.Interfaces;
+using AddEntryPage = Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.AddEntryPage;
+using EditEntryPage = Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.EditEntryPage;
+using ViewEntryPage = Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.ViewEntryPage;
 
 namespace Famoser.Bookmarked.Presentation.Universal.Platform
 {

@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight.Ioc;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage
+namespace Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -16,14 +16,12 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage
         {
             this.InitializeComponent();
         }
-
-        private NavigationParameter _parameter;
+        
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (e.Parameter is NavigationParameter pm)
             {
-                _parameter = pm;
                 DataContext = SimpleIoc.Default.GetInstance(pm.ViewModelType);
                 Title.Text = "Add " + pm.Name;
                 EntryFrame.Navigate(pm.EditFrameType);

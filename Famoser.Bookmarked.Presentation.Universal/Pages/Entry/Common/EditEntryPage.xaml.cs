@@ -5,7 +5,7 @@ using GalaSoft.MvvmLight.Ioc;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage
+namespace Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

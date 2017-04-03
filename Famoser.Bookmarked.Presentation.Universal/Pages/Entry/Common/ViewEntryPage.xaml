@@ -1,11 +1,12 @@
 ﻿<Page
-    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage.ViewEntryPage"
+    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.ViewEntryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:webpage="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"
     xmlns:common="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common"
+    xmlns:controls="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.Controls"
     mc:Ignorable="d"
     d:DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
 
@@ -19,7 +20,7 @@
             <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
             <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
                 <StackPanel Margin="10,0">
-                    <common:ViewEntry DataContext="{Binding SelectedEntry}" />
+                    <controls:ViewEntry DataContext="{Binding SelectedEntry}" />
                     <Frame x:Name="EntryFrame" />
                 </StackPanel>
             </ScrollViewer>
