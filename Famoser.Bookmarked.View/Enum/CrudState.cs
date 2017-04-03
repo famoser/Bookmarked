@@ -1,6 +1,6 @@
 ﻿namespace Famoser.Bookmarked.View.Enum
 {
-    internal enum CrudState
+    public enum CrudState
     {
         Add,
         View,

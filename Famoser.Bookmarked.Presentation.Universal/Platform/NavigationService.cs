@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Famoser.Bookmarked.Presentation.Universal.Entity;
+using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage;
+using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.FrameworkEssentials.View.Interfaces;
 
@@ -14,7 +17,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
 {
     class NavigationService : INavigationService
     {
-        private readonly ConcurrentDictionary<string, Type> _pagesByKey = new ConcurrentDictionary<string, Type>();
+        private readonly ConcurrentDictionary<string, Tuple<Type, object>> _pagesByKey = new ConcurrentDictionary<string, Tuple<Type, object>>();
         private readonly ConcurrentStack<Action> _goBackActions = new ConcurrentStack<Action>();
 
         public string RootPageKey => "-- ROOT--";
@@ -66,9 +69,9 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
                 if (frame.Content == null)
                     return UnknownPageKey;
                 Type currentType = frame.Content.GetType();
-                if (_pagesByKey.All(p => p.Value != currentType))
+                if (_pagesByKey.All(p => p.Value.Item1 != currentType))
                     return UnknownPageKey;
-                return _pagesByKey.FirstOrDefault(i => i.Value == currentType).Key;
+                return _pagesByKey.FirstOrDefault(i => i.Value.Item1 == currentType).Key;
             }
         }
 
@@ -82,18 +85,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
             res.Invoke();
         }
 
-        /// <summary>
-        /// Adds a key/page pair to the navigation service.
-        /// </summary>
-        public void Configure(string key, Type pageType)
-        {
-            if (_pagesByKey.ContainsKey(key))
-                throw new ArgumentException("This key is already used: " + key);
-            if (_pagesByKey.Any(p => p.Value == pageType))
-                throw new ArgumentException("This type is already configured with key " + _pagesByKey.First(p => p.Value == pageType).Key);
-            while (!_pagesByKey.TryAdd(key, pageType)) ;
-        }
-
         public void NavigateTo(string pageKey, bool removeCurrent = false)
         {
             ExecuteOnce();
@@ -104,7 +95,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
             lock (this)
             {
                 var frame = (Frame)Window.Current.Content;
-                frame.Navigate(_pagesByKey[pageKey]);
+                frame.Navigate(_pagesByKey[pageKey].Item1, _pagesByKey[pageKey].Item2);
 
                 if (removeCurrent)
                     frame.BackStack.RemoveAt(frame.BackStack.Count - 1);
@@ -138,6 +129,26 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
                 ConfigureBackButton();
             });
             ConfigureBackButton();
+        }
+
+
+        public void AddEntryNavigation(PageKeys addPage, PageKeys editPage, PageKeys viewPage, NavigationParameter parameter)
+        {
+            Configure(addPage.ToString(), typeof(AddEntryPage), parameter);
+            Configure(editPage.ToString(), typeof(EditEntryPage), parameter);
+            Configure(viewPage.ToString(), typeof(ViewEntryPage), parameter);
+        }
+
+        /// <summary>
+        /// Adds a key/page pair to the navigation service.
+        /// </summary>
+        public void Configure(string key, Type pageType, object navigationParameter = null)
+        {
+            if (_pagesByKey.ContainsKey(key))
+                throw new ArgumentException("This key is already used: " + key);
+            if (_pagesByKey.Any(p => p.Value.Item1 == pageType))
+                throw new ArgumentException("This type is already configured with key " + _pagesByKey.First(p => p.Value.Item1 == pageType).Key);
+            while (!_pagesByKey.TryAdd(key, new Tuple<Type, object>(pageType, navigationParameter))) ;
         }
     }
 }

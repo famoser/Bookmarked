@@ -1,6 +1,6 @@
 ﻿namespace Famoser.Bookmarked.View.Enum
 {
-    public enum Pages
+    public enum PageKeys
     {
         Login,
         Navigation,

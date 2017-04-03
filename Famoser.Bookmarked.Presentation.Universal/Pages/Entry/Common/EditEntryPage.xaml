@@ -1,12 +1,13 @@
 ﻿<Page
-    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage.EditWebpagePage"
+    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage.EditEntryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:webpage="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"
+    xmlns:common="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common"
     mc:Ignorable="d"
-    DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
+    d:DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -14,10 +15,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="Edit Webpage" Style="{StaticResource BigTexBlock}" />
+            <TextBlock x:Name="Title" Grid.Row="0" Text="Edit " Style="{StaticResource BigTexBlock}" />
             <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
                 <StackPanel Margin="10,0">
-                    <webpage:EditWebpage DataContext="{Binding }" />
+                    <common:EditEntry DataContext="{Binding SelectedEntry}" />
+                    <Frame x:Name="EntryFrame" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>

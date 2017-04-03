@@ -26,10 +26,10 @@ namespace Famoser.Bookmarked.View.Helper
         {
             Name = "Webpage",
             ContentType = ContentType.Webpage,
-            AddPage = Pages.AddWebpage,
-            EditPage = Pages.EditWebpage,
-            ViewPage = Pages.ViewWebpage,
-            SetEntryToViewModel = SimpleIoc.Default.GetInstance<WebpageViewModel>().SetEntry
+            AddPageKey = PageKeys.AddWebpage,
+            EditPageKey = PageKeys.EditWebpage,
+            ViewPageKey = PageKeys.ViewWebpage,
+            ViewModelType = typeof(WebpageViewModel)
         };
         public static ContentTypeModel GetWebpageContentTypeModel()
         {

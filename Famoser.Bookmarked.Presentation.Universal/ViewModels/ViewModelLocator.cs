@@ -1,7 +1,13 @@
-﻿using Famoser.Bookmarked.Presentation.Universal.Pages;
+﻿using System;
+using System.Collections.Generic;
+using Famoser.Bookmarked.Business.Enum;
+using Famoser.Bookmarked.Presentation.Universal.Entity;
+using Famoser.Bookmarked.Presentation.Universal.Pages;
 using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage;
 using Famoser.Bookmarked.Presentation.Universal.Pages.Folder;
 using Famoser.Bookmarked.Presentation.Universal.Platform;
+using Famoser.Bookmarked.View.Enum;
+using Famoser.Bookmarked.View.Helper;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;
@@ -22,13 +28,36 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
         private static NavigationService ConstructNavigationService()
         {
             var ngs = new NavigationService();
-            ngs.Configure(View.Enum.Pages.Login.ToString(), typeof(LoginPage));
-            ngs.Configure(View.Enum.Pages.Navigation.ToString(), typeof(NavigationPage));
-            ngs.Configure(View.Enum.Pages.ViewWebpage.ToString(), typeof(ViewWebpagePage));
-            ngs.Configure(View.Enum.Pages.EditWebpage.ToString(), typeof(EditWebpagePage));
-            ngs.Configure(View.Enum.Pages.AddWebpage.ToString(), typeof(AddWebpagePage));
-            ngs.Configure(View.Enum.Pages.AddFolder.ToString(), typeof(AddFolderPage));
-            ngs.Configure(View.Enum.Pages.EditFolder.ToString(), typeof(EditFolderPage));
+            //add login & mainpage
+            ngs.Configure(PageKeys.Login.ToString(), typeof(LoginPage));
+            ngs.Configure(PageKeys.Navigation.ToString(), typeof(NavigationPage));
+
+            //add folder pages
+            ngs.Configure(PageKeys.AddFolder.ToString(), typeof(AddFolderPage));
+            ngs.Configure(PageKeys.EditFolder.ToString(), typeof(EditFolderPage));
+
+            //entry lookup (connects entries with their View & Edit frame)
+            var lookup = new Dictionary<ContentType, Tuple<Type, Type>>()
+            {
+                {ContentType.Webpage, new Tuple<Type, Type>(typeof(ViewWebpage), typeof(EditWebpage))}
+            };
+
+            //add pages of entries
+            foreach (var ctm in ContentHelper.GetContentTypeModels())
+            {
+                if (lookup.ContainsKey(ctm.ContentType))
+                {
+                    var parameter = new NavigationParameter()
+                    {
+                        Name = ctm.Name,
+                        ViewModelType = ctm.ViewModelType,
+                        ViewFrameType = lookup[ctm.ContentType].Item1,
+                        EditFrameType = lookup[ctm.ContentType].Item2
+                    };
+                    ngs.AddEntryNavigation(ctm.AddPageKey, ctm.EditPageKey, ctm.ViewPageKey, parameter);
+                }
+            }
+
             return ngs;
         }
     }

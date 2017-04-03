@@ -58,7 +58,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             var hash = _interactionService.HashPassword(Password);
             if (await _passwordService.TryPasswordAsync(hash))
             {
-                _navigationService.NavigateTo(Pages.Navigation.ToString(), true);
+                _navigationService.NavigateTo(PageKeys.Navigation.ToString(), true);
                 IsFirstTime = false;
             }
             else

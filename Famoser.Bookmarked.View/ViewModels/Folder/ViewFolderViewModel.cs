@@ -16,7 +16,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Folder
 
         public ICommand EditEntryCommand => new LoadingRelayCommand(() =>
         {
-            _navigationService.NavigateTo(Pages.EditFolder.ToString());
+            _navigationService.NavigateTo(PageKeys.EditFolder.ToString());
         });
 
         public ICommand DeleteEntryCommand => new LoadingRelayCommand(async () =>

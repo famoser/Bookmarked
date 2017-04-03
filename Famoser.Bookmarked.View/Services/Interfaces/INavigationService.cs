@@ -21,7 +21,5 @@ namespace Famoser.Bookmarked.View.Services.Interfaces
         void NavigateTo(string pageKey, bool removeCurrent = false);
 
         void FakeNavigation(Action execute);
-
-        void Configure(string key, Type pageType);
     }
 }

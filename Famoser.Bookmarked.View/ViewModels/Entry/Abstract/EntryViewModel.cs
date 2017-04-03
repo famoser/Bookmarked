@@ -8,12 +8,13 @@ using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
+using Famoser.Bookmarked.View.ViewModels.Interface;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.FrameworkEssentials.View.Commands;
 
 namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
 {
-    public abstract class EntryViewModel<T> : BaseViewModel where T : ContentModel, new()
+    public abstract class EntryViewModel<T> : BaseViewModel, IEntryViewModel where T : ContentModel, new()
     {
         private readonly IFolderRepository _folderRepository;
         private readonly INavigationService _navigationService;
@@ -25,7 +26,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             _navigationService = navigationService;
         }
 
-        internal void SetEntry(EntryModel model, CrudState state)
+        public void SetEntry(EntryModel model, CrudState state)
         {
             if (SelectedEntry != null)
                 SelectedEntry.PropertyChanged -= SelectedEntryOnPropertyChanged;
@@ -80,7 +81,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             }
             if (_state == CrudState.Add)
             {
-                _navigationService.NavigateTo(GetContentTypeModel().ViewPage.ToString(), true);
+                _navigationService.NavigateTo(GetContentTypeModel().ViewPageKey.ToString(), true);
                 SetCrudState(CrudState.View);
             }
             await _folderRepository.SaveEntryAsync(SelectedEntry, SelectedEntryContent);
@@ -88,7 +89,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
 
         public ICommand EditEntryCommand => new LoadingRelayCommand(() =>
         {
-            _navigationService.NavigateTo(GetContentTypeModel().EditPage.ToString());
+            _navigationService.NavigateTo(GetContentTypeModel().EditPageKey.ToString());
             SetCrudState(CrudState.Edit);
         });
 

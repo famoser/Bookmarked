@@ -46,21 +46,21 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public ICommand AddFolderCommand => new LoadingRelayCommand(() =>
         {
-            _navigationService.NavigateTo(Pages.AddFolder.ToString());
+            _navigationService.NavigateTo(PageKeys.AddFolder.ToString());
             var folder = _folderRepository.CreateFolder(SelectedFolder);
             SimpleIoc.Default.GetInstance<AddFolderViewModel>().SetFolder(folder);
         });
 
         public ICommand AddContentTypeCommand => new LoadingRelayCommand<ContentTypeModel>((cm) =>
         {
-            _navigationService.NavigateTo(cm.AddPage.ToString());
+            _navigationService.NavigateTo(cm.AddPageKey.ToString());
             var entry = _folderRepository.CreateEntry(SelectedFolder, cm.ContentType);
             cm.SetEntryToViewModel(entry, CrudState.Add);
         });
 
         public ICommand EditFolderCommand => new LoadingRelayCommand<FolderModel>(c =>
         {
-            _navigationService.NavigateTo(Pages.EditFolder.ToString());
+            _navigationService.NavigateTo(PageKeys.EditFolder.ToString());
             SimpleIoc.Default.GetInstance<EditFolderViewModel>().SetFolder(c);
         });
 
@@ -68,7 +68,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             if (c.ContentType == ContentType.Webpage)
             {
-                _navigationService.NavigateTo(Pages.ViewWebpage.ToString());
+                _navigationService.NavigateTo(PageKeys.ViewWebpage.ToString());
                 SimpleIoc.Default.GetInstance<WebpageViewModel>().SetEntry(c, CrudState.View);
             }
         });
