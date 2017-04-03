@@ -7,7 +7,37 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <DataTemplate x:Key="ApiTraceDataTemplate">
+            <TextBlock Style="{StaticResource TraceTextBlock}" Text="{Binding FullDescription}" />
+        </DataTemplate>
+    </Page.Resources>
 
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Text="Help" Style="{StaticResource BigTexBlock}" />
+                <TextBlock Text="What is this application" Style="{StaticResource SecondaryBigTexBlock}" />
+                <TextBlock Text="This application provides a convenient way to store bookmarks and other simple things you want to remember. All entries are synced accross your devices, and are accessible with a password of your choosing" Style="{StaticResource ValueTextBlock}" />
+                <TextBlock Text="How secure is this" Style="{StaticResource SecondaryBigTexBlock}" />
+                <TextBlock Text="All connection is encrypted by SSL (the same way webpages do their encryption), the special fields of the entries are additionally encrypted by the password you chose" Style="{StaticResource ValueTextBlock}" />
+                
+                <TextBlock FontFamily="Segoe UI" Margin="10">
+                    <Run Text="made with &#x2661; by" />
+                    <Hyperlink NavigateUri="http://famoser.ch">
+                        <Run Text="famoser"/>
+                    </Hyperlink>
+                    <LineBreak />
+                    <Run Text="source code on" />
+                    <Hyperlink NavigateUri="https://github.com/famoser/Study" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                        <Run Text="github"/>
+                    </Hyperlink>
+                </TextBlock>
+                <Border BorderThickness="0,1,0,0" Grid.Row="3" BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <TextBlock Text="Synchronization info" FontFamily="Segoe UI" Margin="10" />
+                </Border>
+                <ListView Grid.Row="4" ItemContainerStyle="{StaticResource SmallStretchListViewItemStyle}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformations, Source={StaticResource Locator}}" />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

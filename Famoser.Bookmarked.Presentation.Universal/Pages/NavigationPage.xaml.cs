@@ -65,10 +65,5 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                 }
             }
         }
-
-        private void UIElement_OnTapped(object sender = null, TappedRoutedEventArgs e = null)
-        {
-            MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
-        }
     }
 }

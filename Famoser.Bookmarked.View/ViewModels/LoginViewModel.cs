@@ -102,6 +102,6 @@ namespace Famoser.Bookmarked.View.ViewModels
             }
         });
 
-        public ICommand HelpCommand => new LoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Help.ToString()));
+        public ICommand HelpCommand => new LoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
     }
 }

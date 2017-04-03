@@ -4,7 +4,7 @@
     {
         Login,
         Navigation,
-        Help,
+        Info,
 
         AddFolder,
         EditFolder,

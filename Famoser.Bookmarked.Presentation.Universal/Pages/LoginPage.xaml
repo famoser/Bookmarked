@@ -26,5 +26,12 @@
             </StackPanel>
         </Grid>
     </Grid>
-    
+
+    <Page.BottomAppBar>
+        <CommandBar >
+            <CommandBar.PrimaryCommands>
+                <AppBarButton IsCompact="True" Command="{Binding HelpCommand}" Icon="Help" Label="About" />
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
