@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.Storage;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Presentation.Universal.Entity;
 using Famoser.Bookmarked.Presentation.Universal.Pages;
@@ -23,6 +25,23 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             SimpleIoc.Default.Register<IStorageService>(() => new StorageService());
             SimpleIoc.Default.Register<INavigationService>(ConstructNavigationService);
             SimpleIoc.Default.Register<IInteractionService, InteractionService>();
+
+            //ClearAll();
+        }
+
+        private static async Task ClearAll()
+        {
+            var files = await ApplicationData.Current.LocalCacheFolder.GetFilesAsync();
+            foreach (var storageFile in files)
+            {
+                await storageFile.DeleteAsync();
+            }
+
+            files = await ApplicationData.Current.RoamingFolder.GetFilesAsync();
+            foreach (var storageFile in files)
+            {
+                await storageFile.DeleteAsync();
+            }
         }
 
         private static NavigationService ConstructNavigationService()
