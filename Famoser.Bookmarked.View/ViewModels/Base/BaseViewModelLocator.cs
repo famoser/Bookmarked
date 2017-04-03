@@ -3,7 +3,6 @@ using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Repositories.Mocks;
 using Famoser.Bookmarked.Business.Services;
 using Famoser.Bookmarked.Business.Services.Interfaces;
-using Famoser.Bookmarked.View.Mocks;
 using Famoser.Bookmarked.View.ViewModels.Entry;
 using Famoser.Bookmarked.View.ViewModels.Folder;
 using Famoser.SyncApi.Services.Interfaces;
@@ -16,18 +15,17 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
         static BaseViewModelLocator()
         {
             SimpleIoc.Default.Register<IApiService, ApiService>();
+            SimpleIoc.Default.Register<IApiTraceService, ApiViewModel>();
             SimpleIoc.Default.Register<IEncryptionService, EncryptionService>();
             SimpleIoc.Default.Register<IPasswordService, PasswordService>();
             SimpleIoc.Default.Register<ISimpleProgressService, ProgressViewModel>();
             if (IsInDesignModeStatic)
             {
                 SimpleIoc.Default.Register<IFolderRepository, MockFolderRepository>();
-                SimpleIoc.Default.Register<IApiTraceService, MockApiViewModel>();
             }
             else
             {
                 SimpleIoc.Default.Register<IFolderRepository, FolderRepository>();
-                SimpleIoc.Default.Register<IApiTraceService, ApiViewModel>();
             }
 
             SimpleIoc.Default.Register<NavigationViewModel>();

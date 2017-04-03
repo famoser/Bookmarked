@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -69,14 +70,14 @@ namespace Famoser.Bookmarked.Business.Repositories
             switch (notifyCollectionChangedEventArgs.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    AddEntries(notifyCollectionChangedEventArgs.NewItems as IList<EntryModel>);
+                    AddEntries(notifyCollectionChangedEventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    RemoveEntries(notifyCollectionChangedEventArgs.NewItems as IList<EntryModel>);
+                    RemoveEntries(notifyCollectionChangedEventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    RemoveEntries(notifyCollectionChangedEventArgs.OldItems as IList<EntryModel>);
-                    AddEntries(notifyCollectionChangedEventArgs.NewItems as IList<EntryModel>);
+                    RemoveEntries(notifyCollectionChangedEventArgs.OldItems);
+                    AddEntries(notifyCollectionChangedEventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     RemoveAllEntries();
@@ -85,11 +86,11 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        private void AddEntries(IList<EntryModel> entries)
+        private void AddEntries(IList entries)
         {
             foreach (var entry in entries)
             {
-                AddEntry(entry);
+                AddEntry(entry as EntryModel);
             }
         }
 
@@ -111,11 +112,11 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        private void RemoveEntries(IList<EntryModel> entries)
+        private void RemoveEntries(IList entries)
         {
             foreach (var entry in entries)
             {
-                RemoveEntry(entry);
+                RemoveEntry(entry as EntryModel);
             }
         }
 
@@ -143,14 +144,14 @@ namespace Famoser.Bookmarked.Business.Repositories
             switch (notifyCollectionChangedEventArgs.Action)
             {
                 case NotifyCollectionChangedAction.Add:
-                    AddFolders(notifyCollectionChangedEventArgs.NewItems as IList<FolderModel>);
+                    AddFolders(notifyCollectionChangedEventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    RemoveFolders(notifyCollectionChangedEventArgs.NewItems as IList<FolderModel>);
+                    RemoveFolders(notifyCollectionChangedEventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Replace:
-                    RemoveFolders(notifyCollectionChangedEventArgs.OldItems as IList<FolderModel>);
-                    AddFolders(notifyCollectionChangedEventArgs.NewItems as IList<FolderModel>);
+                    RemoveFolders(notifyCollectionChangedEventArgs.OldItems);
+                    AddFolders(notifyCollectionChangedEventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Reset:
                     RemoveAllFolders();
@@ -159,11 +160,11 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        private void AddFolders(IList<FolderModel> list)
+        private void AddFolders(IList list)
         {
             foreach (var folder in list)
             {
-                AddFolder(folder);
+                AddFolder(folder as FolderModel);
             }
         }
 
@@ -208,11 +209,11 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        private void RemoveFolders(IList<FolderModel> list)
+        private void RemoveFolders(IList list)
         {
             foreach (var folder in list)
             {
-                RemoveFolder(folder);
+                RemoveFolder(folder as FolderModel);
             }
         }
 

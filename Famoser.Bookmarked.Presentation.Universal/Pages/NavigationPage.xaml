@@ -89,6 +89,8 @@
     <Page.BottomAppBar>
         <CommandBar >
             <CommandBar.PrimaryCommands>
+                <AppBarButton IsCompact="True" Command="{Binding HelpCommand}" Icon="Help" Label="About" />
+                <AppBarButton IsCompact="True" Command="{Binding RefreshCommand}" Icon="Refresh" Label="Refresh" />
                 <AppBarButton IsCompact="True" Command="{Binding AddFolderCommand}" Icon="NewFolder" Label="New Folder" />
                 <AppBarButton IsCompact="True" Icon="Add" Label="New Entry" >
                     <AppBarButton.Flyout>
@@ -102,10 +104,6 @@
                     </AppBarButton.Flyout>
                 </AppBarButton>
             </CommandBar.PrimaryCommands>
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Command="{Binding RefreshCommand}" Icon="Refresh" Label="Refresh" />
-                <AppBarButton IsCompact="True" Icon="ShowResults" Label="More Info" Tapped="UIElement_OnTapped" />
-            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

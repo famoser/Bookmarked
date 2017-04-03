@@ -25,8 +25,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             SimpleIoc.Default.Register<IStorageService>(() => new StorageService());
             SimpleIoc.Default.Register<INavigationService>(ConstructNavigationService);
             SimpleIoc.Default.Register<IInteractionService, InteractionService>();
-
-            //ClearAll();
         }
 
         private static async Task ClearAll()
@@ -41,6 +39,12 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             foreach (var storageFile in files)
             {
                 await storageFile.DeleteAsync();
+            }
+
+            var folders = await ApplicationData.Current.RoamingFolder.GetFoldersAsync();
+            foreach (var storageFolder in folders)
+            {
+                await storageFolder.DeleteAsync();
             }
         }
 

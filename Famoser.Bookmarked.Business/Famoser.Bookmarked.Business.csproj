@@ -39,6 +39,7 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\DebugSyncModel.cs" />
     <Compile Include="Enum\ContentType.cs" />
     <Compile Include="Extensions\ObservableCollection.cs" />
     <Compile Include="Helper\StringDecoder.cs" />

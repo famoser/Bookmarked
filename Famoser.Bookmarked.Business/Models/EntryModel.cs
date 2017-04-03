@@ -1,4 +1,5 @@
-﻿using Famoser.Bookmarked.Business.Enum;
+﻿using System;
+using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models.Base;
 
 namespace Famoser.Bookmarked.Business.Models
@@ -8,7 +9,7 @@ namespace Famoser.Bookmarked.Business.Models
         /// <summary>
         /// make sure this model is constructed inside business
         /// </summary>
-        internal EntryModel()
+        public EntryModel()
         {
         }
 

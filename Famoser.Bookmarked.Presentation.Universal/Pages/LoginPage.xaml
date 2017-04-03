@@ -14,18 +14,17 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" VerticalAlignment="Center">
-            <StackPanel >
-                <TextBlock Visibility="{Binding PasswordUnlockFailed, Converter={StaticResource BoolToVisibilityConverter}}" Text="Das Password ist falsch" Style="{StaticResource BigTexBlock}" />
-                <TextBlock Visibility="{Binding IsFirstTime, Converter={StaticResource BoolToVisibilityConverter}}" Text="Willkommen! Wähle dein Passwort" Style="{StaticResource BigTexBlock}" />
-            </StackPanel>
+        <Grid Grid.Row="0" MaxWidth="300" VerticalAlignment="Center" Visibility="{Binding ShowMessage, Converter={StaticResource BoolToVisibilityConverter}}" >
+            <TextBlock Text="{Binding Message}" Style="{StaticResource BigTexBlock}" />
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" MaxWidth="300">
             <StackPanel>
                 <TextBlock Text="Passwort" Style="{StaticResource SecondaryBigTexBlock}" />
                 <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource PasswordBox}" />
-                <Button HorizontalAlignment="Center" Padding="50,10" Style="{StaticResource FlatButton}" Content="Login" Command="{Binding LoginCommand}"></Button>
+                <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Visibility="{Binding IsFirstTime, Converter={StaticResource BoolToVisibilityConverter}}"  Style="{StaticResource PasswordBox}" />
+                <Button HorizontalAlignment="Center" Padding="50,10" Style="{StaticResource FlatButton}" Content="Login" Command="{Binding LoginCommand}" />
             </StackPanel>
         </Grid>
     </Grid>
+    
 </Page>

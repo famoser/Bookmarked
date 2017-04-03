@@ -9,7 +9,7 @@ namespace Famoser.Bookmarked.Business.Models
         /// <summary>
         /// make sure this model is constructed inside business
         /// </summary>
-        internal FolderModel()
+        public FolderModel()
         {
         }
         

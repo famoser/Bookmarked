@@ -1,4 +1,5 @@
-﻿using Windows.Foundation.Metadata;
+﻿using System.Linq;
+using Windows.Foundation.Metadata;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;

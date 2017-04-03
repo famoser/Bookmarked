@@ -30,6 +30,11 @@ namespace Famoser.Bookmarked.View.ViewModels
         private async void InitializeAsync()
         {
             IsFirstTime = await _passwordService.CheckIsFirstTimeAsync();
+            if (IsFirstTime)
+            {
+                Message = "Welcome! Choose a password";
+                ShowMessage = true;
+            }
         }
 
         private string _password;
@@ -39,11 +44,25 @@ namespace Famoser.Bookmarked.View.ViewModels
             set { Set(ref _password, value); }
         }
 
-        private bool _passwordUnlockFailed;
-        public bool PasswordUnlockFailed
+        private string _confirmationPassword;
+        public string ConfirmationPassword
         {
-            get { return _passwordUnlockFailed; }
-            set { Set(ref _passwordUnlockFailed, value); }
+            get { return _confirmationPassword; }
+            set { Set(ref _confirmationPassword, value); }
+        }
+
+        private bool _showMessage;
+        public bool ShowMessage
+        {
+            get { return _showMessage; }
+            set { Set(ref _showMessage, value); }
+        }
+
+        private string _message;
+        public string Message
+        {
+            get { return _message; }
+            set { Set(ref _message, value); }
         }
 
         private bool _isFirstTime;
@@ -52,9 +71,25 @@ namespace Famoser.Bookmarked.View.ViewModels
             get { return _isFirstTime; }
             set { Set(ref _isFirstTime, value); }
         }
-        
+
+        private async void FlashMessage(string message)
+        {
+            Message = message;
+            ShowMessage = true;
+            await Task.Delay(TimeSpan.FromSeconds(2));
+            ShowMessage = false;
+        }
+
         public ICommand LoginCommand => new LoadingRelayCommand(async () =>
         {
+            if (IsFirstTime && Password != ConfirmationPassword)
+            {
+                FlashMessage("Passwords do not match");
+                Password = "";
+                ConfirmationPassword = "";
+                return;
+            }
+
             var hash = _interactionService.HashPassword(Password);
             if (await _passwordService.TryPasswordAsync(hash))
             {
@@ -63,10 +98,10 @@ namespace Famoser.Bookmarked.View.ViewModels
             }
             else
             {
-                PasswordUnlockFailed = true;
-                await Task.Delay(TimeSpan.FromSeconds(2));
-                PasswordUnlockFailed = false;
+                FlashMessage("Password wrong");
             }
         });
+
+        public ICommand HelpCommand => new LoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Help.ToString()));
     }
 }
