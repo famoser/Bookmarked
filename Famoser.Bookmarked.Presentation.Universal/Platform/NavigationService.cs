@@ -100,11 +100,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
                 var frame = (Frame)Window.Current.Content;
                 frame.Navigate(_pagesByKey[pageKey].Item1, _pagesByKey[pageKey].Item2);
 
-                if (removeCurrent)
-                    frame.BackStack.RemoveAt(frame.BackStack.Count - 1);
-
-                ConfigureBackButton();
-
+                //frame.BackStack.RemoveAt(frame.BackStack.Count - 1);
 
                 if (!removeCurrent)
                     //add go back action
@@ -120,6 +116,8 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
                             ConfigureBackButton();
                         }
                     });
+
+                ConfigureBackButton();
             }
         }
 

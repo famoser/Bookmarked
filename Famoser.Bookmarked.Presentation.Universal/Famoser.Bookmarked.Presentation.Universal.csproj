@@ -100,6 +100,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ByteToBitmapConverter.cs" />
     <Compile Include="Converters\UriToStringConverter.cs" />
     <Compile Include="Entity\NavigationParameter.cs" />
     <Compile Include="Pages\Entry\Common\Controls\EditEntry.xaml.cs">

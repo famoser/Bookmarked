@@ -15,35 +15,6 @@ namespace Famoser.Bookmarked.Business.Models.Entries
             set { Set(ref _webpageUrl, value); }
         }
 
-        private string _image;
-        public string Image
-        {
-            get { return _image; }
-            set { Set(ref _image, value); }
-        }
-
-        private byte[] _icon;
-        [JsonIgnore]
-        public byte[] Icon
-        {
-            get { return _icon; }
-            set { Set(ref _icon, value); }
-        }
-
-        [OnSerializing]
-        internal void OnSerializingMethod(StreamingContext context)
-        {
-            if (Icon != null)
-                Image = Convert.ToBase64String(Icon);
-        }
-
-        [OnDeserialized]
-        internal void OnDeserializedMethod(StreamingContext context)
-        {
-            if (Image != null)
-                Icon = Convert.FromBase64String(Image);
-        }
-
         public override ContentType GetContentType()
         {
             return ContentType.Webpage;

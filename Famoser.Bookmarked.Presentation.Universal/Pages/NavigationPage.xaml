@@ -4,15 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
     mc:Ignorable="d" Loaded="Page_Loaded"
     DataContext="{Binding NavigationViewModel, Source={StaticResource Locator}}">
 
     <Page.Resources>
-        <DataTemplate x:Key="WeekDayDataTemplate">
-            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <TextBlock Grid.Column="0" Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" />
-            </Grid>
-        </DataTemplate>
         <DataTemplate x:Key="FolderDataTemplate">
             <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
@@ -20,11 +16,24 @@
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="EntryDataTemplate">
-            <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
-                <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-                <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-            </StackPanel>
-        </DataTemplate>
+            <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Stretch="Uniform" Width="80">
+                    <Image.Source>
+                        <BitmapImage UriSource="{Binding IconUri}" />
+                    </Image.Source>
+                </Image>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                    <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                </StackPanel>
+
+            </Grid>
+            </DataTemplate>
         <DataTemplate x:Key="ContentTypeModelTemplate">
             <TextBlock Text="{Binding Name}" />
         </DataTemplate>

@@ -1,18 +1,13 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models.Base;
+using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Models
 {
     public class EntryModel : ParentModel
     {
-        /// <summary>
-        /// make sure this model is constructed inside business
-        /// </summary>
-        public EntryModel()
-        {
-        }
-
         private string _content;
         internal string Content
         {
@@ -25,6 +20,13 @@ namespace Famoser.Bookmarked.Business.Models
         {
             get { return _contentType; }
             set { Set(ref _contentType, value); }
+        }
+
+        private Uri _iconUri;
+        public Uri IconUri
+        {
+            get { return _iconUri; }
+            set { Set(ref _iconUri, value); }
         }
         
         #region SyncApi implementation

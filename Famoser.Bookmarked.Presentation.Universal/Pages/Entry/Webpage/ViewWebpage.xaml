@@ -10,10 +10,10 @@
 
     <StackPanel>
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
-        <TextBlock Style="{StaticResource ValueTextBlock}" >
-                        <Hyperlink NavigateUri="{Binding SelectedEntryContent.WebpageUrl}">
-                            <Run Text="open browser"/>
-                        </Hyperlink>
+        <TextBlock Style="{StaticResource ValueTextBlock}">
+            <Hyperlink NavigateUri="{Binding SelectedEntryContent.WebpageUrl}">
+                <Run Text="open browser"/>
+            </Hyperlink>
         </TextBlock>
     </StackPanel>
 </Page>

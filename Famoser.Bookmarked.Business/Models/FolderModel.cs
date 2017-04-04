@@ -6,14 +6,6 @@ namespace Famoser.Bookmarked.Business.Models
 {
     public class FolderModel : ParentModel
     {
-        /// <summary>
-        /// make sure this model is constructed inside business
-        /// </summary>
-        public FolderModel()
-        {
-        }
-        
-
         [JsonIgnore]
         public ObservableCollection<FolderModel> Folders { get; } = new ObservableCollection<FolderModel>();
         

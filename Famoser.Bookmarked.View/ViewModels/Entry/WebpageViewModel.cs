@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models.Entries;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Helper;
 using Famoser.Bookmarked.View.Model;
@@ -16,29 +17,16 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry
 {
     public class WebpageViewModel : EntryViewModel<WebpageModel>
     {
-        private readonly IFolderRepository _folderRepository;
-        private readonly INavigationService _navigationService;
-
-        public WebpageViewModel(IFolderRepository folderRepository, INavigationService navigationService) : base(folderRepository, navigationService)
+        public WebpageViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService) : base(folderRepository, navigationService, apiService)
         {
-            _folderRepository = folderRepository;
-            _navigationService = navigationService;
         }
 
         protected override async void SelectedEntryContentOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
+            base.SelectedEntryContentOnPropertyChanged(sender, propertyChangedEventArgs);
             if (propertyChangedEventArgs.PropertyName == ReflectionHelper.GetPropertyName(() => SelectedEntryContent.WebpageUrl))
             {
-                try
-                {
-                    var service = new HttpService();
-                    var resp = await service.DownloadAsync(new Uri(SelectedEntryContent.WebpageUrl, "favicon.ico"));
-                    SelectedEntryContent.Icon = await resp.GetResponseAsByteArrayAsync();
-                }
-                catch
-                {
-                    //swallow cause it does not really matter
-                }
+                await SetIconUri(SelectedEntryContent.WebpageUrl);
             }
         }
 

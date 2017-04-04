@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.Bookmarked.View.ViewModels.Interface;
+using Famoser.FrameworkEssentials.Services;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.FrameworkEssentials.View.Commands;
 
@@ -18,12 +22,14 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
     {
         private readonly IFolderRepository _folderRepository;
         private readonly INavigationService _navigationService;
+        private readonly IApiService _apiService;
         private readonly Stack<FolderModel> _folderHistory = new Stack<FolderModel>();
 
-        public EntryViewModel(IFolderRepository folderRepository, INavigationService navigationService)
+        public EntryViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService)
         {
             _folderRepository = folderRepository;
             _navigationService = navigationService;
+            _apiService = apiService;
         }
 
         public void SetEntry(EntryModel model, CrudState state)
@@ -123,5 +129,17 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
         });
 
         protected abstract ContentTypeModel GetContentTypeModel();
+
+        protected async Task SetIconUri(Uri uri)
+        {
+            try
+            {
+                SelectedEntry.IconUri = await _apiService.GetIconUriAsync(uri);
+            }
+            catch
+            {
+                //swallow cause it does not really matter
+            }
+        }
     }
 }

@@ -20,8 +20,8 @@
         <Grid Grid.Row="1" MaxWidth="300">
             <StackPanel>
                 <TextBlock Text="Passwort" Style="{StaticResource SecondaryBigTexBlock}" />
-                <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource PasswordBox}" />
-                <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Visibility="{Binding IsFirstTime, Converter={StaticResource BoolToVisibilityConverter}}"  Style="{StaticResource PasswordBox}" />
+                <PasswordBox x:Name="PasswordBox1" Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource PasswordBox}" KeyDown="PasswordBox_KeyDown"  />
+                <PasswordBox x:Name="PasswordBox2" Password="{Binding ConfirmationPassword, Mode=TwoWay}" Visibility="{Binding IsFirstTime, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource PasswordBox}" KeyDown="PasswordBox_KeyDown" />
                 <Button HorizontalAlignment="Center" Padding="50,10" Style="{StaticResource FlatButton}" Content="Login" Command="{Binding LoginCommand}" />
             </StackPanel>
         </Grid>
