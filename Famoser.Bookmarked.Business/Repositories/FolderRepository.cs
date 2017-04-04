@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Extensions;
 using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.Business.Models.Base;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
@@ -37,18 +39,19 @@ namespace Famoser.Bookmarked.Business.Repositories
             _passwordService = passwordService;
             _encryptionService = encryptionService;
 
-            _folderDic = new Dictionary<Guid, FolderModel>()
-            {
-                { _rootGuid, new FolderModel { Name = "root", Description = "the root folder" } },
-                {_garbageGuid, new FolderModel { Name = "garbage", Description = "the garbage collection" }},
-                {_parentNotFound, new FolderModel()}
-            };
+            _folderDic = new ConcurrentDictionary<Guid, FolderModel>();
+            _folderDic.TryAdd(_rootGuid, new FolderModel { Name = "root", Description = "the root folder" });
+            _folderDic.TryAdd(_garbageGuid, new FolderModel { Name = "garbage", Description = "the garbage collection" });
+            _folderDic.TryAdd(_parentNotFound, new FolderModel());
+            _folderDic[_rootGuid].SetId(_rootGuid);
+            _folderDic[_garbageGuid].SetId(_garbageGuid);
+            _folderDic[_parentNotFound].SetId(_parentNotFound);
         }
 
         private ObservableCollection<FolderModel> _folders;
         private ObservableCollection<EntryModel> _entries;
 
-        private readonly Dictionary<Guid, FolderModel> _folderDic;
+        private readonly ConcurrentDictionary<Guid, FolderModel> _folderDic;
 
         public FolderModel GetRootFolder()
         {
@@ -96,6 +99,9 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         private void AddEntry(EntryModel entry)
         {
+            if (!FixParentModel(entry))
+                return;
+
             if (entry.ParentIds.Contains(_garbageGuid))
             {
                 _folderDic[_garbageGuid].Entries.Add(entry);
@@ -112,6 +118,20 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
+        private bool FixParentModel(ParentModel entry)
+        {
+            if (entry == null)
+                return false;
+
+            if (entry.ParentIds.Contains(Guid.Empty))
+                entry.ParentIds.Remove(Guid.Empty);
+
+            if (entry.ParentIds.Count == 0)
+                entry.ParentIds.Add(_rootGuid);
+
+            return true;
+        }
+
         private void RemoveEntries(IList entries)
         {
             foreach (var entry in entries)
@@ -122,6 +142,9 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         private void RemoveEntry(EntryModel entry)
         {
+            if (entry == null)
+                return;
+
             foreach (var entryParentId in entry.ParentIds)
             {
                 if (_folderDic.ContainsKey(entryParentId) && _folderDic[entryParentId].Entries.Contains(entry))
@@ -170,9 +193,11 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         private void AddFolder(FolderModel folder)
         {
-
+            if (!FixParentModel(folder))
+                return;
+            
             //put it into lookup
-            _folderDic[folder.GetId()] = folder;
+            _folderDic.AddOrUpdate(folder.GetId(), folder, (guid, model) => model);
 
             //add itself to parents
             if (folder.ParentIds.Contains(_garbageGuid))
@@ -219,6 +244,9 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         private void RemoveFolder(FolderModel model)
         {
+            if (model == null)
+                return;
+
             model.Entries.Clear();
             model.Folders.Clear();
             foreach (var modelParentId in model.ParentIds)
@@ -239,7 +267,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             //remove key
             foreach (var key in _folderDic.Keys.Where(k => k != _garbageGuid && k != _parentNotFound && k != _rootGuid).ToList())
             {
-                _folderDic.Remove(key);
+                _folderDic.TryRemove(key, out var folder);
             }
         }
 

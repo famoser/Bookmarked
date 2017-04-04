@@ -63,7 +63,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             _navigationService.NavigateTo(PageKeys.EditFolder.ToString());
             SimpleIoc.Default.GetInstance<EditFolderViewModel>().SetFolder(c);
-        });
+        }, (c) => c?.ParentIds?.Count != 0);
 
         public ICommand SelectEntryCommand => new LoadingRelayCommand<EntryModel>(c =>
         {
