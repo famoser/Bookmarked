@@ -16,9 +16,12 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return true;
         }
 
-        public FolderModel GetRootFolder()
+        private FolderModel CreateFolder(string name, string description)
         {
-            var rf = new FolderModel();
+            var rf = new FolderModel()
+            {
+                Name = name, Description = description
+            };
             var nf = new FolderModel();
             rf.Folders.Add(nf);
             nf.Name = "my stuff";
@@ -43,6 +46,10 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             };
             rf.Entries.Add(ne);
             return rf;
+        }
+        public FolderModel GetRootFolder()
+        {
+            return CreateFolder("root", "this is the root folder");
         }
 
         public async Task<bool> SaveFolderAsync(FolderModel folderModel)
@@ -106,6 +113,11 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
         public async Task<bool> RemoveEntryAsync(EntryModel entryModel)
         {
             return true;
+        }
+
+        public FolderModel GetGarbageFolder()
+        {
+            return CreateFolder("garbage", "this is the garbage folder");
         }
     }
 }

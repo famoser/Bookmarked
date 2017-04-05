@@ -8,6 +8,7 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
     public interface IFolderRepository
     {
         FolderModel GetRootFolder();
+        FolderModel GetGarbageFolder();
 
         Task<bool> SyncAsnyc();
 

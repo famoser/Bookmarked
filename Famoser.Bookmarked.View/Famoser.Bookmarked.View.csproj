@@ -58,6 +58,7 @@
     <Compile Include="ViewModels\Entry\WebpageViewModel.cs" />
     <Compile Include="ViewModels\Interface\IEntryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\GarbageViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\Folder\Base\FolderViewModel.cs" />
     <Compile Include="ViewModels\Folder\EditFolderViewModel.cs" />

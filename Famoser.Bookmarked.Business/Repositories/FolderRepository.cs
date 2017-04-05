@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -55,6 +54,18 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         public FolderModel GetRootFolder()
         {
+            EnsureInitialized();
+            return _folderDic[_rootGuid];
+        }
+
+        public FolderModel GetGarbageFolder()
+        {
+            EnsureInitialized();
+            return _folderDic[_garbageGuid];
+        }
+
+        private void EnsureInitialized()
+        {
             lock (this)
             {
                 if (_folders == null)
@@ -65,7 +76,6 @@ namespace Famoser.Bookmarked.Business.Repositories
                     _entries.CollectionChanged += EntriesOnCollectionChanged;
                 }
             }
-            return _folderDic[_rootGuid];
         }
 
         private void EntriesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
@@ -195,7 +205,7 @@ namespace Famoser.Bookmarked.Business.Repositories
         {
             if (!FixParentModel(folder))
                 return;
-            
+
             //put it into lookup
             _folderDic.AddOrUpdate(folder.GetId(), folder, (guid, model) => model);
 
@@ -341,7 +351,7 @@ namespace Famoser.Bookmarked.Business.Repositories
         public Task<bool> MoveEntryOutOfGarbageAsync(EntryModel entryModel)
         {
             if (entryModel.ParentIds.Contains(_garbageGuid))
-                entryModel.ParentIds.Add(_garbageGuid);
+                entryModel.ParentIds.Remove(_garbageGuid);
             RemoveEntry(entryModel);
             AddEntry(entryModel);
             return _entryRepository.SaveAsync(entryModel);
@@ -376,10 +386,27 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        public Task<bool> RemoveFolderAsync(FolderModel folderModel)
+        public async Task<bool> RemoveFolderAsync(FolderModel folderModel)
         {
             RemoveFolder(folderModel);
-            return _folderRepository.RemoveAsync(folderModel);
+            //removing parent ids
+            foreach (var entryModel in _entries)
+            {
+                if (entryModel.ParentIds.Contains(folderModel.GetId()))
+                {
+                    entryModel.ParentIds.Remove(folderModel.GetId());
+                    await _entryRepository.SaveAsync(entryModel);
+                }
+            }
+            foreach (var folder in _folders)
+            {
+                if (folder.ParentIds.Contains(folderModel.GetId()))
+                {
+                    folder.ParentIds.Remove(folderModel.GetId());
+                    await _folderRepository.SaveAsync(folder);
+                }
+            }
+            return await _folderRepository.RemoveAsync(folderModel);
         }
 
         public Task<bool> RemoveEntryAsync(EntryModel entryModel)

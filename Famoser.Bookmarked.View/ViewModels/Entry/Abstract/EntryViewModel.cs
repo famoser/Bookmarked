@@ -25,7 +25,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
         private readonly IApiService _apiService;
         private readonly Stack<FolderModel> _folderHistory = new Stack<FolderModel>();
 
-        public EntryViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService)
+        protected EntryViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService)
         {
             _folderRepository = folderRepository;
             _navigationService = navigationService;

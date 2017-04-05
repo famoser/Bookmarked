@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Runtime.Serialization;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models.Base;
-using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Models
 {

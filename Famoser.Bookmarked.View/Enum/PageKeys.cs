@@ -5,6 +5,7 @@
         Login,
         Navigation,
         Info,
+        Garbage,
 
         AddFolder,
         EditFolder,

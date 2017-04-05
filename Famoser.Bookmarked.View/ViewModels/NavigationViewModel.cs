@@ -37,6 +37,7 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public ICommand RefreshCommand => new LoadingRelayCommand(() => _folderRepository.SyncAsnyc());
         public ICommand HelpCommand => new LoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
+        public ICommand GarbageCommand => new LoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Garbage.ToString()));
 
         public ICommand SelectFolderCommand => new LoadingRelayCommand<FolderModel>(c =>
         {
