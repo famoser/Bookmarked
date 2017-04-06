@@ -11,20 +11,27 @@
     <Page.Resources>
         <DataTemplate x:Key="FolderDataTemplate">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
                 <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                     <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                     <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                 </StackPanel>
-                <Button Grid.Column="1" Command="{Binding GarbageViewModel.RecoverFolderCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }" Style="{StaticResource FlatButton}" >
-                    <Button.Content>
-                        <SymbolIcon Symbol="Delete" Style="{StaticResource FlatSymbolIcon}" />
-                    </Button.Content>
-                </Button>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource FlatButton}" VerticalAlignment="Bottom">
+                        <Button.Content>
+                            <SymbolIcon Symbol="Delete" Style="{StaticResource FlatSymbolIcon}" />
+                        </Button.Content>
+                        <Button.Flyout>
+                            <Flyout>
+                                <Button Content="are you sure?" Command="{Binding GarbageViewModel.RemoveFolderCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }" ></Button>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button Style="{StaticResource FlatButton}" Command="{Binding GarbageViewModel.RecoverFolderCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }" VerticalAlignment="Bottom">
+                        <Button.Content>
+                            <SymbolIcon Symbol="Add" Style="{StaticResource FlatSymbolIcon}" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="EntryDataTemplate">
@@ -44,6 +51,23 @@
                     <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                 </StackPanel>
 
+                <StackPanel Grid.ColumnSpan="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource FlatButton}" VerticalAlignment="Bottom">
+                        <Button.Content>
+                            <SymbolIcon Symbol="Delete" Style="{StaticResource FlatSymbolIcon}" />
+                        </Button.Content>
+                        <Button.Flyout>
+                            <Flyout>
+                                <Button Content="are you sure?" Command="{Binding GarbageViewModel.RemoveEntryCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }" ></Button>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button Style="{StaticResource FlatButton}" Command="{Binding GarbageViewModel.RecoverEntryCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }" VerticalAlignment="Bottom">
+                        <Button.Content>
+                            <SymbolIcon Symbol="Add" Style="{StaticResource FlatSymbolIcon}" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
             </Grid>
         </DataTemplate>
     </Page.Resources>
