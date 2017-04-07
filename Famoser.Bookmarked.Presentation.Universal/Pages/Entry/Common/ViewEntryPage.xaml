@@ -19,7 +19,7 @@
             <TextBlock Grid.Row="0" Text="{Binding SelectedEntry.Name}" Style="{StaticResource BigTexBlock}" />
             <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
             <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
-                <StackPanel Margin="10,0">
+                <StackPanel>
                     <controls:ViewEntry DataContext="{Binding SelectedEntry}" />
                     <Frame x:Name="EntryFrame" />
                 </StackPanel>

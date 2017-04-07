@@ -18,10 +18,10 @@
             </Grid.RowDefinitions>
             <TextBlock x:Name="Title" Grid.Row="0" Text="Edit " Style="{StaticResource BigTexBlock}" />
             <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
-                <StackPanel Margin="10,0">
+                <StackPanels>
                     <controls:EditEntry DataContext="{Binding SelectedEntry}" />
                     <Frame x:Name="EntryFrame" />
-                </StackPanel>
+                </StackPanels>
             </ScrollViewer>
         </Grid>
     </Grid>

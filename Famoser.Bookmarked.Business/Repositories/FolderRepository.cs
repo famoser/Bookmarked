@@ -6,7 +6,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Enum;
-using Famoser.Bookmarked.Business.Extensions;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Base;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
@@ -21,16 +20,26 @@ namespace Famoser.Bookmarked.Business.Repositories
 {
     public class FolderRepository : IFolderRepository
     {
+        //repositories
         private readonly IApiRepository<FolderModel, CollectionModel> _folderRepository;
         private readonly IApiRepository<EntryModel, CollectionModel> _entryRepository;
 
+        //repository output
+        private ObservableCollection<FolderModel> _folders;
+        private ObservableCollection<EntryModel> _entries;
+
+        //lookup
+        private readonly ConcurrentDictionary<Guid, FolderModel> _folderDic;
+
+        //services
         private readonly IPasswordService _passwordService;
         private readonly IEncryptionService _encryptionService;
 
+        //fixed folders
         private readonly Guid _rootGuid = Guid.Parse("2c9cb460-0be3-4612-a411-810371268c9a");
         private readonly Guid _garbageGuid = Guid.Parse("8979801a-c64c-43ad-928c-36f4ff3b6bc0");
         private readonly Guid _parentNotFound = Guid.Parse("b8b6e207-1d54-4498-82fe-81b53faab710");
-
+        
         public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService)
         {
             _folderRepository = apiService.ResolveRepository<FolderModel>();
@@ -46,11 +55,6 @@ namespace Famoser.Bookmarked.Business.Repositories
             _folderDic[_garbageGuid].SetId(_garbageGuid);
             _folderDic[_parentNotFound].SetId(_parentNotFound);
         }
-
-        private ObservableCollection<FolderModel> _folders;
-        private ObservableCollection<EntryModel> _entries;
-
-        private readonly ConcurrentDictionary<Guid, FolderModel> _folderDic;
 
         public FolderModel GetRootFolder()
         {
@@ -314,7 +318,6 @@ namespace Famoser.Bookmarked.Business.Repositories
         public FolderModel CreateFolder(FolderModel parentFolderModel)
         {
             var entry = new FolderModel { };
-            parentFolderModel.Folders.AddUniqueSorted(entry);
             entry.ParentIds.Add(parentFolderModel.GetId());
             return entry;
         }
@@ -360,7 +363,6 @@ namespace Famoser.Bookmarked.Business.Repositories
         public EntryModel CreateEntry(FolderModel parentFolderModel, ContentType type)
         {
             var entry = new EntryModel { ContentType = type };
-            parentFolderModel.Entries.AddUniqueSorted(entry);
             entry.ParentIds.Add(parentFolderModel.GetId());
             return entry;
         }
@@ -388,7 +390,6 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         public async Task<bool> RemoveFolderAsync(FolderModel folderModel)
         {
-            RemoveFolder(folderModel);
             //removing parent ids
             foreach (var entryModel in _entries)
             {
@@ -411,7 +412,6 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         public Task<bool> RemoveEntryAsync(EntryModel entryModel)
         {
-            RemoveEntry(entryModel);
             return _entryRepository.RemoveAsync(entryModel);
         }
     }
