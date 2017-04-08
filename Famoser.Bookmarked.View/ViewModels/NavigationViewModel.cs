@@ -53,6 +53,11 @@ namespace Famoser.Bookmarked.View.ViewModels
             SimpleIoc.Default.GetInstance<AddFolderViewModel>().SetFolder(folder);
         });
 
+        public ICommand FindCommand => new LoadingRelayCommand(() =>
+        {
+            _navigationService.NavigateTo(PageKeys.Search.ToString());
+        });
+
         public ICommand AddContentTypeCommand => new LoadingRelayCommand<ContentTypeModel>((cm) =>
         {
             _navigationService.NavigateTo(cm.AddPageKey.ToString());

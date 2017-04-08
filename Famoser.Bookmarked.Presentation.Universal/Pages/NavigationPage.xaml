@@ -74,6 +74,7 @@
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
+                <AppBarButton IsCompact="True" Command="{Binding FindCommand}" Icon="Find" Label="Find" />
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
                 <AppBarButton IsCompact="True" Command="{Binding HelpCommand}" Icon="Help" Label="About" />

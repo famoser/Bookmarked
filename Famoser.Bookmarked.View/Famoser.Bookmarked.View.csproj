@@ -56,6 +56,7 @@
     <Compile Include="ViewModels\Base\BaseViewModelLocator.cs" />
     <Compile Include="ViewModels\Entry\Abstract\EntryViewModel.cs" />
     <Compile Include="ViewModels\Entry\WebpageViewModel.cs" />
+    <Compile Include="ViewModels\FindViewModel.cs" />
     <Compile Include="ViewModels\Interface\IEntryViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\GarbageViewModel.cs" />
