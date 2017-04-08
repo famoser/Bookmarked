@@ -1,13 +1,5 @@
-﻿using System.Linq;
-using Windows.Foundation.Metadata;
-using Windows.Security.Cryptography;
-using Windows.Security.Cryptography.Core;
-using Windows.Storage.Streams;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.ViewModels;

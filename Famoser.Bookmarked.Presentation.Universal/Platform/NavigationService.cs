@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Famoser.Bookmarked.Presentation.Universal.Entity;
-using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage;
+using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Services.Interfaces;
-using Famoser.FrameworkEssentials.View.Interfaces;
-using AddEntryPage = Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.AddEntryPage;
-using EditEntryPage = Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.EditEntryPage;
-using ViewEntryPage = Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.ViewEntryPage;
 
 namespace Famoser.Bookmarked.Presentation.Universal.Platform
 {
