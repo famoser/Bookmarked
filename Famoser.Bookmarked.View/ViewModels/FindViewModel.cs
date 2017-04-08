@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 
@@ -25,14 +27,16 @@ namespace Famoser.Bookmarked.View.ViewModels
             {
                 if (Set(ref _searchTerm, value))
                 {
-                    SearchItems();
+                    SearchResults = _folderRepository.SearchEntry(SearchTerm);
                 }
             }
         }
 
-        private async void SearchItems()
+        private ObservableCollection<EntryModel> _searchResults;
+        public ObservableCollection<EntryModel> SearchResults
         {
-
+            get { return _searchResults; }
+            set { Set(ref _searchResults, value); }
         }
     }
 }

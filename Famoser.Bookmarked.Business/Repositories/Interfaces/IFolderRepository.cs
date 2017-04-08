@@ -27,7 +27,6 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
         EntryModel CreateEntry(FolderModel parentFolderModel, ContentType type);
         Task<bool> RemoveEntryAsync(EntryModel entryModel);
 
-        Task SearchEntry(CancellationToken token, string searchTerm, ObservableCollection<FolderModel> lastModels = null,
-            ObservableCollection<EntryModel> lastEntries = null);
+        ObservableCollection<EntryModel> SearchEntry(string searchTerm);
     }
 }

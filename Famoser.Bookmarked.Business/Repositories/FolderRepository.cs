@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
@@ -39,7 +40,7 @@ namespace Famoser.Bookmarked.Business.Repositories
         private readonly Guid _rootGuid = Guid.Parse("2c9cb460-0be3-4612-a411-810371268c9a");
         private readonly Guid _garbageGuid = Guid.Parse("8979801a-c64c-43ad-928c-36f4ff3b6bc0");
         private readonly Guid _parentNotFound = Guid.Parse("b8b6e207-1d54-4498-82fe-81b53faab710");
-        
+
         public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService)
         {
             _folderRepository = apiService.ResolveRepository<FolderModel>();
@@ -413,6 +414,15 @@ namespace Famoser.Bookmarked.Business.Repositories
         public Task<bool> RemoveEntryAsync(EntryModel entryModel)
         {
             return _entryRepository.RemoveAsync(entryModel);
+        }
+
+        public ObservableCollection<EntryModel> SearchEntry(string searchTerm)
+        {
+            if (searchTerm.Length < 3)
+            {
+                return new ObservableCollection<EntryModel>();
+            }
+            return new ObservableCollection<EntryModel>(_entries.Where(e => e.Name.Contains(searchTerm)));
         }
     }
 }

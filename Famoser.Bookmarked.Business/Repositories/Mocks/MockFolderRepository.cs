@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
@@ -118,6 +119,11 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
         public FolderModel GetGarbageFolder()
         {
             return CreateFolder("garbage", "this is the garbage folder");
+        }
+
+        public ObservableCollection<EntryModel> SearchEntry(string searchTerm)
+        {
+            return GetRootFolder().Entries;
         }
     }
 }

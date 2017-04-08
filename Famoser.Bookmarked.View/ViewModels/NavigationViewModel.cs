@@ -75,6 +75,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             if (c.ContentType == ContentType.Webpage)
             {
+                //todo: refactor to use the contenthelper
                 _navigationService.NavigateTo(PageKeys.ViewWebpage.ToString());
                 SimpleIoc.Default.GetInstance<WebpageViewModel>().SetEntry(c, CrudState.View);
             }
