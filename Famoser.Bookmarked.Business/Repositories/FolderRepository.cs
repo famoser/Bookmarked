@@ -4,7 +4,6 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
@@ -35,18 +34,20 @@ namespace Famoser.Bookmarked.Business.Repositories
         //services
         private readonly IPasswordService _passwordService;
         private readonly IEncryptionService _encryptionService;
+        private readonly IViewService _viewService;
 
         //fixed folders
         private readonly Guid _rootGuid = Guid.Parse("2c9cb460-0be3-4612-a411-810371268c9a");
         private readonly Guid _garbageGuid = Guid.Parse("8979801a-c64c-43ad-928c-36f4ff3b6bc0");
         private readonly Guid _parentNotFound = Guid.Parse("b8b6e207-1d54-4498-82fe-81b53faab710");
 
-        public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService)
+        public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService, IViewService viewService)
         {
             _folderRepository = apiService.ResolveRepository<FolderModel>();
             _entryRepository = apiService.ResolveRepository<EntryModel>();
             _passwordService = passwordService;
             _encryptionService = encryptionService;
+            _viewService = viewService;
 
             _folderDic = new ConcurrentDictionary<Guid, FolderModel>();
             _folderDic.TryAdd(_rootGuid, new FolderModel { Name = "root", Description = "the root folder" });
@@ -76,14 +77,14 @@ namespace Famoser.Bookmarked.Business.Repositories
                 if (_folders == null)
                 {
                     _folders = _folderRepository.GetAllLazy();
-                    _folders.CollectionChanged += FoldersOnCollectionChanged;
+                    _folders.CollectionChanged += (s, e) => _viewService.CheckBeginInvokeOnUi(() => FoldersOnCollectionChanged(e));
                     _entries = _entryRepository.GetAllLazy();
-                    _entries.CollectionChanged += EntriesOnCollectionChanged;
+                    _entries.CollectionChanged += (s,e) => _viewService.CheckBeginInvokeOnUi(() => EntriesOnCollectionChanged(e));
                 }
             }
         }
 
-        private void EntriesOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        private void EntriesOnCollectionChanged(NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
             switch (notifyCollectionChangedEventArgs.Action)
             {
@@ -177,7 +178,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        private void FoldersOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
+        private void FoldersOnCollectionChanged(NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
         {
             switch (notifyCollectionChangedEventArgs.Action)
             {
@@ -318,7 +319,7 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         public FolderModel CreateFolder(FolderModel parentFolderModel)
         {
-            var entry = new FolderModel { };
+            var entry = new FolderModel();
             entry.ParentIds.Add(parentFolderModel.GetId());
             return entry;
         }
