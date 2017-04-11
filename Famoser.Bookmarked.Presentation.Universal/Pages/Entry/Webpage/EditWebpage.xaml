@@ -15,6 +15,6 @@
 
     <StackPanel>
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.WebpageUrl, Mode=TwoWay, Converter={StaticResource UriToStringConverter}}" />
+        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.WebpageUrl, Mode=TwoWay, Converter={StaticResource UriToStringConverter}, UpdateSourceTrigger=PropertyChanged}" />
     </StackPanel>
 </Page>
