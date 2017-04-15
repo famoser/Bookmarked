@@ -17,7 +17,10 @@ namespace Famoser.Bookmarked.View.Helper
         {
             var list = new List<ContentTypeModel>
             {
-                WebpageContentTypeModel
+                WebpageContentTypeModel,
+                NoteContentTypeModel,
+                OnlineAccountContentTypeModel,
+                CreditCardContentTypeModel
             };
             return list;
         }
@@ -39,7 +42,7 @@ namespace Famoser.Bookmarked.View.Helper
             AddPageKey = PageKeys.AddOnlineAccount,
             EditPageKey = PageKeys.EditOnlineAccount,
             ViewPageKey = PageKeys.ViewOnlineAccount,
-            ViewModelType = typeof(WebpageViewModel)
+            ViewModelType = typeof(OnlineAccountViewModel)
         };
 
         private static readonly ContentTypeModel NoteContentTypeModel = new ContentTypeModel()
@@ -49,17 +52,17 @@ namespace Famoser.Bookmarked.View.Helper
             AddPageKey = PageKeys.AddNote,
             EditPageKey = PageKeys.EditNote,
             ViewPageKey = PageKeys.ViewNote,
-            ViewModelType = typeof(WebpageViewModel)
+            ViewModelType = typeof(NoteViewModel)
         };
 
         private static readonly ContentTypeModel CreditCardContentTypeModel = new ContentTypeModel()
         {
-            Name = "Webpage",
+            Name = "Credit Card",
             ContentType = ContentType.CreditCard,
             AddPageKey = PageKeys.AddCreditCard,
             EditPageKey = PageKeys.EditCreditCard,
             ViewPageKey = PageKeys.ViewCreditCard,
-            ViewModelType = typeof(WebpageViewModel)
+            ViewModelType = typeof(CreditCardViewModel)
         };
 
         public static ContentTypeModel GetWebpageContentTypeModel()

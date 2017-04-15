@@ -5,6 +5,7 @@ using Windows.Storage;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Presentation.Universal.Entity;
 using Famoser.Bookmarked.Presentation.Universal.Pages;
+using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.OnlineAccount;
 using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage;
 using Famoser.Bookmarked.Presentation.Universal.Pages.Folder;
 using Famoser.Bookmarked.Presentation.Universal.Platform;
@@ -64,7 +65,10 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             //entry lookup (connects entries with their View & Edit frame)
             var lookup = new Dictionary<ContentType, Tuple<Type, Type>>()
             {
-                {ContentType.Webpage, new Tuple<Type, Type>(typeof(ViewWebpage), typeof(EditWebpage))}
+                {ContentType.Webpage, new Tuple<Type, Type>(typeof(ViewWebpage), typeof(EditWebpage))},
+                {ContentType.Note, new Tuple<Type, Type>(typeof(ViewNote), typeof(EditNote))},
+                {ContentType.CreditCard, new Tuple<Type, Type>(typeof(ViewCreditCard), typeof(EditCreditCard))},
+                {ContentType.OnlineAccount, new Tuple<Type, Type>(typeof(ViewOnlineAccount), typeof(EditOnlineAccount))}
             };
 
             //add pages of entries

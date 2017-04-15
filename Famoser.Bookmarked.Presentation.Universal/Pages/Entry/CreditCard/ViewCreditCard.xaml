@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Entry.OnlineAccount.ViewCreditCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{Binding CreditCardViewModel, Source={StaticResource Locator}}">
+
+    <StackPanel>
+        <local:ViewWebpage DataContext="{Binding }" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="cardholder name" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.CardholderName}" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="number" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.Number}" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="verification number" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.VerificationNumber}" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="pin" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.Pin}" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="expiry date" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.ExpiryDate}" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.IssuingBank}" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank number" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.IssuingBankNumber}" />
+    </StackPanel>
+</Page>

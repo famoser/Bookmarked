@@ -6,14 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
+    DataContext="{Binding OnlineAccountViewModel, Source={StaticResource Locator}}">
 
     <StackPanel>
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
-        <TextBlock Style="{StaticResource ValueTextBlock}">
-            <Hyperlink NavigateUri="{Binding SelectedEntryContent.WebpageUrl}">
-                <Run Text="open browser"/>
-            </Hyperlink>
-        </TextBlock>
+        <local:ViewWebpage DataContext="{Binding }" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="username" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.UserName}" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="password" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.Password}" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="email" /> 
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.Email}" />
     </StackPanel>
 </Page>

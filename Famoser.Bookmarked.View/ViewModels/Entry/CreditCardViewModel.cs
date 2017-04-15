@@ -16,7 +16,7 @@ using GalaSoft.MvvmLight.Ioc;
 
 namespace Famoser.Bookmarked.View.ViewModels.Entry
 {
-    public class CreditCardViewModel : WithUrlViewModel<WebpageModel>
+    public class CreditCardViewModel : WithUrlViewModel<CreditCardModel>
     {
         public CreditCardViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService) : base(folderRepository, navigationService, apiService)
         {

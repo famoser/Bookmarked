@@ -14,9 +14,15 @@
     </Page.Resources>
 
     <StackPanel>
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.WebpageUrl, Mode=TwoWay, Converter={StaticResource UriToStringConverter}, UpdateSourceTrigger=PropertyChanged}" />
-
         <local:EditWebpage DataContext="{Binding }" />
+
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="username" />
+        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="password" />
+        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="email" />
+        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
     </StackPanel>
 </Page>

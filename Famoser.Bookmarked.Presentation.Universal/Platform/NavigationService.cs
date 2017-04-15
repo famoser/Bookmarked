@@ -147,8 +147,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
         {
             if (_pagesByKey.ContainsKey(key))
                 throw new ArgumentException("This key is already used: " + key);
-            if (_pagesByKey.Any(p => p.Value.Item1 == pageType))
-                throw new ArgumentException("This type is already configured with key " + _pagesByKey.First(p => p.Value.Item1 == pageType).Key);
             while (!_pagesByKey.TryAdd(key, new Tuple<Type, object>(pageType, navigationParameter))) ;
         }
     }

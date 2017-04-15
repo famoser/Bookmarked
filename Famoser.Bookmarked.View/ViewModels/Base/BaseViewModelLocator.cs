@@ -31,14 +31,19 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
                 SimpleIoc.Default.Register<IFolderRepository, FolderRepository>();
             }
 
-            SimpleIoc.Default.Register<NavigationViewModel>();
             SimpleIoc.Default.Register<AddFolderViewModel>();
             SimpleIoc.Default.Register<EditFolderViewModel>();
             SimpleIoc.Default.Register<ViewFolderViewModel>();
-            SimpleIoc.Default.Register<WebpageViewModel>();
+
             SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<NavigationViewModel>();
             SimpleIoc.Default.Register<GarbageViewModel>();
             SimpleIoc.Default.Register<FindViewModel>();
+
+            SimpleIoc.Default.Register<WebpageViewModel>();
+            SimpleIoc.Default.Register<NoteViewModel>();
+            SimpleIoc.Default.Register<CreditCardViewModel>();
+            SimpleIoc.Default.Register<OnlineAccountViewModel>();
         }
 
 

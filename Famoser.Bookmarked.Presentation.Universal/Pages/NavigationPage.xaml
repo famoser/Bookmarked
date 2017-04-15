@@ -35,7 +35,7 @@
             </Grid>
             </DataTemplate>
         <DataTemplate x:Key="ContentTypeModelTemplate">
-            <TextBlock Text="{Binding Name}" />
+            <TextBlock Text="{Binding Name}" Padding="5" />
         </DataTemplate>
     </Page.Resources>
 

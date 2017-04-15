@@ -16,7 +16,7 @@ using GalaSoft.MvvmLight.Ioc;
 
 namespace Famoser.Bookmarked.View.ViewModels.Entry
 {
-    public class OnlineAccountViewModel : WithUrlViewModel<WebpageModel>
+    public class OnlineAccountViewModel : WithUrlViewModel<OnlineAccountModel>
     {
         public OnlineAccountViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService) : base(folderRepository, navigationService, apiService)
         {
