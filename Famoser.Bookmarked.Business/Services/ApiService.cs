@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Famoser.Bookmarked.Business.Entitiy;
+using Famoser.Bookmarked.Business.Entity;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.FrameworkEssentials.Logging;
 using Famoser.FrameworkEssentials.Services;

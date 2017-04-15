@@ -16,15 +16,15 @@ using GalaSoft.MvvmLight.Ioc;
 
 namespace Famoser.Bookmarked.View.ViewModels.Entry
 {
-    public class WebpageViewModel : WithUrlViewModel<WebpageModel>
+    public class CreditCardViewModel : WithUrlViewModel<WebpageModel>
     {
-        public WebpageViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService) : base(folderRepository, navigationService, apiService)
+        public CreditCardViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService) : base(folderRepository, navigationService, apiService)
         {
         }
-        
+
         protected override ContentTypeModel GetContentTypeModel()
         {
-            return ContentHelper.GetWebpageContentTypeModel();
+            return ContentHelper.GetCreditCardContentTypeModel();
         }
     }
 }

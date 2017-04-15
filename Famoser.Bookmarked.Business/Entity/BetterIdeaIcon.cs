@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Famoser.Bookmarked.Business.Entitiy
+namespace Famoser.Bookmarked.Business.Entity
 {
     internal class BetterIdeaIcon
     {

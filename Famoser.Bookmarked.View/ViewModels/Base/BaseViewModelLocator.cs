@@ -43,14 +43,20 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
 
 
         public AddFolderViewModel AddFolderViewModel => SimpleIoc.Default.GetInstance<AddFolderViewModel>();
+        public EditFolderViewModel EditFolderViewModel => SimpleIoc.Default.GetInstance<EditFolderViewModel>();
+        public ViewFolderViewModel ViewFolderViewModel => SimpleIoc.Default.GetInstance<ViewFolderViewModel>();
+
+        public LoginViewModel LoginViewModel => SimpleIoc.Default.GetInstance<LoginViewModel>();
         public NavigationViewModel NavigationViewModel => SimpleIoc.Default.GetInstance<NavigationViewModel>();
         public GarbageViewModel GarbageViewModel => SimpleIoc.Default.GetInstance<GarbageViewModel>();
         public FindViewModel FindViewModel => SimpleIoc.Default.GetInstance<FindViewModel>();
-        public EditFolderViewModel EditFolderViewModel => SimpleIoc.Default.GetInstance<EditFolderViewModel>();
-        public ViewFolderViewModel ViewFolderViewModel => SimpleIoc.Default.GetInstance<ViewFolderViewModel>();
-        public WebpageViewModel WebpageViewModel => SimpleIoc.Default.GetInstance<WebpageViewModel>();
-        public LoginViewModel LoginViewModel => SimpleIoc.Default.GetInstance<LoginViewModel>();
+
         public ProgressViewModel ProgressViewModel => SimpleIoc.Default.GetInstance<ISimpleProgressService>() as ProgressViewModel;
         public ApiViewModel ApiViewModel => SimpleIoc.Default.GetInstance<IApiTraceService>() as ApiViewModel;
+
+        public WebpageViewModel WebpageViewModel => SimpleIoc.Default.GetInstance<WebpageViewModel>();
+        public NoteViewModel NoteViewModel => SimpleIoc.Default.GetInstance<NoteViewModel>();
+        public CreditCardViewModel CreditCardViewModel => SimpleIoc.Default.GetInstance<CreditCardViewModel>();
+        public OnlineAccountViewModel OnlineAccountViewModel => SimpleIoc.Default.GetInstance<OnlineAccountViewModel>();
     }
 }

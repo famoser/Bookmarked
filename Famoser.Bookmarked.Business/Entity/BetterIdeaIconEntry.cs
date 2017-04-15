@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Famoser.Bookmarked.Business.Entitiy
+namespace Famoser.Bookmarked.Business.Entity
 {
     internal class BetterIdeaIconEntry
     {

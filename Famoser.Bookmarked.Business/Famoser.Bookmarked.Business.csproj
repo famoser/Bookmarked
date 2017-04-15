@@ -39,8 +39,8 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entitiy\BetterIdeaIcon.cs" />
-    <Compile Include="Entitiy\BetterIdeaIconEntry.cs" />
+    <Compile Include="Entity\BetterIdeaIcon.cs" />
+    <Compile Include="Entity\BetterIdeaIconEntry.cs" />
     <Compile Include="Entity\DebugSyncModel.cs" />
     <Compile Include="Enum\ContentType.cs" />
     <Compile Include="Extensions\ObservableCollection.cs" />
@@ -49,6 +49,9 @@
     <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Base\ParentModel.cs" />
     <Compile Include="Models\Entries\Base\ContentModel.cs" />
+    <Compile Include="Models\Entries\NoteModel.cs" />
+    <Compile Include="Models\Entries\CreditCardModel.cs" />
+    <Compile Include="Models\Entries\OnlineAccountModel.cs" />
     <Compile Include="Models\Entries\WebpageModel.cs" />
     <Compile Include="Models\EntryModel.cs" />
     <Compile Include="Models\FolderModel.cs" />

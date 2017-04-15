@@ -13,6 +13,18 @@
 
         AddWebpage,
         EditWebpage,
-        ViewWebpage
+        ViewWebpage,
+
+        AddOnlineAccount,
+        EditOnlineAccount,
+        ViewOnlineAccount,
+
+        AddNote,
+        EditNote,
+        ViewNote,
+
+        AddCreditCard,
+        EditCreditCard,
+        ViewCreditCard
     }
 }

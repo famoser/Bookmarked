@@ -109,6 +109,12 @@
     <Compile Include="Pages\Entry\Common\Controls\ViewEntry.xaml.cs">
       <DependentUpon>ViewEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Entry\OnlineAccount\EditOnlineAccount.xaml.cs">
+      <DependentUpon>EditOnlineAccount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Entry\OnlineAccount\ViewOnlineAccount.xaml.cs">
+      <DependentUpon>ViewOnlineAccount.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Entry\Webpage\EditWebpage.xaml.cs">
       <DependentUpon>EditWebpage.xaml</DependentUpon>
     </Compile>
@@ -211,6 +217,14 @@
     <Page Include="Pages\Entry\Common\Controls\ViewEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Entry\OnlineAccount\EditOnlineAccount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Entry\OnlineAccount\ViewOnlineAccount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Entry\Webpage\EditWebpage.xaml">
       <SubType>Designer</SubType>
