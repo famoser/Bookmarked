@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Enum;
+using Famoser.Bookmarked.Business.Models.Entries;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.ViewModels.Entry;
@@ -13,76 +14,81 @@ namespace Famoser.Bookmarked.View.Helper
 {
     public class ContentHelper
     {
+        private static readonly List<ContentTypeModel> ContentTypeModels = new List<ContentTypeModel>()
+        {
+            new ContentTypeModel()
+            {
+                Name = "Webpage",
+                ContentType = ContentType.Webpage,
+                AddPageKey = PageKeys.AddWebpage,
+                EditPageKey = PageKeys.EditWebpage,
+                ViewPageKey = PageKeys.ViewWebpage,
+                ViewModelType = typeof(WebpageViewModel),
+                ModelType = typeof(WebpageModel)
+            },
+            new ContentTypeModel()
+            {
+                Name = "Online Account",
+                ContentType = ContentType.OnlineAccount,
+                AddPageKey = PageKeys.AddOnlineAccount,
+                EditPageKey = PageKeys.EditOnlineAccount,
+                ViewPageKey = PageKeys.ViewOnlineAccount,
+                ViewModelType = typeof(OnlineAccountViewModel),
+                ModelType = typeof(OnlineAccountModel)
+            },
+            new ContentTypeModel()
+            {
+                Name = "Note",
+                ContentType = ContentType.Note,
+                AddPageKey = PageKeys.AddNote,
+                EditPageKey = PageKeys.EditNote,
+                ViewPageKey = PageKeys.ViewNote,
+                ViewModelType = typeof(NoteViewModel),
+                ModelType = typeof(NoteModel)
+            },
+            new ContentTypeModel()
+            {
+                Name = "Credit Card",
+                ContentType = ContentType.CreditCard,
+                AddPageKey = PageKeys.AddCreditCard,
+                EditPageKey = PageKeys.EditCreditCard,
+                ViewPageKey = PageKeys.ViewCreditCard,
+                ViewModelType = typeof(CreditCardViewModel),
+                ModelType = typeof(CreditCardModel)
+            }
+        };
+
         public static List<ContentTypeModel> GetContentTypeModels()
         {
-            var list = new List<ContentTypeModel>
+            return ContentTypeModels;
+        }
+
+        private static Dictionary<ContentType, ContentTypeModel> _contentTypeDictionary;
+        public static ContentTypeModel GetContentTypeModel(ContentType type)
+        {
+            if (_contentTypeDictionary == null)
             {
-                WebpageContentTypeModel,
-                NoteContentTypeModel,
-                OnlineAccountContentTypeModel,
-                CreditCardContentTypeModel
-            };
-            return list;
+                _contentTypeDictionary = new Dictionary<ContentType, ContentTypeModel>();
+                foreach (var contentTypeModel in ContentTypeModels)
+                {
+                    _contentTypeDictionary.Add(contentTypeModel.ContentType, contentTypeModel);
+                }
+            }
+            return _contentTypeDictionary[type];
         }
 
-        private static readonly ContentTypeModel WebpageContentTypeModel = new ContentTypeModel()
+        private static Dictionary<Type, ContentTypeModel> _modelTypeDictionary;
+        public static ContentTypeModel GetContentTypeModel(Type type)
         {
-            Name = "Webpage",
-            ContentType = ContentType.Webpage,
-            AddPageKey = PageKeys.AddWebpage,
-            EditPageKey = PageKeys.EditWebpage,
-            ViewPageKey = PageKeys.ViewWebpage,
-            ViewModelType = typeof(WebpageViewModel)
-        };
-
-        private static readonly ContentTypeModel OnlineAccountContentTypeModel = new ContentTypeModel()
-        {
-            Name = "Online Account",
-            ContentType = ContentType.OnlineAccount,
-            AddPageKey = PageKeys.AddOnlineAccount,
-            EditPageKey = PageKeys.EditOnlineAccount,
-            ViewPageKey = PageKeys.ViewOnlineAccount,
-            ViewModelType = typeof(OnlineAccountViewModel)
-        };
-
-        private static readonly ContentTypeModel NoteContentTypeModel = new ContentTypeModel()
-        {
-            Name = "Note",
-            ContentType = ContentType.Note,
-            AddPageKey = PageKeys.AddNote,
-            EditPageKey = PageKeys.EditNote,
-            ViewPageKey = PageKeys.ViewNote,
-            ViewModelType = typeof(NoteViewModel)
-        };
-
-        private static readonly ContentTypeModel CreditCardContentTypeModel = new ContentTypeModel()
-        {
-            Name = "Credit Card",
-            ContentType = ContentType.CreditCard,
-            AddPageKey = PageKeys.AddCreditCard,
-            EditPageKey = PageKeys.EditCreditCard,
-            ViewPageKey = PageKeys.ViewCreditCard,
-            ViewModelType = typeof(CreditCardViewModel)
-        };
-
-        public static ContentTypeModel GetWebpageContentTypeModel()
-        {
-            return WebpageContentTypeModel;
-        }
-
-        public static ContentTypeModel GetNoteContentTypeModel()
-        {
-            return NoteContentTypeModel;
-        }
-
-        public static ContentTypeModel GetOnlineAccountContentTypeModel()
-        {
-            return OnlineAccountContentTypeModel;
-        }
-
-        public static ContentTypeModel GetCreditCardContentTypeModel()
-        {
-            return CreditCardContentTypeModel;
+            if (_modelTypeDictionary == null)
+            {
+                _modelTypeDictionary = new Dictionary<Type, ContentTypeModel>();
+                foreach (var contentTypeModel in ContentTypeModels)
+                {
+                    _modelTypeDictionary.Add(contentTypeModel.ModelType, contentTypeModel);
+                }
+            }
+            return _modelTypeDictionary[type];
         }
     }
 }

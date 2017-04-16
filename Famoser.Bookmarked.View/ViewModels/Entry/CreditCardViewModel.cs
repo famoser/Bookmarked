@@ -21,10 +21,5 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry
         public CreditCardViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService) : base(folderRepository, navigationService, apiService)
         {
         }
-
-        protected override ContentTypeModel GetContentTypeModel()
-        {
-            return ContentHelper.GetCreditCardContentTypeModel();
-        }
     }
 }

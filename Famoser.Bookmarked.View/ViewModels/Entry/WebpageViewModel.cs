@@ -21,10 +21,5 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry
         public WebpageViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService) : base(folderRepository, navigationService, apiService)
         {
         }
-        
-        protected override ContentTypeModel GetContentTypeModel()
-        {
-            return ContentHelper.GetWebpageContentTypeModel();
-        }
     }
 }

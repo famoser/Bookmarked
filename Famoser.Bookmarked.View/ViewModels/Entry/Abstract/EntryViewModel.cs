@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Enum;
+using Famoser.Bookmarked.View.Helper;
 using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
@@ -128,7 +130,10 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             }
         });
 
-        protected abstract ContentTypeModel GetContentTypeModel();
+        private ContentTypeModel GetContentTypeModel()
+        {
+            return ContentHelper.GetContentTypeModel(typeof(T));
+        }
 
         protected async Task SetIconUri(Uri uri)
         {

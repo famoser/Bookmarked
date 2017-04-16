@@ -10,6 +10,7 @@ using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.Bookmarked.View.ViewModels.Entry;
 using Famoser.Bookmarked.View.ViewModels.Folder;
+using Famoser.Bookmarked.View.ViewModels.Interface;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.FrameworkEssentials.View.Commands;
 using GalaSoft.MvvmLight.Ioc;
@@ -73,12 +74,9 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public ICommand SelectEntryCommand => new LoadingRelayCommand<EntryModel>(c =>
         {
-            if (c.ContentType == ContentType.Webpage)
-            {
-                //todo: refactor to use the contenthelper
-                _navigationService.NavigateTo(PageKeys.ViewWebpage.ToString());
-                SimpleIoc.Default.GetInstance<WebpageViewModel>().SetEntry(c, CrudState.View);
-            }
+            var model = ContentHelper.GetContentTypeModel(c.ContentType);
+            _navigationService.NavigateTo(model.ViewPageKey.ToString());
+            ((IEntryViewModel)SimpleIoc.Default.GetInstance(model.ViewModelType)).SetEntry(c, CrudState.View);
         });
 
         public List<ContentTypeModel> ContentTypeModels { get; set; } = ContentHelper.GetContentTypeModels();

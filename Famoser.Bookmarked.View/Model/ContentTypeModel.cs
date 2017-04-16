@@ -21,6 +21,7 @@ namespace Famoser.Bookmarked.View.Model
         public PageKeys EditPageKey { get; set; }
         public PageKeys ViewPageKey { get; set; }
         public Type ViewModelType { get; set; }
+        public Type ModelType { get; set; }
 
         internal void SetEntryToViewModel(EntryModel em, CrudState state)
         {
