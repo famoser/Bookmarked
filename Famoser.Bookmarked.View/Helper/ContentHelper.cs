@@ -74,7 +74,9 @@ namespace Famoser.Bookmarked.View.Helper
                     _contentTypeDictionary.Add(contentTypeModel.ContentType, contentTypeModel);
                 }
             }
-            return _contentTypeDictionary[type];
+            if (_contentTypeDictionary.ContainsKey(type))
+                return _contentTypeDictionary[type];
+            return null;
         }
 
         private static Dictionary<Type, ContentTypeModel> _modelTypeDictionary;
@@ -88,7 +90,9 @@ namespace Famoser.Bookmarked.View.Helper
                     _modelTypeDictionary.Add(contentTypeModel.ModelType, contentTypeModel);
                 }
             }
-            return _modelTypeDictionary[type];
+            if (_modelTypeDictionary.ContainsKey(type))
+                return _modelTypeDictionary[type];
+            return null;
         }
     }
 }
