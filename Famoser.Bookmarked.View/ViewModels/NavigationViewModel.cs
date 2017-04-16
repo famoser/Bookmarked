@@ -63,7 +63,9 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             _navigationService.NavigateTo(cm.AddPageKey.ToString());
             var entry = _folderRepository.CreateEntry(SelectedFolder, cm.ContentType);
-            cm.SetEntryToViewModel(entry, CrudState.Add);
+
+            var model = ContentHelper.GetContentTypeModel(entry.ContentType);
+            ((IEntryViewModel)SimpleIoc.Default.GetInstance(model.ViewModelType)).SetEntry(entry, CrudState.Add);
         });
 
         public ICommand EditFolderCommand => new LoadingRelayCommand<FolderModel>(c =>
@@ -76,7 +78,6 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             var model = ContentHelper.GetContentTypeModel(c.ContentType);
             _navigationService.NavigateTo(model.ViewPageKey.ToString());
-            ((IEntryViewModel)SimpleIoc.Default.GetInstance(model.ViewModelType)).SetEntry(c, CrudState.View);
         });
 
         public List<ContentTypeModel> ContentTypeModels { get; set; } = ContentHelper.GetContentTypeModels();

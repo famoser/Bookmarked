@@ -358,9 +358,9 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>10401FlorianMoser.LectureSync</MainPackageIdentityName>
+    <MainPackageIdentityName>10401FlorianMoser.Bookmarked</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>LectureSync</ReservedName>
+      <ReservedName>Bookmarked</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
@@ -368,9 +368,9 @@
     <MainPackageIdentityName>10401FlorianMoser.ETHMensa</MainPackageIdentityName>
     <MainPackageIdentityName>10401FlorianMoser.ExpenseMonitor</MainPackageIdentityName>
     <MainPackageIdentityName>10401FlorianMoser.Gymoberwil</MainPackageIdentityName>
+    <MainPackageIdentityName>10401FlorianMoser.LectureSync</MainPackageIdentityName>
     <MainPackageIdentityName>10401FlorianMoser.OfflineMedia</MainPackageIdentityName>
     <MainPackageIdentityName>10401FlorianMoser.rememberless</MainPackageIdentityName>
-    <MainPackageIdentityName>10401FlorianMoser.Stuy</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9N8R7XX1L03N" />
+  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NJF401XW3G5" />
 </StoreAssociation>
