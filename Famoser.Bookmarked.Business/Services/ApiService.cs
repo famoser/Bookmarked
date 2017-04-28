@@ -21,7 +21,7 @@ namespace Famoser.Bookmarked.Business.Services
 
         public ApiService(IStorageService storageService, IApiTraceService apiTraceService)
         {
-            _helper = new SyncApiHelper(storageService, "bookmarked_id", "https://syncapi.famoser.ch/")
+            _helper = new SyncApiHelper(storageService, "bookmarked_id", "https://bookmarked.syncapi.famoser.ch/")
             {
                 ApiTraceService = apiTraceService
             };
