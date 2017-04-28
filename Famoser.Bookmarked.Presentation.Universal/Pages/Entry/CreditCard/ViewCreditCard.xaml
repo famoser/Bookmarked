@@ -5,8 +5,13 @@
     xmlns:local="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
     mc:Ignorable="d"
     DataContext="{Binding CreditCardViewModel, Source={StaticResource Locator}}">
+    
+    <UserControl.Resources>
+        <converters:DateToStringConverter x:Key="DateToStringConverter" />
+    </UserControl.Resources>
 
     <StackPanel>
         <local:ViewWebpage DataContext="{Binding }" />
@@ -19,7 +24,7 @@
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="pin" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.Pin}" />
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="expiry date" />
-        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.ExpiryDate}" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.ExpiryDate, Converter={StaticResource DateToStringConverter}}" />
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.IssuingBank}" />
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank number" />

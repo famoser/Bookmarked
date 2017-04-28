@@ -17,7 +17,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="Edit Folder" Style="{StaticResource BigTexBlock}" />
             <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
-                <StackPanel Margin="10,0">
+                <StackPanel>
                     <folder:EditFolder DataContext="{Binding }" />
                 </StackPanel>
             </ScrollViewer>

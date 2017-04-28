@@ -18,16 +18,17 @@
         <DataTemplate x:Key="EntryDataTemplate">
             <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="2" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Image Stretch="Uniform" Width="80">
+                <Image Stretch="Uniform" Grid.Column="1" Width="80">
                     <Image.Source>
                         <BitmapImage UriSource="{Binding IconUri}" />
                     </Image.Source>
                 </Image>
-                <StackPanel Grid.Column="2">
+                <StackPanel Grid.Column="3">
                     <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                     <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                 </StackPanel>

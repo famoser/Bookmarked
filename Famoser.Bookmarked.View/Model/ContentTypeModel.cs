@@ -21,11 +21,6 @@ namespace Famoser.Bookmarked.View.Model
         public PageKeys EditPageKey { get; set; }
         public PageKeys ViewPageKey { get; set; }
         public Type ViewModelType { get; set; }
-
-        internal void SetEntryToViewModel(EntryModel em, CrudState state)
-        {
-            var vm = SimpleIoc.Default.GetInstance(ViewModelType) as IEntryViewModel;
-            vm?.SetEntry(em, state);
-        }
+        public Type ModelType { get; set; }
     }
 }

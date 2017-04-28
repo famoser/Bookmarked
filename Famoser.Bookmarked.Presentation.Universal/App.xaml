@@ -87,6 +87,15 @@
                 <Setter Property="BorderThickness" Value="1" />
             </Style>
 
+            <Style x:Key="ValueDatePicker" TargetType="DatePicker">
+                <Setter Property="Margin" Value="10,0,10,10" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontWeight" Value="Light" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
             <Style x:Key="PasswordBox" TargetType="PasswordBox">
                 <Setter Property="Margin" Value="0,0,0,10" />
                 <Setter Property="FontSize" Value="16" />

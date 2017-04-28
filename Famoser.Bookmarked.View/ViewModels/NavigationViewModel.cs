@@ -10,6 +10,7 @@ using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.Bookmarked.View.ViewModels.Entry;
 using Famoser.Bookmarked.View.ViewModels.Folder;
+using Famoser.Bookmarked.View.ViewModels.Interface;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.FrameworkEssentials.View.Commands;
 using GalaSoft.MvvmLight.Ioc;
@@ -60,9 +61,12 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public ICommand AddContentTypeCommand => new LoadingRelayCommand<ContentTypeModel>((cm) =>
         {
-            _navigationService.NavigateTo(cm.AddPageKey.ToString());
-            var entry = _folderRepository.CreateEntry(SelectedFolder, cm.ContentType);
-            cm.SetEntryToViewModel(entry, CrudState.Add);
+            if (cm != null)
+            {
+                _navigationService.NavigateTo(cm.AddPageKey.ToString());
+                var entry = _folderRepository.CreateEntry(SelectedFolder, cm.ContentType);
+                ((IEntryViewModel) SimpleIoc.Default.GetInstance(cm.ViewModelType)).SetEntry(entry, CrudState.Add);
+            }
         });
 
         public ICommand EditFolderCommand => new LoadingRelayCommand<FolderModel>(c =>
@@ -73,11 +77,11 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public ICommand SelectEntryCommand => new LoadingRelayCommand<EntryModel>(c =>
         {
-            if (c.ContentType == ContentType.Webpage)
+            var model = ContentHelper.GetContentTypeModel(c.ContentType);
+            if (model != null)
             {
-                //todo: refactor to use the contenthelper
-                _navigationService.NavigateTo(PageKeys.ViewWebpage.ToString());
-                SimpleIoc.Default.GetInstance<WebpageViewModel>().SetEntry(c, CrudState.View);
+                _navigationService.NavigateTo(model.ViewPageKey.ToString());
+                ((IEntryViewModel)SimpleIoc.Default.GetInstance(model.ViewModelType)).SetEntry(c, CrudState.Add);
             }
         });
 
