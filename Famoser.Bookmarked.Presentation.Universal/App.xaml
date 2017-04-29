@@ -44,7 +44,7 @@
 
             <Style x:Key="BigTexBlock" TargetType="TextBlock">
                 <Setter Property="Margin" Value="0" />
-                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontSize" Value="35" />
                 <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="FontWeight" Value="Light" />
                 <Setter Property="TextWrapping" Value="Wrap" />
@@ -63,7 +63,7 @@
 
             <Style x:Key="DescriptionTextBlock" TargetType="TextBlock">
                 <Setter Property="Margin" Value="10,0" />
-                <Setter Property="FontSize" Value="10" />
+                <Setter Property="FontSize" Value="14" />
                 <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="FontWeight" Value="Light" />
                 <Setter Property="TextWrapping" Value="Wrap" />
@@ -72,7 +72,7 @@
 
             <Style x:Key="ValueTextBlock" TargetType="TextBlock">
                 <Setter Property="Margin" Value="10,0,10,10" />
-                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontSize" Value="21" />
                 <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="FontWeight" Value="Light" />
                 <Setter Property="TextWrapping" Value="Wrap" />

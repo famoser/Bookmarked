@@ -16,7 +16,7 @@ namespace Famoser.Bookmarked.View.Services.Interfaces
 
         string CurrentPageKey { get; }
 
-        void GoBack();
+        bool GoBack();
 
         void NavigateTo(string pageKey, bool removeCurrent = false);
 

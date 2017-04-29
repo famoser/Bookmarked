@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.View.Command;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Helper;
 using Famoser.Bookmarked.View.Model;
@@ -36,30 +37,30 @@ namespace Famoser.Bookmarked.View.ViewModels
             set { Set(ref _selectedFolder, value); }
         }
 
-        public ICommand RefreshCommand => new LoadingRelayCommand(() => _folderRepository.SyncAsnyc());
-        public ICommand HelpCommand => new LoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
-        public ICommand GarbageCommand => new LoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Garbage.ToString()));
+        public ICommand RefreshCommand => new MyLoadingRelayCommand(() => _folderRepository.SyncAsnyc());
+        public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
+        public ICommand GarbageCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Garbage.ToString()));
 
-        public ICommand SelectFolderCommand => new LoadingRelayCommand<FolderModel>(c =>
+        public ICommand SelectFolderCommand => new MyLoadingRelayCommand<FolderModel>(c =>
         {
             var folder = SelectedFolder;
             _navigationService.FakeNavigation(() => SelectedFolder = folder);
             SelectedFolder = c;
         });
 
-        public ICommand AddFolderCommand => new LoadingRelayCommand(() =>
+        public ICommand AddFolderCommand => new MyLoadingRelayCommand(() =>
         {
             _navigationService.NavigateTo(PageKeys.AddFolder.ToString());
             var folder = _folderRepository.CreateFolder(SelectedFolder);
             SimpleIoc.Default.GetInstance<AddFolderViewModel>().SetFolder(folder);
         });
 
-        public ICommand FindCommand => new LoadingRelayCommand(() =>
+        public ICommand FindCommand => new MyLoadingRelayCommand(() =>
         {
             _navigationService.NavigateTo(PageKeys.Search.ToString());
         });
 
-        public ICommand AddContentTypeCommand => new LoadingRelayCommand<ContentTypeModel>((cm) =>
+        public ICommand AddContentTypeCommand => new MyLoadingRelayCommand<ContentTypeModel>((cm) =>
         {
             if (cm != null)
             {
@@ -69,13 +70,13 @@ namespace Famoser.Bookmarked.View.ViewModels
             }
         });
 
-        public ICommand EditFolderCommand => new LoadingRelayCommand<FolderModel>(c =>
+        public ICommand EditFolderCommand => new MyLoadingRelayCommand<FolderModel>(c =>
         {
             _navigationService.NavigateTo(PageKeys.EditFolder.ToString());
             SimpleIoc.Default.GetInstance<EditFolderViewModel>().SetFolder(c);
         }, (c) => c?.ParentIds?.Count != 0);
 
-        public ICommand SelectEntryCommand => new LoadingRelayCommand<EntryModel>(c =>
+        public ICommand SelectEntryCommand => new MyLoadingRelayCommand<EntryModel>(c =>
         {
             var model = ContentHelper.GetContentTypeModel(c.ContentType);
             if (model != null)

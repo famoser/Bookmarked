@@ -12,8 +12,8 @@
 
     <StackPanel>
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="name" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox InputScope="Text" Style="{StaticResource ValueTextBox}" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="description" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox InputScope="Text" Style="{StaticResource ValueTextBox}" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
     </StackPanel>
 </UserControl>

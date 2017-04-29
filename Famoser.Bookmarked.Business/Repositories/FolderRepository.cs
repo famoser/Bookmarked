@@ -373,21 +373,21 @@ namespace Famoser.Bookmarked.Business.Repositories
         {
             try
             {
-                var pw = _passwordService.GetPassword();
-                if (pw == null)
-                    return null;
                 if (!string.IsNullOrEmpty(entryModel.Content))
                 {
-                    var json = _encryptionService.Decrypt(entryModel.Content, pw);
-                    return JsonConvert.DeserializeObject<T>(json);
+                    var pw = _passwordService.GetPassword();
+                    if (pw != null)
+                    {
+                        var json = _encryptionService.Decrypt(entryModel.Content, pw);
+                        return JsonConvert.DeserializeObject<T>(json);
+                    }
                 }
-                return new T();
             }
             catch (Exception e)
             {
                 LogHelper.Instance.LogException(e, this);
-                return null;
             }
+            return new T();
         }
 
         public async Task<bool> RemoveFolderAsync(FolderModel folderModel)

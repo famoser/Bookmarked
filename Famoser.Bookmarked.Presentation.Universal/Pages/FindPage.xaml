@@ -39,7 +39,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
-            <SearchBox QueryText="{Binding SearchTerm}" Grid.Row="0" Style="{StaticResource SearchBox}" />
+            <SearchBox QueryText="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Style="{StaticResource SearchBox}" SearchHistoryEnabled="False"/>
             <ScrollViewer Grid.Row="1">
                 <StackPanel>
                      <ListView ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SearchResults}" ItemClick="ListView_ItemClick" />

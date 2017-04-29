@@ -17,24 +17,24 @@
         <local:EditWebpage DataContext="{Binding }" />
 
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="cardholder name" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.CardholderName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox InputScope="PersonalFullName" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.CardholderName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="number" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox InputScope="NumberFullWidth" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="verification number" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.VerificationNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+        <TextBox InputScope="Number" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.VerificationNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="pin" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.Pin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+        <TextBox InputScope="NumericPin" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.Pin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="expiry date" />
-        <DatePicker Style="{StaticResource ValueDatePicker}"  DayVisible="False" YearVisible="True" MonthVisible="True" Date="{Binding SelectedEntryContent.ExpiryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></DatePicker>
+        <DatePicker Style="{StaticResource ValueDatePicker}" DayVisible="False" YearVisible="True" MonthVisible="True" Date="{Binding SelectedEntryContent.ExpiryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></DatePicker>
         
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.IssuingBank, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+        <TextBox InputScope="PersonalFullName" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.IssuingBank, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank number" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.IssuingBankNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+        <TextBox InputScope="TelephoneNumber" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.IssuingBankNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
     </StackPanel>
 </Page>

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Services.Interfaces;
+using Famoser.Bookmarked.View.Command;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
@@ -80,7 +81,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             ShowMessage = false;
         }
 
-        public ICommand LoginCommand => new LoadingRelayCommand(async () =>
+        public ICommand LoginCommand => new MyLoadingRelayCommand(async () =>
         {
             if (IsFirstTime && Password != ConfirmationPassword)
             {
@@ -102,6 +103,6 @@ namespace Famoser.Bookmarked.View.ViewModels
             }
         });
 
-        public ICommand HelpCommand => new LoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
+        public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
     }
 }

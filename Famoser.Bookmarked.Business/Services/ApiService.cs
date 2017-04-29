@@ -41,7 +41,7 @@ namespace Famoser.Bookmarked.Business.Services
                 {
                     var resp = await service.DownloadAsync(apiUri);
                     var obj = JsonConvert.DeserializeObject<BetterIdeaIcon>(await resp.GetResponseAsStringAsync());
-                    var res = obj.Icons.OrderByDescending(i => i.Width).FirstOrDefault();
+                    var res = obj?.Icons?.OrderByDescending(i => i.Width).FirstOrDefault();
                     if (res?.Url != null)
                         return new Uri(res.Url);
                 }

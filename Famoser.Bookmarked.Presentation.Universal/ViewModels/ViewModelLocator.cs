@@ -57,6 +57,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             ngs.Configure(PageKeys.Navigation.ToString(), typeof(NavigationPage));
             ngs.Configure(PageKeys.Info.ToString(), typeof(InfoPage));
             ngs.Configure(PageKeys.Garbage.ToString(), typeof(GarbagePage));
+            ngs.Configure(PageKeys.Search.ToString(), typeof(FindPage));
 
             //add folder pages
             ngs.Configure(PageKeys.AddFolder.ToString(), typeof(AddFolderPage));
