@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
@@ -47,6 +48,20 @@ namespace Famoser.Bookmarked.View.ViewModels
             _navigationService.FakeNavigation(() => SelectedFolder = folder);
             SelectedFolder = c;
         });
+
+        public Task<bool> MoveToNewFolderAsync(EntryModel entry, FolderModel newFolder)
+        {
+            var oldFolder = SelectedFolder;
+            return _folderRepository.ReplaceFolderOfEntryAsync(entry, oldFolder, newFolder);
+        }
+
+        public Task<bool> MoveOneFolderUpAsync(EntryModel entry)
+        {
+            var oldFolder = SelectedFolder;
+            _navigationService.GoBack();
+            var newFolder = SelectedFolder;
+            return _folderRepository.ReplaceFolderOfEntryAsync(entry, oldFolder, newFolder);
+        }
 
         public ICommand AddFolderCommand => new MyLoadingRelayCommand(() =>
         {

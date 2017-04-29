@@ -10,7 +10,7 @@
 
     <Page.Resources>
         <DataTemplate x:Key="FolderDataTemplate">
-            <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+            <StackPanel AllowDrop="True" DragOver="UIElement_OnDragOver" Drop="UIElement_OnDrop" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                 <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
             </StackPanel>
@@ -34,7 +34,7 @@
                 </StackPanel>
 
             </Grid>
-            </DataTemplate>
+        </DataTemplate>
         <DataTemplate x:Key="ContentTypeModelTemplate">
             <TextBlock Text="{Binding Name}" Padding="5" />
         </DataTemplate>
@@ -47,12 +47,22 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
-            <TextBlock Grid.Row="0" Text="{Binding SelectedFolder.Name}" Style="{StaticResource BigTexBlock}" />
+            <Grid Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding SelectedFolder.Name}" Style="{StaticResource BigTexBlock}" />
+                <Grid AllowDrop="True" x:Name="MoveUpGrid" Visibility="Collapsed" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Grid.Column="2" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="70">
+                    <SymbolIcon Symbol="Up" Foreground="White"></SymbolIcon>
+                </Grid>
+            </Grid>
             <ScrollViewer Grid.Row="1">
                 <StackPanel>
-                    <ListView ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SelectedFolder.Folders}" ItemClick="ListView_ItemClick" />
+                    <ListView ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" AllowDrop="True" SelectionMode="None" ItemsSource="{Binding SelectedFolder.Folders}" ItemClick="ListView_ItemClick"  />
                     <TextBlock Text="Entries" Style="{StaticResource BigTexBlock}" />
-                    <ListView ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SelectedFolder.Entries}" ItemClick="ListView_ItemClick" />
+                    <ListView CanDragItems="True" DragItemsStarting="ListViewBase_OnDragItemsStarting" ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SelectedFolder.Entries}" ItemClick="ListView_ItemClick" DragItemsCompleted="ListView_DragItemsCompleted" />
                 </StackPanel>
             </ScrollViewer>
 

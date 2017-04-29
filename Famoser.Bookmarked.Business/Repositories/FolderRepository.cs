@@ -79,7 +79,7 @@ namespace Famoser.Bookmarked.Business.Repositories
                     _folders = _folderRepository.GetAllLazy();
                     _folders.CollectionChanged += (s, e) => _viewService.CheckBeginInvokeOnUi(() => FoldersOnCollectionChanged(e));
                     _entries = _entryRepository.GetAllLazy();
-                    _entries.CollectionChanged += (s,e) => _viewService.CheckBeginInvokeOnUi(() => EntriesOnCollectionChanged(e));
+                    _entries.CollectionChanged += (s, e) => _viewService.CheckBeginInvokeOnUi(() => EntriesOnCollectionChanged(e));
                 }
             }
         }
@@ -415,6 +415,52 @@ namespace Famoser.Bookmarked.Business.Repositories
         public Task<bool> RemoveEntryAsync(EntryModel entryModel)
         {
             return _entryRepository.RemoveAsync(entryModel);
+        }
+
+        public async Task<bool> AddEntryToFolderAsync(EntryModel entryModel, FolderModel folder)
+        {
+            if (!folder.Entries.Contains(entryModel))
+                folder.Entries.Add(entryModel);
+            if (!entryModel.ParentIds.Contains(folder.GetId()))
+            {
+                entryModel.ParentIds.Add(folder.GetId());
+                return await _entryRepository.SaveAsync(entryModel);
+            }
+            return true;
+        }
+
+        public async Task<bool> RemoveEntryFromFolderAsync(EntryModel entryModel, FolderModel folder)
+        {
+            if (folder.Entries.Contains(entryModel))
+                folder.Entries.Remove(entryModel);
+            if (entryModel.ParentIds.Contains(folder.GetId()))
+            {
+                entryModel.ParentIds.Remove(folder.GetId());
+                return await _entryRepository.SaveAsync(entryModel);
+            }
+            return true;
+        }
+
+        public async Task<bool> ReplaceFolderOfEntryAsync(EntryModel entryModel, FolderModel oldFolder, FolderModel newFolder)
+        {
+            bool savePls = false;
+            if (!newFolder.Entries.Contains(entryModel))
+                newFolder.Entries.Add(entryModel);
+            if (!entryModel.ParentIds.Contains(newFolder.GetId()))
+            {
+                entryModel.ParentIds.Add(newFolder.GetId());
+                savePls = true;
+            }
+            if (oldFolder.Entries.Contains(entryModel))
+                oldFolder.Entries.Remove(entryModel);
+            if (entryModel.ParentIds.Contains(oldFolder.GetId()))
+            {
+                entryModel.ParentIds.Remove(oldFolder.GetId());
+                savePls = true;
+            }
+            if (savePls)
+                return await _entryRepository.SaveAsync(entryModel);
+            return true;
         }
 
         public ObservableCollection<EntryModel> SearchEntry(string searchTerm)

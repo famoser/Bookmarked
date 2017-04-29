@@ -116,6 +116,21 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return true;
         }
 
+        public async Task<bool> AddEntryToFolderAsync(EntryModel entryModel, FolderModel folder)
+        {
+            return true;
+        }
+
+        public async Task<bool> RemoveEntryFromFolderAsync(EntryModel entryModel, FolderModel folder)
+        {
+            return true;
+        }
+
+        public async Task<bool> ReplaceFolderOfEntryAsync(EntryModel entryModel, FolderModel oldFolder, FolderModel newFolder)
+        {
+            return true;
+        }
+
         public FolderModel GetGarbageFolder()
         {
             return CreateFolder("garbage", "this is the garbage folder");
