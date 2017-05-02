@@ -32,6 +32,17 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             _folderRepository = folderRepository;
             _navigationService = navigationService;
             _apiService = apiService;
+
+            if (IsInDesignMode)
+            {
+                SelectedEntry = new EntryModel()
+                {
+                    Description = "Entry Model Description",
+                    Name = "This is my Entry Mode",
+                    ParentIds = new List<Guid>()
+                };
+                SelectedEntryContent = new T();
+            }
         }
 
         public void SetEntry(EntryModel model, CrudState state)

@@ -10,5 +10,7 @@ namespace Famoser.Bookmarked.View.Services.Interfaces
         string HashPassword(string input);
 
         Task<bool> ConfirmMessage(string message);
+
+        void CopyToClipboard(string message);
     }
 }
