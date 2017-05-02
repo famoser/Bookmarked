@@ -51,8 +51,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
             {
                 if (!ev.Handled)
                 {
-                    GoBack();
-                    ev.Handled = true;
+                    ev.Handled = GoBack();
                 }
             };
 
@@ -81,11 +80,16 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
         /// <summary>
         /// If possible, discards the current page and displays the previous page on the navigation stack.
         /// </summary>
-        public void GoBack()
+        public bool GoBack()
         {
             Action res;
-            while (!_goBackActions.TryPop(out res)) { }
+            while (!_goBackActions.TryPop(out res))
+            {
+                if (_goBackActions.Count == 0)
+                    return false;
+            }
             res.Invoke();
+            return true;
         }
 
         public void NavigateTo(string pageKey, bool removeCurrent = false)

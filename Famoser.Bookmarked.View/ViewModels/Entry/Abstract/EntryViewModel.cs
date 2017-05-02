@@ -8,6 +8,7 @@ using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
+using Famoser.Bookmarked.View.Command;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Helper;
 using Famoser.Bookmarked.View.Model;
@@ -91,7 +92,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             private set { Set(ref _selectedEntryContent, value); }
         }
 
-        public ICommand SaveEntryCommand => new LoadingRelayCommand(async () =>
+        public ICommand SaveEntryCommand => new MyLoadingRelayCommand(async () =>
         {
             if (_state == CrudState.Edit)
             {
@@ -106,13 +107,13 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             await _folderRepository.SaveEntryAsync(SelectedEntry, SelectedEntryContent);
         });
 
-        public ICommand EditEntryCommand => new LoadingRelayCommand(() =>
+        public ICommand EditEntryCommand => new MyLoadingRelayCommand(() =>
         {
             _navigationService.NavigateTo(GetContentTypeModel().EditPageKey.ToString());
             SetCrudState(CrudState.Edit);
         });
 
-        public ICommand AbortCommand => new LoadingRelayCommand(() =>
+        public ICommand AbortCommand => new MyLoadingRelayCommand(() =>
         {
             if (_state == CrudState.Edit)
             {
@@ -126,7 +127,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             }
         });
 
-        public ICommand RemoveEntryCommand => new LoadingRelayCommand(async () =>
+        public ICommand RemoveEntryCommand => new MyLoadingRelayCommand(async () =>
         {
             await _folderRepository.MoveEntryToGarbageAsync(SelectedEntry);
             if (_state == CrudState.Edit)

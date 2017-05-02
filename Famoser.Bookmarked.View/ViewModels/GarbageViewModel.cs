@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.View.Command;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Helper;
 using Famoser.Bookmarked.View.Model;
@@ -35,15 +36,15 @@ namespace Famoser.Bookmarked.View.ViewModels
             set { Set(ref _garbageFolder, value); }
         }
 
-        public ICommand HelpCommand => new LoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
+        public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
 
-        public ICommand RemoveFolderCommand => new LoadingRelayCommand<FolderModel>(c => _folderRepository.RemoveFolderAsync(c));
+        public ICommand RemoveFolderCommand => new MyLoadingRelayCommand<FolderModel>(c => _folderRepository.RemoveFolderAsync(c));
 
-        public ICommand RecoverFolderCommand => new LoadingRelayCommand<FolderModel>(c => _folderRepository.MoveFolderOutOfGarbageAsync(c));
+        public ICommand RecoverFolderCommand => new MyLoadingRelayCommand<FolderModel>(c => _folderRepository.MoveFolderOutOfGarbageAsync(c));
 
-        public ICommand RemoveEntryCommand => new LoadingRelayCommand<EntryModel>(c => _folderRepository.RemoveEntryAsync(c));
+        public ICommand RemoveEntryCommand => new MyLoadingRelayCommand<EntryModel>(c => _folderRepository.RemoveEntryAsync(c));
 
-        public ICommand RecoverEntryCommand => new LoadingRelayCommand<EntryModel>(c => _folderRepository.MoveEntryOutOfGarbageAsync(c));
+        public ICommand RecoverEntryCommand => new MyLoadingRelayCommand<EntryModel>(c => _folderRepository.MoveEntryOutOfGarbageAsync(c));
 
         public List<ContentTypeModel> ContentTypeModels { get; set; } = ContentHelper.GetContentTypeModels();
     }

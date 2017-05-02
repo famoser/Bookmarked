@@ -26,6 +26,9 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
         Task<bool> MoveEntryOutOfGarbageAsync(EntryModel entryModel);
         EntryModel CreateEntry(FolderModel parentFolderModel, ContentType type);
         Task<bool> RemoveEntryAsync(EntryModel entryModel);
+        Task<bool> AddEntryToFolderAsync(EntryModel entryModel, FolderModel folder);
+        Task<bool> RemoveEntryFromFolderAsync(EntryModel entryModel, FolderModel folder);
+        Task<bool> ReplaceFolderOfEntryAsync(EntryModel entryModel, FolderModel oldFolder, FolderModel newFolder);
 
         ObservableCollection<EntryModel> SearchEntry(string searchTerm);
     }
