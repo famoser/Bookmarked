@@ -9,6 +9,8 @@
     DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
 
     <StackPanel>
+        <local:ViewNote DataContext="{Binding }" />
+        
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
         <TextBlock Style="{StaticResource ValueTextBlock}">
             <Hyperlink NavigateUri="{Binding SelectedEntryContent.WebpageUrl}">

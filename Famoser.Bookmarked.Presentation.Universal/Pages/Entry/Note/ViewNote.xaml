@@ -8,4 +8,8 @@
     mc:Ignorable="d"
     DataContext="{Binding NoteViewModel, Source={StaticResource Locator}}">
 
+    <StackPanel>
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="private note" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding PrivateNote}" />
+    </StackPanel>
 </Page>

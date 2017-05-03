@@ -14,6 +14,8 @@
     </Page.Resources>
 
     <StackPanel>
+        <local:EditNote DataContext="{Binding }" />
+        
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
         <TextBox Style="{StaticResource ValueTextBox}" InputScope="Url" Text="{Binding SelectedEntryContent.WebpageUrl, Mode=TwoWay, Converter={StaticResource UriToStringConverter}}" />
     </StackPanel>

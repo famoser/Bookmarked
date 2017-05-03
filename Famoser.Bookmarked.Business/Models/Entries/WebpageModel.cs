@@ -4,7 +4,7 @@ using Famoser.Bookmarked.Business.Models.Entries.Base;
 
 namespace Famoser.Bookmarked.Business.Models.Entries
 {
-    public class WebpageModel : ContentModel
+    public class WebpageModel : NoteModel
     {
         private Uri _webpageUrl;
         public Uri WebpageUrl

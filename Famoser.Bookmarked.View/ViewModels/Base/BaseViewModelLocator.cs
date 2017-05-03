@@ -39,6 +39,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
             SimpleIoc.Default.Register<NavigationViewModel>();
             SimpleIoc.Default.Register<GarbageViewModel>();
             SimpleIoc.Default.Register<FindViewModel>();
+            SimpleIoc.Default.Register<ImportViewModel>();
 
             SimpleIoc.Default.Register<WebpageViewModel>();
             SimpleIoc.Default.Register<NoteViewModel>();
@@ -55,6 +56,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
         public NavigationViewModel NavigationViewModel => SimpleIoc.Default.GetInstance<NavigationViewModel>();
         public GarbageViewModel GarbageViewModel => SimpleIoc.Default.GetInstance<GarbageViewModel>();
         public FindViewModel FindViewModel => SimpleIoc.Default.GetInstance<FindViewModel>();
+        public ImportViewModel ImportViewModel => SimpleIoc.Default.GetInstance<ImportViewModel>();
 
         public ProgressViewModel ProgressViewModel => SimpleIoc.Default.GetInstance<ISimpleProgressService>() as ProgressViewModel;
         public ApiViewModel ApiViewModel => SimpleIoc.Default.GetInstance<IApiTraceService>() as ApiViewModel;

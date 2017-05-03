@@ -44,6 +44,7 @@
     <Compile Include="Entity\DebugSyncModel.cs" />
     <Compile Include="Enum\ContentType.cs" />
     <Compile Include="Extensions\ObservableCollection.cs" />
+    <Compile Include="Helper\OnePasswordExportReader.cs" />
     <Compile Include="Helper\StringDecoder.cs" />
     <Compile Include="Helper\BinaryDecoder.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />

@@ -9,4 +9,8 @@
     mc:Ignorable="d"
     DataContext="{Binding NoteViewModel, Source={StaticResource Locator}}">
 
+    <StackPanel>
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="private note" />
+        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.PrivateNote, Mode=TwoWay}" />
+    </StackPanel>
 </Page>
