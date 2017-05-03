@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
@@ -35,6 +36,13 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
 
             var result = await dialog.ShowAsync();
             return (int)result.Id == 0;
+        }
+
+        public void CopyToClipboard(string message)
+        {
+            var package = new DataPackage();
+            package.SetText(message);
+            Clipboard.SetContent(package);
         }
 
         public string HashPassword(string password)
