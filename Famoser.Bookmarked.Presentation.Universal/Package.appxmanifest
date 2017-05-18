@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="10401FlorianMoser.Bookmarked" Publisher="CN=11675D3B-05AA-4B24-A422-AD2FB58E21ED" Version="1.1.8.0" />
+  <Identity Name="10401FlorianMoser.Bookmarked" Publisher="CN=famoser" Version="1.1.9.0" />
   <mp:PhoneIdentity PhoneProductId="424705b0-ea43-4a09-97ac-e78c67b7e275" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Bookmarked</DisplayName>
