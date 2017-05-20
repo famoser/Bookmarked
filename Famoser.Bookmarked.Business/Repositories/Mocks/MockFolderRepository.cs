@@ -140,5 +140,15 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
         {
             return GetRootFolder().Entries;
         }
+
+        public async Task<string> ExportDataAsync()
+        {
+            return "himom";
+        }
+
+        public async Task<bool> ImportDataAsync(string content)
+        {
+            return true;
+        }
     }
 }

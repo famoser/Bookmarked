@@ -101,8 +101,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             }
             if (_state == CrudState.Add)
             {
-                _navigationService.NavigateTo(GetContentTypeModel().ViewPageKey.ToString(), true);
-                SetCrudState(CrudState.View);
+                _navigationService.GoBack();
             }
             await _folderRepository.SaveEntryAsync(SelectedEntry, SelectedEntryContent);
         });

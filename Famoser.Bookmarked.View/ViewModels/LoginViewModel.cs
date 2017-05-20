@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Command;
 using Famoser.Bookmarked.View.Enum;
@@ -18,12 +19,14 @@ namespace Famoser.Bookmarked.View.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IPasswordService _passwordService;
         private readonly IInteractionService _interactionService;
+        private readonly IFolderRepository _folderRepository;
 
-        public LoginViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService)
+        public LoginViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService, IFolderRepository folderRepository)
         {
             _navigationService = navigationService;
             _passwordService = passwordService;
             _interactionService = interactionService;
+            _folderRepository = folderRepository;
 
             InitializeAsync();
         }
@@ -35,6 +38,13 @@ namespace Famoser.Bookmarked.View.ViewModels
             {
                 Message = "Welcome! Choose a password";
                 ShowMessage = true;
+            }
+            var sync = await _folderRepository.SyncAsnyc();
+            var rf = _folderRepository.GetRootFolder();
+            if (rf.Folders.Count > 0 || rf.Entries.Count > 0)
+            {
+                IsFirstTime = false;
+                ShowMessage = false;
             }
         }
 

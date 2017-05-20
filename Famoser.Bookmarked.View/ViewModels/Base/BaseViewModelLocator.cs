@@ -45,6 +45,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
             SimpleIoc.Default.Register<NoteViewModel>();
             SimpleIoc.Default.Register<CreditCardViewModel>();
             SimpleIoc.Default.Register<OnlineAccountViewModel>();
+            SimpleIoc.Default.Register<ExportViewModel>();
         }
 
 

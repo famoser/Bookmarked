@@ -11,6 +11,6 @@
 
     <StackPanel>
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="private note" />
-        <TextBox Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.PrivateNote, Mode=TwoWay}" />
+        <TextBox Style="{StaticResource ValueTextBox}" AcceptsReturn="True" Text="{Binding SelectedEntryContent.PrivateNote, Mode=TwoWay}" />
     </StackPanel>
 </Page>

@@ -24,29 +24,14 @@ namespace Famoser.Bookmarked.View.ViewModels
             _apiService = apiService;
         }
 
-        public async Task<bool> Import1Password(string file)
+        public Task<bool> Import(string content)
         {
-            var helper = new OnePasswordExportReader(file);
-            var root = _folderRepository.GetRootFolder();
-            if (helper.Process())
-            {
-                foreach (var contentModel in helper.GetResult())
-                {
-                    try
-                    {
-                        var entryModel = _folderRepository.CreateEntry(root, ContentType.OnlineAccount);
-                        entryModel.ContentType = ContentType.Webpage;
-                        entryModel.IconUri = await _apiService.GetIconUriAsync(contentModel.Value.WebpageUrl);
-                        entryModel.Name = contentModel.Key;
-                        await _folderRepository.SaveEntryAsync(entryModel, contentModel.Value);
-                    }
-                    catch (Exception e)
-                    {
-                        LogHelper.Instance.LogException(e, this);
-                    }
-                }
-            }
-            return true;
+            return _folderRepository.ImportDataAsync(content);
+        }
+
+        public Task<string> Export()
+        {
+            return _folderRepository.ExportDataAsync();
         }
     }
 }

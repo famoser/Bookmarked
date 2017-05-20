@@ -18,9 +18,9 @@
         <DataTemplate x:Key="EntryDataTemplate">
             <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="6" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="6" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Image Stretch="Uniform" Grid.Column="1" Width="80">
@@ -61,8 +61,7 @@
             <ScrollViewer Grid.Row="1">
                 <StackPanel>
                     <ListView ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" AllowDrop="True" SelectionMode="None" ItemsSource="{Binding SelectedFolder.Folders}" ItemClick="ListView_ItemClick"  />
-                    <TextBlock Text="Entries" Style="{StaticResource BigTexBlock}" />
-                    <ListView CanDragItems="True" DragItemsStarting="ListViewBase_OnDragItemsStarting" ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SelectedFolder.Entries}" ItemClick="ListView_ItemClick" DragItemsCompleted="ListView_DragItemsCompleted" />
+                    <ListView Margin="0,20,0,0" CanDragItems="True" DragItemsStarting="ListViewBase_OnDragItemsStarting" ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SelectedFolder.Entries}" ItemClick="ListView_ItemClick" DragItemsCompleted="ListView_DragItemsCompleted" />
                 </StackPanel>
             </ScrollViewer>
 

@@ -17,12 +17,12 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages.Entry.OnlineAccount
             this.InitializeComponent();
         }
 
-        OnlineAccountViewModel DataContext => DataContext;
+        OnlineAccountViewModel OnlineAccountViewModel => DataContext as OnlineAccountViewModel;
 
         private void Hyperlink_OnClick(Hyperlink sender, HyperlinkClickEventArgs args)
         {
-            if (DataContext != null && DataContext.CopyPasswordToClipboard.CanExecute(null))
-                DataContext.CopyPasswordToClipboard.Execute(null);
+            if (OnlineAccountViewModel != null && OnlineAccountViewModel.CopyPasswordToClipboard.CanExecute(null))
+                OnlineAccountViewModel.CopyPasswordToClipboard.Execute(null);
         }
     }
 }

@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    DataContext="{Binding GarbageViewModel, Source={StaticResource Locator}}">
+    DataContext="{Binding ImportViewModel, Source={StaticResource Locator}}">
 
     <Page.Resources>
         <DataTemplate x:Key="ApiTraceDataTemplate">
@@ -25,10 +25,17 @@
 
                 <TextBlock Text="Synchronization log" Style="{StaticResource SecondaryBigTexBlock}" />
                 <ListView ItemContainerStyle="{StaticResource SmallStretchListViewItemStyle}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformations, Source={StaticResource Locator}}" />
-                
-                <TextBlock Text="Import from other Applications" Style="{StaticResource SecondaryBigTexBlock}" />
-                <Button Content="Import from LastPass" Margin="10,0,0,10" Click="ButtonBase_OnClick"></Button>
 
+                <TextBlock Text="Export / Import (fully encrypted)" Style="{StaticResource SecondaryBigTexBlock}" />
+                <Grid  Margin="10,0,10,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Export" Click="ImportClick" />
+                    <Button Grid.Column="2" HorizontalAlignment="Stretch"  Content="Import" Click="ExportClick" />
+                </Grid>
                 <StackPanel  Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                     <TextBlock FontFamily="Segoe UI" Margin="10" Foreground="White">
                         <Run Text="made with &#x2661; by" />
