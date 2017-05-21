@@ -12,7 +12,7 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
         FolderModel GetRootFolder();
         FolderModel GetGarbageFolder();
 
-        Task<bool> SyncAsnyc();
+        Task<bool> SyncAsync();
 
         Task<bool> SaveFolderAsync(FolderModel folderModel);
         Task<bool> MoveFolderToGarbageAsync(FolderModel folderModel);
@@ -33,5 +33,6 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
         ObservableCollection<EntryModel> SearchEntry(string searchTerm);
         Task<string> ExportDataAsync();
         Task<bool> ImportDataAsync(string content);
+        Task<bool> UpgradeEntryAsync<T>(EntryModel entryModel, ContentType target) where T : ContentModel, new();
     }
 }

@@ -38,7 +38,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             set { Set(ref _selectedFolder, value); }
         }
 
-        public ICommand RefreshCommand => new MyLoadingRelayCommand(() => _folderRepository.SyncAsnyc());
+        public ICommand RefreshCommand => new MyLoadingRelayCommand(() => _folderRepository.SyncAsync());
         public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
         public ICommand GarbageCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Garbage.ToString()));
 
@@ -101,6 +101,6 @@ namespace Famoser.Bookmarked.View.ViewModels
             }
         });
 
-        public List<ContentTypeModel> ContentTypeModels { get; set; } = ContentHelper.GetContentTypeModels();
+        public List<ContentTypeModel> ContentTypeModels { get; } = ContentHelper.GetContentTypeModels();
     }
 }

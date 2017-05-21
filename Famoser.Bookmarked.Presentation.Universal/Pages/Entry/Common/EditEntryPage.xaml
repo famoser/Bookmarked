@@ -9,6 +9,12 @@
     xmlns:controls="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.Controls"
     mc:Ignorable="d"
     d:DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
+
+    <Page.Resources>
+        <DataTemplate x:Key="ContentTypeModelTemplate">
+            <TextBlock Text="{Binding Name}" Padding="5" />
+        </DataTemplate>
+    </Page.Resources>
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

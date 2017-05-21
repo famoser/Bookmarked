@@ -104,6 +104,7 @@
     <Compile Include="Converters\DateToStringConverter.cs" />
     <Compile Include="Converters\UriToStringConverter.cs" />
     <Compile Include="Entity\NavigationParameter.cs" />
+    <Compile Include="Models\PasswordInfoModel.cs" />
     <Compile Include="Pages\Entry\Common\Controls\EditEntry.xaml.cs">
       <DependentUpon>EditEntry.xaml</DependentUpon>
     </Compile>

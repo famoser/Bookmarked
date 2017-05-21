@@ -10,6 +10,12 @@
     mc:Ignorable="d"
     d:DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
 
+    <Page.Resources>
+        <DataTemplate x:Key="ContentTypeModelTemplate">
+            <TextBlock Text="{Binding Name}" Padding="5" />
+        </DataTemplate>
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
@@ -34,6 +40,17 @@
                     <AppBarButton.Flyout>
                         <Flyout>
                             <Button Content="are you sure?" Command="{Binding RemoveEntryCommand}"></Button>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton IsCompact="True" Icon="Up" Label="Upgrade" >
+                    <AppBarButton.Flyout>
+                        <Flyout Placement="Bottom">
+                            <ListView 
+                                ItemsSource="{Binding UpgradableContentTypes}" 
+                                ItemTemplate="{StaticResource ContentTypeModelTemplate}"
+                                ItemContainerStyle="{StaticResource StretchListViewItemStyle}" 
+                                IsItemClickEnabled="True" ItemClick="ListView_ItemClick"/>
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>

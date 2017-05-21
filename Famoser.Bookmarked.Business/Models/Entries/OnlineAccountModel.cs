@@ -34,5 +34,10 @@ namespace Famoser.Bookmarked.Business.Models.Entries
         {
             return ContentType.OnlineAccount;
         }
+
+        public void WriteProperties(WebpageModel webpage)
+        {
+            
+        }
     }
 }

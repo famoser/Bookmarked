@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Enum;
+using Famoser.Bookmarked.Business.Helper;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Base;
 using Famoser.Bookmarked.Business.Models.Entries;
@@ -276,7 +277,7 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         private void RemoveAllFolders()
         {
-            //remove subfolders
+            //remove sub folders
             foreach (var item in _folderDic)
             {
                 item.Value.Folders.Clear();
@@ -289,7 +290,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
         }
 
-        public async Task<bool> SyncAsnyc()
+        public async Task<bool> SyncAsync()
         {
             var res = await _folderRepository.SyncAsync();
             //enforce both try to sync
@@ -513,7 +514,7 @@ namespace Famoser.Bookmarked.Business.Repositories
                 }
                 //encrypt
                 var str = JsonConvert.SerializeObject(importModel);
-                return  _encryptionService.Encrypt(str, _passwordService.GetPassword());
+                return _encryptionService.Encrypt(str, _passwordService.GetPassword());
             }
             catch (Exception e)
             {
@@ -571,6 +572,47 @@ namespace Famoser.Bookmarked.Business.Repositories
                 LogHelper.Instance.LogException(e);
             }
             return false;
+        }
+
+        private ContentModel Upgrade(EntryModel model, ContentModel newContentModel, ContentType targetType)
+        {
+            if (model.ContentType == targetType)
+                return null;
+
+            ContentModel newModel = null;
+            if (model.ContentType == ContentType.Note)
+            {
+                newModel = new WebpageModel();
+                var nowContent = newContentModel as NoteModel;
+                UpgradeHelper.WriteValues(nowContent, (WebpageModel)newModel);
+            }
+            if (model.ContentType == ContentType.Webpage && targetType == ContentType.CreditCard)
+            {
+                newModel = new CreditCardModel();
+                var nowContent = newContentModel as WebpageModel;
+                UpgradeHelper.WriteValues(nowContent, (CreditCardModel)newModel);
+            }
+            if (model.ContentType == ContentType.Webpage && targetType == ContentType.OnlineAccount)
+            {
+                newModel = new OnlineAccountModel();
+                var nowContent = newContentModel as WebpageModel;
+                UpgradeHelper.WriteValues(nowContent, (OnlineAccountModel)newModel);
+            }
+            if (newModel != null)
+                model.ContentType = newModel.GetContentType();
+            return newModel;
+        }
+
+        public Task<bool> UpgradeEntryAsync<T>(EntryModel entryModel, ContentType targetType) where T : ContentModel, new()
+        {
+            ContentModel newModel = GetEntryContent<T>(entryModel);
+            ContentModel conversionModel = newModel;
+            do
+            {
+                newModel = conversionModel;
+                conversionModel = Upgrade(entryModel, newModel, targetType);
+            } while (conversionModel != null);
+            return SaveEntryAsync(entryModel, newModel);
         }
     }
 }

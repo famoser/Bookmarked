@@ -34,6 +34,8 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             _navigationService = navigationService;
             _apiService = apiService;
 
+            UpgradableContentTypes = ContentHelper.GetCanUpgradeContentTypes(typeof(T));
+
             if (IsInDesignMode)
             {
                 SelectedEntry = new EntryModel()
@@ -157,5 +159,18 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
                 //swallow cause it does not really matter
             }
         }
+
+        private List<ContentTypeModel> _upgradableContentTypes;
+        public List<ContentTypeModel> UpgradableContentTypes
+        {
+            get { return _upgradableContentTypes; }
+            set { Set(ref _upgradableContentTypes, value); }
+        }
+
+        public ICommand UpgradeCommand => new MyLoadingRelayCommand<ContentTypeModel>(async (ct) =>
+        {
+            _navigationService.GoBack();
+            await _folderRepository.UpgradeEntryAsync<T>(SelectedEntry, ct.ContentType);
+        });
     }
 }

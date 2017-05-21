@@ -39,7 +39,7 @@ namespace Famoser.Bookmarked.View.ViewModels
                 Message = "Welcome! Choose a password";
                 ShowMessage = true;
             }
-            var sync = await _folderRepository.SyncAsnyc();
+            var sync = await _folderRepository.SyncAsync();
             var rf = _folderRepository.GetRootFolder();
             if (rf.Folders.Count > 0 || rf.Entries.Count > 0)
             {

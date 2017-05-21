@@ -12,7 +12,7 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
 #pragma warning disable 1998
     public class MockFolderRepository : IFolderRepository
     {
-        public async Task<bool> SyncAsnyc()
+        public async Task<bool> SyncAsync()
         {
             return true;
         }
@@ -147,6 +147,11 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
         }
 
         public async Task<bool> ImportDataAsync(string content)
+        {
+            return true;
+        }
+
+        public async Task<bool> UpgradeEntryAsync(EntryModel entryModel)
         {
             return true;
         }

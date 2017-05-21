@@ -12,7 +12,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" MaxWidth="300" VerticalAlignment="Center" Visibility="{Binding ShowMessage, Converter={StaticResource BoolToVisibilityConverter}}" >
             <TextBlock Text="{Binding Message}" Style="{StaticResource BigTexBlock}" />
@@ -22,8 +23,11 @@
                 <TextBlock Text="Passwort" Style="{StaticResource SecondaryBigTexBlock}" />
                 <PasswordBox x:Name="PasswordBox1" Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource PasswordBox}" KeyDown="PasswordBox_KeyDown"  />
                 <PasswordBox x:Name="PasswordBox2" Password="{Binding ConfirmationPassword, Mode=TwoWay}" Visibility="{Binding IsFirstTime, Converter={StaticResource BoolToVisibilityConverter}}" Style="{StaticResource PasswordBox}" KeyDown="PasswordBox_KeyDown" />
-                <Button HorizontalAlignment="Center" Padding="50,10" Style="{StaticResource FlatButton}" Content="Login" Command="{Binding LoginCommand}" />
+                <Button HorizontalAlignment="Center" Content="Login" Command="{Binding LoginCommand}" />
             </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2" Margin="0,20,0,0" Visibility="Collapsed" x:Name="WindowsHelloButton">
+            <Button Content="Use Windows Hello" HorizontalAlignment="Center"></Button>
         </Grid>
     </Grid>
 

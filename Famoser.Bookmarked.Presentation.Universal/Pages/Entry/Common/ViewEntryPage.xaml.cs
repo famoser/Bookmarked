@@ -1,6 +1,7 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Famoser.Bookmarked.Presentation.Universal.Entity;
+using Famoser.Bookmarked.View.Model;
 using GalaSoft.MvvmLight.Ioc;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -25,6 +26,14 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common
                 DataContext = SimpleIoc.Default.GetInstance(pm.ViewModelType);
                 EntryFrame.Navigate(pm.ViewFrameType);
             }
+        }
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var ctm = e.ClickedItem as ContentTypeModel;
+            dynamic dc = DataContext;
+            if (dc.UpgradeCommand.CanExecute(ctm))
+                dc.UpgradeCommand.Execute(ctm);
         }
     }
 }

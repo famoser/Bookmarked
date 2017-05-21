@@ -1,6 +1,8 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Famoser.Bookmarked.Presentation.Universal.Entity;
+using Famoser.Bookmarked.View.Model;
+using Famoser.Bookmarked.View.ViewModels.Entry.Abstract;
 using GalaSoft.MvvmLight.Ioc;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -16,7 +18,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common
         {
             this.InitializeComponent();
         }
-
+        
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
