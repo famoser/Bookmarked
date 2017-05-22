@@ -37,7 +37,7 @@
                     <Button Grid.Column="2" HorizontalAlignment="Stretch"  Content="Import" Command="{Binding ImportCommand}" />
                 </Grid>
 
-                <TextBlock Text="Export / Import credentials" Style="{StaticResource SecondaryBigTexBlock}" />
+                <TextBlock Text="Export / Import credentials (fully encrypted)" Style="{StaticResource SecondaryBigTexBlock}" />
                 <Grid  Margin="10,0,10,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

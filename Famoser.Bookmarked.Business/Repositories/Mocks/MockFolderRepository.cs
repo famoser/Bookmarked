@@ -143,10 +143,25 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
 
         public async Task<string> ExportDataAsync()
         {
-            return "himom";
+            return "hi mom";
         }
 
         public async Task<bool> ImportDataAsync(string content)
+        {
+            return true;
+        }
+
+        public async Task<string> ExportCredentialsAsync()
+        {
+            return "hi dad";
+        }
+
+        public async Task<bool> ImportCredentialsAsync(string content)
+        {
+            return true;
+        }
+
+        public async Task<bool> ClearAllDataAsync()
         {
             return true;
         }

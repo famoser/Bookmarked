@@ -17,12 +17,15 @@ using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.FrameworkEssentials.Logging;
 using Famoser.SyncApi.Models;
 using Famoser.SyncApi.Repositories.Interfaces;
+using Famoser.SyncApi.Storage.Roaming;
 using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Repositories
 {
     public class FolderRepository : IFolderRepository
     {
+        private readonly IApiService _apiService;
+
         //repositories
         private readonly IApiRepository<FolderModel, CollectionModel> _folderRepository;
         private readonly IApiRepository<EntryModel, CollectionModel> _entryRepository;
@@ -51,6 +54,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             _passwordService = passwordService;
             _encryptionService = encryptionService;
             _viewService = viewService;
+            _apiService = apiService;
 
             _folderDic = new ConcurrentDictionary<Guid, FolderModel>();
             _folderDic.TryAdd(_rootGuid, new FolderModel { Name = "root", Description = "the root folder" });
@@ -566,6 +570,64 @@ namespace Famoser.Bookmarked.Business.Repositories
                     await SaveEntryAsync(entryDic[model.Key], model.Value);
                 }
                 return true;
+            }
+            catch (Exception e)
+            {
+                LogHelper.Instance.LogException(e);
+            }
+            return false;
+        }
+
+        public async Task<string> ExportCredentialsAsync()
+        {
+            try
+            {
+                var ss = _apiService.GetApiStorageService();
+                var credentials = await ss.GetApiRoamingEntityAsync();
+                var json = JsonConvert.SerializeObject(credentials);
+                return _encryptionService.Encrypt(json, _passwordService.GetPassword());
+            }
+            catch (Exception e)
+            {
+                LogHelper.Instance.LogException(e);
+            }
+            return null;
+        }
+
+        public async Task<bool> ImportCredentialsAsync(string content)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(content))
+                    return false;
+
+                var decrypted = _encryptionService.Decrypt(content, _passwordService.GetPassword());
+                var ss = _apiService.GetApiStorageService();
+                var newCred = JsonConvert.DeserializeObject<ApiRoamingEntity>(decrypted);
+                if (newCred != null && newCred.UserId != Guid.Empty)
+                {
+                    await ss.EraseRoamingAndCacheAsync();
+                    await ss.SaveApiRoamingEntityAsync(newCred);
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                LogHelper.Instance.LogException(e);
+            }
+            return false;
+        }
+
+        public async Task<bool> ClearAllDataAsync()
+        {
+            try
+            {
+                //may fail if someone tries to access file in that particular moment
+                var retries = 5;
+                while (!await _apiService.GetApiStorageService().EraseRoamingAndCacheAsync() && retries-- > 0)
+                {
+                    await Task.Delay(300);
+                }
             }
             catch (Exception e)
             {

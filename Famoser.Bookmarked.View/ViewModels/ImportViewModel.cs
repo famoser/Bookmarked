@@ -46,30 +46,25 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         private async Task ResetApplicationAsync()
         {
-            await _apiService.GetApiStorageService().EraseRoamingAndCacheAsync();
-            _interactionService.CloseApplication();
+            if (await _folderRepository.ClearAllDataAsync())
+            {
+                _interactionService.CloseApplication();
+            }
         }
 
         public ICommand ExportCredentialsCommand => new MyLoadingRelayCommand(ExportCredentialsAsync);
 
         private async Task ExportCredentialsAsync()
         {
-            var ss = _apiService.GetApiStorageService();
-            var credentials = await ss.GetApiRoamingEntityAsync();
-            await _interactionService.SaveCredentialsFileAsync(JsonConvert.SerializeObject(credentials));
+            await _interactionService.SaveCredentialsFileAsync(await _folderRepository.ExportCredentialsAsync());
         }
 
         public ICommand ImportCredentialsCommand => new MyLoadingRelayCommand(ImportCredentialsAsync);
 
         private async Task ImportCredentialsAsync()
         {
-            var ss = _apiService.GetApiStorageService();
-            var newCredJson = await _interactionService.ImportCredentialsFileAsync();
-            var newCred = JsonConvert.DeserializeObject<ApiRoamingEntity>(newCredJson);
-            if (newCred != null && newCred.UserId != Guid.Empty)
+            if (await _folderRepository.ImportCredentialsAsync(await _interactionService.ImportCredentialsFileAsync()))
             {
-                await ss.EraseRoamingAndCacheAsync();
-                await ss.SaveApiRoamingEntityAsync(newCred);
                 _interactionService.CloseApplication();
             }
         }

@@ -10,6 +10,6 @@
 
     <StackPanel>
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="private note" />
-        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding PrivateNote}" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.PrivateNote}" />
     </StackPanel>
 </Page>

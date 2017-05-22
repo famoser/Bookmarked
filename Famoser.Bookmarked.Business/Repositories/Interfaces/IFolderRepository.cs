@@ -32,6 +32,9 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
         ObservableCollection<EntryModel> SearchEntry(string searchTerm);
         Task<string> ExportDataAsync();
         Task<bool> ImportDataAsync(string content);
+        Task<string> ExportCredentialsAsync();
+        Task<bool> ImportCredentialsAsync(string content);
+        Task<bool> ClearAllDataAsync();
         Task<bool> UpgradeEntryAsync<T>(EntryModel entryModel, ContentType target) where T : ContentModel, new();
     }
 }
