@@ -628,6 +628,7 @@ namespace Famoser.Bookmarked.Business.Repositories
                 {
                     await Task.Delay(300);
                 }
+                return true;
             }
             catch (Exception e)
             {
