@@ -32,6 +32,11 @@ namespace Famoser.Bookmarked.Business.Services
             return _helper.ResolveRepository<T>();
         }
 
+        public IApiStorageService GetApiStorageService()
+        {
+            return _helper.ApiStorageService;
+        }
+
         public async Task<Uri> GetIconUriAsync(Uri uri)
         {
             try

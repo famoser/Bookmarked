@@ -1,7 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices.ComTypes;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
+using Famoser.Bookmarked.View.Command;
+using Famoser.Bookmarked.View.Services.Interfaces;
+using System;
 using Famoser.Bookmarked.View.ViewModels.Base;
+using Famoser.SyncApi.Storage.Roaming;
+using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.View.ViewModels
 {
@@ -9,21 +16,62 @@ namespace Famoser.Bookmarked.View.ViewModels
     {
         private IFolderRepository _folderRepository;
         private IApiService _apiService;
+        private IInteractionService _interactionService;
 
-        public ImportViewModel(IFolderRepository folderRepository, IApiService apiService)
+        public ImportViewModel(IFolderRepository folderRepository, IApiService apiService, IInteractionService interactionService)
         {
             _folderRepository = folderRepository;
             _apiService = apiService;
+            _interactionService = interactionService;
         }
 
-        public Task<bool> Import(string content)
+        public ICommand ImportCommand => new MyLoadingRelayCommand(ImportAsync);
+
+        private async Task ImportAsync()
         {
-            return _folderRepository.ImportDataAsync(content);
+            var str = await _interactionService.ImportExportFileAsync();
+            if (str != null)
+                await _folderRepository.ImportDataAsync(str);
         }
 
-        public Task<string> Export()
+        public ICommand ExportCommand => new MyLoadingRelayCommand(ExportAsync);
+
+        private async Task ExportAsync()
         {
-            return _folderRepository.ExportDataAsync();
+            var exportString = await _folderRepository.ExportDataAsync();
+            await _interactionService.SaveExportFileAsync(exportString);
+        }
+
+        public ICommand ResetApplicationCommand => new MyLoadingRelayCommand(ResetApplicationAsync);
+
+        private async Task ResetApplicationAsync()
+        {
+            await _apiService.GetApiStorageService().EraseRoamingAndCacheAsync();
+            _interactionService.CloseApplication();
+        }
+
+        public ICommand ExportCredentialsCommand => new MyLoadingRelayCommand(ExportCredentialsAsync);
+
+        private async Task ExportCredentialsAsync()
+        {
+            var ss = _apiService.GetApiStorageService();
+            var credentials = await ss.GetApiRoamingEntityAsync();
+            await _interactionService.SaveCredentialsFileAsync(JsonConvert.SerializeObject(credentials));
+        }
+
+        public ICommand ImportCredentialsCommand => new MyLoadingRelayCommand(ImportCredentialsAsync);
+
+        private async Task ImportCredentialsAsync()
+        {
+            var ss = _apiService.GetApiStorageService();
+            var newCredJson = await _interactionService.ImportCredentialsFileAsync();
+            var newCred = JsonConvert.DeserializeObject<ApiRoamingEntity>(newCredJson);
+            if (newCred != null && newCred.UserId != Guid.Empty)
+            {
+                await ss.EraseRoamingAndCacheAsync();
+                await ss.SaveApiRoamingEntityAsync(newCred);
+                _interactionService.CloseApplication();
+            }
         }
     }
 }

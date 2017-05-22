@@ -151,6 +151,11 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return true;
         }
 
+        public async  Task<bool> UpgradeEntryAsync<T>(EntryModel entryModel, ContentType target) where T : ContentModel, new()
+        {
+            return true;
+        }
+
         public async Task<bool> UpgradeEntryAsync(EntryModel entryModel)
         {
             return true;

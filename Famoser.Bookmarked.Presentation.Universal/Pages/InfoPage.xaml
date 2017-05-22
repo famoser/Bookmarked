@@ -26,15 +26,36 @@
                 <TextBlock Text="Synchronization log" Style="{StaticResource SecondaryBigTexBlock}" />
                 <ListView ItemContainerStyle="{StaticResource SmallStretchListViewItemStyle}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformations, Source={StaticResource Locator}}" />
 
-                <TextBlock Text="Export / Import (fully encrypted)" Style="{StaticResource SecondaryBigTexBlock}" />
+                <TextBlock Text="Export / Import data (fully encrypted)" Style="{StaticResource SecondaryBigTexBlock}" />
                 <Grid  Margin="10,0,10,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="20" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Export" Click="ImportClick" />
-                    <Button Grid.Column="2" HorizontalAlignment="Stretch"  Content="Import" Click="ExportClick" />
+                    <Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Export" Command="{Binding ExportCommand}" />
+                    <Button Grid.Column="2" HorizontalAlignment="Stretch"  Content="Import" Command="{Binding ImportCommand}" />
+                </Grid>
+
+                <TextBlock Text="Export / Import credentials" Style="{StaticResource SecondaryBigTexBlock}" />
+                <Grid  Margin="10,0,10,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Export" Command="{Binding ExportCredentialsCommand}" />
+                    <Button Grid.Column="2" HorizontalAlignment="Stretch"  Content="Import" Command="{Binding ImportCredentialsCommand}" />
+                </Grid>
+
+                <TextBlock Text="Danger functions" Style="{StaticResource SecondaryBigTexBlock}" />
+                <Grid  Margin="10,0,10,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Reset Application" Command="{Binding ResetApplicationCommand}" />
                 </Grid>
                 <StackPanel  Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                     <TextBlock FontFamily="Segoe UI" Margin="10" Foreground="White">
