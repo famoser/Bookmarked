@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.Web.Http;
 using Famoser.Bookmarked.Presentation.Universal.Entity;
 using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Services.Interfaces;
-using HttpClient = System.Net.Http.HttpClient;
 
 namespace Famoser.Bookmarked.Presentation.Universal.Platform
 {

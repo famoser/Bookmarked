@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Famoser.FrameworkEssentials.View.Interfaces;
 
 namespace Famoser.Bookmarked.View.Services.Interfaces
 {

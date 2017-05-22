@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Famoser.Bookmarked.Business.Enum;
-using Famoser.Bookmarked.Business.Models;
-using Famoser.Bookmarked.Business.Models.Entries;
-using Famoser.Bookmarked.Business.Models.Entries.Base;
-using Famoser.Bookmarked.Business.Repositories.Interfaces;
-using PCLCrypto;
+﻿using Famoser.Bookmarked.Business.Models.Entries;
 
 namespace Famoser.Bookmarked.Business.Helper
 {

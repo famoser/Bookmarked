@@ -2,7 +2,6 @@
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
-using Famoser.FrameworkEssentials.Services.Interfaces;
 
 namespace Famoser.Bookmarked.View.ViewModels.Folder.Base
 {

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
-using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.View.Command;
@@ -9,11 +8,6 @@ using Famoser.Bookmarked.View.Helper;
 using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
-using Famoser.Bookmarked.View.ViewModels.Entry;
-using Famoser.Bookmarked.View.ViewModels.Folder;
-using Famoser.FrameworkEssentials.Services.Interfaces;
-using Famoser.FrameworkEssentials.View.Commands;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace Famoser.Bookmarked.View.ViewModels
 {

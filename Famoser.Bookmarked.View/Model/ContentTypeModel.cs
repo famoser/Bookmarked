@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Enum;
-using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.View.Enum;
-using Famoser.Bookmarked.View.ViewModels.Entry;
-using Famoser.Bookmarked.View.ViewModels.Entry.Abstract;
-using Famoser.Bookmarked.View.ViewModels.Interface;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace Famoser.Bookmarked.View.Model
 {

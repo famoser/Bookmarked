@@ -1,5 +1,4 @@
-﻿using Windows.ApplicationModel.DataTransfer;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Famoser.Bookmarked.View.ViewModels.Entry;
 

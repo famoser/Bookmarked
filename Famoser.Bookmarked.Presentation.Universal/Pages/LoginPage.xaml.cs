@@ -3,7 +3,6 @@ using System.ComponentModel;
 using Windows.Foundation.Metadata;
 using Windows.Security.Credentials;
 using Windows.Security.Credentials.UI;
-using Windows.Storage.Streams;
 using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;

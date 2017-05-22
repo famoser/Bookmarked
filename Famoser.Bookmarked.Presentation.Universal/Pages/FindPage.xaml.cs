@@ -1,5 +1,4 @@
-﻿using Windows.UI.ViewManagement;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.View.ViewModels;
 using GalaSoft.MvvmLight.Ioc;

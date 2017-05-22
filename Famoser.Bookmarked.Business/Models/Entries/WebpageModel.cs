@@ -1,6 +1,5 @@
 ﻿using System;
 using Famoser.Bookmarked.Business.Enum;
-using Famoser.Bookmarked.Business.Models.Entries.Base;
 
 namespace Famoser.Bookmarked.Business.Models.Entries
 {

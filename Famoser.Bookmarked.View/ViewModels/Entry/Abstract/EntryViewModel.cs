@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
@@ -15,9 +14,6 @@ using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.Bookmarked.View.ViewModels.Interface;
-using Famoser.FrameworkEssentials.Services;
-using Famoser.FrameworkEssentials.Services.Interfaces;
-using Famoser.FrameworkEssentials.View.Commands;
 
 namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
 {
