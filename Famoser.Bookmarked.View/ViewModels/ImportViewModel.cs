@@ -65,6 +65,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             if (await _folderRepository.ImportCredentialsAsync(await _interactionService.ImportCredentialsFileAsync()))
             {
+                await _interactionService.ClearCacheAsync();
                 _interactionService.CloseApplication();
             }
         }

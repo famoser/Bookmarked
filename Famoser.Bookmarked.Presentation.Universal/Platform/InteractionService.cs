@@ -55,11 +55,10 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
         {
             try
             {
-                var picker =
-                    new Windows.Storage.Pickers.FileOpenPicker
+                var picker = new FileOpenPicker
                     {
-                        ViewMode = Windows.Storage.Pickers.PickerViewMode.List,
-                        SuggestedStartLocation = Windows.Storage.Pickers.PickerLocationId.PicturesLibrary
+                        ViewMode = PickerViewMode.List,
+                        SuggestedStartLocation = PickerLocationId.PicturesLibrary
                     };
 
                 picker.FileTypeFilter.Add(extension);
@@ -123,6 +122,16 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
         public void CloseApplication()
         {
             Application.Current.Exit();
+        }
+
+        public async Task<bool> ClearCacheAsync()
+        {
+            var files = (await ApplicationData.Current.LocalCacheFolder.GetFilesAsync());
+            foreach (var file in files)
+            {
+                await file.DeleteAsync(StorageDeleteOption.Default);
+            }
+            return true;
         }
 
         public string HashPassword(string password)

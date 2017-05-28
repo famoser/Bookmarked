@@ -91,21 +91,29 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             if (IsFirstTime && Password != ConfirmationPassword)
             {
-                FlashMessage("Passwords do not match");
+                FlashMessage("passwords do not match");
                 Password = "";
                 ConfirmationPassword = "";
                 return;
             }
 
-            var hash = _interactionService.HashPassword(Password);
-            if (await _passwordService.TryPasswordAsync(hash))
+            if (!string.IsNullOrEmpty(Password))
             {
-                _navigationService.NavigateTo(PageKeys.Navigation.ToString(), true);
-                IsFirstTime = false;
+                var hash = _interactionService.HashPassword(Password);
+                if (await _passwordService.TryPasswordAsync(hash))
+                {
+                    await _passwordService.SetPasswordAsync(hash);
+                    _navigationService.NavigateTo(PageKeys.Navigation.ToString(), true);
+                    IsFirstTime = false;
+                }
+                else
+                {
+                    FlashMessage("password wrong");
+                }
             }
             else
             {
-                FlashMessage("Password wrong");
+                FlashMessage("no password");
             }
         });
 

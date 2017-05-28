@@ -15,6 +15,8 @@ using Famoser.Bookmarked.Business.Models.Entries.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.FrameworkEssentials.Logging;
+using Famoser.FrameworkEssentials.Services.Interfaces;
+using Famoser.SyncApi.Enums;
 using Famoser.SyncApi.Models;
 using Famoser.SyncApi.Repositories.Interfaces;
 using Famoser.SyncApi.Storage.Roaming;
@@ -41,19 +43,21 @@ namespace Famoser.Bookmarked.Business.Repositories
         private readonly IPasswordService _passwordService;
         private readonly IEncryptionService _encryptionService;
         private readonly IViewService _viewService;
+        private readonly IStorageService _storageService;
 
         //fixed folders
         private readonly Guid _rootGuid = Guid.Parse("2c9cb460-0be3-4612-a411-810371268c9a");
         private readonly Guid _garbageGuid = Guid.Parse("8979801a-c64c-43ad-928c-36f4ff3b6bc0");
         private readonly Guid _parentNotFound = Guid.Parse("b8b6e207-1d54-4498-82fe-81b53faab710");
 
-        public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService, IViewService viewService)
+        public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService, IViewService viewService, IStorageService storageService)
         {
             _folderRepository = apiService.ResolveRepository<FolderModel>();
             _entryRepository = apiService.ResolveRepository<EntryModel>();
             _passwordService = passwordService;
             _encryptionService = encryptionService;
             _viewService = viewService;
+            _storageService = storageService;
             _apiService = apiService;
 
             _folderDic = new ConcurrentDictionary<Guid, FolderModel>();
@@ -607,6 +611,7 @@ namespace Famoser.Bookmarked.Business.Repositories
                 if (newCred != null && newCred.UserId != Guid.Empty)
                 {
                     await ss.EraseRoamingAndCacheAsync();
+                    newCred.AuthenticationState = AuthenticationState.NotYetAuthenticated;
                     await ss.SaveApiRoamingEntityAsync(newCred);
                     return true;
                 }

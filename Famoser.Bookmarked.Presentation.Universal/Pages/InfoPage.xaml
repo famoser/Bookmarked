@@ -56,6 +56,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Reset Application" Command="{Binding ResetApplicationCommand}" />
+                    <Button Grid.Column="2" HorizontalAlignment="Stretch" Content="Reset Application" Command="{Binding ResetApplicationCommand}" />
                 </Grid>
                 <StackPanel  Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                     <TextBlock FontFamily="Segoe UI" Margin="10" Foreground="White">

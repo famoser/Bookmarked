@@ -22,5 +22,7 @@ namespace Famoser.Bookmarked.View.Services.Interfaces
         Task<bool> SaveCredentialsFileAsync(string content);
 
         void CloseApplication();
+
+        Task<bool> ClearCacheAsync();
     }
 }
