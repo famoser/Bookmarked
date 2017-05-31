@@ -16,13 +16,15 @@ namespace Famoser.Bookmarked.View.ViewModels
         private readonly IPasswordService _passwordService;
         private readonly IInteractionService _interactionService;
         private readonly IFolderRepository _folderRepository;
+        private readonly ILoginService _loginService;
 
-        public LoginViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService, IFolderRepository folderRepository)
+        public LoginViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService, IFolderRepository folderRepository, ILoginService loginService)
         {
             _navigationService = navigationService;
             _passwordService = passwordService;
             _interactionService = interactionService;
             _folderRepository = folderRepository;
+            _loginService = loginService;
 
             InitializeAsync();
         }
@@ -32,7 +34,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             IsFirstTime = await _passwordService.CheckIsFirstTimeAsync();
             if (IsFirstTime)
             {
-                Message = "Welcome! Choose a password";
+                Message = "Welcome! Choose a password.";
                 ShowMessage = true;
             }
             var sync = await _folderRepository.SyncAsync();
@@ -41,6 +43,11 @@ namespace Famoser.Bookmarked.View.ViewModels
             {
                 IsFirstTime = false;
                 ShowMessage = false;
+                var str = await _loginService.TryAlternativeLogin();
+                if (str != null)
+                {
+                    TryLoginWithHash(str);
+                }
             }
         }
 
@@ -87,7 +94,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             ShowMessage = false;
         }
 
-        public ICommand LoginCommand => new MyLoadingRelayCommand(async () =>
+        public ICommand LoginCommand => new MyLoadingRelayCommand(() =>
         {
             if (IsFirstTime && Password != ConfirmationPassword)
             {
@@ -99,23 +106,29 @@ namespace Famoser.Bookmarked.View.ViewModels
 
             if (!string.IsNullOrEmpty(Password))
             {
-                var hash = _interactionService.HashPassword(Password);
-                if (await _passwordService.TryPasswordAsync(hash))
-                {
-                    await _passwordService.SetPasswordAsync(hash);
-                    _navigationService.NavigateTo(PageKeys.Navigation.ToString(), true);
-                    IsFirstTime = false;
-                }
-                else
-                {
-                    FlashMessage("password wrong");
-                }
+                var hash = _loginService.HashPassword(Password);
+                TryLoginWithHash(hash);
             }
             else
             {
                 FlashMessage("no password");
             }
         });
+
+        private async void TryLoginWithHash(string hash)
+        {
+            if (await _passwordService.TryPasswordAsync(hash))
+            {
+                _loginService.RegisterValidPassword(hash);
+                await _passwordService.SetPasswordAsync(hash);
+                _navigationService.NavigateTo(PageKeys.Navigation.ToString(), true);
+                IsFirstTime = false;
+            }
+            else
+            {
+                FlashMessage("password wrong");
+            }
+        }
 
         public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
     }

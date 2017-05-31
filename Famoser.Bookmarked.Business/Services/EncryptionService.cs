@@ -17,21 +17,31 @@ namespace Famoser.Bookmarked.Business.Services
         public string Decrypt(string content, string password)
         {
             var key = Encoding.UTF8.GetBytes(password);
-            var data = Convert.FromBase64String(content);
-            var provider = WinRTCrypto.SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithm.AesCbcPkcs7);
-            var symeticKey = provider.CreateSymmetricKey(key);
-            var bytes = WinRTCrypto.CryptographicEngine.Decrypt(symeticKey, data, InitVector);
-            return Encoding.UTF8.GetString(bytes,0,bytes.Length);
+            return DecryptRaw(content, key);
         }
 
-        public string Encrypt(string json, string password)
+        public string Encrypt(string content, string password)
         {
             var key = Encoding.UTF8.GetBytes(password);
-            var data = Encoding.UTF8.GetBytes(json);
+            return EncryptRaw(content, key);
+        }
+
+        public string EncryptRaw(string content, byte[] password)
+        {
+            var data = Encoding.UTF8.GetBytes(content);
             var provider = WinRTCrypto.SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithm.AesCbcPkcs7);
-            var symeticKey = provider.CreateSymmetricKey(key);
+            var symeticKey = provider.CreateSymmetricKey(password);
             var bytes = WinRTCrypto.CryptographicEngine.Encrypt(symeticKey, data, InitVector);
             return Convert.ToBase64String(bytes);
+        }
+
+        public string DecryptRaw(string content, byte[] password)
+        {
+            var data = Convert.FromBase64String(content);
+            var provider = WinRTCrypto.SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithm.AesCbcPkcs7);
+            var symeticKey = provider.CreateSymmetricKey(password);
+            var bytes = WinRTCrypto.CryptographicEngine.Decrypt(symeticKey, data, InitVector);
+            return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
     }
 }

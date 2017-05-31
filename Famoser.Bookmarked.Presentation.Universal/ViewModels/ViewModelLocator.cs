@@ -26,6 +26,8 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             SimpleIoc.Default.Register<IStorageService>(() => new StorageService());
             SimpleIoc.Default.Register<INavigationService>(ConstructNavigationService);
             SimpleIoc.Default.Register<IInteractionService, InteractionService>();
+            SimpleIoc.Default.Register<IImportExportService, ImportExportService>();
+            SimpleIoc.Default.Register<ILoginService, LoginService>();
         }
 
         private static async Task ClearAll()

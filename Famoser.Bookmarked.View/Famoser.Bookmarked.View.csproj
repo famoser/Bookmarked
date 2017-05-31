@@ -51,8 +51,10 @@
     <Compile Include="Helper\ReflectionHelper.cs" />
     <Compile Include="Model\ContentTypeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Interfaces\IImportExportService.cs" />
     <Compile Include="Services\Interfaces\IInteractionService.cs" />
     <Compile Include="Services\Interfaces\INavigationService.cs" />
+    <Compile Include="Services\Interfaces\ILoginService.cs" />
     <Compile Include="Services\ViewService.cs" />
     <Compile Include="ViewModels\ApiViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />

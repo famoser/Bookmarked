@@ -30,7 +30,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
             DispatcherHelper.CheckBeginInvokeOnUI(action);
         }
 
-        public async Task<bool> ConfirmMessage(string message)
+        public async Task<bool> ConfirmMessageAsync(string message)
         {
             var dialog = new MessageDialog(message);
 
@@ -44,79 +44,22 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
             return (int)result.Id == 0;
         }
 
+        public async Task ShowMessageAsync(string message)
+        {
+            var dialog = new MessageDialog(message);
+
+            dialog.Commands.Add(new UICommand("Confirm") { Id = 0 });
+
+            dialog.DefaultCommandIndex = 0;
+
+            await dialog.ShowAsync();
+        }
+
         public void CopyToClipboard(string message)
         {
             var package = new DataPackage();
             package.SetText(message);
             Clipboard.SetContent(package);
-        }
-
-        private async Task<string> ImportFileAsync(string extension)
-        {
-            try
-            {
-                var picker = new FileOpenPicker
-                    {
-                        ViewMode = PickerViewMode.List,
-                        SuggestedStartLocation = PickerLocationId.PicturesLibrary
-                    };
-
-                picker.FileTypeFilter.Add(extension);
-
-                StorageFile file = await picker.PickSingleFileAsync();
-                if (file != null)
-                {
-                    return await FileIO.ReadTextAsync(file);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogHelper.Instance.LogException(ex);
-            }
-            return null;
-        }
-
-        public Task<string> ImportExportFileAsync()
-        {
-            return ImportFileAsync(".bmd_data");
-        }
-
-        public Task<string> ImportCredentialsFileAsync()
-        {
-            return ImportFileAsync(".bmd_cred");
-        }
-
-        private async Task<bool> ExportFileAsync(string content, string extension, string fileName)
-        {
-            try
-            {
-                var fileSavePicker = new FileSavePicker();
-                fileSavePicker.FileTypeChoices.Add(fileName.Replace('_', ' ') + " file", new List<string> { extension });
-                fileSavePicker.DefaultFileExtension = extension;
-                fileSavePicker.SuggestedFileName = fileName + extension;
-
-                StorageFile file = await fileSavePicker.PickSaveFileAsync();
-                if (file != null && content != null)
-                {
-                    await FileIO.WriteTextAsync(file, content);
-                }
-                return true;
-            }
-            catch (Exception e)
-            {
-                LogHelper.Instance.LogException(e);
-            }
-            return false;
-        }
-
-        public Task<bool> SaveExportFileAsync(string content)
-        {
-            return ExportFileAsync(content, ".bmd_data", "bookmarked");
-        }
-
-        public Task<bool> SaveCredentialsFileAsync(string content)
-        {
-            return ExportFileAsync(content, ".bmd_cred", "bookmarked_credentials");
         }
 
         public void CloseApplication()
@@ -132,19 +75,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
                 await file.DeleteAsync(StorageDeleteOption.Default);
             }
             return true;
-        }
-
-        public string HashPassword(string password)
-        {
-            // put the string in a buffer
-            IBuffer input = CryptographicBuffer.ConvertStringToBinary(password, BinaryStringEncoding.Utf8);
-
-            // hash it with SHA 256
-            var hasher = HashAlgorithmProvider.OpenAlgorithm("SHA256");
-            IBuffer hashed = hasher.HashData(input);
-
-            // return as base64
-            return CryptographicBuffer.EncodeToBase64String(hashed);
         }
     }
 }

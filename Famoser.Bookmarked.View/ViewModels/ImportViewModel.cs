@@ -14,14 +14,16 @@ namespace Famoser.Bookmarked.View.ViewModels
 {
     public class ImportViewModel : BaseViewModel
     {
-        private IFolderRepository _folderRepository;
+        private readonly IFolderRepository _folderRepository;
         private IApiService _apiService;
+        private readonly IImportExportService _importExportService;
         private IInteractionService _interactionService;
 
-        public ImportViewModel(IFolderRepository folderRepository, IApiService apiService, IInteractionService interactionService)
+        public ImportViewModel(IFolderRepository folderRepository, IApiService apiService, IImportExportService importExportService, IInteractionService interactionService)
         {
             _folderRepository = folderRepository;
             _apiService = apiService;
+            _importExportService = importExportService;
             _interactionService = interactionService;
         }
 
@@ -29,7 +31,7 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         private async Task ImportAsync()
         {
-            var str = await _interactionService.ImportExportFileAsync();
+            var str = await _importExportService.ImportExportFileAsync();
             if (str != null)
                 await _folderRepository.ImportDataAsync(str);
         }
@@ -39,7 +41,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         private async Task ExportAsync()
         {
             var exportString = await _folderRepository.ExportDataAsync();
-            await _interactionService.SaveExportFileAsync(exportString);
+            await _importExportService.SaveExportFileAsync(exportString);
         }
 
         public ICommand ResetApplicationCommand => new MyLoadingRelayCommand(ResetApplicationAsync);
@@ -48,6 +50,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             if (await _folderRepository.ClearAllDataAsync())
             {
+                await _interactionService.ShowMessageAsync("reset successful, the application will close now");
                 _interactionService.CloseApplication();
             }
         }
@@ -56,16 +59,17 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         private async Task ExportCredentialsAsync()
         {
-            await _interactionService.SaveCredentialsFileAsync(await _folderRepository.ExportCredentialsAsync());
+            await _importExportService.SaveCredentialsFileAsync(await _folderRepository.ExportCredentialsAsync());
         }
 
         public ICommand ImportCredentialsCommand => new MyLoadingRelayCommand(ImportCredentialsAsync);
 
         private async Task ImportCredentialsAsync()
         {
-            if (await _folderRepository.ImportCredentialsAsync(await _interactionService.ImportCredentialsFileAsync()))
+            if (await _folderRepository.ImportCredentialsAsync(await _importExportService.ImportCredentialsFileAsync()))
             {
                 await _interactionService.ClearCacheAsync();
+                await _interactionService.ShowMessageAsync("import successful, the application will close now");
                 _interactionService.CloseApplication();
             }
         }
