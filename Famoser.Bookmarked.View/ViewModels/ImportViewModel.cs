@@ -17,14 +17,16 @@ namespace Famoser.Bookmarked.View.ViewModels
         private readonly IFolderRepository _folderRepository;
         private IApiService _apiService;
         private readonly IImportExportService _importExportService;
+        private readonly ILoginService _loginService;
         private IInteractionService _interactionService;
 
-        public ImportViewModel(IFolderRepository folderRepository, IApiService apiService, IImportExportService importExportService, IInteractionService interactionService)
+        public ImportViewModel(IFolderRepository folderRepository, IApiService apiService, IImportExportService importExportService, IInteractionService interactionService, ILoginService loginService)
         {
             _folderRepository = folderRepository;
             _apiService = apiService;
             _importExportService = importExportService;
             _interactionService = interactionService;
+            _loginService = loginService;
         }
 
         public ICommand ImportCommand => new MyLoadingRelayCommand(ImportAsync);
@@ -44,6 +46,13 @@ namespace Famoser.Bookmarked.View.ViewModels
             await _importExportService.SaveExportFileAsync(exportString);
         }
 
+        private string _newPassword;
+        public string NewPassword
+        {
+            get => _newPassword;
+            set => Set(ref _newPassword, value);
+        }
+
         public ICommand ResetApplicationCommand => new MyLoadingRelayCommand(ResetApplicationAsync);
 
         private async Task ResetApplicationAsync()
@@ -51,6 +60,19 @@ namespace Famoser.Bookmarked.View.ViewModels
             if (await _folderRepository.ClearAllDataAsync())
             {
                 await _interactionService.ShowMessageAsync("reset successful, the application will close now");
+                _interactionService.CloseApplication();
+            }
+        }
+
+        public ICommand SetNewPasswordCommand => new MyLoadingRelayCommand(SetNewPasswordAsync());
+
+        private async Task SetNewPasswordAsync()
+        {
+            var hash = _loginService.HashPassword(NewPassword);
+            _loginService.RegisterValidPassword();
+            if (await _folderRepository.ClearAllDataAsync())
+            {
+                await _interactionService.ShowMessageAsync("new password set, the application will close now");
                 _interactionService.CloseApplication();
             }
         }
@@ -68,7 +90,6 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             if (await _folderRepository.ImportCredentialsAsync(await _importExportService.ImportCredentialsFileAsync()))
             {
-                await _interactionService.ClearCacheAsync();
                 await _interactionService.ShowMessageAsync("import successful, the application will close now");
                 _interactionService.CloseApplication();
             }

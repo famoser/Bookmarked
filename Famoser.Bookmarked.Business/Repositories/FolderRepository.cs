@@ -586,9 +586,8 @@ namespace Famoser.Bookmarked.Business.Repositories
         {
             try
             {
-                var ss = _apiService.GetApiStorageService();
-                var credentials = await ss.GetApiRoamingEntityAsync();
-                var json = JsonConvert.SerializeObject(credentials);
+                var user = await _apiService.GetApiUserAsync();
+                var json = JsonConvert.SerializeObject(user);
                 return _encryptionService.Encrypt(json, _passwordService.GetPassword());
             }
             catch (Exception e)
@@ -604,17 +603,10 @@ namespace Famoser.Bookmarked.Business.Repositories
             {
                 if (string.IsNullOrEmpty(content))
                     return false;
-
+                
                 var decrypted = _encryptionService.Decrypt(content, _passwordService.GetPassword());
-                var ss = _apiService.GetApiStorageService();
-                var newCred = JsonConvert.DeserializeObject<ApiRoamingEntity>(decrypted);
-                if (newCred != null && newCred.UserId != Guid.Empty)
-                {
-                    await ss.EraseRoamingAndCacheAsync();
-                    newCred.AuthenticationState = AuthenticationState.NotYetAuthenticated;
-                    await ss.SaveApiRoamingEntityAsync(newCred);
-                    return true;
-                }
+                var newCred = JsonConvert.DeserializeObject<UserModel>(decrypted);
+                return await _apiService.SetApiUserAsync(newCred);
             }
             catch (Exception e)
             {

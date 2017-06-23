@@ -14,5 +14,9 @@ namespace Famoser.Bookmarked.Business.Services.Interfaces
         Task<Uri> GetIconUriAsync(Uri uri);
 
         IApiStorageService GetApiStorageService();
+
+        Task<UserModel> GetApiUserAsync();
+
+        Task<bool> SetApiUserAsync(UserModel user);
     }
 }

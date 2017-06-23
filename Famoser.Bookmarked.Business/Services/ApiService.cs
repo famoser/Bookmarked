@@ -37,6 +37,16 @@ namespace Famoser.Bookmarked.Business.Services
             return _helper.ApiStorageService;
         }
 
+        public Task<UserModel> GetApiUserAsync()
+        {
+            return _helper.ApiUserRepository.GetAsync();
+        }
+
+        public Task<bool> SetApiUserAsync(UserModel user)
+        {
+            return _helper.ApiUserRepository.ReplaceUserAsync(user);
+        }
+
         public async Task<Uri> GetIconUriAsync(Uri uri)
         {
             try

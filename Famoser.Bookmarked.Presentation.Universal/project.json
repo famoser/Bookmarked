@@ -2,11 +2,11 @@
   "dependencies": {
     "Famoser.FrameworkEssentials": "2.7.6",
     "Famoser.FrameworkEssentials.UniversalWindows": "1.2.1",
-    "Famoser.SyncApi": "0.3.12",
+    "Famoser.SyncApi": "0.3.13",
     "Famoser.Telemetry.UniversalWindows": "1.0.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.3",
     "MvvmLight": "5.3.0",
-    "Newtonsoft.Json": "10.0.2",
+    "Newtonsoft.Json": "10.0.3",
     "PCLCrypto": "2.0.147"
   },
   "frameworks": {
