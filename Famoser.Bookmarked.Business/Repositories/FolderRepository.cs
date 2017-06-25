@@ -603,7 +603,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             {
                 if (string.IsNullOrEmpty(content))
                     return false;
-                
+
                 var decrypted = _encryptionService.Decrypt(content, _passwordService.GetPassword());
                 var newCred = JsonConvert.DeserializeObject<UserModel>(decrypted);
                 return await _apiService.SetApiUserAsync(newCred);

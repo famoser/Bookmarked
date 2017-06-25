@@ -59,20 +59,8 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             if (await _folderRepository.ClearAllDataAsync())
             {
+                await _interactionService.ClearCacheAsync();
                 await _interactionService.ShowMessageAsync("reset successful, the application will close now");
-                _interactionService.CloseApplication();
-            }
-        }
-
-        public ICommand SetNewPasswordCommand => new MyLoadingRelayCommand(SetNewPasswordAsync());
-
-        private async Task SetNewPasswordAsync()
-        {
-            var hash = _loginService.HashPassword(NewPassword);
-            _loginService.RegisterValidPassword();
-            if (await _folderRepository.ClearAllDataAsync())
-            {
-                await _interactionService.ShowMessageAsync("new password set, the application will close now");
                 _interactionService.CloseApplication();
             }
         }

@@ -79,7 +79,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Famoser.SyncApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Famoser.SyncApi.0.3.13\lib\portable-net45+win8+wpa81+wp8\Famoser.SyncApi.dll</HintPath>
+      <HintPath>..\packages\Famoser.SyncApi.0.3.14\lib\portable-net45+win8+wpa81+wp8\Famoser.SyncApi.dll</HintPath>
     </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10\GalaSoft.MvvmLight.dll</HintPath>
