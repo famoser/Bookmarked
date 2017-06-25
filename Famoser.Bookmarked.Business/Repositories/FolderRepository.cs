@@ -16,10 +16,8 @@ using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.FrameworkEssentials.Logging;
 using Famoser.FrameworkEssentials.Services.Interfaces;
-using Famoser.SyncApi.Enums;
 using Famoser.SyncApi.Models;
 using Famoser.SyncApi.Repositories.Interfaces;
-using Famoser.SyncApi.Storage.Roaming;
 using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Repositories

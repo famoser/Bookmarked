@@ -1,14 +1,10 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Command;
 using Famoser.Bookmarked.View.Services.Interfaces;
-using System;
 using Famoser.Bookmarked.View.ViewModels.Base;
-using Famoser.SyncApi.Storage.Roaming;
-using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.View.ViewModels
 {
