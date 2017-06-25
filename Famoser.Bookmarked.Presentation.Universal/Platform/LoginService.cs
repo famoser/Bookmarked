@@ -24,6 +24,8 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
         private readonly IEncryptionService _encryptionService;
         private readonly IInteractionService _interactionService;
         private readonly IStorageService _storageService;
+        private const string AccountId = "Bookmarked";
+        private const string FileName = ".pw_info";
 
         public LoginService(IEncryptionService encryptionService, IInteractionService interactionService, IStorageService storageService)
         {
@@ -48,7 +50,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
         private async Task<PasswordInfoModel> GetPasswordInfoModelAsync()
         {
             PasswordInfoModel model = null;
-            var pwInfoFile = await _storageService.GetCachedTextFileAsync(".pw_info");
+            var pwInfoFile = await _storageService.GetCachedTextFileAsync(FileName);
             if (pwInfoFile != null)
             {
                 model = JsonConvert.DeserializeObject<PasswordInfoModel>(pwInfoFile);
@@ -61,46 +63,41 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
 
                 model = new PasswordInfoModel
                 {
-                    AccountId = "Bookmarked",
                     KeyPhrase = "sign this keyphrase of this bookmarked application to get a secure string"
                 };
                 var keyCreationResult =
-                    await KeyCredentialManager.RequestCreateAsync(model.AccountId, KeyCredentialCreationOption.ReplaceExisting);
+                    await KeyCredentialManager.RequestCreateAsync(AccountId, KeyCredentialCreationOption.ReplaceExisting);
 
                 if (keyCreationResult.Status == KeyCredentialStatus.Success)
                 {
-                    var userKey = keyCreationResult.Credential;
-                    model.KeyId = userKey.Name;
-                    model.KeyPhrase += model.KeyId;
                     model.PreferPassword = false;
                 }
                 else if (keyCreationResult.Status == KeyCredentialStatus.UserPrefersPassword)
                 {
                     model.PreferPassword = true;
                 }
-                await _storageService.SetCachedTextFileAsync(".pw_info", JsonConvert.SerializeObject(model));
+                await _storageService.SetCachedTextFileAsync(FileName, JsonConvert.SerializeObject(model));
             }
-
-            if (model.PreferPassword)
-                return null;
-
-            if (model.AccountId == null)
-                return null;
-
             return model;
         }
 
 
         public async void RegisterValidPassword(string hashedPassword)
         {
-            if (_passwordInfoModel != null)
+            PasswordInfoModel model = await GetPasswordInfoModelAsync();
+            if (model != null)
             {
-                _passwordInfoModel.EncryptedPassword = _encryptionService.EncryptRaw(hashedPassword, _passwordInfoModel.EncryptionKey);
-                await _storageService.SetCachedTextFileAsync(".pw_info", JsonConvert.SerializeObject(_passwordInfoModel));
+                if (model.EncryptedPassword == null)
+                {
+                    var key = await GetSignedKeyAsync(model.KeyPhrase);
+                    if (key != null)
+                    {
+                        model.EncryptedPassword = _encryptionService.EncryptRaw(hashedPassword, key);
+                        await _storageService.SetCachedTextFileAsync(FileName, JsonConvert.SerializeObject(model));
+                    }
+                }
             }
         }
-
-        private PasswordInfoModel _passwordInfoModel;
 
         public async Task<string> TryAlternativeLogin()
         {
@@ -109,27 +106,13 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
                 PasswordInfoModel model = await GetPasswordInfoModelAsync();
                 if (model != null)
                 {
-                    var openKeyResult = await KeyCredentialManager.OpenAsync(model.AccountId);
-
-                    if (openKeyResult.Status == KeyCredentialStatus.Success)
+                    var key = await GetSignedKeyAsync(model.KeyPhrase);
+                    if (key != null)
                     {
-                        var userKey = openKeyResult.Credential;
-                        var buffer = CryptographicBuffer.ConvertStringToBinary(
-                            model.KeyPhrase, BinaryStringEncoding.Utf8
-                        );
-
-                        var signResult = await userKey.RequestSignAsync(buffer);
-
-                        if (signResult.Status == KeyCredentialStatus.Success)
+                        if (model.EncryptedPassword != null)
                         {
-                            var res = signResult.Result.ToArray();
-                            if (model.EncryptedPassword != null)
-                            {
-                                var result = _encryptionService.DecryptRaw(model.EncryptedPassword, res);
-                                return result;
-                            }
-                            model.EncryptionKey = res;
-                            _passwordInfoModel = model;
+                            var myPassword = _encryptionService.DecryptRaw(model.EncryptedPassword, key);
+                            return myPassword;
                         }
                     }
                 }
@@ -137,6 +120,37 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
             catch (Exception e)
             {
                 LogHelper.Instance.LogException(e);
+            }
+            return null;
+        }
+
+        public async void InvalidateAlternativeLogin()
+        {
+            PasswordInfoModel model = await GetPasswordInfoModelAsync();
+            if (model != null)
+            {
+                model.EncryptedPassword = null;
+                await _storageService.SetCachedTextFileAsync(FileName, JsonConvert.SerializeObject(model));
+            }
+        }
+
+        private async Task<byte[]> GetSignedKeyAsync(string keyPhrase)
+        {
+            var openKeyResult = await KeyCredentialManager.OpenAsync(AccountId);
+
+            if (openKeyResult.Status == KeyCredentialStatus.Success)
+            {
+                var userKey = openKeyResult.Credential;
+                var buffer = CryptographicBuffer.ConvertStringToBinary(
+                    keyPhrase, BinaryStringEncoding.Utf8
+                );
+
+                var signResult = await userKey.RequestSignAsync(buffer);
+
+                if (signResult.Status == KeyCredentialStatus.Success)
+                {
+                    return signResult.Result.ToArray();
+                }
             }
             return null;
         }

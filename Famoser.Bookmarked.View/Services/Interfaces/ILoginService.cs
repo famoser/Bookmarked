@@ -11,5 +11,6 @@ namespace Famoser.Bookmarked.View.Services.Interfaces
         string HashPassword(string input);
         void RegisterValidPassword(string hashedPassword);
         Task<string> TryAlternativeLogin();
+        void InvalidateAlternativeLogin();
     }
 }

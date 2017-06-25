@@ -46,7 +46,10 @@ namespace Famoser.Bookmarked.View.ViewModels
                 var str = await _loginService.TryAlternativeLogin();
                 if (str != null)
                 {
-                    TryLoginWithHash(str);
+                    if (!await TryLoginWithHash(str))
+                    {
+                        _loginService.InvalidateAlternativeLogin();
+                    }
                 }
             }
         }
@@ -115,7 +118,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             }
         });
 
-        private async void TryLoginWithHash(string hash)
+        private async Task<bool> TryLoginWithHash(string hash)
         {
             if (await _passwordService.TryPasswordAsync(hash))
             {
@@ -123,10 +126,12 @@ namespace Famoser.Bookmarked.View.ViewModels
                 await _passwordService.SetPasswordAsync(hash);
                 _navigationService.NavigateTo(PageKeys.Navigation.ToString(), true);
                 IsFirstTime = false;
+                return true;
             }
             else
             {
                 FlashMessage("password wrong");
+                return false;
             }
         }
 
