@@ -89,6 +89,8 @@ namespace Famoser.Bookmarked.Business.Repositories
                     _folders.CollectionChanged += (s, e) => _viewService.CheckBeginInvokeOnUi(() => FoldersOnCollectionChanged(e));
                     _entries = _entryRepository.GetAllLazy();
                     _entries.CollectionChanged += (s, e) => _viewService.CheckBeginInvokeOnUi(() => EntriesOnCollectionChanged(e));
+                    AddFolders(_folders);
+                    AddEntries(_entries);
                 }
             }
         }
@@ -585,6 +587,14 @@ namespace Famoser.Bookmarked.Business.Repositories
             try
             {
                 var user = await _apiService.GetApiUserAsync();
+                if (user == null)
+                {
+                    var roaming = await _apiService.GetApiStorageService().GetApiRoamingEntityAsync();
+                    user = new UserModel()
+                    {
+                        Id = roaming.UserId
+                    };
+                }
                 var json = JsonConvert.SerializeObject(user);
                 return _encryptionService.Encrypt(json, _passwordService.GetPassword());
             }
