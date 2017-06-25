@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Entity;
-using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.FrameworkEssentials.Logging;
 using Famoser.FrameworkEssentials.Services;
@@ -13,7 +12,6 @@ using Famoser.SyncApi.Models.Interfaces;
 using Famoser.SyncApi.Repositories.Interfaces;
 using Famoser.SyncApi.Services.Interfaces;
 using Newtonsoft.Json;
-using PCLCrypto;
 
 namespace Famoser.Bookmarked.Business.Services
 {

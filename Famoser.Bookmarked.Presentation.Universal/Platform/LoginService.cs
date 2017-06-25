@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
-using Famoser.Bookmarked.Business.Services;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.Presentation.Universal.Models;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.FrameworkEssentials.Logging;
 using Famoser.FrameworkEssentials.Services.Interfaces;
-using Famoser.FrameworkEssentials.UniversalWindows.Platform;
 using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Presentation.Universal.Platform

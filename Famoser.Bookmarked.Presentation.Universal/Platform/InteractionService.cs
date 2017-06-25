@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Security.Cryptography;
-using Windows.Security.Cryptography.Core;
 using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.Storage.Streams;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Famoser.Bookmarked.View.Services.Interfaces;
-using Famoser.Bookmarked.View.ViewModels;
-using Famoser.FrameworkEssentials.Logging;
 using GalaSoft.MvvmLight.Threading;
 
 namespace Famoser.Bookmarked.Presentation.Universal.Platform

@@ -1,24 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation.Metadata;
-using Windows.Security.Credentials;
-using Windows.Security.Credentials.UI;
-using Windows.Security.Cryptography;
-using Windows.Storage;
+﻿using Windows.Foundation.Metadata;
 using Windows.System;
 using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Famoser.Bookmarked.Business.Services;
-using Famoser.Bookmarked.Presentation.Universal.Models;
 using Famoser.Bookmarked.View.ViewModels;
-using Famoser.FrameworkEssentials.Logging;
-using Famoser.FrameworkEssentials.UniversalWindows.Platform;
-using Newtonsoft.Json;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
