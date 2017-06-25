@@ -97,7 +97,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             ShowMessage = false;
         }
 
-        public ICommand LoginCommand => new MyLoadingRelayCommand(() =>
+        public ICommand LoginCommand => new MyLoadingRelayCommand(async () =>
         {
             if (IsFirstTime && Password != ConfirmationPassword)
             {
@@ -110,7 +110,10 @@ namespace Famoser.Bookmarked.View.ViewModels
             if (!string.IsNullOrEmpty(Password))
             {
                 var hash = _loginService.HashPassword(Password);
-                TryLoginWithHash(hash);
+                if (!await TryLoginWithHash(hash))
+                {
+                    FlashMessage("password wrong");
+                }
             }
             else
             {
@@ -128,11 +131,7 @@ namespace Famoser.Bookmarked.View.ViewModels
                 IsFirstTime = false;
                 return true;
             }
-            else
-            {
-                FlashMessage("password wrong");
-                return false;
-            }
+            return false;
         }
 
         public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
