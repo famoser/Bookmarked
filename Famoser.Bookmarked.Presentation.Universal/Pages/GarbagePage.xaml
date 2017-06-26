@@ -83,7 +83,6 @@
             <ScrollViewer Grid.Row="1">
                 <StackPanel>
                     <ListView ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" ItemsSource="{Binding GarbageFolder.Folders}" />
-                    <TextBlock Text="Entries" Style="{StaticResource BigTexBlock}" />
                     <ListView ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" ItemsSource="{Binding GarbageFolder.Entries}" />
                 </StackPanel>
             </ScrollViewer>

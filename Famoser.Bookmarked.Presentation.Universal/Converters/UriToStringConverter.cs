@@ -16,11 +16,19 @@ namespace Famoser.Bookmarked.Presentation.Universal.Converters
         {
             try
             {
-                return new Uri(value as string);
+                var str = value as string;
+                if (str != null)
+                {
+                    if (!str.StartsWith("http://") && !str.StartsWith("https://"))
+                        return new Uri("http://" + str);
+                    return new Uri(str);
+                }
             }
-            catch {
-                return null;
+            catch
+            {
+                // Uri may fails if invalid URI
             }
+            return null;
         }
     }
 }

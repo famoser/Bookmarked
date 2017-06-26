@@ -49,6 +49,15 @@ namespace Famoser.Bookmarked.View.ViewModels
             set => Set(ref _newPassword, value);
         }
 
+        public ICommand ResetInstallationCommand => new MyLoadingRelayCommand(ResetInstallationAsync);
+
+        private async Task ResetInstallationAsync()
+        {
+            await _interactionService.ClearCacheAsync();
+            await _interactionService.ShowMessageAsync("reset successful, the application will close now");
+            _interactionService.CloseApplication();
+        }
+
         public ICommand ResetApplicationCommand => new MyLoadingRelayCommand(ResetApplicationAsync);
 
         private async Task ResetApplicationAsync()

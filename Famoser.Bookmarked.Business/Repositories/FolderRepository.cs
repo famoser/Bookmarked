@@ -86,11 +86,11 @@ namespace Famoser.Bookmarked.Business.Repositories
                 if (_folders == null)
                 {
                     _folders = _folderRepository.GetAllLazy();
-                    _folders.CollectionChanged += (s, e) => _viewService.CheckBeginInvokeOnUi(() => FoldersOnCollectionChanged(e));
                     _entries = _entryRepository.GetAllLazy();
+                    AddEntries(_entries.ToList());
                     _entries.CollectionChanged += (s, e) => _viewService.CheckBeginInvokeOnUi(() => EntriesOnCollectionChanged(e));
-                    AddFolders(_folders);
-                    AddEntries(_entries);
+                    AddFolders(_folders.ToList());
+                    _folders.CollectionChanged += (s, e) => _viewService.CheckBeginInvokeOnUi(() => FoldersOnCollectionChanged(e));
                 }
             }
         }
@@ -103,7 +103,7 @@ namespace Famoser.Bookmarked.Business.Repositories
                     AddEntries(notifyCollectionChangedEventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    RemoveEntries(notifyCollectionChangedEventArgs.NewItems);
+                    RemoveEntries(notifyCollectionChangedEventArgs.OldItems);
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     RemoveEntries(notifyCollectionChangedEventArgs.OldItems);
@@ -197,7 +197,7 @@ namespace Famoser.Bookmarked.Business.Repositories
                     AddFolders(notifyCollectionChangedEventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Remove:
-                    RemoveFolders(notifyCollectionChangedEventArgs.NewItems);
+                    RemoveFolders(notifyCollectionChangedEventArgs.OldItems);
                     break;
                 case NotifyCollectionChangedAction.Replace:
                     RemoveFolders(notifyCollectionChangedEventArgs.OldItems);
@@ -393,6 +393,10 @@ namespace Famoser.Bookmarked.Business.Repositories
                         return JsonConvert.DeserializeObject<T>(json);
                     }
                 }
+                else
+                {
+                    //Repair();
+                }
             }
             catch (Exception e)
             {
@@ -400,6 +404,19 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
             return new T();
         }
+
+        //private async void Repair()
+        //{
+        //    //fix entries
+        //    foreach (var entryModel in _entries)
+        //    {
+        //        if (entryModel.Content == null && entryModel.ContentType == ContentType.Webpage && entryModel.IconUri?.Host != null)
+        //        {
+        //            var model = new WebpageModel { WebpageUrl = new Uri("http://" + entryModel.IconUri.Host) };
+        //            await SaveEntryAsync(entryModel, model);
+        //        }
+        //    }
+        //}
 
         public async Task<bool> RemoveFolderAsync(FolderModel folderModel)
         {

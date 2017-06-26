@@ -7,7 +7,7 @@ namespace Famoser.Bookmarked.Business.Models
     public class EntryModel : ParentModel
     {
         private string _content;
-        internal string Content
+        public string Content
         {
             get { return _content; }
             set { Set(ref _content, value); }

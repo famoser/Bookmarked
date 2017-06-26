@@ -51,14 +51,17 @@ namespace Famoser.Bookmarked.Business.Services
         {
             try
             {
-                var apiUri = new Uri("http://icons.better-idea.org/allicons.json?url=" + uri.AbsoluteUri);
-                using (var service = new HttpService())
+                if (uri != null)
                 {
-                    var resp = await service.DownloadAsync(apiUri);
-                    var obj = JsonConvert.DeserializeObject<BetterIdeaIcon>(await resp.GetResponseAsStringAsync());
-                    var res = obj?.Icons?.OrderByDescending(i => i.Width).FirstOrDefault();
-                    if (res?.Url != null)
-                        return new Uri(res.Url);
+                    var apiUri = new Uri("http://icons.better-idea.org/allicons.json?url=" + uri.AbsoluteUri);
+                    using (var service = new HttpService())
+                    {
+                        var resp = await service.DownloadAsync(apiUri);
+                        var obj = JsonConvert.DeserializeObject<BetterIdeaIcon>(await resp.GetResponseAsStringAsync());
+                        var res = obj?.Icons?.OrderByDescending(i => i.Width).FirstOrDefault();
+                        if (res?.Url != null)
+                            return new Uri(res.Url);
+                    }
                 }
             }
             catch (Exception ex)
