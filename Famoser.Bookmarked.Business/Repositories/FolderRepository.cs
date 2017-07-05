@@ -235,7 +235,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             {
                 foreach (var entryParentId in folder.ParentIds)
                 {
-                    if (_folderDic.ContainsKey(entryParentId))
+                    if (_folderDic.ContainsKey(entryParentId) && !_folderDic[entryParentId].Folders.Contains(folder))
                     {
                         _folderDic[entryParentId].Folders.Add(folder);
                     }
@@ -254,7 +254,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             //look for missing folders
             foreach (var folderModel in _folders)
             {
-                if (folderModel.ParentIds.Contains(folder.GetId()))
+                if (folderModel.ParentIds.Contains(folder.GetId()) && !folder.Folders.Contains(folderModel))
                 {
                     folder.Folders.Add(folderModel);
                 }
