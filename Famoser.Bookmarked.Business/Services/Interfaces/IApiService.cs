@@ -13,6 +13,8 @@ namespace Famoser.Bookmarked.Business.Services.Interfaces
 
         Task<Uri> GetIconUriAsync(Uri uri);
 
+        Task<string> GetWebpageNameAsync(Uri uri);
+
         IApiStorageService GetApiStorageService();
 
         Task<UserModel> GetApiUserAsync();

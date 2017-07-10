@@ -28,6 +28,7 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
         Task<bool> AddEntryToFolderAsync(EntryModel entryModel, FolderModel folder);
         Task<bool> RemoveEntryFromFolderAsync(EntryModel entryModel, FolderModel folder);
         Task<bool> ReplaceFolderOfEntryAsync(EntryModel entryModel, FolderModel oldFolder, FolderModel newFolder);
+        Task<bool> ReplaceFolderOfEntryAsync(FolderModel folder, FolderModel oldFolder, FolderModel newFolder);
 
         ObservableCollection<EntryModel> SearchEntry(string searchTerm);
         Task<string> ExportDataAsync();

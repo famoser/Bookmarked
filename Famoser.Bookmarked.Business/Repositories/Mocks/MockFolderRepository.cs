@@ -131,6 +131,11 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return true;
         }
 
+        public async Task<bool> ReplaceFolderOfEntryAsync(FolderModel folder, FolderModel oldFolder, FolderModel newFolder)
+        {
+            return true;
+        }
+
         public FolderModel GetGarbageFolder()
         {
             return CreateFolder("garbage", "this is the garbage folder");

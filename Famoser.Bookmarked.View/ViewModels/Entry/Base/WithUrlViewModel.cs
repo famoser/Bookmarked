@@ -19,7 +19,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Base
             base.SelectedEntryContentOnPropertyChanged(sender, propertyChangedEventArgs);
             if (propertyChangedEventArgs.PropertyName == ReflectionHelper.GetPropertyName(() => SelectedEntryContent.WebpageUrl))
             {
-                await SetIconUri(SelectedEntryContent.WebpageUrl);
+                await SourceUriChangedAsync(SelectedEntryContent.WebpageUrl);
             }
         }
     }

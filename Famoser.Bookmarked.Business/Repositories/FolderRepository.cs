@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Enum;
+using Famoser.Bookmarked.Business.Extensions;
 using Famoser.Bookmarked.Business.Helper;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Base;
@@ -131,7 +132,7 @@ namespace Famoser.Bookmarked.Business.Repositories
 
             if (entry.ParentIds.Contains(_garbageGuid))
             {
-                _folderDic[_garbageGuid].Entries.Add(entry);
+                _folderDic[_garbageGuid].Entries.AddUniqueSorted(entry);
             }
             else
             {
@@ -139,7 +140,7 @@ namespace Famoser.Bookmarked.Business.Repositories
                 {
                     if (_folderDic.ContainsKey(entryParentId))
                     {
-                        _folderDic[entryParentId].Entries.Add(entry);
+                        _folderDic[entryParentId].Entries.AddUniqueSorted(entry);
                     }
                 }
             }
@@ -152,6 +153,9 @@ namespace Famoser.Bookmarked.Business.Repositories
 
             if (entry.ParentIds.Contains(Guid.Empty))
                 entry.ParentIds.Remove(Guid.Empty);
+
+            if (entry.ParentIds.Contains(entry.GetId()))
+                entry.ParentIds.Remove(entry.GetId());
 
             if (entry.ParentIds.Count == 0)
                 entry.ParentIds.Add(_rootGuid);
@@ -229,7 +233,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             //add itself to parents
             if (folder.ParentIds.Contains(_garbageGuid))
             {
-                _folderDic[_garbageGuid].Folders.Add(folder);
+                _folderDic[_garbageGuid].Folders.AddUniqueSorted(folder);
             }
             else
             {
@@ -237,7 +241,7 @@ namespace Famoser.Bookmarked.Business.Repositories
                 {
                     if (_folderDic.ContainsKey(entryParentId) && !_folderDic[entryParentId].Folders.Contains(folder))
                     {
-                        _folderDic[entryParentId].Folders.Add(folder);
+                        _folderDic[entryParentId].Folders.AddUniqueSorted(folder);
                     }
                 }
             }
@@ -247,7 +251,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             {
                 if (entryModel.ParentIds.Contains(folder.GetId()))
                 {
-                    folder.Entries.Add(entryModel);
+                    folder.Entries.AddUniqueSorted(entryModel);
                 }
             }
 
@@ -256,7 +260,7 @@ namespace Famoser.Bookmarked.Business.Repositories
             {
                 if (folderModel.ParentIds.Contains(folder.GetId()) && !folder.Folders.Contains(folderModel))
                 {
-                    folder.Folders.Add(folderModel);
+                    folder.Folders.AddUniqueSorted(folderModel);
                 }
             }
         }
@@ -405,19 +409,6 @@ namespace Famoser.Bookmarked.Business.Repositories
             return new T();
         }
 
-        //private async void Repair()
-        //{
-        //    //fix entries
-        //    foreach (var entryModel in _entries)
-        //    {
-        //        if (entryModel.Content == null && entryModel.ContentType == ContentType.Webpage && entryModel.IconUri?.Host != null)
-        //        {
-        //            var model = new WebpageModel { WebpageUrl = new Uri("http://" + entryModel.IconUri.Host) };
-        //            await SaveEntryAsync(entryModel, model);
-        //        }
-        //    }
-        //}
-
         public async Task<bool> RemoveFolderAsync(FolderModel folderModel)
         {
             //removing parent ids
@@ -448,7 +439,7 @@ namespace Famoser.Bookmarked.Business.Repositories
         public async Task<bool> AddEntryToFolderAsync(EntryModel entryModel, FolderModel folder)
         {
             if (!folder.Entries.Contains(entryModel))
-                folder.Entries.Add(entryModel);
+                folder.Entries.AddUniqueSorted(entryModel);
             if (!entryModel.ParentIds.Contains(folder.GetId()))
             {
                 entryModel.ParentIds.Add(folder.GetId());
@@ -473,7 +464,7 @@ namespace Famoser.Bookmarked.Business.Repositories
         {
             bool savePls = false;
             if (!newFolder.Entries.Contains(entryModel))
-                newFolder.Entries.Add(entryModel);
+                newFolder.Entries.AddUniqueSorted(entryModel);
             if (!entryModel.ParentIds.Contains(newFolder.GetId()))
             {
                 entryModel.ParentIds.Add(newFolder.GetId());
@@ -488,6 +479,28 @@ namespace Famoser.Bookmarked.Business.Repositories
             }
             if (savePls)
                 return await _entryRepository.SaveAsync(entryModel);
+            return true;
+        }
+
+        public async Task<bool> ReplaceFolderOfEntryAsync(FolderModel folder, FolderModel oldFolder, FolderModel newFolder)
+        {
+            bool savePls = false;
+            if (!newFolder.Folders.Contains(folder))
+                newFolder.Folders.AddUniqueSorted(folder);
+            if (!folder.ParentIds.Contains(newFolder.GetId()))
+            {
+                folder.ParentIds.Add(newFolder.GetId());
+                savePls = true;
+            }
+            if (oldFolder.Folders.Contains(folder))
+                oldFolder.Folders.Remove(folder);
+            if (folder.ParentIds.Contains(oldFolder.GetId()))
+            {
+                folder.ParentIds.Remove(oldFolder.GetId());
+                savePls = true;
+            }
+            if (savePls)
+                return await _folderRepository.SaveAsync(folder);
             return true;
         }
 

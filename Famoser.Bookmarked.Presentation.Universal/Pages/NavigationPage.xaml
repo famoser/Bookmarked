@@ -57,10 +57,10 @@
                     <SymbolIcon Symbol="Up" Foreground="White"></SymbolIcon>
                 </Grid>
             </Grid>
-            <ScrollViewer Grid.Row="1">
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
                 <StackPanel>
-                    <ListView ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" AllowDrop="True" SelectionMode="None" ItemsSource="{Binding SelectedFolder.Folders}" ItemClick="ListView_ItemClick"  />
-                    <ListView Margin="0,20,0,0" CanDragItems="True" DragItemsStarting="ListViewBase_OnDragItemsStarting" ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" IsItemClickEnabled="True" ItemsSource="{Binding SelectedFolder.Entries}" ItemClick="ListView_ItemClick" DragItemsCompleted="ListView_DragItemsCompleted" />
+                    <ListView CanDragItems="True" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" IsItemClickEnabled="True" AllowDrop="True" SelectionMode="None" ItemClick="ListView_ItemClick" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" />
+                    <ListView Margin="0,20,0,0" CanDragItems="True" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" ItemsSource="{Binding SelectedFolder.Entries}"   />
                 </StackPanel>
             </ScrollViewer>
 

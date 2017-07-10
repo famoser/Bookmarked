@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Entity;
 using Famoser.Bookmarked.Business.Services.Interfaces;
@@ -15,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace Famoser.Bookmarked.Business.Services
 {
-    public class ApiService : IApiService
+    public class ApiService : HttpService, IApiService
     {
         private readonly SyncApiHelper _helper;
 
@@ -30,6 +31,22 @@ namespace Famoser.Bookmarked.Business.Services
         public IApiRepository<T, CollectionModel> ResolveRepository<T>() where T : ISyncModel
         {
             return _helper.ResolveRepository<T>();
+        }
+
+        public async Task<string> GetWebpageNameAsync(Uri uri)
+        {
+            try
+            {
+                var content = await DownloadAsync(uri);
+                const string titleRegex = @"(?<=<title.*>)([\s\S]*)(?=</title>)";
+                var ex = new Regex(titleRegex, RegexOptions.IgnoreCase);
+                return ex.Match(await content.GetResponseAsStringAsync()).Value.Trim();
+            }
+            catch
+            {
+                // ignored as not critical
+            }
+            return null;
         }
 
         public IApiStorageService GetApiStorageService()
@@ -64,9 +81,9 @@ namespace Famoser.Bookmarked.Business.Services
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                LogHelper.Instance.LogException(ex);
+                // ignored as not critical
             }
             return null;
         }

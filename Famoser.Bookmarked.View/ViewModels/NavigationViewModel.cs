@@ -59,6 +59,20 @@ namespace Famoser.Bookmarked.View.ViewModels
             return _folderRepository.ReplaceFolderOfEntryAsync(entry, oldFolder, newFolder);
         }
 
+        public Task<bool> MoveToNewFolderAsync(FolderModel folder, FolderModel newFolder)
+        {
+            var oldFolder = SelectedFolder;
+            return _folderRepository.ReplaceFolderOfEntryAsync(folder, oldFolder, newFolder);
+        }
+
+        public Task<bool> MoveOneFolderUpAsync(FolderModel folder)
+        {
+            var oldFolder = SelectedFolder;
+            _navigationService.GoBack();
+            var newFolder = SelectedFolder;
+            return _folderRepository.ReplaceFolderOfEntryAsync(folder, oldFolder, newFolder);
+        }
+
         public ICommand AddFolderCommand => new MyLoadingRelayCommand(() =>
         {
             _navigationService.NavigateTo(PageKeys.AddFolder.ToString());

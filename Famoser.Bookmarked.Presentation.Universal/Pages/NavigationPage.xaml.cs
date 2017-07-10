@@ -64,13 +64,12 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
 
         private const string ItemDragData = "ItemDragData";
 
-        private void ListViewBase_OnDragItemsStarting(object sender, DragItemsStartingEventArgs e)
+        private void ListView_OnDragItemsStarting(object sender, DragItemsStartingEventArgs e)
         {
             if (e.Items.Count > 0)
             {
                 // Set the content of the DataPackage
                 e.Data.Properties.Add(ItemDragData, e.Items[0]);
-                // As we want our Reference list to say intact, we only allow Copy
                 e.Data.RequestedOperation = DataPackageOperation.Move;
 
                 if (ViewModel.SelectedFolder.ParentIds.Count > 0)
@@ -86,7 +85,10 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
         private bool IsValidDropData(DragEventArgs e)
         {
             return e.DataView?.Properties != null &&
-                   e.DataView.Properties.Any(x => x.Key == ItemDragData && x.Value.GetType() == typeof(EntryModel));
+                (
+                   e.DataView.Properties.Any(x => x.Key == ItemDragData && x.Value.GetType() == typeof(EntryModel)) ||
+                   e.DataView.Properties.Any(x => x.Key == ItemDragData && x.Value.GetType() == typeof(FolderModel))
+                );
         }
 
         private void UIElement_OnDragOver(object sender, DragEventArgs e)
@@ -103,13 +105,27 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                     var def = e.GetDeferral();
 
                     var item = e.Data.Properties.FirstOrDefault(x => x.Key == ItemDragData);
-                    var card = item.Value as EntryModel;
-                    var stackPanel = sender as StackPanel;
-                    var folder = stackPanel?.DataContext as FolderModel;
-
-                    if (card != null && folder != null)
+                    var entryModel = item.Value as EntryModel;
+                    var folderModel = item.Value as FolderModel;
+                    if (entryModel != null || folderModel != null)
                     {
-                        await ViewModel.MoveToNewFolderAsync(card, folder);
+                        var stackPanel = sender as StackPanel;
+                        var folder = stackPanel?.DataContext as FolderModel;
+
+                        if (folder != null)
+                        {
+                            if (folderModel != null)
+                            {
+                                if (folder != folderModel)
+                                {
+                                    await ViewModel.MoveToNewFolderAsync(folderModel, folder);
+                                }
+                            }
+                            else
+                            {
+                                await ViewModel.MoveToNewFolderAsync(entryModel, folder);
+                            }
+                        }
                     }
 
                     def.Complete();
@@ -139,11 +155,16 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                     var def = e.GetDeferral();
 
                     var item = e.Data.Properties.FirstOrDefault(x => x.Key == ItemDragData);
-                    var card = item.Value as EntryModel;
+                    var entry = item.Value as EntryModel;
+                    var folder = item.Value as FolderModel;
 
-                    if (card != null)
+                    if (entry != null)
                     {
-                        await ViewModel.MoveOneFolderUpAsync(card);
+                        await ViewModel.MoveOneFolderUpAsync(entry);
+                    }
+                    else if (folder != null)
+                    {
+                        await ViewModel.MoveOneFolderUpAsync(folder);
                     }
 
                     def.Complete();

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.Business.Models.Entries;
 using Famoser.Bookmarked.Business.Models.Entries.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
@@ -144,11 +145,21 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             return ContentHelper.GetContentTypeModel(typeof(T));
         }
 
-        protected async Task SetIconUri(Uri uri)
+        protected async Task SourceUriChangedAsync(Uri uri)
         {
             try
             {
-                SelectedEntry.IconUri = await _apiService.GetIconUriAsync(uri);
+                var iconTask = _apiService.GetIconUriAsync(uri);
+
+                if (string.IsNullOrEmpty(SelectedEntry.Name))
+                {
+                    var newName = await _apiService.GetWebpageNameAsync(uri);
+                    if (string.IsNullOrEmpty(SelectedEntry.Name))
+                    {
+                        SelectedEntry.Name = newName;
+                    }
+                }
+                SelectedEntry.IconUri = await iconTask;
             }
             catch
             {
