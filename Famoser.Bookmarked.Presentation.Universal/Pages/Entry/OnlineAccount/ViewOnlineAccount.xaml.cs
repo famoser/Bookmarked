@@ -18,10 +18,16 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages.Entry.OnlineAccount
 
         OnlineAccountViewModel OnlineAccountViewModel => DataContext as OnlineAccountViewModel;
 
-        private void Hyperlink_OnClick(Hyperlink sender, HyperlinkClickEventArgs args)
+        private void HyperlinkUsername_OnClick(Hyperlink sender, HyperlinkClickEventArgs args)
+        {
+            if (OnlineAccountViewModel != null && OnlineAccountViewModel.CopyUsernameToClipboard.CanExecute(null))
+                OnlineAccountViewModel.CopyPasswordToClipboard.Execute(null);
+        }
+
+        private void HyperlinkPassword_OnClick(Hyperlink sender, HyperlinkClickEventArgs args)
         {
             if (OnlineAccountViewModel != null && OnlineAccountViewModel.CopyPasswordToClipboard.CanExecute(null))
-                OnlineAccountViewModel.CopyPasswordToClipboard.Execute(null);
+                OnlineAccountViewModel.CopyUsernameToClipboard.Execute(null);
         }
     }
 }

@@ -12,10 +12,15 @@
         <local:ViewWebpage DataContext="{Binding }" />
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="username" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.UserName}" />
+        <TextBlock Style="{StaticResource ValueTextBlock}">
+            <Hyperlink  Click="HyperlinkUsername_OnClick">
+                <Run Text="copy password"/>
+            </Hyperlink>
+        </TextBlock>
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="password" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.Password}" />
         <TextBlock Style="{StaticResource ValueTextBlock}">
-            <Hyperlink  Click="Hyperlink_OnClick">
+            <Hyperlink  Click="HyperlinkPassword_OnClick">
                 <Run Text="copy password"/>
             </Hyperlink>
         </TextBlock>

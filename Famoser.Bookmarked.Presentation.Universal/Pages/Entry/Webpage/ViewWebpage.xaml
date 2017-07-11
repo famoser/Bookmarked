@@ -14,7 +14,7 @@
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
         <TextBlock Style="{StaticResource ValueTextBlock}">
             <Hyperlink NavigateUri="{Binding SelectedEntryContent.WebpageUrl}">
-                <Run Text="open browser"/>
+                <Run Text="{Binding SelectedEntryContent.WebpageUrl}"/>
             </Hyperlink>
         </TextBlock>
     </StackPanel>
