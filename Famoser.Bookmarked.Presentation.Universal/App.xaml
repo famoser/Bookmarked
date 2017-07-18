@@ -76,6 +76,7 @@
                 <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="FontWeight" Value="Light" />
                 <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="IsTextSelectionEnabled" Value="True" />
             </Style>
 
             <Style x:Key="ValueTextBox" TargetType="TextBox">

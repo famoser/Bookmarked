@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
+    xmlns:note="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Note"
     mc:Ignorable="d"
     DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
 
@@ -14,7 +15,7 @@
     </Page.Resources>
 
     <StackPanel>
-        <local:EditNote DataContext="{Binding }" />
+        <note:EditNote DataContext="{Binding }" />
         
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
         <TextBox Style="{StaticResource ValueTextBox}" InputScope="Url" Text="{Binding SelectedEntryContent.WebpageUrl, Mode=TwoWay, Converter={StaticResource UriToStringConverter}, UpdateSourceTrigger=PropertyChanged}" />

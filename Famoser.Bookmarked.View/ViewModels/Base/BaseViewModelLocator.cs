@@ -46,6 +46,8 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
             SimpleIoc.Default.Register<CreditCardViewModel>();
             SimpleIoc.Default.Register<OnlineAccountViewModel>();
             SimpleIoc.Default.Register<ExportViewModel>();
+            SimpleIoc.Default.Register<BookViewModel>();
+            SimpleIoc.Default.Register<PersonViewModel>();
         }
 
 
@@ -66,5 +68,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
         public NoteViewModel NoteViewModel => SimpleIoc.Default.GetInstance<NoteViewModel>();
         public CreditCardViewModel CreditCardViewModel => SimpleIoc.Default.GetInstance<CreditCardViewModel>();
         public OnlineAccountViewModel OnlineAccountViewModel => SimpleIoc.Default.GetInstance<OnlineAccountViewModel>();
+        public BookViewModel BookViewModel => SimpleIoc.Default.GetInstance<BookViewModel>();
+        public PersonViewModel PersonViewModel => SimpleIoc.Default.GetInstance<PersonViewModel>();
     }
 }

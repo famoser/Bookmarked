@@ -60,6 +60,8 @@
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModelLocator.cs" />
     <Compile Include="ViewModels\Entry\Abstract\EntryViewModel.cs" />
+    <Compile Include="ViewModels\Entry\PersonViewModel.cs" />
+    <Compile Include="ViewModels\Entry\BookViewModel.cs" />
     <Compile Include="ViewModels\Entry\NoteViewModel.cs" />
     <Compile Include="ViewModels\Entry\CreditCardViewModel.cs" />
     <Compile Include="ViewModels\Entry\OnlineAccountViewModel.cs" />

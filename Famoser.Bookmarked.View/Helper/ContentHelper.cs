@@ -64,6 +64,32 @@ namespace Famoser.Bookmarked.View.Helper
                     ViewModelType = typeof(CreditCardViewModel),
                     ModelType = typeof(CreditCardModel)
                 }
+            },
+            {
+                ContentType.Book,
+                new ContentTypeModel
+                {
+                    Name = "Book",
+                    ContentType = ContentType.Book,
+                    AddPageKey = PageKeys.AddBook,
+                    EditPageKey = PageKeys.EditBook,
+                    ViewPageKey = PageKeys.ViewBook,
+                    ViewModelType = typeof(BookViewModel),
+                    ModelType = typeof(BookModel)
+                }
+            },
+            {
+                ContentType.Person,
+                new ContentTypeModel
+                {
+                    Name = "Person",
+                    ContentType = ContentType.Person,
+                    AddPageKey = PageKeys.AddPerson,
+                    EditPageKey = PageKeys.EditPerson,
+                    ViewPageKey = PageKeys.ViewPerson,
+                    ViewModelType = typeof(PersonViewModel),
+                    ModelType = typeof(PersonModel)
+                }
             }
         };
 
@@ -111,7 +137,7 @@ namespace Famoser.Bookmarked.View.Helper
             switch (ct.ContentType)
             {
                 case ContentType.Note:
-                    typeList = new List<ContentType> { ContentType.Webpage, ContentType.OnlineAccount, ContentType.CreditCard };
+                    typeList = new List<ContentType> { ContentType.Webpage, ContentType.OnlineAccount, ContentType.CreditCard, ContentType.Book, ContentType.Person };
                     break;
                 case ContentType.Webpage:
                     typeList = new List<ContentType> { ContentType.OnlineAccount, ContentType.CreditCard };

@@ -5,7 +5,10 @@ using Windows.Storage;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Presentation.Universal.Entity;
 using Famoser.Bookmarked.Presentation.Universal.Pages;
+using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Book;
+using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Note;
 using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.OnlineAccount;
+using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Person;
 using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage;
 using Famoser.Bookmarked.Presentation.Universal.Pages.Folder;
 using Famoser.Bookmarked.Presentation.Universal.Platform;
@@ -71,7 +74,9 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
                 {ContentType.Webpage, new Tuple<Type, Type>(typeof(ViewWebpage), typeof(EditWebpage))},
                 {ContentType.Note, new Tuple<Type, Type>(typeof(ViewNote), typeof(EditNote))},
                 {ContentType.CreditCard, new Tuple<Type, Type>(typeof(ViewCreditCard), typeof(EditCreditCard))},
-                {ContentType.OnlineAccount, new Tuple<Type, Type>(typeof(ViewOnlineAccount), typeof(EditOnlineAccount))}
+                {ContentType.OnlineAccount, new Tuple<Type, Type>(typeof(ViewOnlineAccount), typeof(EditOnlineAccount))},
+                {ContentType.Book, new Tuple<Type, Type>(typeof(ViewBook), typeof(EditBook))},
+                {ContentType.Person, new Tuple<Type, Type>(typeof(ViewPerson), typeof(EditPerson))}
             };
 
             //add pages of entries

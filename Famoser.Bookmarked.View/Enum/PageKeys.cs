@@ -25,6 +25,14 @@
 
         AddCreditCard,
         EditCreditCard,
-        ViewCreditCard
+        ViewCreditCard,
+
+        AddBook,
+        EditBook,
+        ViewBook,
+
+        AddPerson,
+        EditPerson,
+        ViewPerson
     }
 }

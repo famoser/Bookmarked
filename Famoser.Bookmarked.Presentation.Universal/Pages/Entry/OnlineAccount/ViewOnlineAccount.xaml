@@ -14,7 +14,7 @@
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.UserName}" />
         <TextBlock Style="{StaticResource ValueTextBlock}">
             <Hyperlink  Click="HyperlinkUsername_OnClick">
-                <Run Text="copy password"/>
+                <Run Text="copy username"/>
             </Hyperlink>
         </TextBlock>
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="password" />

@@ -4,7 +4,7 @@ namespace Famoser.Bookmarked.Business.Helper
 {
     public class UpgradeHelper
     {
-        public static void WriteValues(NoteModel source, WebpageModel target)
+        public static void WriteValues(NoteModel source, NoteModel target)
         {
             target.PrivateNote = source.PrivateNote;
         }

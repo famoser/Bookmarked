@@ -5,11 +5,12 @@
     xmlns:local="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:note="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Note"
     mc:Ignorable="d"
     DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
 
     <StackPanel>
-        <local:ViewNote DataContext="{Binding }" />
+        <note:ViewNote DataContext="{Binding }" />
         
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="url" />
         <TextBlock Style="{StaticResource ValueTextBlock}">

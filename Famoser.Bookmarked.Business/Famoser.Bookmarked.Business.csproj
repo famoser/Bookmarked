@@ -50,8 +50,10 @@
     <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Base\ParentModel.cs" />
     <Compile Include="Models\Entries\Base\ContentModel.cs" />
+    <Compile Include="Models\Entries\PersonModel.cs" />
     <Compile Include="Models\Entries\NoteModel.cs" />
     <Compile Include="Models\Entries\CreditCardModel.cs" />
+    <Compile Include="Models\Entries\BookModel.cs" />
     <Compile Include="Models\Entries\OnlineAccountModel.cs" />
     <Compile Include="Models\Entries\WebpageModel.cs" />
     <Compile Include="Models\EntryModel.cs" />

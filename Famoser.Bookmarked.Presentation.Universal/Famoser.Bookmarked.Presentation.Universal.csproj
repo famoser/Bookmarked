@@ -105,6 +105,12 @@
     <Compile Include="Converters\UriToStringConverter.cs" />
     <Compile Include="Entity\NavigationParameter.cs" />
     <Compile Include="Models\PasswordInfoModel.cs" />
+    <Compile Include="Pages\Entry\Person\EditPerson.xaml.cs">
+      <DependentUpon>EditPerson.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Entry\Person\ViewPerson.xaml.cs">
+      <DependentUpon>ViewPerson.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Entry\Common\Controls\EditEntry.xaml.cs">
       <DependentUpon>EditEntry.xaml</DependentUpon>
     </Compile>
@@ -116,6 +122,12 @@
     </Compile>
     <Compile Include="Pages\Entry\CreditCard\ViewCreditCard.xaml.cs">
       <DependentUpon>ViewCreditCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Entry\Book\EditBook.xaml.cs">
+      <DependentUpon>EditBook.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Entry\Book\ViewBook.xaml.cs">
+      <DependentUpon>ViewBook.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Entry\OnlineAccount\EditOnlineAccount.xaml.cs">
       <DependentUpon>EditOnlineAccount.xaml</DependentUpon>
@@ -226,6 +238,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\Entry\Person\EditPerson.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Entry\Person\ViewPerson.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\Entry\Common\Controls\EditEntry.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -239,6 +259,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Entry\CreditCard\ViewCreditCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Entry\Book\EditBook.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Entry\Book\ViewBook.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

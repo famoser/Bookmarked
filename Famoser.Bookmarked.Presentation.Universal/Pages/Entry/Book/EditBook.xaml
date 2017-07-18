@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Book.EditBook"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Book"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
+    xmlns:webpage="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Note"
+    mc:Ignorable="d"
+    DataContext="{Binding BookViewModel, Source={StaticResource Locator}}">
+
+    <StackPanel>
+        <webpage:EditNote DataContext="{Binding }" />
+
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="author" />
+        <TextBox InputScope="Text" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.Author, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="isbn" />
+        <TextBox InputScope="Text" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.ISBN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+</Page>

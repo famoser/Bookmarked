@@ -678,11 +678,23 @@ namespace Famoser.Bookmarked.Business.Repositories
                 return null;
 
             ContentModel newModel = null;
-            if (model.ContentType == ContentType.Note)
+            if (model.ContentType == ContentType.Note && targetType == ContentType.Webpage)
             {
                 newModel = new WebpageModel();
                 var nowContent = newContentModel as NoteModel;
                 UpgradeHelper.WriteValues(nowContent, (WebpageModel)newModel);
+            }
+            if (model.ContentType == ContentType.Note && targetType == ContentType.Person)
+            {
+                newModel = new PersonModel();
+                var nowContent = newContentModel as NoteModel;
+                UpgradeHelper.WriteValues(nowContent, (PersonModel)newModel);
+            }
+            if (model.ContentType == ContentType.Note && targetType == ContentType.Book)
+            {
+                newModel = new BookModel();
+                var nowContent = newContentModel as NoteModel;
+                UpgradeHelper.WriteValues(nowContent, (BookModel)newModel);
             }
             if (model.ContentType == ContentType.Webpage && targetType == ContentType.CreditCard)
             {

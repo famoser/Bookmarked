@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Person.EditPerson"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:note="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Note"
+    mc:Ignorable="d"
+    DataContext="{Binding PersonViewModel, Source={StaticResource Locator}}">
+
+    <StackPanel>
+        <note:EditNote DataContext="{Binding }" />
+
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="birth day" />
+        <TextBox InputScope="Text" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.BirthDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </StackPanel>
+</Page>
