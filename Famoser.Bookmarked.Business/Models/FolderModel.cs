@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Famoser.Bookmarked.Business.Models.Base;
 using Newtonsoft.Json;
 
@@ -16,5 +17,8 @@ namespace Famoser.Bookmarked.Business.Models
         {
             return typeof(FolderModel).Name;
         }
+
+        public int TotalFoldersInStructure => Folders.Sum(f => f.TotalFoldersInStructure) + Folders.Count;
+        public int TotalEntriesInStructure => Folders.Sum(f => f.TotalEntriesInStructure) + Entries.Count;
     }
 }

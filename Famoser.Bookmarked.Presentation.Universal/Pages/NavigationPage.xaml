@@ -47,13 +47,24 @@
             </Grid.RowDefinitions>
             <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
             <Grid Grid.Row="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="{Binding SelectedFolder.Name}" Style="{StaticResource BigTexBlock}" />
-                <Grid AllowDrop="True" x:Name="MoveUpGrid" Visibility="Collapsed" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Grid.Column="2" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="70">
+                <TextBlock Grid.Column="0" Grid.Row="0" Padding="10,0" Text="{Binding SelectedFolder.Name}" Style="{StaticResource BigTexBlock}" />
+                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding SelectedFolder.Description}" Style="{StaticResource ValueTextBlock}" />
+                <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Style="{StaticResource ValueTextBlock}">
+                    <Run Text="{Binding TotalEntries}"></Run>
+                    <Run Text="entries"></Run>
+                    <Run Text="{Binding TotalFolders}"></Run>
+                    <Run Text="folders"></Run>
+                </TextBlock>
+                <Grid AllowDrop="True" Grid.Row="0" Grid.RowSpan="2" x:Name="MoveUpGrid" Visibility="Collapsed" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Grid.Column="2" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="70">
                     <SymbolIcon Symbol="Up" Foreground="White"></SymbolIcon>
                 </Grid>
             </Grid>

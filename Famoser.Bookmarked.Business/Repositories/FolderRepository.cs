@@ -316,18 +316,18 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         public Task<bool> MoveFolderToGarbageAsync(FolderModel folderModel)
         {
+            RemoveFolder(folderModel);
             if (!folderModel.ParentIds.Contains(_garbageGuid))
                 folderModel.ParentIds.Add(_garbageGuid);
-            RemoveFolder(folderModel);
             AddFolder(folderModel);
             return _folderRepository.SaveAsync(folderModel);
         }
 
         public Task<bool> MoveFolderOutOfGarbageAsync(FolderModel folderModel)
         {
+            RemoveFolder(folderModel);
             if (folderModel.ParentIds.Contains(_garbageGuid))
                 folderModel.ParentIds.Remove(_garbageGuid);
-            RemoveFolder(folderModel);
             AddFolder(folderModel);
             return _folderRepository.SaveAsync(folderModel);
         }
@@ -361,18 +361,18 @@ namespace Famoser.Bookmarked.Business.Repositories
 
         public Task<bool> MoveEntryToGarbageAsync(EntryModel entryModel)
         {
+            RemoveEntry(entryModel);
             if (!entryModel.ParentIds.Contains(_garbageGuid))
                 entryModel.ParentIds.Add(_garbageGuid);
-            RemoveEntry(entryModel);
             AddEntry(entryModel);
             return _entryRepository.SaveAsync(entryModel);
         }
 
         public Task<bool> MoveEntryOutOfGarbageAsync(EntryModel entryModel)
         {
+            RemoveEntry(entryModel);
             if (entryModel.ParentIds.Contains(_garbageGuid))
                 entryModel.ParentIds.Remove(_garbageGuid);
-            RemoveEntry(entryModel);
             AddEntry(entryModel);
             return _entryRepository.SaveAsync(entryModel);
         }

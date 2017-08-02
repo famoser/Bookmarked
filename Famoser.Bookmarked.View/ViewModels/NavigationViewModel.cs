@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Famoser.Bookmarked.Business.Models;
@@ -31,8 +32,18 @@ namespace Famoser.Bookmarked.View.ViewModels
         public FolderModel SelectedFolder
         {
             get { return _selectedFolder; }
-            set { Set(ref _selectedFolder, value); }
+            set
+            {
+                if (Set(ref _selectedFolder, value))
+                {
+                    RaisePropertyChanged(() => TotalFolders);
+                    RaisePropertyChanged(() => TotalEntries);
+                }
+            }
         }
+
+        public int TotalFolders => SelectedFolder.TotalFoldersInStructure;
+        public int TotalEntries => SelectedFolder.TotalEntriesInStructure;
 
         public ICommand RefreshCommand => new MyLoadingRelayCommand(() => _folderRepository.SyncAsync());
         public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
@@ -91,7 +102,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             {
                 _navigationService.NavigateTo(cm.AddPageKey.ToString());
                 var entry = _folderRepository.CreateEntry(SelectedFolder, cm.ContentType);
-                ((IEntryViewModel) SimpleIoc.Default.GetInstance(cm.ViewModelType)).SetEntry(entry, CrudState.Add);
+                ((IEntryViewModel)SimpleIoc.Default.GetInstance(cm.ViewModelType)).SetEntry(entry, CrudState.Add);
             }
         });
 
