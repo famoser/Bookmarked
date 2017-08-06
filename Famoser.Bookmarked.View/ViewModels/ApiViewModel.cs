@@ -32,15 +32,15 @@ namespace Famoser.Bookmarked.View.ViewModels
         private int _requestCount;
         public int RequestCount
         {
-            get { return _requestCount; }
-            set { Set(ref _requestCount, value); }
+            get => _requestCount;
+            set => Set(ref _requestCount, value);
         }
 
         private ObservableCollection<SyncActionInformation> _syncActionInformations = new ObservableCollection<SyncActionInformation>();
         public ObservableCollection<SyncActionInformation> SyncActionInformations
         {
-            get { return _syncActionInformations; }
-            set { Set(ref _syncActionInformations, value); }
+            get => _syncActionInformations;
+            set => Set(ref _syncActionInformations, value);
         }
 
         public ISyncActionInformation CreateSyncActionInformation(SyncAction action)

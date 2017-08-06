@@ -80,15 +80,15 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
         private EntryModel _selectedEntry;
         public EntryModel SelectedEntry
         {
-            get { return _selectedEntry; }
-            private set { Set(ref _selectedEntry, value); }
+            get => _selectedEntry;
+            private set => Set(ref _selectedEntry, value);
         }
 
         private T _selectedEntryContent;
         public T SelectedEntryContent
         {
-            get { return _selectedEntryContent; }
-            private set { Set(ref _selectedEntryContent, value); }
+            get => _selectedEntryContent;
+            private set => Set(ref _selectedEntryContent, value);
         }
 
         public ICommand SaveEntryCommand => new MyLoadingRelayCommand(async () =>
@@ -170,8 +170,8 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
         private List<ContentTypeModel> _upgradableContentTypes;
         public List<ContentTypeModel> UpgradableContentTypes
         {
-            get { return _upgradableContentTypes; }
-            set { Set(ref _upgradableContentTypes, value); }
+            get => _upgradableContentTypes;
+            set => Set(ref _upgradableContentTypes, value);
         }
 
         public ICommand UpgradeCommand => new MyLoadingRelayCommand<ContentTypeModel>(async (ct) =>

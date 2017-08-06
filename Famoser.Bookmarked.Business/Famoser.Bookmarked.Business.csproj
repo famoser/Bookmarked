@@ -60,7 +60,13 @@
     <Compile Include="Models\FolderModel.cs" />
     <Compile Include="Models\ImportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\FolderRepository.cs" />
+    <Compile Include="Repositories\FolderRepository\FolderRepository.cs" />
+    <Compile Include="Repositories\FolderRepository\FolderRepositoryCrud.cs" />
+    <Compile Include="Repositories\FolderRepository\FolderRepositoryGarbage.cs" />
+    <Compile Include="Repositories\FolderRepository\FolderRepositorySearch.cs" />
+    <Compile Include="Repositories\FolderRepository\FolderRepositoryUpgrade.cs" />
+    <Compile Include="Repositories\FolderRepository\FolderRepositoryMove.cs" />
+    <Compile Include="Repositories\FolderRepository\FolderRepositoryImportExport.cs" />
     <Compile Include="Repositories\Interfaces\IFolderRepository.cs" />
     <Compile Include="Repositories\Mocks\MockFolderRepository.cs" />
     <Compile Include="Services\ApiService.cs" />

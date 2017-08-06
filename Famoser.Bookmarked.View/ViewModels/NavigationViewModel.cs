@@ -31,7 +31,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         private FolderModel _selectedFolder;
         public FolderModel SelectedFolder
         {
-            get { return _selectedFolder; }
+            get => _selectedFolder;
             set
             {
                 if (Set(ref _selectedFolder, value))
