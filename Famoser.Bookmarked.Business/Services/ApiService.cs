@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Entity;
 using Famoser.Bookmarked.Business.Services.Interfaces;
-using Famoser.FrameworkEssentials.Logging;
 using Famoser.FrameworkEssentials.Services;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.SyncApi.Helpers;
