@@ -24,8 +24,8 @@ namespace Famoser.Bookmarked.View.ViewModels.Folder.Base
         private FolderModel _folder;
         public FolderModel Folder
         {
-            get { return _folder; }
-            set { Set(ref _folder, value); }
+            get => _folder;
+            set => Set(ref _folder, value);
         }
     }
 }

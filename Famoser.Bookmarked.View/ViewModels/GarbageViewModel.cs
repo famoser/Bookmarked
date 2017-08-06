@@ -26,8 +26,8 @@ namespace Famoser.Bookmarked.View.ViewModels
         private FolderModel _garbageFolder;
         public FolderModel GarbageFolder
         {
-            get { return _garbageFolder; }
-            set { Set(ref _garbageFolder, value); }
+            get => _garbageFolder;
+            set => Set(ref _garbageFolder, value);
         }
 
         public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));

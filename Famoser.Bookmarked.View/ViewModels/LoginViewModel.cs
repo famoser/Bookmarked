@@ -57,36 +57,36 @@ namespace Famoser.Bookmarked.View.ViewModels
         private string _password;
         public string Password
         {
-            get { return _password; }
-            set { Set(ref _password, value); }
+            get => _password;
+            set => Set(ref _password, value);
         }
 
         private string _confirmationPassword;
         public string ConfirmationPassword
         {
-            get { return _confirmationPassword; }
-            set { Set(ref _confirmationPassword, value); }
+            get => _confirmationPassword;
+            set => Set(ref _confirmationPassword, value);
         }
 
         private bool _showMessage;
         public bool ShowMessage
         {
-            get { return _showMessage; }
-            set { Set(ref _showMessage, value); }
+            get => _showMessage;
+            set => Set(ref _showMessage, value);
         }
 
         private string _message;
         public string Message
         {
-            get { return _message; }
-            set { Set(ref _message, value); }
+            get => _message;
+            set => Set(ref _message, value);
         }
 
         private bool _isFirstTime;
         public bool IsFirstTime
         {
-            get { return _isFirstTime; }
-            set { Set(ref _isFirstTime, value); }
+            get => _isFirstTime;
+            set => Set(ref _isFirstTime, value);
         }
 
         private async void FlashMessage(string message)

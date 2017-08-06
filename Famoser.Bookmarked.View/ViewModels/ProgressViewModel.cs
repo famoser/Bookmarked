@@ -47,22 +47,22 @@ namespace Famoser.Bookmarked.View.ViewModels
         private bool _showProgress;
         public bool ShowProgress
         {
-            get { return _showProgress; }
-            set { Set(ref _showProgress, value); }
+            get => _showProgress;
+            set => Set(ref _showProgress, value);
         }
 
         private int _maxProgress;
         public int MaxProgress
         {
-            get { return _maxProgress; }
-            set { Set(ref _maxProgress, value); }
+            get => _maxProgress;
+            set => Set(ref _maxProgress, value);
         }
 
         private int _activeProgress;
         public int ActiveProgress
         {
-            get { return _activeProgress; }
-            set { Set(ref _activeProgress, value); }
+            get => _activeProgress;
+            set => Set(ref _activeProgress, value);
         }
     }
 }

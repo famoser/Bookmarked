@@ -10,7 +10,6 @@ using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Base;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
-using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.SyncApi.Models;
 using Famoser.SyncApi.Repositories.Interfaces;
 
@@ -35,21 +34,19 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
         private readonly IPasswordService _passwordService;
         private readonly IEncryptionService _encryptionService;
         private readonly IViewService _viewService;
-        private readonly IStorageService _storageService;
 
         //fixed folders
         private readonly Guid _rootGuid = Guid.Parse("2c9cb460-0be3-4612-a411-810371268c9a");
         private readonly Guid _garbageGuid = Guid.Parse("8979801a-c64c-43ad-928c-36f4ff3b6bc0");
         private readonly Guid _parentNotFound = Guid.Parse("b8b6e207-1d54-4498-82fe-81b53faab710");
 
-        public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService, IViewService viewService, IStorageService storageService)
+        public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService, IViewService viewService)
         {
             _folderRepository = apiService.ResolveRepository<FolderModel>();
             _entryRepository = apiService.ResolveRepository<EntryModel>();
             _passwordService = passwordService;
             _encryptionService = encryptionService;
             _viewService = viewService;
-            _storageService = storageService;
             _apiService = apiService;
 
             _folderDic = new ConcurrentDictionary<Guid, FolderModel>();
@@ -104,7 +101,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                     AddEntries(notifyCollectionChangedEventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    RemoveAllEntries();
+                    RemoveAllEntriesFast();
                     AddEntries(_entries);
                     break;
             }
@@ -136,6 +133,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                         _folderDic[entryParentId].Entries.AddUniqueSorted(entry);
                     }
                 }
+                AddToSearchIndex(entry);
             }
         }
 
@@ -176,12 +174,17 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                     _folderDic[entryParentId].Entries.Remove(entry);
                 }
             }
+            RemoveFromSearchIndex(entry);
         }
 
-        private void RemoveAllEntries()
+        private void RemoveAllEntriesFast()
         {
             foreach (var folder in _folders)
             {
+                foreach (var folderEntry in folder.Entries)
+                {
+                    RemoveFromSearchIndex(folderEntry);
+                }
                 folder.Entries.Clear();
             }
         }
@@ -201,7 +204,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                     AddFolders(notifyCollectionChangedEventArgs.NewItems);
                     break;
                 case NotifyCollectionChangedAction.Reset:
-                    RemoveAllFolders();
+                    RemoveAllFoldersFast();
                     AddFolders(_folders);
                     break;
             }
@@ -256,6 +259,8 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                     folder.Folders.AddUniqueSorted(folderModel);
                 }
             }
+
+            AddToSearchIndex(folder);
         }
 
         private void RemoveFolders(IList list)
@@ -278,14 +283,21 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                 if (_folderDic.ContainsKey(modelParentId) && _folderDic[modelParentId].Folders.Contains(model))
                     _folderDic[modelParentId].Folders.Remove(model);
             }
+            RemoveFromSearchIndex(model);
         }
 
-        private void RemoveAllFolders()
+        private void RemoveAllFoldersFast()
         {
             //remove sub folders
             foreach (var item in _folderDic)
             {
                 item.Value.Folders.Clear();
+            }
+
+            //remove from search
+            foreach (var folderModel in _folderDic.Values)
+            {
+                RemoveFromSearchIndex(folderModel);
             }
 
             //remove key
