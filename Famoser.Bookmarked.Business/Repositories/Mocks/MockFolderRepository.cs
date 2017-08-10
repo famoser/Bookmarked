@@ -146,6 +146,11 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return GetRootFolder().Entries;
         }
 
+        public ObservableCollection<FolderModel> SearchFolder(string searchTerm)
+        {
+            return GetRootFolder().Folders;
+        }
+
         public async Task<string> ExportDataAsync()
         {
             return "hi mom";

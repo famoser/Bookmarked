@@ -6,10 +6,10 @@ namespace Famoser.Bookmarked.View.ViewModels
 {
     public class ProgressViewModel : BaseViewModel, ISimpleProgressService
     {
-        private readonly IInteractionService _interactionService;
-        public ProgressViewModel(IInteractionService interactionService)
+        private readonly IDispatchService _dispatchService;
+        public ProgressViewModel(IDispatchService dispatchService)
         {
-            _interactionService = interactionService;
+            _dispatchService = dispatchService;
             if (IsInDesignMode)
             {
                 ShowProgress = true;
@@ -20,7 +20,7 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public void InitializeProgressBar(int total)
         {
-            _interactionService.CheckBeginInvokeOnUi(() =>
+            _dispatchService.CheckBeginInvokeOnUi(() =>
             {
                 ShowProgress = true;
                 ActiveProgress = 0;
@@ -30,7 +30,7 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public void IncrementProgress()
         {
-            _interactionService.CheckBeginInvokeOnUi(() =>
+            _dispatchService.CheckBeginInvokeOnUi(() =>
             {
                 ActiveProgress++;
             });
@@ -38,7 +38,7 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public void HideProgress()
         {
-            _interactionService.CheckBeginInvokeOnUi(() =>
+            _dispatchService.CheckBeginInvokeOnUi(() =>
             {
                 ShowProgress = false;
             });

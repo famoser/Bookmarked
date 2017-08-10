@@ -55,7 +55,6 @@
     <Compile Include="Services\Interfaces\IInteractionService.cs" />
     <Compile Include="Services\Interfaces\INavigationService.cs" />
     <Compile Include="Services\Interfaces\ILoginService.cs" />
-    <Compile Include="Services\ViewService.cs" />
     <Compile Include="ViewModels\ApiViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModelLocator.cs" />

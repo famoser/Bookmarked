@@ -18,6 +18,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
     public partial class FolderRepository : IFolderRepository
     {
         private readonly IApiService _apiService;
+        private readonly IDispatchService _dispatchService;
 
         //repositories
         private readonly IApiRepository<FolderModel, CollectionModel> _folderRepository;
@@ -33,20 +34,19 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
         //services
         private readonly IPasswordService _passwordService;
         private readonly IEncryptionService _encryptionService;
-        private readonly IViewService _viewService;
 
         //fixed folders
         private readonly Guid _rootGuid = Guid.Parse("2c9cb460-0be3-4612-a411-810371268c9a");
         private readonly Guid _garbageGuid = Guid.Parse("8979801a-c64c-43ad-928c-36f4ff3b6bc0");
         private readonly Guid _parentNotFound = Guid.Parse("b8b6e207-1d54-4498-82fe-81b53faab710");
 
-        public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService, IViewService viewService)
+        public FolderRepository(IApiService apiService, IPasswordService passwordService, IEncryptionService encryptionService, IDispatchService dispatchService)
         {
             _folderRepository = apiService.ResolveRepository<FolderModel>();
             _entryRepository = apiService.ResolveRepository<EntryModel>();
             _passwordService = passwordService;
             _encryptionService = encryptionService;
-            _viewService = viewService;
+            _dispatchService = dispatchService;
             _apiService = apiService;
 
             _folderDic = new ConcurrentDictionary<Guid, FolderModel>();
@@ -79,9 +79,9 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                     _folders = _folderRepository.GetAllLazy();
                     _entries = _entryRepository.GetAllLazy();
                     AddEntries(_entries.ToList());
-                    _entries.CollectionChanged += (s, e) => _viewService.CheckBeginInvokeOnUi(() => EntriesOnCollectionChanged(e));
+                    _entries.CollectionChanged += (s, e) => _dispatchService.CheckBeginInvokeOnUi(() => EntriesOnCollectionChanged(e));
                     AddFolders(_folders.ToList());
-                    _folders.CollectionChanged += (s, e) => _viewService.CheckBeginInvokeOnUi(() => FoldersOnCollectionChanged(e));
+                    _folders.CollectionChanged += (s, e) => _dispatchService.CheckBeginInvokeOnUi(() => FoldersOnCollectionChanged(e));
                 }
             }
         }

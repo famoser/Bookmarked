@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.SyncApi.Api.Communication.Request.Base;
@@ -12,10 +13,10 @@ namespace Famoser.Bookmarked.View.ViewModels
 {
     public class ApiViewModel : BaseViewModel, IApiTraceService
     {
-        private readonly IInteractionService _interactionService;
-        public ApiViewModel(IInteractionService interactionService)
+        private readonly IDispatchService _dispatchService;
+        public ApiViewModel(IDispatchService dispatchService)
         {
-            _interactionService = interactionService;
+            _dispatchService = dispatchService;
             if (IsInDesignModeStatic)
             {
                 var syncActionInfo = new SyncActionInformation(SyncAction.CreateUser);
@@ -46,7 +47,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         public ISyncActionInformation CreateSyncActionInformation(SyncAction action)
         {
             var sa = new SyncActionInformation(action);
-            _interactionService.CheckBeginInvokeOnUi(() =>
+            _dispatchService.CheckBeginInvokeOnUi(() =>
             {
                 SyncActionInformations.Add(sa);
             });
@@ -55,7 +56,7 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public void TraceSuccessfulRequest(BaseRequest request, string link)
         {
-            _interactionService.CheckBeginInvokeOnUi(() =>
+            _dispatchService.CheckBeginInvokeOnUi(() =>
             {
                 RequestCount++;
             });

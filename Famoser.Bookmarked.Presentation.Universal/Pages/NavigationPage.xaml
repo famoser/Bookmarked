@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:navigationPage="using:Famoser.Bookmarked.Presentation.Universal.UserControls.NavigationPage"
     mc:Ignorable="d" Loaded="Page_Loaded"
     DataContext="{Binding NavigationViewModel, Source={StaticResource Locator}}">
 
@@ -31,7 +32,6 @@
                     <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                     <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
                 </StackPanel>
-
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="ContentTypeModelTemplate">
@@ -46,32 +46,23 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
-            <Grid Grid.Row="0" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0" Padding="10,0" Text="{Binding SelectedFolder.Name}" Style="{StaticResource BigTexBlock}" />
-                <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding SelectedFolder.Description}" Style="{StaticResource ValueTextBlock}" />
-                <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Style="{StaticResource ValueTextBlock}">
-                    <Run Text="{Binding TotalEntries}"></Run>
-                    <Run Text="entries"></Run>
-                    <Run Text="{Binding TotalFolders}"></Run>
-                    <Run Text="folders"></Run>
-                </TextBlock>
-                <Grid AllowDrop="True" Grid.Row="0" Grid.RowSpan="2" x:Name="MoveUpGrid" Visibility="Collapsed" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Grid.Column="2" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="70">
-                    <SymbolIcon Symbol="Up" Foreground="White"></SymbolIcon>
+            <Grid Grid.Row="0">
+                <navigationPage:FolderHeader DataContext="{Binding }" Visibility="{Binding InSearchMode, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=invert}"/>
+                <navigationPage:SearchHeader DataContext="{Binding }" Visibility="{Binding InSearchMode, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Grid AllowDrop="True" x:Name="MoveUpGrid" Visibility="Collapsed" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="70">
+                    <SymbolIcon Symbol="Up" Foreground="White" />
                 </Grid>
             </Grid>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
                 <StackPanel>
-                    <ListView CanDragItems="True" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" IsItemClickEnabled="True" AllowDrop="True" SelectionMode="None" ItemClick="ListView_ItemClick" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" />
-                    <ListView Margin="0,20,0,0" CanDragItems="True" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" ItemsSource="{Binding SelectedFolder.Entries}"   />
+                    <StackPanel Visibility="{Binding InSearchMode, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=invert}">
+                        <ListView CanDragItems="True" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" IsItemClickEnabled="True" AllowDrop="True" SelectionMode="None" ItemClick="ListView_ItemClick" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" />
+                        <ListView Margin="0,20,0,0" CanDragItems="True" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" ItemsSource="{Binding SelectedFolder.Entries}"   />
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding InSearchMode, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <ListView IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemsSource="{Binding SearchFolders}" ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" />
+                        <ListView Margin="0,20,0,0" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" ItemsSource="{Binding SearchEntries}"   />
+                    </StackPanel>
                 </StackPanel>
             </ScrollViewer>
 
@@ -94,7 +85,7 @@
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
-                <AppBarButton IsCompact="True" Command="{Binding FindCommand}" Icon="Find" Label="Find" />
+                <AppBarToggleButton IsCompact="True" IsChecked="{Binding InSearchMode, Mode=TwoWay}" Icon="Find" Label="Find" />
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
                 <AppBarButton IsCompact="True" Command="{Binding HelpCommand}" Icon="Help" Label="About" />

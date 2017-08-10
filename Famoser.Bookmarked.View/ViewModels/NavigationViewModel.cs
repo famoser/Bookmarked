@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -26,6 +27,11 @@ namespace Famoser.Bookmarked.View.ViewModels
             _folderRepository = folderRepository;
             _navigationService = navigationService;
             SelectedFolder = _folderRepository.GetRootFolder();
+
+            if (IsInDesignMode)
+            {
+                InSearchMode = true;
+            }
         }
 
         private FolderModel _selectedFolder;
@@ -93,7 +99,7 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public ICommand FindCommand => new MyLoadingRelayCommand(() =>
         {
-            _navigationService.NavigateTo(PageKeys.Search.ToString());
+            InSearchMode = !InSearchMode;
         });
 
         public ICommand AddContentTypeCommand => new MyLoadingRelayCommand<ContentTypeModel>((cm) =>
@@ -123,5 +129,40 @@ namespace Famoser.Bookmarked.View.ViewModels
         });
 
         public List<ContentTypeModel> ContentTypeModels { get; } = ContentHelper.GetContentTypeModels();
+
+        private bool _inSearchMode;
+        public bool InSearchMode
+        {
+            get => _inSearchMode;
+            set => Set(ref _inSearchMode, value);
+        }
+
+        private string _searchTerm;
+        public string SearchTerm
+        {
+            get => _searchTerm;
+            set
+            {
+                if (Set(ref _searchTerm, value))
+                {
+                    SearchEntries = _folderRepository.SearchEntry(SearchTerm);
+                    SearchFolders = _folderRepository.SearchFolder(SearchTerm);
+                }
+            }
+        }
+
+        private ObservableCollection<EntryModel> _searchEntries;
+        public ObservableCollection<EntryModel> SearchEntries
+        {
+            get => _searchEntries;
+            set => Set(ref _searchEntries, value);
+        }
+
+        private ObservableCollection<FolderModel> _searchFolders;
+        public ObservableCollection<FolderModel> SearchFolders
+        {
+            get => _searchFolders;
+            set => Set(ref _searchFolders, value);
+        }
     }
 }

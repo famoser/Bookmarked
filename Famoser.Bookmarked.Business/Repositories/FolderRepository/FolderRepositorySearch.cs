@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.Business.Services.Interfaces;
 
 namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
 {
@@ -123,16 +124,16 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
 
         public ObservableCollection<EntryModel> SearchEntry(string searchTerm)
         {
-            if (searchTerm.Length < 3)
+            if (searchTerm.Length < 2)
             {
                 return new ObservableCollection<EntryModel>();
             }
             if (!_entrySearchCache.ContainsKey(searchTerm))
             {
                 _entrySearchCache.TryAdd(searchTerm, new ObservableCollection<EntryModel>());
-                _entryNewSearches.Push(searchTerm);
-                EnsureSearchEntryTaskActive();
             }
+            _entryNewSearches.Push(searchTerm);
+            EnsureSearchEntryTaskActive();
             return _entrySearchCache[searchTerm];
         }
 
@@ -157,7 +158,12 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                     }
                 }
 
-                _entrySearchCache[search].Clear();
+                var myList = _entrySearchCache[search];
+
+                _dispatchService.CheckBeginInvokeOnUi(
+                    () => myList.Clear()
+                );
+
                 foreach (var entryLookupKey in _entryLookup.Keys)
                 {
                     if (
@@ -168,7 +174,9 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                         search.Contains(entryLookupKey)
                     )
                     {
-                        _entrySearchCache[search].Add(_entryLookup[entryLookupKey]);
+                        _dispatchService.CheckBeginInvokeOnUi(
+                            () => myList.Add(_entryLookup[entryLookupKey])
+                        );
                     }
                     //can make search arbitrary complex! try with weighting etc
                 }
@@ -179,16 +187,16 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
 
         public ObservableCollection<FolderModel> SearchFolder(string searchTerm)
         {
-            if (searchTerm.Length < 3)
+            if (searchTerm.Length < 2)
             {
                 return new ObservableCollection<FolderModel>();
             }
             if (!_folderSearchCache.ContainsKey(searchTerm))
             {
                 _folderSearchCache.TryAdd(searchTerm, new ObservableCollection<FolderModel>());
-                _folderNewSearches.Push(searchTerm);
-                EnsureSearchFolderTaskActive();
             }
+            _folderNewSearches.Push(searchTerm);
+            EnsureSearchFolderTaskActive();
             return _folderSearchCache[searchTerm];
         }
 
@@ -212,8 +220,12 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                         return;
                     }
                 }
+                
+                var myList = _folderSearchCache[search];
 
-                _folderSearchCache[search].Clear();
+                _dispatchService.CheckBeginInvokeOnUi(
+                    () => myList.Clear()
+                );
                 foreach (var folderLookupKey in _folderLookup.Keys)
                 {
                     if (
@@ -224,7 +236,9 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                         search.Contains(folderLookupKey)
                     )
                     {
-                        _folderSearchCache[search].Add(_folderLookup[folderLookupKey]);
+                        _dispatchService.CheckBeginInvokeOnUi(
+                            () => myList.Add(_folderLookup[folderLookupKey])
+                        );
                     }
                     //can make search arbitrary complex! try with weighting etc
                 }

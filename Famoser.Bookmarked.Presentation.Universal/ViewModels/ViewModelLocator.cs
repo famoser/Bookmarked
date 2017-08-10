@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Famoser.Bookmarked.Business.Enum;
+using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.Presentation.Universal.Entity;
 using Famoser.Bookmarked.Presentation.Universal.Pages;
 using Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Book;
@@ -29,6 +30,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             SimpleIoc.Default.Register<IStorageService>(() => new StorageService());
             SimpleIoc.Default.Register<INavigationService>(ConstructNavigationService);
             SimpleIoc.Default.Register<IInteractionService, InteractionService>();
+            SimpleIoc.Default.Register<IDispatchService, DispatchService>();
             SimpleIoc.Default.Register<IImportExportService, ImportExportService>();
             SimpleIoc.Default.Register<ILoginService, LoginService>();
         }
@@ -62,7 +64,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             ngs.Configure(PageKeys.Navigation.ToString(), typeof(NavigationPage));
             ngs.Configure(PageKeys.Info.ToString(), typeof(InfoPage));
             ngs.Configure(PageKeys.Garbage.ToString(), typeof(GarbagePage));
-            ngs.Configure(PageKeys.Search.ToString(), typeof(FindPage));
 
             //add folder pages
             ngs.Configure(PageKeys.AddFolder.ToString(), typeof(AddFolderPage));

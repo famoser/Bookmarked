@@ -72,10 +72,10 @@
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Interfaces\IApiService.cs" />
+    <Compile Include="Services\Interfaces\IDispatchService.cs" />
     <Compile Include="Services\Interfaces\IEncryptionService.cs" />
     <Compile Include="Services\Interfaces\IPasswordService.cs" />
     <Compile Include="Services\Interfaces\ISimpleProgressService.cs" />
-    <Compile Include="Services\Interfaces\IViewService.cs" />
     <Compile Include="Services\PasswordService.cs" />
   </ItemGroup>
   <ItemGroup>

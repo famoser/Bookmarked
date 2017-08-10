@@ -1,4 +1,5 @@
 ﻿using Famoser.Bookmarked.Business.Repositories;
+using Famoser.Bookmarked.Business.Repositories.FolderRepository;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Repositories.Mocks;
 using Famoser.Bookmarked.Business.Services;
@@ -20,7 +21,6 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
             SimpleIoc.Default.Register<IEncryptionService, EncryptionService>();
             SimpleIoc.Default.Register<IPasswordService, PasswordService>();
             SimpleIoc.Default.Register<ISimpleProgressService, ProgressViewModel>();
-            SimpleIoc.Default.Register<IViewService, ViewService>();
 
             if (IsInDesignModeStatic)
             {

@@ -5,8 +5,10 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.Presentation.Universal.Enums;
 using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.ViewModels;
+using GalaSoft.MvvmLight.Messaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
