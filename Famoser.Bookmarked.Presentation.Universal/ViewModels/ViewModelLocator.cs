@@ -61,6 +61,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             var ngs = new NavigationService();
             //add login & mainpage
             ngs.Configure(PageKeys.Login.ToString(), typeof(LoginPage));
+            ngs.Configure(PageKeys.Welcome.ToString(), typeof(WelcomePage));
             ngs.Configure(PageKeys.Navigation.ToString(), typeof(NavigationPage));
             ngs.Configure(PageKeys.Info.ToString(), typeof(InfoPage));
             ngs.Configure(PageKeys.Garbage.ToString(), typeof(GarbagePage));

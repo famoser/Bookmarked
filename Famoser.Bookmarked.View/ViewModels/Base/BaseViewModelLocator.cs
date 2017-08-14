@@ -33,12 +33,11 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
 
             SimpleIoc.Default.Register<AddFolderViewModel>();
             SimpleIoc.Default.Register<EditFolderViewModel>();
-            SimpleIoc.Default.Register<ViewFolderViewModel>();
 
             SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<WelcomeViewModel>();
             SimpleIoc.Default.Register<NavigationViewModel>();
             SimpleIoc.Default.Register<GarbageViewModel>();
-            SimpleIoc.Default.Register<FindViewModel>();
             SimpleIoc.Default.Register<ImportViewModel>();
 
             SimpleIoc.Default.Register<WebpageViewModel>();
@@ -53,12 +52,11 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
 
         public AddFolderViewModel AddFolderViewModel => SimpleIoc.Default.GetInstance<AddFolderViewModel>();
         public EditFolderViewModel EditFolderViewModel => SimpleIoc.Default.GetInstance<EditFolderViewModel>();
-        public ViewFolderViewModel ViewFolderViewModel => SimpleIoc.Default.GetInstance<ViewFolderViewModel>();
 
         public LoginViewModel LoginViewModel => SimpleIoc.Default.GetInstance<LoginViewModel>();
+        public WelcomeViewModel WelcomeViewModel => SimpleIoc.Default.GetInstance<WelcomeViewModel>();
         public NavigationViewModel NavigationViewModel => SimpleIoc.Default.GetInstance<NavigationViewModel>();
         public GarbageViewModel GarbageViewModel => SimpleIoc.Default.GetInstance<GarbageViewModel>();
-        public FindViewModel FindViewModel => SimpleIoc.Default.GetInstance<FindViewModel>();
         public ImportViewModel ImportViewModel => SimpleIoc.Default.GetInstance<ImportViewModel>();
 
         public ProgressViewModel ProgressViewModel => SimpleIoc.Default.GetInstance<ISimpleProgressService>() as ProgressViewModel;

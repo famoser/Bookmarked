@@ -31,13 +31,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
 
         private void PasswordBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (LoginViewModel.IsFirstTime)
-            {
-                if (PasswordBox1.Password == "" || PasswordBox2.Password == "")
-                    return;
-                if (PasswordBox1.Password != PasswordBox2.Password)
-                    return;
-            }
             if (e.Key == VirtualKey.Accept || e.Key == VirtualKey.Enter)
             {
                 if (LoginViewModel.LoginCommand.CanExecute(null))

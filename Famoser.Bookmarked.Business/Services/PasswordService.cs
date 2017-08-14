@@ -25,21 +25,6 @@ namespace Famoser.Bookmarked.Business.Services
         {
             try
             {
-                var fileContent = await _storageService.GetCachedTextFileAsync(".pw");
-                if (!string.IsNullOrEmpty(fileContent))
-                {
-                    //if file already exists can only change if unlocked
-                    if (_password == null)
-                        return false;
-                }
-            }
-            catch
-            {
-                //probably file not found exception
-            }
-
-            try
-            {
                 return await _storageService.SetCachedTextFileAsync(".pw", password);
             }
             catch (Exception ex)
@@ -68,16 +53,7 @@ namespace Famoser.Bookmarked.Business.Services
             {
                 //probably file not found exception
             }
-
-            //set new file with pw because old one could not be opened
-            try
-            {
-                return await _storageService.SetCachedTextFileAsync(".pw", password);
-            }
-            catch (Exception ex)
-            {
-                LogHelper.Instance.LogException(ex);
-            }
+            
             return false;
         }
 

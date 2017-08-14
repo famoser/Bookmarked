@@ -67,15 +67,14 @@
     <Compile Include="ViewModels\Entry\WebpageViewModel.cs" />
     <Compile Include="ViewModels\Entry\Base\WithUrlViewModel.cs" />
     <Compile Include="ViewModels\ExportViewModel.cs" />
-    <Compile Include="ViewModels\FindViewModel.cs" />
     <Compile Include="ViewModels\ImportViewModel.cs" />
     <Compile Include="ViewModels\Interface\IEntryViewModel.cs" />
+    <Compile Include="ViewModels\WelcomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\GarbageViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\Folder\Base\FolderViewModel.cs" />
     <Compile Include="ViewModels\Folder\EditFolderViewModel.cs" />
-    <Compile Include="ViewModels\Folder\ViewFolderViewModel.cs" />
     <Compile Include="ViewModels\Folder\AddFolderViewModel.cs" />
     <Compile Include="ViewModels\ProgressViewModel.cs" />
   </ItemGroup>

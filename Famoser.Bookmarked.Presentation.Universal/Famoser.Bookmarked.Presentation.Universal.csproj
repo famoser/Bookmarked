@@ -99,6 +99,7 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="Famoser.Bookmarked.Presentation.Universal_StoreKey.pfx" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -181,6 +182,9 @@
     </Compile>
     <Compile Include="Pages\NavigationPage.xaml.cs">
       <DependentUpon>NavigationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Platform\DispatchService.cs" />
     <Compile Include="Platform\ImportExportService.cs" />
@@ -342,6 +346,10 @@
     <Page Include="Pages\NavigationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\WelcomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\NavigationPage\FolderHeader.xaml">
       <SubType>Designer</SubType>

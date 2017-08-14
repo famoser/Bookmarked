@@ -3,6 +3,7 @@
     public enum PageKeys
     {
         Login,
+        Welcome,
         Navigation,
         Info,
         Garbage,

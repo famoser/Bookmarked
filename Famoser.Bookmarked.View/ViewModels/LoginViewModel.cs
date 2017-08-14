@@ -25,31 +25,31 @@ namespace Famoser.Bookmarked.View.ViewModels
             _interactionService = interactionService;
             _folderRepository = folderRepository;
             _loginService = loginService;
-
-            InitializeAsync();
         }
 
-        private async void InitializeAsync()
+        public async void InitializeAsync()
         {
-            IsFirstTime = await _passwordService.CheckIsFirstTimeAsync();
-            if (IsFirstTime)
+            if (await _passwordService.CheckIsFirstTimeAsync())
             {
-                Message = "Welcome! Choose a password.";
-                ShowMessage = true;
+                _navigationService.NavigateTo(PageKeys.Welcome.ToString(), true);
+                return;
             }
-            var sync = await _folderRepository.SyncAsync();
+
+            //initialize data
             var rf = _folderRepository.GetRootFolder();
-            if (rf.Folders.Count > 0 || rf.Entries.Count > 0)
+            var sync = await _folderRepository.SyncAsync();
+
+            var hash = await _loginService.TryAlternativeLogin();
+            if (hash != null)
             {
-                IsFirstTime = false;
-                ShowMessage = false;
-                var str = await _loginService.TryAlternativeLogin();
-                if (str != null)
+                if (await _passwordService.TryPasswordAsync(hash))
                 {
-                    if (!await TryLoginWithHash(str))
-                    {
-                        _loginService.InvalidateAlternativeLogin();
-                    }
+                    _loginService.RegisterValidPassword(hash);
+                    _navigationService.NavigateTo(PageKeys.Navigation.ToString(), true);
+                }
+                else
+                {
+                    _loginService.InvalidateAlternativeLogin();
                 }
             }
         }
@@ -61,79 +61,18 @@ namespace Famoser.Bookmarked.View.ViewModels
             set => Set(ref _password, value);
         }
 
-        private string _confirmationPassword;
-        public string ConfirmationPassword
-        {
-            get => _confirmationPassword;
-            set => Set(ref _confirmationPassword, value);
-        }
-
-        private bool _showMessage;
-        public bool ShowMessage
-        {
-            get => _showMessage;
-            set => Set(ref _showMessage, value);
-        }
-
-        private string _message;
-        public string Message
-        {
-            get => _message;
-            set => Set(ref _message, value);
-        }
-
-        private bool _isFirstTime;
-        public bool IsFirstTime
-        {
-            get => _isFirstTime;
-            set => Set(ref _isFirstTime, value);
-        }
-
-        private async void FlashMessage(string message)
-        {
-            Message = message;
-            ShowMessage = true;
-            await Task.Delay(TimeSpan.FromSeconds(2));
-            ShowMessage = false;
-        }
-
         public ICommand LoginCommand => new MyLoadingRelayCommand(async () =>
         {
-            if (IsFirstTime && Password != ConfirmationPassword)
-            {
-                FlashMessage("passwords do not match");
-                Password = "";
-                ConfirmationPassword = "";
-                return;
-            }
-
-            if (!string.IsNullOrEmpty(Password))
-            {
-                var hash = _loginService.HashPassword(Password);
-                if (!await TryLoginWithHash(hash))
-                {
-                    FlashMessage("password wrong");
-                }
-            }
-            else
-            {
-                FlashMessage("no password");
-            }
-        });
-
-        private async Task<bool> TryLoginWithHash(string hash)
-        {
+            var hash = _loginService.HashPassword(Password);
             if (await _passwordService.TryPasswordAsync(hash))
             {
                 _loginService.RegisterValidPassword(hash);
-                await _passwordService.SetPasswordAsync(hash);
                 _navigationService.NavigateTo(PageKeys.Navigation.ToString(), true);
-                IsFirstTime = false;
-                return true;
             }
-            return false;
-        }
-
-        public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
+            else
+            {
+                await _interactionService.ShowMessageAsync("password wrong");
+            }
+        });
     }
 }

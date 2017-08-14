@@ -100,7 +100,8 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
 
                 if (removeCurrent)
                 {
-                    frame.BackStack.RemoveAt(frame.BackStack.Count - 1);
+                    if (frame.BackStack.Count > 0)
+                        frame.BackStack.RemoveAt(frame.BackStack.Count - 1);
                 }
                 else
                 {
