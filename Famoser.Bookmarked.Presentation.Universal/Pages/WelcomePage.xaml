@@ -22,17 +22,17 @@
                 <StackPanel>
                     <TextBlock Text="password" Style="{StaticResource SecondaryBigTexBlock}" />
                     <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource PasswordBox}"  />
-                    <RadioButton Content="I use this app for the first time and want to set a new password" GroupName="InitializeGroup" />
-                    <RadioButton Content="I use this app somewhere else, and want to import my credentials" GroupName="InitializeGroup" />
-                </StackPanel>
-                <StackPanel>
-                    <TextBlock Text="please confirm your new password"></TextBlock>
-                    <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Style="{StaticResource PasswordBox}" />
-                    <Button HorizontalAlignment="Center" Content="set password" Command="{Binding SetPasswordCommand}" />
-                </StackPanel>
-                <StackPanel>
-                    <TextBlock Text="please choose the encrypted credentials file you've exported from another installation. the password above must match the password from the other installation"></TextBlock>
-                    <Button HorizontalAlignment="Center" Content="choose file" Command="{Binding SetPasswordCommand}" />
+                    <RadioButton x:Name="FirstTimeRadio" IsChecked="True" Content="I use this app for the first time and want to set a new password" GroupName="InitializeGroup" />
+                    <StackPanel Visibility="{Binding IsChecked, ElementName=FirstTimeRadio, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="please confirm your new password"></TextBlock>
+                        <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Style="{StaticResource PasswordBox}" />
+                        <Button HorizontalAlignment="Center" Content="set password" Command="{Binding SetPasswordCommand}" />
+                    </StackPanel>
+                    <RadioButton x:Name="AlreadyUsedRadio" Content="I use this app somewhere else, and want to import my credentials" GroupName="InitializeGroup" />
+                    <StackPanel Visibility="{Binding IsChecked, ElementName=AlreadyUsedRadio, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <TextBlock Text="please choose the encrypted credentials file you've exported from another installation. the password above must match the password from the other installation"></TextBlock>
+                        <Button HorizontalAlignment="Center" Content="choose file" Command="{Binding SetPasswordCommand}" />
+                    </StackPanel>
                 </StackPanel>
             </StackPanel>
         </Grid>
