@@ -26,16 +26,5 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
             }
         }
-
-        private LoginViewModel LoginViewModel => DataContext as LoginViewModel;
-
-        private void PasswordBox_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == VirtualKey.Accept || e.Key == VirtualKey.Enter)
-            {
-                if (LoginViewModel.LoginCommand.CanExecute(null))
-                    LoginViewModel.LoginCommand.Execute(null);
-            }
-        }
     }
 }

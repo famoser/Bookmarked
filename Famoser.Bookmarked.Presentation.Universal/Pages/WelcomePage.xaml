@@ -15,17 +15,17 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1" MaxWidth="300">
+        <Grid Grid.Row="1">
             <StackPanel>
-                <TextBlock x:Uid="WelcomePageTitle" Style="{StaticResource TitleTextBlockStyle}" />
+                <TextBlock x:Uid="WelcomePageTitle" Style="{StaticResource H1TextBlock}" />
                 <TextBlock x:Uid="WelcomePageIntroduction" TextWrapping="Wrap"/>
                 <StackPanel>
-                    <TextBlock Text="password" Style="{StaticResource SecondaryBigTexBlock}" />
-                    <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource PasswordBox}"  />
+                    <TextBlock x:Uid="PasswordLabel" Style="{StaticResource LabelTextBlock}" />
+                    <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />
                     <RadioButton x:Name="FirstTimeRadio" IsChecked="True" Content="I use this app for the first time and want to set a new password" GroupName="InitializeGroup" />
                     <StackPanel Visibility="{Binding IsChecked, ElementName=FirstTimeRadio, Converter={StaticResource BoolToVisibilityConverter}}">
                         <TextBlock Text="please confirm your new password"></TextBlock>
-                        <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Style="{StaticResource PasswordBox}" />
+                        <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}" />
                         <Button HorizontalAlignment="Center" Content="set password" Command="{Binding SetPasswordCommand}" />
                     </StackPanel>
                     <RadioButton x:Name="AlreadyUsedRadio" Content="I use this app somewhere else, and want to import my credentials" GroupName="InitializeGroup" />

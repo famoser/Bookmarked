@@ -14,6 +14,7 @@
             <visibility:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:UriToStringConverter x:Key="UriToStringConverter" />
 
+            <!-- controls -->
             <Style x:Key="StretchListViewItemStyle" TargetType="ListViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="0" />
@@ -42,6 +43,11 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="ContentScrollViewer" TargetType="ScrollViewer">
+                <Setter Property="HorizontalScrollMode" Value="Disabled" />
+                <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
+            </Style>
+
             <!-- Basic elements -->
             <Style x:Key="BasicElement" TargetType="FrameworkElement">
                 <Setter Property="Margin" Value="0" />
@@ -52,7 +58,14 @@
                 <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
+            
+            <Style x:Key="BasicControl" TargetType="Control" BasedOn="{StaticResource BasicElement}">
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontSize" Value="21" />
+                <Setter Property="Padding" Value="10" />
+            </Style>
 
+            <!-- text fields -->
             <Style x:Key="ParagraphTextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
                 <Setter Property="FontSize" Value="13" />
                 <Setter Property="FontWeight" Value="Normal" />
@@ -73,107 +86,63 @@
                 <Setter Property="FontWeight" Value="ExtraLight" />
             </Style>
 
-            <!-- Basic controls -->
-            <Style x:Key="BasicControl" TargetType="Control" BasedOn="{StaticResource BasicElement}">
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontSize" Value="21" />
-                <Setter Property="Padding" Value="10" />
+            <Style x:Key="LabelTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
+
+
+            <!-- buttons -->
+            <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource BasicControl}">
+
             </Style>
-            
+
+            <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource BasicControl}">
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+
+            <!-- edit boxes / pickers -->
             <Style x:Key="BasicSearchBox" TargetType="SearchBox" BasedOn="{StaticResource BasicControl}">
                 <Setter Property="SearchHistoryEnabled" Value="True" />
             </Style>
-            
+
             <Style x:Key="BasicTextBox" TargetType="TextBox" BasedOn="{StaticResource BasicControl}">
                 <Setter Property="IsSpellCheckEnabled" Value="True" />
             </Style>
 
+            <Style x:Key="BasicDatePicker" TargetType="DatePicker" BasedOn="{StaticResource BasicControl}">
+
+            </Style>
+
+            <Style x:Key="BasicTimePicker" TargetType="TimePicker" BasedOn="{StaticResource BasicControl}">
+
+            </Style>
+
+            <Style x:Key="BasicPasswordBox" TargetType="PasswordBox" BasedOn="{StaticResource BasicControl}">
+                <Setter Property="PasswordRevealMode" Value="Peek" />
+            </Style>
+
             <!-- individual styles -->
             <!-- display entry -->
-            <Style x:Key="DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
+            <Style x:Key="DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlock}" />
 
             <Style x:Key="ValueTextBlock" TargetType="TextBlock" BasedOn="{StaticResource H3TextBlock}">
                 <Setter Property="IsTextSelectionEnabled" Value="True" />
             </Style>
 
-            <Style x:Key="ValueTextBox" TargetType="TextBox">
-                <Setter Property="Margin" Value="10,0,10,10" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Light" />
-                <Setter Property="Padding" Value="5" />
-                <Setter Property="BorderThickness" Value="1" />
-            </Style>
+            <!-- edit entry -->
+            <Style x:Key="ValueTextBox" TargetType="TextBox" BasedOn="{StaticResource BasicTextBox}" />
 
-            <Style x:Key="ValueDatePicker" TargetType="DatePicker">
-                <Setter Property="Margin" Value="10,0,10,10" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Light" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="Padding" Value="0" />
-            </Style>
+            <Style x:Key="ValueDatePicker" TargetType="DatePicker" BasedOn="{StaticResource BasicDatePicker}" />
 
-            <Style x:Key="PasswordBox" TargetType="PasswordBox">
-                <Setter Property="Margin" Value="0,0,0,10" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Light" />
-                <Setter Property="Padding" Value="5" />
-                <Setter Property="BorderThickness" Value="1" />
-                <Setter Property="PasswordRevealMode" Value="Peek" />
-            </Style>
+            <Style x:Key="ValueTimePicker" TargetType="TimePicker" BasedOn="{StaticResource BasicTimePicker}" />
 
-            <Style x:Key="SearchBox" TargetType="SearchBox">
-                <Setter Property="Margin" Value="0,0,0,10" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Light" />
-                <Setter Property="Padding" Value="5" />
-                <Setter Property="BorderThickness" Value="1" />
-            </Style>
+            <!-- login -->
+            <Style x:Key="LoginPasswordBox" TargetType="PasswordBox" BasedOn="{StaticResource BasicPasswordBox}" />
 
-            <Style x:Key="ValueComboBox" TargetType="ComboBox">
-                <Setter Property="Margin" Value="0,0,0,10" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Light" />
-                <Setter Property="Padding" Value="5" />
-                <Setter Property="BorderThickness" Value="1" />
-            </Style>
+            <!-- search -->
+            <Style x:Key="SearchBox" TargetType="SearchBox" BasedOn="{StaticResource BasicSearchBox}" />
 
-            <Style x:Key="ValueTimePicker" TargetType="TimePicker">
-                <Setter Property="Margin" Value="0,0,0,10" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Light" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="BorderThickness" Value="1" />
-            </Style>
+            <!-- info -->
+            <Style x:Key="TraceTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
 
-            <Style x:Key="TraceTextBlock" TargetType="TextBlock">
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="FontSize" Value="12" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Normal" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="Padding" Value="10,0,0,2" />
-                <Setter Property="LineHeight" Value="10" />
-            </Style>
-
-            <Style x:Key="ContentScrollViewer" TargetType="ScrollViewer">
-                <Setter Property="HorizontalScrollMode" Value="Disabled" />
-                <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
-            </Style>
-
-            <Style x:Key="FlatSymbolIcon" TargetType="SymbolIcon">
-                <Setter Property="Foreground" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-            </Style>
-
-            <Style x:Key="FlatButton" TargetType="Button">
-                <Setter Property="VerticalAlignment" Value="Stretch" />
-                <Setter Property="Background" Value="Transparent" />
-            </Style>
 
 
         </ResourceDictionary>
