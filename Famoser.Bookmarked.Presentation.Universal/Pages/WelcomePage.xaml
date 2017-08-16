@@ -2,37 +2,34 @@
     x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.WelcomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Famoser.Bookmarked.Presentation.Universal.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding WelcomeViewModel, Source={StaticResource Locator}}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1">
+
+    <Grid Style="{StaticResource LayoutGrid}">
+        <Grid Style="{StaticResource SmallContentGrid}">
             <StackPanel>
-                <TextBlock x:Uid="WelcomePageTitle" Style="{StaticResource H1TextBlock}" />
-                <TextBlock x:Uid="WelcomePageIntroduction" TextWrapping="Wrap"/>
-                <StackPanel>
-                    <TextBlock x:Uid="PasswordLabel" Style="{StaticResource LabelTextBlock}" />
-                    <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />
-                    <RadioButton x:Name="FirstTimeRadio" IsChecked="True" Content="I use this app for the first time and want to set a new password" GroupName="InitializeGroup" />
-                    <StackPanel Visibility="{Binding IsChecked, ElementName=FirstTimeRadio, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <TextBlock Text="please confirm your new password"></TextBlock>
-                        <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}" />
-                        <Button HorizontalAlignment="Center" Content="set password" Command="{Binding SetPasswordCommand}" />
-                    </StackPanel>
-                    <RadioButton x:Name="AlreadyUsedRadio" Content="I use this app somewhere else, and want to import my credentials" GroupName="InitializeGroup" />
-                    <StackPanel Visibility="{Binding IsChecked, ElementName=AlreadyUsedRadio, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <TextBlock Text="please choose the encrypted credentials file you've exported from another installation. the password above must match the password from the other installation"></TextBlock>
-                        <Button HorizontalAlignment="Center" Content="choose file" Command="{Binding SetPasswordCommand}" />
-                    </StackPanel>
+                <StackPanel Style="{StaticResource HeaderStackPanel}">
+                    <TextBlock x:Uid="WelcomePageTitle" Style="{StaticResource H1TextBlock}" />
+                    <Border Style="{StaticResource HeaderBottomBorder}" />
+                    <TextBlock x:Uid="WelcomePageDescription" Style="{StaticResource H2TextBlock}" />
+                </StackPanel>
+                <TextBlock x:Uid="WelcomePagePasswordLabel" Style="{StaticResource LabelTextBlock}" />
+                <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />
+
+                <RadioButton x:Uid="WelcomePageFirstTimeRadio" x:Name="FirstTimeRadio" IsChecked="True" GroupName="InitializeGroup" Style="{StaticResource WelcomeRadioButton}" />
+                <StackPanel Visibility="{Binding IsChecked, ElementName=FirstTimeRadio, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock x:Uid="WelcomePageFirstTimeDescription" Style="{StaticResource ParagraphTextBlock}" />
+                    <TextBlock x:Uid="WelcomePageConfirmPassword" Style="{StaticResource LabelTextBlock}" />
+                    <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}" />
+                    <Button HorizontalAlignment="Center" Content="set password" Command="{Binding ConfirmationPassword}" />
+                </StackPanel>
+                <RadioButton x:Uid="WelcomePageAlreadyUsedRadio" x:Name="AlreadyUsedRadio" GroupName="InitializeGroup" Style="{StaticResource WelcomeRadioButton}" />
+                <StackPanel Visibility="{Binding IsChecked, ElementName=AlreadyUsedRadio, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock x:Uid="WelcomePageAlreadyUsedDescription" Style="{StaticResource ParagraphTextBlock}" />
+                    <Button HorizontalAlignment="Center" Content="choose file" Command="{Binding CreateFromExistingFile}" />
                 </StackPanel>
             </StackPanel>
         </Grid>

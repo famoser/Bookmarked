@@ -8,17 +8,17 @@
     mc:Ignorable="d"
     DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1" MaxWidth="300">
+    <Grid Style="{StaticResource LayoutGrid}">
+        <Grid Style="{StaticResource SmallContentGrid}">
             <StackPanel>
-                <TextBlock x:Uid="PasswordLabel" Style="{StaticResource LabelTextBlock}" />
-                <PasswordBox x:Name="PasswordBox1" Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />
-                <Button HorizontalAlignment="Center" Content="Login" Command="{Binding LoginCommand}" />
+                <StackPanel Style="{StaticResource HeaderStackPanel}">
+                    <TextBlock x:Uid="LoginPageTitle" Style="{StaticResource H1TextBlock}" />
+                    <Border Style="{StaticResource HeaderBottomBorder}" />
+                    <TextBlock x:Uid="LoginPageDescription" Style="{StaticResource H2TextBlock}" />
+                </StackPanel>
+                <TextBlock x:Uid="LoginPagePasswordLabel" Style="{StaticResource LabelTextBlock}" />
+                <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />
+                <Button x:Uid="LoginPageLoginButton" Command="{Binding LoginCommand}" Style="{StaticResource PrimaryButton}"/>
             </StackPanel>
         </Grid>
     </Grid>
