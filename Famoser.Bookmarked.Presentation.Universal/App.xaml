@@ -7,8 +7,6 @@
     xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
     RequestedTheme="Light">
     <Application.Resources>
-
-
         <ResourceDictionary>
             <viewModels:ViewModelLocator x:Key="Locator" />
 
@@ -54,49 +52,47 @@
                 <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
-            
+
+            <Style x:Key="ParagraphTextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontWeight" Value="Normal" />
+            </Style>
+
+            <Style x:Key="H3TextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
+                <Setter Property="FontSize" Value="21" />
+                <Setter Property="FontWeight" Value="SemiLight" />
+            </Style>
+
+            <Style x:Key="H2TextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
+                <Setter Property="FontSize" Value="34" />
+                <Setter Property="FontWeight" Value="Light" />
+            </Style>
+
+            <Style x:Key="H1TextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
+                <Setter Property="FontSize" Value="55" />
+                <Setter Property="FontWeight" Value="ExtraLight" />
+            </Style>
+
             <!-- Basic controls -->
             <Style x:Key="BasicControl" TargetType="Control" BasedOn="{StaticResource BasicElement}">
-                <Setter Property="Padding" Value="4" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontSize" Value="21" />
+                <Setter Property="Padding" Value="10" />
             </Style>
             
-            <Style x:Key="BigTexBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
-                <Setter Property="FontSize" Value="35" />
-                <Setter Property="FontWeight" Value="Light" />
+            <Style x:Key="BasicSearchBox" TargetType="SearchBox" BasedOn="{StaticResource BasicControl}">
+                <Setter Property="SearchHistoryEnabled" Value="True" />
+            </Style>
+            
+            <Style x:Key="BasicTextBox" TargetType="TextBox" BasedOn="{StaticResource BasicControl}">
+                <Setter Property="IsSpellCheckEnabled" Value="True" />
             </Style>
 
-            <Style x:Key="BigSearchBox" TargetType="SearchBox">
-                <Setter Property="FontSize" Value="35" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Light" />
-                <Setter Property="Padding" Value="4" />
-            </Style>
+            <!-- individual styles -->
+            <!-- display entry -->
+            <Style x:Key="DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
 
-            <Style x:Key="SecondaryBigTexBlock" TargetType="TextBlock">
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Light" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="Padding" Value="10,0,10,10" />
-                <Setter Property="Opacity" Value="0.6" />
-            </Style>
-
-            <Style x:Key="DescriptionTextBlock" TargetType="TextBlock">
-                <Setter Property="Margin" Value="10,0" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Light" />
-                <Setter Property="TextWrapping" Value="Wrap" />
-                <Setter Property="Opacity" Value="0.6" />
-            </Style>
-
-            <Style x:Key="ValueTextBlock" TargetType="TextBlock">
-                <Setter Property="Margin" Value="10,0,10,10" />
-                <Setter Property="FontSize" Value="21" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontWeight" Value="Light" />
-                <Setter Property="TextWrapping" Value="Wrap" />
+            <Style x:Key="ValueTextBlock" TargetType="TextBlock" BasedOn="{StaticResource H3TextBlock}">
                 <Setter Property="IsTextSelectionEnabled" Value="True" />
             </Style>
 
