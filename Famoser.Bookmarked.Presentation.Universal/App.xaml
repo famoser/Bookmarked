@@ -29,6 +29,15 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="ListViewDataTemplateStackPanel" TargetType="StackPanel">
+                <Setter Property="Background" Value="{ThemeResource SystemAccentColor}" />
+            </Style>
+
+            <Style x:Key="ListViewDataTemplateGrid" TargetType="Grid">
+                <Setter Property="Background" Value="{ThemeResource SystemAccentColor}" />
+            </Style>
+            
+            
             <Style x:Key="SmallStretchListViewItemStyle" TargetType="ListViewItem">
                 <Setter Property="MinHeight" Value="0"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -166,6 +175,10 @@
 
             <Style x:Key="ValueTimePicker" TargetType="TimePicker" BasedOn="{StaticResource BasicTimePicker}" />
 
+            <!-- navigation -->
+            <Style x:Key="ItemHeader" TargetType="TextBlock" BasedOn="{StaticResource H2TextBlock}" />
+            <Style x:Key="ItemDescription" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
+            
             <!-- login -->
             <Style x:Key="LoginPasswordBox" TargetType="PasswordBox" BasedOn="{StaticResource BasicPasswordBox}" />
 

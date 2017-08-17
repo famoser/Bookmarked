@@ -27,7 +27,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             _loginService = loginService;
         }
 
-        public async void InitializeAsync()
+        public async void BootAsync()
         {
             if (await _passwordService.CheckIsFirstTimeAsync())
             {

@@ -10,13 +10,13 @@
 
     <Page.Resources>
         <DataTemplate x:Key="FolderDataTemplate">
-            <StackPanel AllowDrop="True" DragOver="UIElement_OnDragOver" Drop="UIElement_OnDrop" Background="{ThemeResource SystemControlBackgroundAccentBrush}">
-                <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-                <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+            <StackPanel Style="{StaticResource ListViewDataTemplateStackPanel}" AllowDrop="True" DragOver="UIElement_OnDragOver" Drop="UIElement_OnDrop">
+                <TextBlock Style="{StaticResource ItemHeader}" Text="{Binding Name}" />
+                <TextBlock Style="{StaticResource ItemDescription}" Text="{Binding Description}" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="EntryDataTemplate">
-            <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+            <Grid Style="{StaticResource ListViewDataTemplateGrid}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="6" />
                     <ColumnDefinition Width="Auto" />
@@ -29,18 +29,19 @@
                     </Image.Source>
                 </Image>
                 <StackPanel Grid.Column="3">
-                    <TextBlock Style="{StaticResource BigTexBlock}" Text="{Binding Name}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
-                    <TextBlock Style="{StaticResource SecondaryBigTexBlock}" Margin="0,-5,0,0" Text="{Binding Description}" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
+                    <TextBlock Style="{StaticResource ItemHeader}" Text="{Binding Name}" />
+                    <TextBlock Style="{StaticResource ItemDescription}" Text="{Binding Description}" />
                 </StackPanel>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="ContentTypeModelTemplate">
-            <TextBlock Text="{Binding Name}" Padding="5" />
+            <TextBlock Text="{Binding Name}" Padding="5" Style="{StaticResource ParagraphTextBlock}" />
         </DataTemplate>
     </Page.Resources>
 
-    <Grid>
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Style="{StaticResource LayoutGrid}">
+        <Grid Style="{StaticResource FullContentGrid}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -65,9 +66,9 @@
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
-
         </Grid>
     </Grid>
+
 
     <Page.BottomAppBar>
         <CommandBar >
