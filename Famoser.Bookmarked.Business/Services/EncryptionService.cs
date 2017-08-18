@@ -30,8 +30,8 @@ namespace Famoser.Bookmarked.Business.Services
         {
             var data = Encoding.UTF8.GetBytes(content);
             var provider = WinRTCrypto.SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithm.AesCbcPkcs7);
-            var symeticKey = provider.CreateSymmetricKey(password);
-            var bytes = WinRTCrypto.CryptographicEngine.Encrypt(symeticKey, data, InitVector);
+            var symmetricKey = provider.CreateSymmetricKey(password);
+            var bytes = WinRTCrypto.CryptographicEngine.Encrypt(symmetricKey, data, InitVector);
             return Convert.ToBase64String(bytes);
         }
 
@@ -39,8 +39,8 @@ namespace Famoser.Bookmarked.Business.Services
         {
             var data = Convert.FromBase64String(content);
             var provider = WinRTCrypto.SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithm.AesCbcPkcs7);
-            var symeticKey = provider.CreateSymmetricKey(password);
-            var bytes = WinRTCrypto.CryptographicEngine.Decrypt(symeticKey, data, InitVector);
+            var symmetricKey = provider.CreateSymmetricKey(password);
+            var bytes = WinRTCrypto.CryptographicEngine.Decrypt(symmetricKey, data, InitVector);
             return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
         }
     }

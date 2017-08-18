@@ -13,7 +13,7 @@
         <Grid Style="{StaticResource SmallContentGrid}">
             <StackPanel>
                 <StackPanel Style="{StaticResource HeaderStackPanel}">
-                    <TextBlock x:Uid="LoginPageTitle" Style="{StaticResource H1TextBlock}" />
+                    <TextBlock x:Uid="LoginPageTitle" Style="{StaticResource H1TextBlock}" Text="{Binding Source={StaticResource Localized}, Path=[LoginPageTitle\\Text]}" />
                     <Border Style="{StaticResource HeaderBottomBorder}" />
                     <TextBlock x:Uid="LoginPageDescription" Style="{StaticResource H2TextBlock}" />
                 </StackPanel>

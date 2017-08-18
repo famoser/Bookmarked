@@ -5,11 +5,13 @@
     xmlns:visibility="using:Famoser.FrameworkEssentials.UniversalWindows.Converters.Visibility"
     xmlns:viewModels="using:Famoser.Bookmarked.Presentation.Universal.ViewModels"
     xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
+    xmlns:strings="using:Famoser.Bookmarked.Presentation.Universal.Strings"
     RequestedTheme="Light">
     <Application.Resources>
         <ResourceDictionary>
             <viewModels:ViewModelLocator x:Key="Locator" />
-
+            <strings:LocalizedStrings x:Key="Localized"/>
+            
             <visibility:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
             <visibility:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:UriToStringConverter x:Key="UriToStringConverter" />
@@ -36,8 +38,8 @@
             <Style x:Key="ListViewDataTemplateGrid" TargetType="Grid">
                 <Setter Property="Background" Value="{ThemeResource SystemAccentColor}" />
             </Style>
-            
-            
+
+
             <Style x:Key="SmallStretchListViewItemStyle" TargetType="ListViewItem">
                 <Setter Property="MinHeight" Value="0"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -60,7 +62,7 @@
             <Style x:Key="HeaderStackPanel" TargetType="StackPanel">
                 <Setter Property="Background" Value="#FAFAFA" />
             </Style>
-            
+
             <Style x:Key="LayoutGrid" TargetType="Grid">
                 <Setter Property="Margin" Value="10" />
             </Style>
@@ -157,7 +159,7 @@
             <Style x:Key="BasicPasswordBox" TargetType="PasswordBox" BasedOn="{StaticResource BasicControl}">
                 <Setter Property="PasswordRevealMode" Value="Peek" />
             </Style>
-            
+
             <Style x:Key="BasicRadioButton" TargetType="RadioButton" BasedOn="{StaticResource BasicControl}"></Style>
 
             <!-- individual styles -->
@@ -178,13 +180,19 @@
             <!-- navigation -->
             <Style x:Key="ItemHeader" TargetType="TextBlock" BasedOn="{StaticResource H2TextBlock}" />
             <Style x:Key="ItemDescription" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
-            
+
             <!-- login -->
             <Style x:Key="LoginPasswordBox" TargetType="PasswordBox" BasedOn="{StaticResource BasicPasswordBox}" />
 
+            <!-- info -->
+            <Style x:Key="QuestionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
+            <Style x:Key="AnswerTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
+                <Setter Property="Margin" Value="0,0,0,8" />
+            </Style>
+
             <!-- welcome -->
             <Style x:Key="WelcomeRadioButton" TargetType="RadioButton" BasedOn="{StaticResource BasicRadioButton}" />
-            
+
             <!-- search -->
             <Style x:Key="SearchBox" TargetType="SearchBox" BasedOn="{StaticResource BasicSearchBox}" />
 

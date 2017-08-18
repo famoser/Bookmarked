@@ -21,12 +21,12 @@ namespace Famoser.Bookmarked.View.ViewModels
             {
                 var syncActionInfo = new SyncActionInformation(SyncAction.CreateUser);
                 syncActionInfo.SetSyncActionResult(SyncActionError.None);
-                SyncActionInformations.Add(syncActionInfo);
+                SyncActionInformation.Add(syncActionInfo);
                 syncActionInfo = new SyncActionInformation(SyncAction.CreateDevice);
                 syncActionInfo.SetSyncActionResult(SyncActionError.None);
-                SyncActionInformations.Add(syncActionInfo);
+                SyncActionInformation.Add(syncActionInfo);
                 syncActionInfo = new SyncActionInformation(SyncAction.SaveEntity);
-                SyncActionInformations.Add(syncActionInfo);
+                SyncActionInformation.Add(syncActionInfo);
             }
         }
 
@@ -37,11 +37,11 @@ namespace Famoser.Bookmarked.View.ViewModels
             set => Set(ref _requestCount, value);
         }
 
-        private ObservableCollection<SyncActionInformation> _syncActionInformations = new ObservableCollection<SyncActionInformation>();
-        public ObservableCollection<SyncActionInformation> SyncActionInformations
+        private ObservableCollection<SyncActionInformation> _syncActionInformation = new ObservableCollection<SyncActionInformation>();
+        public ObservableCollection<SyncActionInformation> SyncActionInformation
         {
-            get => _syncActionInformations;
-            set => Set(ref _syncActionInformations, value);
+            get => _syncActionInformation;
+            set => Set(ref _syncActionInformation, value);
         }
 
         public ISyncActionInformation CreateSyncActionInformation(SyncAction action)
@@ -49,7 +49,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             var sa = new SyncActionInformation(action);
             _dispatchService.CheckBeginInvokeOnUi(() =>
             {
-                SyncActionInformations.Add(sa);
+                SyncActionInformation.Add(sa);
             });
             return sa;
         }

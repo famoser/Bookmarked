@@ -14,29 +14,29 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer>
+    <Grid Style="{StaticResource LayoutGrid}">
+        <Grid Style="{StaticResource SmallContentGrid}">
             <StackPanel>
-                <TextBlock Text="Help" Style="{StaticResource BigTexBlock}" />
-                <TextBlock Text="What is this application" Style="{StaticResource SecondaryBigTexBlock}" />
-                <TextBlock Text="This application provides a convenient way to store bookmarks and other simple things you want to remember. All entries are synced accross your devices, and are accessible with a password of your choosing" Style="{StaticResource ValueTextBlock}" />
-                <TextBlock Text="How secure is this" Style="{StaticResource SecondaryBigTexBlock}" />
-                <TextBlock Text="All connection is encrypted by SSL (the same way webpages do their encryption), the special fields of the entries are additionally encrypted by the password you chose" Style="{StaticResource ValueTextBlock}" />
+                <StackPanel Style="{StaticResource HeaderStackPanel}">
+                    <TextBlock x:Uid="InfoPageTitle" Style="{StaticResource H1TextBlock}" Text="{Binding Source={StaticResource Localized}, Path=[InfoPageTitle.Text]}" />
+                    <Border Style="{StaticResource HeaderBottomBorder}" />
+                    <TextBlock x:Uid="InfoPageDescription" Style="{StaticResource H2TextBlock}" />
+                </StackPanel>
 
-                <TextBlock Text="Synchronization log" Style="{StaticResource SecondaryBigTexBlock}" />
-                <ListView ItemContainerStyle="{StaticResource SmallStretchListViewItemStyle}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformations, Source={StaticResource Locator}}" />
-                <!--
-                <TextBlock Text="Export / Import data (fully encrypted)" Style="{StaticResource SecondaryBigTexBlock}" />
-                <Grid  Margin="10,0,10,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Export" Command="{Binding ExportCommand}" />
-                    <Button Grid.Column="2" HorizontalAlignment="Stretch"  Content="Import" Command="{Binding ImportCommand}" />
-                </Grid>
-                -->
+                <TextBlock x:Uid="InfoPageQATitle" Style="{StaticResource H2TextBlock}" />
+                <TextBlock x:Uid="InfoPageAboutApplicationQuestion" Style="{StaticResource QuestionTextBlock}" />
+                <TextBlock x:Uid="InfoPageAboutApplicationAnswer" Style="{StaticResource AnswerTextBlock}" />
+                <TextBlock x:Uid="InfoPageAboutSecurityQuestion" Style="{StaticResource QuestionTextBlock}" />
+                <TextBlock x:Uid="InfoPageAboutSecurityAnswer" Style="{StaticResource AnswerTextBlock}" />
+                <TextBlock x:Uid="InfoPageAboutEncryptionQuestion" Style="{StaticResource QuestionTextBlock}" />
+                <TextBlock x:Uid="InfoPageAboutEncryptionAnswer" Style="{StaticResource AnswerTextBlock}" />
+                <TextBlock x:Uid="InfoPageAboutPasswordQuestion" Style="{StaticResource QuestionTextBlock}" />
+                <TextBlock x:Uid="InfoPageAboutPasswordAnswer" Style="{StaticResource AnswerTextBlock}" />
+                
+                
+                <TextBlock x:Uid="InfoPageSyncLogTitle" Style="{StaticResource H2TextBlock}" />
+                <ListView ItemContainerStyle="{StaticResource SmallStretchListViewItemStyle}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformation, Source={StaticResource Locator}}" />
+
 
                 <TextBlock Text="Export / Import credentials (fully encrypted)" Style="{StaticResource SecondaryBigTexBlock}" />
                 <Grid  Margin="10,0,10,10">
@@ -62,7 +62,7 @@
                     <Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Reset Installation" Command="{Binding ResetInstallationCommand}" />
                     <Button Grid.Column="2" HorizontalAlignment="Stretch" Content="Reset Application" Command="{Binding ResetApplicationCommand}" />
                 </Grid>
-                <StackPanel  Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+                <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                     <TextBlock FontFamily="Segoe UI" Margin="10" Foreground="White">
                         <Run Text="made with &#x2661; by" />
                         <Hyperlink NavigateUri="http://famoser.ch">
@@ -70,12 +70,12 @@
                         </Hyperlink>
                         <LineBreak />
                         <Run Text="source code on" />
-                        <Hyperlink NavigateUri="https://github.com/famoser/Study" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                        <Hyperlink NavigateUri="https://github.com/famoser/Bookmarked" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                             <Run Text="github"/>
                         </Hyperlink>
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
-        </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

@@ -117,6 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InfoPageAboutAlgorythmsAnswer.Text" xml:space="preserve">
+    <value>your password is hashed with SHA256. The resulting hash is used with AES (AesCbcPkcs7) to decrypt / encrypt your data.</value>
+  </data>
+  <data name="InfoPageAboutAlgorythmsQuestion.Text" xml:space="preserve">
+    <value>what algorythms are used for encryption?</value>
+  </data>
+  <data name="InfoPageAboutApplicationAnswer.Text" xml:space="preserve">
+    <value>bookmarked provides a provides a convenient way to store bookmarks and other simple things you want to remember. All entries are synced across your devices, and are accessible with a password of your choosing</value>
+  </data>
+  <data name="InfoPageAboutApplicationQuestion.Text" xml:space="preserve">
+    <value>what is bookmarked?</value>
+  </data>
+  <data name="InfoPageAboutEncryptionAnswer.Text" xml:space="preserve">
+    <value>each one of your bookmarks is encrypted with your chosen password (except the name &amp; description field). any of your personal data is only decrypted on your device, and will never be transfered in clear text to the server. all server requests are encrypted by SSL</value>
+  </data>
+  <data name="InfoPageAboutEncryptionQuestion.Text" xml:space="preserve">
+    <value>how is my private data encrypted?</value>
+  </data>
+  <data name="InfoPageAboutPasswordAnswer.Text" xml:space="preserve">
+    <value>choose a password which only you know, and choose different passwords for different services. If you use a password generate to create a new one make it at least 8 chars long, use numbers, letters &amp; special chars. You can also create a password by combining words (probably forming a phrase) but to keep it secure make it about 20 chars long.</value>
+  </data>
+  <data name="InfoPageAboutPasswordQuestion.Text" xml:space="preserve">
+    <value>how do I choose a safe password?</value>
+  </data>
+  <data name="InfoPageAboutSecurityAnswer.Text" xml:space="preserve">
+    <value>the security of this application depends mostly on your chosen password, so choose a secure one! on supported devices windows hello is also available for login, so make sure you choose a strong PIN there too (or disable windows hello in settings)  </value>
+  </data>
+  <data name="InfoPageAboutSecurityQuestion.Text" xml:space="preserve">
+    <value>how secure is this?</value>
+  </data>
+  <data name="InfoPageDescription.Text" xml:space="preserve">
+    <value>about bookmarked</value>
+  </data>
+  <data name="InfoPageQATitle.Text" xml:space="preserve">
+    <value>q&amp;a</value>
+  </data>
+  <data name="InfoPageSyncLogTitle.Text" xml:space="preserve">
+    <value>synchronization log</value>
+  </data>
+  <data name="InfoPageTitle.Text" xml:space="preserve">
+    <value>info</value>
+  </data>
   <data name="LoginPageDescription.Text" xml:space="preserve">
     <value>welcome!</value>
   </data>

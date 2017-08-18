@@ -192,6 +192,7 @@
     <Compile Include="Platform\LoginService.cs" />
     <Compile Include="Platform\NavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strings\LocalizedStrings.cs" />
     <Compile Include="UserControls\NavigationPage\FolderHeader.xaml.cs">
       <DependentUpon>FolderHeader.xaml</DependentUpon>
     </Compile>
