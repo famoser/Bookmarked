@@ -117,13 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="InfoPage" xml:space="preserve">
-    <value />
-  </data>
-  <data name="InfoPageAboutAlgorythmsAnswer" xml:space="preserve">
+  <data name="InfoPageAboutAlgorithmAnswer" xml:space="preserve">
     <value>your password is hashed with SHA256. The resulting hash is used with AES (AesCbcPkcs7) to decrypt / encrypt your data.</value>
   </data>
-  <data name="InfoPageAboutAlgorythmsQuestion" xml:space="preserve">
+  <data name="InfoPageAboutAlgorithmQuestion" xml:space="preserve">
     <value>what algorythms are used for encryption?</value>
   </data>
   <data name="InfoPageAboutApplicationAnswer" xml:space="preserve">
@@ -168,8 +165,14 @@
   <data name="InfoPageImportDataDescription" xml:space="preserve">
     <value>import bookmarks into this application. please use the same .csv file as provided by the export function</value>
   </data>
+  <data name="InfoPageQADescription" xml:space="preserve">
+    <value>get a quick overview what this application is</value>
+  </data>
   <data name="InfoPageQATitle" xml:space="preserve">
     <value>q&amp;a</value>
+  </data>
+  <data name="InfoPageSyncLogDescription" xml:space="preserve">
+    <value>inspect all communication happening with the server</value>
   </data>
   <data name="InfoPageSyncLogTitle" xml:space="preserve">
     <value>synchronization log</value>

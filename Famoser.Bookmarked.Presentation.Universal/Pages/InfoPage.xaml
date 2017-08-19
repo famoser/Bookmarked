@@ -18,24 +18,45 @@
         <Grid Style="{StaticResource SmallContentGrid}">
             <StackPanel>
                 <StackPanel Style="{StaticResource HeaderStackPanel}">
-                    <TextBlock x:Uid="InfoPageTitle" Style="{StaticResource H1TextBlock}" Text="{Binding Source={StaticResource Localized}, Path=[InfoPageTitle.Text]}" />
+                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageTitle]}" Style="{StaticResource H1TextBlock}"  />
                     <Border Style="{StaticResource HeaderBottomBorder}" />
-                    <TextBlock x:Uid="InfoPageDescription" Style="{StaticResource H2TextBlock}" />
+                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDescription]}" Style="{StaticResource H2TextBlock}" />
                 </StackPanel>
 
-                <TextBlock x:Uid="InfoPageQATitle" Style="{StaticResource H2TextBlock}" />
-                <TextBlock x:Uid="InfoPageAboutApplicationQuestion" Style="{StaticResource QuestionTextBlock}" />
-                <TextBlock x:Uid="InfoPageAboutApplicationAnswer" Style="{StaticResource AnswerTextBlock}" />
-                <TextBlock x:Uid="InfoPageAboutSecurityQuestion" Style="{StaticResource QuestionTextBlock}" />
-                <TextBlock x:Uid="InfoPageAboutSecurityAnswer" Style="{StaticResource AnswerTextBlock}" />
-                <TextBlock x:Uid="InfoPageAboutEncryptionQuestion" Style="{StaticResource QuestionTextBlock}" />
-                <TextBlock x:Uid="InfoPageAboutEncryptionAnswer" Style="{StaticResource AnswerTextBlock}" />
-                <TextBlock x:Uid="InfoPageAboutPasswordQuestion" Style="{StaticResource QuestionTextBlock}" />
-                <TextBlock x:Uid="InfoPageAboutPasswordAnswer" Style="{StaticResource AnswerTextBlock}" />
+                <!-- Q&A -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageQATitle]}" Style="{StaticResource H2TextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageQADescription]}" Style="{StaticResource ParagraphTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutApplicationQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutApplicationAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSecurityQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSecurityAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutEncryptionQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutEncryptionAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutPasswordQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutPasswordAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutAlgorithmQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutAlgorithmAnswer]}" Style="{StaticResource AnswerTextBlock}" />
                 
-                
-                <TextBlock x:Uid="InfoPageSyncLogTitle" Style="{StaticResource H2TextBlock}" />
-                <ListView ItemContainerStyle="{StaticResource SmallStretchListViewItemStyle}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformation, Source={StaticResource Locator}}" />
+                <!-- sync log -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageSyncLogTitle]}" Style="{StaticResource H2TextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageSyncLogDescription]}" Style="{StaticResource ParagraphTextBlock}" />
+                <ListView Style="{StaticResource SmallListView}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformation, Source={StaticResource Locator}}" />
+
+                <!-- import/export data -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageImportDataDescription]}" Style="{StaticResource ParagraphTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageExportDataDescription]}" Style="{StaticResource ParagraphTextBlock}" />
+
+                <!-- import/export credentials -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageExportImportCredentialsTitle]}" Style="{StaticResource H2TextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageImportCredentialsDescription]}" Style="{StaticResource ParagraphTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageExportCredentialsDescription]}" Style="{StaticResource ParagraphTextBlock}" />
+
+
+                <!-- danger functions -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsTitle]}" Style="{StaticResource H2TextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageImportCredentialsDescription]}" Style="{StaticResource ParagraphTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageExportCredentialsDescription]}" Style="{StaticResource ParagraphTextBlock}" />
 
 
                 <TextBlock Text="Export / Import credentials (fully encrypted)" Style="{StaticResource SecondaryBigTexBlock}" />
