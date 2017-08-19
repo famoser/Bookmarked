@@ -44,45 +44,44 @@
 
                 <!-- import/export data -->
                 <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
-                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageImportDataDescription]}" Style="{StaticResource ParagraphTextBlock}" />
-                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageExportDataDescription]}" Style="{StaticResource ParagraphTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeDescription]}" Style="{StaticResource H2TextBlock}" />
+
+                <!-- import data -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportSaveTemplateFile]}" Command="{Binding ImportCredentialsCommand}" />
+                <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportChooseImportFile]}" Command="{Binding ImportCredentialsCommand}" />
+                
+                <!-- export data -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeExportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeExportSaveExportFile]}" Command="{Binding ExportCredentialsCommand}" />
+
 
                 <!-- import/export credentials -->
-                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageExportImportCredentialsTitle]}" Style="{StaticResource H2TextBlock}" />
-                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageImportCredentialsDescription]}" Style="{StaticResource ParagraphTextBlock}" />
-                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageExportCredentialsDescription]}" Style="{StaticResource ParagraphTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeDescription]}" Style="{StaticResource H2TextBlock}" />
+
+                <!-- import credentials -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeImportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeImportChooseImportFile]}" Command="{Binding ImportCredentialsCommand}" />
+
+                <!-- export credentials -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeExportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeExportSaveExportFile]}" Command="{Binding ExportCredentialsCommand}" />
 
 
                 <!-- danger functions -->
                 <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsTitle]}" Style="{StaticResource H2TextBlock}" />
-                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageImportCredentialsDescription]}" Style="{StaticResource ParagraphTextBlock}" />
-                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageExportCredentialsDescription]}" Style="{StaticResource ParagraphTextBlock}" />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsDescription]}" Style="{StaticResource H2TextBlock}" />
 
+                <!-- clear cache -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsClearCacheHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsClearCacheAction]}" Command="{Binding ResetInstallationCommand}" />
 
-                <TextBlock Text="Export / Import credentials (fully encrypted)" Style="{StaticResource SecondaryBigTexBlock}" />
-                <Grid  Margin="10,0,10,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Export" Command="{Binding ExportCredentialsCommand}" />
-                    <Button Grid.Column="2" HorizontalAlignment="Stretch"  Content="Import" Command="{Binding ImportCredentialsCommand}" />
-                </Grid>
-
-                <TextBlock Text="Danger functions" Style="{StaticResource SecondaryBigTexBlock}" />
-                <Grid  Margin="10,0,10,10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="20" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Button Grid.Column="0" HorizontalAlignment="Stretch" Content="Reset Installation" Command="{Binding ResetInstallationCommand}" />
-                    <Button Grid.Column="2" HorizontalAlignment="Stretch" Content="Reset Application" Command="{Binding ResetApplicationCommand}" />
-                </Grid>
+                <!-- reset application -->
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsResetHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsResetAction]}" Command="{Binding ResetApplicationCommand}" />
+                
+                <!-- signature -->
                 <StackPanel Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                     <TextBlock FontFamily="Segoe UI" Margin="10" Foreground="White">
                         <Run Text="made with &#x2661; by" />

@@ -147,23 +147,65 @@
   <data name="InfoPageAboutSecurityQuestion" xml:space="preserve">
     <value>how secure is this?</value>
   </data>
-  <data name="InfoPageDescription" xml:space="preserve">
-    <value>about bookmarked</value>
-  </data>
-  <data name="InfoPageExportDataDescription" xml:space="preserve">
-    <value>export all your saved bookmarks</value>
-  </data>
-  <data name="InfoPageExportImportCredentialsTitle" xml:space="preserve">
-    <value>export / import credentials &amp; data</value>
-  </data>
-  <data name="InfoPageExportImportDataTitle" xml:space="preserve">
-    <value>export / import bookmarks</value>
-  </data>
-  <data name="InfoPageImportCredentialsDescription" xml:space="preserve">
+  <data name="InfoPageCredentialsExchangeDescription" xml:space="preserve">
     <value>import your credentials from another installation of this application. your currently active credentials will be replaced, and your data wi</value>
   </data>
-  <data name="InfoPageImportDataDescription" xml:space="preserve">
+  <data name="InfoPageCredentialsExchangeExportHelp" xml:space="preserve">
+    <value>export the credentials encrypted with your current password</value>
+  </data>
+  <data name="InfoPageCredentialsExchangeExportSaveExportFile" xml:space="preserve">
+    <value>save file</value>
+  </data>
+  <data name="InfoPageCredentialsExchangeImportChooseImportFile" xml:space="preserve">
+    <value>choose file</value>
+  </data>
+  <data name="InfoPageCredentialsExchangeImportHelp" xml:space="preserve">
+    <value>choose a credential file exported from another installation of this application</value>
+  </data>
+  <data name="InfoPageCredentialsExchangeTitle" xml:space="preserve">
+    <value>export / import credentials &amp; data</value>
+  </data>
+  <data name="InfoPageDangerFunctionsClearCacheAction" xml:space="preserve">
+    <value>clear cache</value>
+  </data>
+  <data name="InfoPageDangerFunctionsClearCacheHelp" xml:space="preserve">
+    <value>clears the cache, so the next time you open the application all your entries will be downloaded again from the server</value>
+  </data>
+  <data name="InfoPageDangerFunctionsDescription" xml:space="preserve">
+    <value>experiencing difficulties with the application? try clearing the cache or reset but make sure you've backed up all your credentials and your data before!</value>
+  </data>
+  <data name="InfoPageDangerFunctionsResetAction" xml:space="preserve">
+    <value>reset now and remove all data</value>
+  </data>
+  <data name="InfoPageDangerFunctionsResetHelp" xml:space="preserve">
+    <value>remove all your personal data, close the application and start over</value>
+  </data>
+  <data name="InfoPageDangerFunctionsTitle" xml:space="preserve">
+    <value>reset</value>
+  </data>
+  <data name="InfoPageDataExchangeDescription" xml:space="preserve">
+    <value>export all your saved bookmarks</value>
+  </data>
+  <data name="InfoPageDataExchangeExportHelp" xml:space="preserve">
+    <value>export your bookmarks as .csv file</value>
+  </data>
+  <data name="InfoPageDataExchangeExportSaveExportFile" xml:space="preserve">
+    <value>save file</value>
+  </data>
+  <data name="InfoPageDataExchangeImportChooseImportFile" xml:space="preserve">
+    <value>choose import file</value>
+  </data>
+  <data name="InfoPageDataExchangeImportHelp" xml:space="preserve">
     <value>import bookmarks into this application. please use the same .csv file as provided by the export function</value>
+  </data>
+  <data name="InfoPageDataExchangeImportSaveTemplateFile" xml:space="preserve">
+    <value>save template file</value>
+  </data>
+  <data name="InfoPageDataExchangeTitle" xml:space="preserve">
+    <value>export / import bookmarks</value>
+  </data>
+  <data name="InfoPageDescription" xml:space="preserve">
+    <value>about bookmarked</value>
   </data>
   <data name="InfoPageQADescription" xml:space="preserve">
     <value>get a quick overview what this application is</value>
