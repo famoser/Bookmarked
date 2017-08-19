@@ -24,10 +24,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.UserControls.NavigationPage
         public SearchHeader()
         {
             this.InitializeComponent();
-            Messenger.Default.Register<Messages>(this, (msg) =>
-            {
-                if (msg == Messages.FocusSearchBox) SearchBox.Focus(FocusState.Programmatic);
-            });
         }
     }
 }

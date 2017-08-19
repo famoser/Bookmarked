@@ -53,7 +53,6 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public ICommand RefreshCommand => new MyLoadingRelayCommand(() => _folderRepository.SyncAsync());
         public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
-        public ICommand GarbageCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Garbage.ToString()));
 
         public ICommand SelectFolderCommand => new MyLoadingRelayCommand<FolderModel>(c =>
         {
@@ -134,7 +133,48 @@ namespace Famoser.Bookmarked.View.ViewModels
         public bool InSearchMode
         {
             get => _inSearchMode;
-            set => Set(ref _inSearchMode, value);
+            set
+            {
+                if (Set(ref _inSearchMode, value))
+                {
+                    if (InTrashMode)
+                    {
+                        Set(ref _inTrashMode);
+                        NavigationViewMode = NavigationViewMode.Search;
+                    }
+                    else
+                    {
+                        NavigationViewMode = NavigationViewMode.Default;
+                    }
+                }
+            }
+        }
+        private bool _inTrashMode;
+        public bool InTrashMode
+        {
+            get => _inTrashMode;
+            set
+            {
+                if (Set(ref _inTrashMode, value))
+                {
+                    if (InTrashMode)
+                    {
+                        Set(ref _inSearchMode);
+                        NavigationViewMode = NavigationViewMode.Trash;
+                    }
+                    else
+                    {
+                        NavigationViewMode = NavigationViewMode.Default;
+                    }
+                }
+            }
+        }
+
+        private NavigationViewMode _navigationViewMode;
+        public NavigationViewMode NavigationViewMode
+        {
+            get => _navigationViewMode;
+            set => Set(ref _navigationViewMode, value);
         }
 
         private string _searchTerm;

@@ -12,15 +12,13 @@ namespace Famoser.Bookmarked.View.ViewModels
     {
         private readonly IFolderRepository _folderRepository;
         private IApiService _apiService;
-        private readonly IImportExportService _importExportService;
         private readonly ILoginService _loginService;
         private IInteractionService _interactionService;
 
-        public ImportViewModel(IFolderRepository folderRepository, IApiService apiService, IImportExportService importExportService, IInteractionService interactionService, ILoginService loginService)
+        public ImportViewModel(IFolderRepository folderRepository, IApiService apiService, IInteractionService interactionService, ILoginService loginService)
         {
             _folderRepository = folderRepository;
             _apiService = apiService;
-            _importExportService = importExportService;
             _interactionService = interactionService;
             _loginService = loginService;
         }
@@ -29,7 +27,7 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         private async Task ImportAsync()
         {
-            var str = await _importExportService.ImportExportFileAsync();
+            var str = await _interactionService.GetFileContentAsync("bmd_data");
             if (str != null)
                 await _folderRepository.ImportDataAsync(str);
         }
@@ -39,30 +37,36 @@ namespace Famoser.Bookmarked.View.ViewModels
         private async Task ExportAsync()
         {
             var exportString = await _folderRepository.ExportDataAsync();
-            await _importExportService.SaveExportFileAsync(exportString);
+            await _interactionService.SaveFileAsync(exportString, "bmd_data", "bookmarked_data");
         }
-        
+
         /*
          * export / import credentials
-         */ 
+         */
         public ICommand ExportCredentialsCommand => new MyLoadingRelayCommand(ExportCredentialsAsync);
 
         private async Task ExportCredentialsAsync()
         {
-            await _importExportService.SaveCredentialsFileAsync(await _folderRepository.ExportCredentialsAsync());
+            var exportString = await _folderRepository.ExportCredentialsAsync();
+            await _interactionService.SaveFileAsync(exportString, "bmd_cred", "bookmarked_credentials");
         }
 
         public ICommand ImportCredentialsCommand => new MyLoadingRelayCommand(ImportCredentialsAsync);
 
         private async Task ImportCredentialsAsync()
         {
-            if (await _folderRepository.ImportCredentialsAsync(await _importExportService.ImportCredentialsFileAsync()))
+            var str = await _interactionService.GetFileContentAsync("bmd_cred");
+            if (await _folderRepository.ImportCredentialsAsync(str))
             {
                 await _interactionService.ShowMessageAsync("import successful, the application will close now");
                 _interactionService.CloseApplication();
             }
+            else
+            {
+                await _interactionService.ShowMessageAsync("the import failed, are you sure the password is correct?");
+            }
         }
-        
+
         /*
          * danger functions
          */
@@ -70,9 +74,15 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         private async Task ClearCacheAsync()
         {
-            await _interactionService.ClearCacheAsync();
-            await _interactionService.ShowMessageAsync("reset successful, the application will close now");
-            _interactionService.CloseApplication();
+            if (await _interactionService.ClearCacheAsync())
+            {
+                await _interactionService.ShowMessageAsync("cache emptied successful, the application will close now");
+                _interactionService.CloseApplication();
+            }
+            else
+            {
+                await _interactionService.ShowMessageAsync("cache could not be emptied :(");
+            }
         }
 
         public ICommand ResetApplicationCommand => new MyLoadingRelayCommand(ResetApplicationAsync);
@@ -85,7 +95,10 @@ namespace Famoser.Bookmarked.View.ViewModels
                 await _interactionService.ShowMessageAsync("reset successful, the application will close now");
                 _interactionService.CloseApplication();
             }
-        }
+            else
+            {
 
+            }
+        }
     }
 }

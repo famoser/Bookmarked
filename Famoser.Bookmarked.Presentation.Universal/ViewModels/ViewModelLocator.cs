@@ -31,7 +31,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             SimpleIoc.Default.Register<INavigationService>(ConstructNavigationService);
             SimpleIoc.Default.Register<IInteractionService, InteractionService>();
             SimpleIoc.Default.Register<IDispatchService, DispatchService>();
-            SimpleIoc.Default.Register<IImportExportService, ImportExportService>();
             SimpleIoc.Default.Register<ILoginService, LoginService>();
         }
 

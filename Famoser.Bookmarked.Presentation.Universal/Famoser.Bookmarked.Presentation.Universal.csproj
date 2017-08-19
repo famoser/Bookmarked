@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Converters\ByteToBitmapConverter.cs" />
     <Compile Include="Converters\DateToStringConverter.cs" />
+    <Compile Include="Converters\EnumVisibilityConverter.cs" />
     <Compile Include="Converters\UriToStringConverter.cs" />
     <Compile Include="Entity\NavigationParameter.cs" />
     <Compile Include="Enums\Messages.cs" />

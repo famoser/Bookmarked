@@ -15,6 +15,7 @@
             <visibility:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
             <visibility:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:UriToStringConverter x:Key="UriToStringConverter" />
+            <converters:EnumVisibilityConverter x:Key="EnumVisibilityConverter" />
 
             <!-- ListView controls -->
             <Style x:Key="SmallStretchListViewItemStyle" TargetType="ListViewItem">
@@ -50,6 +51,15 @@
             <Style x:Key="FullListView" TargetType="ListView" BasedOn="{StaticResource BasicControl}">
                 <Setter Property="ItemContainerStyle" Value="{StaticResource StretchListViewItemStyle}" />
             </Style>
+            <Style x:Key="ClickListView" TargetType="ListView" BasedOn="{StaticResource FullListView}">
+                <Setter Property="IsItemClickEnabled" Value="True" />
+            </Style>
+            <Style x:Key="DragListView" TargetType="ListView" BasedOn="{StaticResource ClickListView}">
+                <Setter Property="CanDragItems" Value="True" />
+            </Style>
+            <Style x:Key="DropListView" TargetType="ListView" BasedOn="{StaticResource DragListView}">
+                <Setter Property="AllowDrop" Value="True" />
+            </Style>
             
             <!-- basic style elements -->
             <Style x:Key="BasicBorder" TargetType="Border" BasedOn="{StaticResource BasicElement}">
@@ -69,12 +79,12 @@
             </Style>
             
             <!-- content grids inside ListView -->
-            <Style x:Key="ListViewDataTemplateStackPanel" TargetType="StackPanel">
-                <Setter Property="Background" Value="{ThemeResource SystemAccentColor}" />
+            <Style x:Key="ListViewDataTemplateStackPanel" TargetType="StackPanel" BasedOn="{StaticResource ContentStackPanel}">
+                
             </Style>
 
-            <Style x:Key="ListViewDataTemplateGrid" TargetType="Grid">
-                <Setter Property="Background" Value="{ThemeResource SystemAccentColor}" />
+            <Style x:Key="ListViewDataTemplateGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
+                
             </Style>
 
             <!-- layout -->
