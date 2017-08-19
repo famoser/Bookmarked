@@ -187,7 +187,6 @@
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Platform\DispatchService.cs" />
-    <Compile Include="Platform\ImportExportService.cs" />
     <Compile Include="Platform\InteractionService.cs" />
     <Compile Include="Platform\LoginService.cs" />
     <Compile Include="Platform\NavigationService.cs" />

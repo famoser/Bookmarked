@@ -142,13 +142,19 @@
     <value>how do I choose a safe password?</value>
   </data>
   <data name="InfoPageAboutSecurityAnswer" xml:space="preserve">
-    <value>the security of this application depends mostly on your chosen password, so choose a secure one! on supported devices windows hello is also available for login, so make sure you choose a strong PIN there too (or disable windows hello in settings)  </value>
+    <value>the security of this application depends mostly on your chosen password, so choose a secure one! on supported devices windows hello is also available for login, so make sure you choose a strong PIN there too</value>
   </data>
   <data name="InfoPageAboutSecurityQuestion" xml:space="preserve">
     <value>how secure is this?</value>
   </data>
+  <data name="InfoPageAboutSetupAnswer" xml:space="preserve">
+    <value>when you create a new password bookmarked create a credential file for you. this file is then used to sync all your bookmarks with the server.</value>
+  </data>
+  <data name="InfoPageAboutSetupQuestion" xml:space="preserve">
+    <value>how does it work?</value>
+  </data>
   <data name="InfoPageCredentialsExchangeDescription" xml:space="preserve">
-    <value>import your credentials from another installation of this application. your currently active credentials will be replaced, and your data wi</value>
+    <value>your credentials give your access to your bookmarks saved on the server. export your credentials and securely store them for if you lose all active installations you can recover the access to your bookmarks. </value>
   </data>
   <data name="InfoPageCredentialsExchangeExportHelp" xml:space="preserve">
     <value>export the credentials encrypted with your current password</value>
@@ -160,7 +166,7 @@
     <value>choose file</value>
   </data>
   <data name="InfoPageCredentialsExchangeImportHelp" xml:space="preserve">
-    <value>choose a credential file exported from another installation of this application</value>
+    <value>import a credential file from another installation. put in the password you use there, and then choose the file</value>
   </data>
   <data name="InfoPageCredentialsExchangeTitle" xml:space="preserve">
     <value>export / import credentials &amp; data</value>
@@ -235,22 +241,28 @@
     <value>password</value>
   </data>
   <data name="WelcomePageAlreadyUsedChoice" xml:space="preserve">
-    <value>I use this app somewhere else, and want to import my credentials</value>
+    <value>I already use this app somewhere else</value>
   </data>
-  <data name="WelcomePageAlreadyUsedChoiceDescription" xml:space="preserve">
-    <value>please choose the encrypted credentials file you've exported from another installation. the password above must match the password from the other installation</value>
+  <data name="WelcomePageAlreadyUsedChoiceHelp" xml:space="preserve">
+    <value>import your credentials from the other application to sync your bookmarks. login to your active installation and export your credentials. then come back here, fill in the same password as used on the other installation, and import the file here</value>
   </data>
   <data name="WelcomePageConfirmNewPassword" xml:space="preserve">
     <value>please confirm your new password</value>
+  </data>
+  <data name="WelcomePageConfirmPasswordAction" xml:space="preserve">
+    <value>set the new password &amp; begin!</value>
   </data>
   <data name="WelcomePageDescription" xml:space="preserve">
     <value>you can use this application to safely save and sync your bookmarks on all windows devices.</value>
   </data>
   <data name="WelcomePageFirstTimeChoice" xml:space="preserve">
-    <value>I use this app for the first time and want to set a new password</value>
+    <value>I use this app for the first time</value>
   </data>
-  <data name="WelcomePageFirstTimeChoiceDescription" xml:space="preserve">
-    <value>set a master password which only you know. It will be used to encrypt all your data and allow you to unlock the application the next time you open it</value>
+  <data name="WelcomePageFirstTimeChoiceHelp" xml:space="preserve">
+    <value>please confirm your password from above. It will be used to encrypt all your data and allow you to unlock the application the next time you open it</value>
+  </data>
+  <data name="WelcomePageImportCredentialsAction" xml:space="preserve">
+    <value>import credentials &amp; begin!</value>
   </data>
   <data name="WelcomePageTitle" xml:space="preserve">
     <value>hi!</value>

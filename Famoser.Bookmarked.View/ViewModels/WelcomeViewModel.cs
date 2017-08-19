@@ -17,14 +17,16 @@ namespace Famoser.Bookmarked.View.ViewModels
         private readonly IInteractionService _interactionService;
         private readonly IFolderRepository _folderRepository;
         private readonly ILoginService _loginService;
+        private readonly IImportExportService _importExportService;
 
-        public WelcomeViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService, IFolderRepository folderRepository, ILoginService loginService)
+        public WelcomeViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService, IFolderRepository folderRepository, ILoginService loginService, IImportExportService importExportService)
         {
             _navigationService = navigationService;
             _passwordService = passwordService;
             _interactionService = interactionService;
             _folderRepository = folderRepository;
             _loginService = loginService;
+            _importExportService = importExportService;
         }
 
         private string _password;
@@ -41,7 +43,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             set => Set(ref _confirmationPassword, value);
         }
 
-        public ICommand SetPasswordCommand => new MyLoadingRelayCommand(async () =>
+        public ICommand ConfirmPasswordCommand => new MyLoadingRelayCommand(async () =>
         {
             if (Password != ConfirmationPassword)
             {
@@ -62,24 +64,23 @@ namespace Famoser.Bookmarked.View.ViewModels
             }
         });
 
-        public ICommand CreateFromExistingFile => new MyLoadingRelayCommand<Tuple<string, string>>(async (s) =>
+        public ICommand ImportCredentialsCommand => new MyLoadingRelayCommand(async () =>
         {
-            if (string.IsNullOrEmpty(s.Item1))
+            if (string.IsNullOrEmpty(Password))
             {
                 await _interactionService.ShowMessageAsync("password is empty");
-                return;
             }
-            if (string.IsNullOrEmpty(s.Item2))
+            var importFile = await _interactionService.GetFileContentAsync("bmd_cred");
+            if (string.IsNullOrEmpty(importFile))
             {
                 await _interactionService.ShowMessageAsync("file is empty");
-                return;
             }
 
-            await _passwordService.SetPasswordAsync(s.Item1);
-            if (await _folderRepository.ImportCredentialsAsync(s.Item2))
+            await _passwordService.SetPasswordAsync(Password);
+            if (await _folderRepository.ImportCredentialsAsync(importFile))
             {
                 await _interactionService.ShowMessageAsync("import successful!");
-                _navigationService.GoBack();
+                _interactionService.CloseApplication();
             }
             else
             {

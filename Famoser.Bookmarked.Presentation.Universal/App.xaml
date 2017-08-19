@@ -16,30 +16,7 @@
             <visibility:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:UriToStringConverter x:Key="UriToStringConverter" />
 
-            <!-- controls -->
-            <Style x:Key="StretchListViewItemStyle" TargetType="ListViewItem">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="Margin" Value="0,0,0,1" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListViewItem">
-                            <!--<ContentPresenter />-->
-                            <ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="Inline" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}" SelectionCheckMarkVisualEnabled="True" SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}" SelectedBackground="{ThemeResource SystemControlHighlightListAccentLowBrush}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-            <Style x:Key="ListViewDataTemplateStackPanel" TargetType="StackPanel">
-                <Setter Property="Background" Value="{ThemeResource SystemAccentColor}" />
-            </Style>
-
-            <Style x:Key="ListViewDataTemplateGrid" TargetType="Grid">
-                <Setter Property="Background" Value="{ThemeResource SystemAccentColor}" />
-            </Style>
-
-
+            <!-- ListView controls -->
             <Style x:Key="SmallStretchListViewItemStyle" TargetType="ListViewItem">
                 <Setter Property="MinHeight" Value="0"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -56,38 +33,91 @@
             <Style x:Key="SmallListView" TargetType="ListView" BasedOn="{StaticResource BasicControl}">
                 <Setter Property="ItemContainerStyle" Value="{StaticResource SmallStretchListViewItemStyle}" />
             </Style>
+            
+            <Style x:Key="StretchListViewItemStyle" TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0,0,0,1" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <!--<ContentPresenter />-->
+                            <ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="Inline" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}" SelectionCheckMarkVisualEnabled="True" SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}" SelectedBackground="{ThemeResource SystemControlHighlightListAccentLowBrush}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="FullListView" TargetType="ListView" BasedOn="{StaticResource BasicControl}">
+                <Setter Property="ItemContainerStyle" Value="{StaticResource StretchListViewItemStyle}" />
+            </Style>
+            
+            <!-- basic style elements -->
+            <Style x:Key="BasicBorder" TargetType="Border" BasedOn="{StaticResource BasicElement}">
+                <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Margin" Value="10,0" />
+            </Style>
+            
+            <Style x:Key="HeaderBottomBorder" TargetType="Border" BasedOn="{StaticResource BasicBorder}">
+                <Setter Property="BorderThickness" Value="0,8,0,0" />
+                <Setter Property="Width" Value="34" />
+            </Style>
+            
+            <Style x:Key="ContentBottomBorder" TargetType="Border" BasedOn="{StaticResource BasicBorder}">
+                <Setter Property="BorderThickness" Value="0,5,0,0" />
+                <Setter Property="Width" Value="21" />
+            </Style>
+            
+            <!-- content grids inside ListView -->
+            <Style x:Key="ListViewDataTemplateStackPanel" TargetType="StackPanel">
+                <Setter Property="Background" Value="{ThemeResource SystemAccentColor}" />
+            </Style>
 
+            <Style x:Key="ListViewDataTemplateGrid" TargetType="Grid">
+                <Setter Property="Background" Value="{ThemeResource SystemAccentColor}" />
+            </Style>
+
+            <!-- layout -->
+            <Style x:Key="LayoutGrid" TargetType="Grid">
+                <Setter Property="Background" Value="#efefef" />
+            </Style>
+
+            <!-- content grids -->
+            <Style x:Key="ContentGrid" TargetType="Grid">
+            </Style>
+            
+            <Style x:Key="FullContentGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
+            </Style>
+
+            <Style x:Key="SmallContentGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
+                <Setter Property="MaxWidth" Value="450" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+            </Style>
+            
+            <!-- header wrapper -->
+            <Style x:Key="HeaderStackPanel" TargetType="StackPanel">
+                <Setter Property="Background" Value="#FAFAFA" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="10" />
+            </Style>
+
+            <!-- content wrapper -->
             <Style x:Key="ContentScrollViewer" TargetType="ScrollViewer">
                 <Setter Property="HorizontalScrollMode" Value="Disabled" />
                 <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
             </Style>
 
-            <Style x:Key="HeaderStackPanel" TargetType="StackPanel">
-                <Setter Property="Background" Value="#FAFAFA" />
+            <Style x:Key="ContentStackPanel" TargetType="StackPanel">
+                <Setter Property="Background" Value="#fff" />
+                <Setter Property="Margin" Value="0,20,0,0" />
+                <Setter Property="Padding" Value="10" />
             </Style>
 
-            <Style x:Key="LayoutGrid" TargetType="Grid">
-                <Setter Property="Margin" Value="10" />
+            <Style x:Key="SmallStackPanel" TargetType="StackPanel" BasedOn="{StaticResource ContentStackPanel}">
+                <Setter Property="Margin" Value="0,10,0,0" />
             </Style>
-
-            <Style x:Key="FullContentGrid" TargetType="Grid">
-
-            </Style>
-
-            <Style x:Key="SmallContentGrid" TargetType="Grid">
-                <Setter Property="MaxWidth" Value="450" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-            </Style>
-
-            <Style x:Key="HeaderBottomBorder" TargetType="Border" BasedOn="{StaticResource BasicElement}">
-                <Setter Property="BorderThickness" Value="0,8,0,0" />
-                <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
-                <Setter Property="Width" Value="21" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Margin" Value="10,0" />
-            </Style>
-
+            
             <!-- Basic elements -->
             <Style x:Key="BasicElement" TargetType="FrameworkElement">
                 <Setter Property="Margin" Value="0" />
@@ -101,7 +131,6 @@
 
             <Style x:Key="BasicControl" TargetType="Control" BasedOn="{StaticResource BasicElement}">
                 <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontSize" Value="21" />
                 <Setter Property="Padding" Value="10" />
             </Style>
 
@@ -116,14 +145,26 @@
                 <Setter Property="FontWeight" Value="SemiLight" />
             </Style>
 
+            <Style x:Key="H3DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
+                
+            </Style>
+
             <Style x:Key="H2TextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
                 <Setter Property="FontSize" Value="34" />
                 <Setter Property="FontWeight" Value="Light" />
             </Style>
 
+            <Style x:Key="H2DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
+                <Setter Property="Margin" Value="0,-13,0,0" />
+            </Style>
+
             <Style x:Key="H1TextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
                 <Setter Property="FontSize" Value="55" />
                 <Setter Property="FontWeight" Value="ExtraLight" />
+            </Style>
+
+            <Style x:Key="H1DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
+                <Setter Property="Margin" Value="0,-20,0,0" />
             </Style>
 
             <Style x:Key="LabelTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
@@ -163,7 +204,7 @@
                 <Setter Property="PasswordRevealMode" Value="Peek" />
             </Style>
 
-            <Style x:Key="BasicRadioButton" TargetType="RadioButton" BasedOn="{StaticResource BasicControl}"></Style>
+            <Style x:Key="BasicRadioButton" TargetType="RadioButton" BasedOn="{StaticResource BasicControl}" />
 
             <!-- individual styles -->
             <!-- display entry -->
@@ -188,9 +229,11 @@
             <Style x:Key="LoginPasswordBox" TargetType="PasswordBox" BasedOn="{StaticResource BasicPasswordBox}" />
 
             <!-- info -->
-            <Style x:Key="QuestionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
+            <Style x:Key="QuestionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
             <Style x:Key="AnswerTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
-                <Setter Property="Margin" Value="0,0,0,8" />
+                <Setter Property="Margin" Value="0,-8,0,8" />
             </Style>
 
             <!-- welcome -->

@@ -7,26 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400"
-     >
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+    d:DesignWidth="400">
+     
 
-        <SearchBox FocusOnKeyboardInput="True" x:Name="SearchBox" Grid.Column="0" Grid.Row="0" QueryText="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource BigSearchBox}" SearchHistoryEnabled="True"/>
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="search your bookmarks" Style="{StaticResource ValueTextBlock}" />
-        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Style="{StaticResource ValueTextBlock}">
-            <Run Text="{Binding TotalEntries}"></Run>
-            <Run Text="entries"></Run>
-            <Run Text="{Binding TotalFolders}"></Run>
-            <Run Text="folders"></Run>
-        </TextBlock>
-    </Grid>
+    <StackPanel Style="{StaticResource HeaderStackPanel}"> 
+        <SearchBox QueryText="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SearchBox}" FocusOnKeyboardInput="True" SearchHistoryEnabled="True"/>
+        <TextBlock Text="{Binding Path=[SearchPageDescription], Source={StaticResource Localized}}" Style="{StaticResource H1DescriptionTextBlock}" />
+    </StackPanel>
+
 </UserControl>

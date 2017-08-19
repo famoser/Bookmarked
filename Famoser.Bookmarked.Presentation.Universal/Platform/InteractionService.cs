@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Famoser.Bookmarked.View.Services.Interfaces;
+using Famoser.FrameworkEssentials.Logging;
 using GalaSoft.MvvmLight.Threading;
 
 namespace Famoser.Bookmarked.Presentation.Universal.Platform
@@ -63,6 +66,56 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
                 await file.DeleteAsync(StorageDeleteOption.Default);
             }
             return true;
+        }
+
+        public async Task<bool> SaveFileAsync(string content, string extension, string defaultFileName)
+        {
+            try
+            {
+                extension = "." + extension;
+                var fileSavePicker = new FileSavePicker();
+                fileSavePicker.FileTypeChoices.Add(defaultFileName.Replace('_', ' ') + " file", new List<string> { extension });
+                fileSavePicker.DefaultFileExtension = extension;
+                fileSavePicker.SuggestedFileName = defaultFileName + extension;
+
+                StorageFile file = await fileSavePicker.PickSaveFileAsync();
+                if (file != null && content != null)
+                {
+                    await FileIO.WriteTextAsync(file, content);
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogHelper.Instance.LogException(e);
+            }
+            return false;
+        }
+
+        public async Task<string> GetFileContentAsync(string extension)
+        {
+            try
+            {
+                extension = "." + extension;
+                var picker = new FileOpenPicker
+                {
+                    ViewMode = PickerViewMode.List,
+                    SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+                };
+
+                picker.FileTypeFilter.Add(extension);
+
+                StorageFile file = await picker.PickSingleFileAsync();
+                if (file != null)
+                {
+                    return await FileIO.ReadTextAsync(file);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogHelper.Instance.LogException(ex);
+            }
+            return null;
         }
     }
 }

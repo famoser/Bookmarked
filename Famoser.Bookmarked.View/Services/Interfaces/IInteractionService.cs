@@ -12,5 +12,9 @@ namespace Famoser.Bookmarked.View.Services.Interfaces
         void CopyToClipboard(string message);
         void CloseApplication();
         Task<bool> ClearCacheAsync();
+
+        /* .bmd_cred .bmd_data */
+        Task<bool> SaveFileAsync(string content, string extension, string defaultFileName);
+        Task<string> GetFileContentAsync(string extension);
     }
 }

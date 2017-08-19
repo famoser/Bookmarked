@@ -41,17 +41,34 @@ namespace Famoser.Bookmarked.View.ViewModels
             var exportString = await _folderRepository.ExportDataAsync();
             await _importExportService.SaveExportFileAsync(exportString);
         }
+        
+        /*
+         * export / import credentials
+         */ 
+        public ICommand ExportCredentialsCommand => new MyLoadingRelayCommand(ExportCredentialsAsync);
 
-        private string _newPassword;
-        public string NewPassword
+        private async Task ExportCredentialsAsync()
         {
-            get => _newPassword;
-            set => Set(ref _newPassword, value);
+            await _importExportService.SaveCredentialsFileAsync(await _folderRepository.ExportCredentialsAsync());
         }
 
-        public ICommand ResetInstallationCommand => new MyLoadingRelayCommand(ResetInstallationAsync);
+        public ICommand ImportCredentialsCommand => new MyLoadingRelayCommand(ImportCredentialsAsync);
 
-        private async Task ResetInstallationAsync()
+        private async Task ImportCredentialsAsync()
+        {
+            if (await _folderRepository.ImportCredentialsAsync(await _importExportService.ImportCredentialsFileAsync()))
+            {
+                await _interactionService.ShowMessageAsync("import successful, the application will close now");
+                _interactionService.CloseApplication();
+            }
+        }
+        
+        /*
+         * danger functions
+         */
+        public ICommand ClearCacheCommand => new MyLoadingRelayCommand(ClearCacheAsync);
+
+        private async Task ClearCacheAsync()
         {
             await _interactionService.ClearCacheAsync();
             await _interactionService.ShowMessageAsync("reset successful, the application will close now");
@@ -70,22 +87,5 @@ namespace Famoser.Bookmarked.View.ViewModels
             }
         }
 
-        public ICommand ExportCredentialsCommand => new MyLoadingRelayCommand(ExportCredentialsAsync);
-
-        private async Task ExportCredentialsAsync()
-        {
-            await _importExportService.SaveCredentialsFileAsync(await _folderRepository.ExportCredentialsAsync());
-        }
-
-        public ICommand ImportCredentialsCommand => new MyLoadingRelayCommand(ImportCredentialsAsync);
-
-        private async Task ImportCredentialsAsync()
-        {
-            if (await _folderRepository.ImportCredentialsAsync(await _importExportService.ImportCredentialsFileAsync()))
-            {
-                await _interactionService.ShowMessageAsync("import successful, the application will close now");
-                _interactionService.CloseApplication();
-            }
-        }
     }
 }

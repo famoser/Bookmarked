@@ -9,24 +9,18 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     d:DataContext="{Binding NavigationViewModel, Source={StaticResource Locator}}">
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Padding="10,0" Text="{Binding SelectedFolder.Name}" Style="{StaticResource BigTexBlock}" />
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding SelectedFolder.Description}" Style="{StaticResource ValueTextBlock}" />
-        <TextBlock HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Style="{StaticResource ValueTextBlock}">
-            <Run Text="{Binding TotalEntries}"></Run>
-            <Run Text="entries"></Run>
-            <Run Text="{Binding TotalFolders}"></Run>
-            <Run Text="folders"></Run>
-        </TextBlock>
-    </Grid>
+
+    <StackPanel Style="{StaticResource HeaderStackPanel}">
+        <TextBlock Text="{Binding SelectedFolder.Name}" Style="{StaticResource H1TextBlock}" />
+        <Grid>
+            <TextBlock Text="{Binding SelectedFolder.Description}" Style="{StaticResource H1DescriptionTextBlock}" />
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{StaticResource H1DescriptionTextBlock}">
+                    <Run Text="{Binding TotalEntries}" />
+                    <Run Text="entries" />
+                    <Run Text="{Binding TotalFolders}" />
+                    <Run Text="folders" />
+            </TextBlock>
+        </Grid>
+        <Border Style="{StaticResource HeaderBottomBorder}" />
+    </StackPanel>
 </UserControl>

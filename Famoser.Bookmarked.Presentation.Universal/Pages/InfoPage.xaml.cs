@@ -16,6 +16,5 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
         }
 
         private ImportViewModel ImportViewModel => DataContext as ImportViewModel;
-        
     }
 }

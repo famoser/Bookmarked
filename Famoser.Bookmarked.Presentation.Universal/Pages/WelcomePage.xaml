@@ -13,23 +13,31 @@
             <StackPanel>
                 <StackPanel Style="{StaticResource HeaderStackPanel}">
                     <TextBlock Text="{Binding Path=[WelcomePageTitle], Source={StaticResource Localized}}" Style="{StaticResource H1TextBlock}" />
+                    <TextBlock Text="{Binding Path=[WelcomePageDescription], Source={StaticResource Localized}}" Style="{StaticResource H1DescriptionTextBlock}" />
                     <Border Style="{StaticResource HeaderBottomBorder}" />
-                    <TextBlock Text="{Binding Path=[WelcomePageDescription], Source={StaticResource Localized}}" Style="{StaticResource H2TextBlock}" />
                 </StackPanel>
-                <TextBlock x:Uid="WelcomePagePasswordLabel" Style="{StaticResource LabelTextBlock}" />
-                <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />
 
-                <RadioButton x:Uid="WelcomePageFirstTimeRadio" x:Name="FirstTimeRadio" IsChecked="True" GroupName="InitializeGroup" Style="{StaticResource WelcomeRadioButton}" />
-                <StackPanel Visibility="{Binding IsChecked, ElementName=FirstTimeRadio, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <TextBlock x:Uid="WelcomePageFirstTimeDescription" Style="{StaticResource ParagraphTextBlock}" />
-                    <TextBlock x:Uid="WelcomePageConfirmPassword" Style="{StaticResource LabelTextBlock}" />
-                    <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}" />
-                    <Button HorizontalAlignment="Center" Content="set password" Command="{Binding ConfirmationPassword}" />
+                <StackPanel Style="{StaticResource ContentStackPanel}">
+                    <TextBlock Text="{Binding Path=[PasswordLabel], Source={StaticResource Localized}}" Style="{StaticResource LabelTextBlock}" />
+                    <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />
                 </StackPanel>
-                <RadioButton x:Uid="WelcomePageAlreadyUsedRadio" x:Name="AlreadyUsedRadio" GroupName="InitializeGroup" Style="{StaticResource WelcomeRadioButton}" />
-                <StackPanel Visibility="{Binding IsChecked, ElementName=AlreadyUsedRadio, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <TextBlock x:Uid="WelcomePageAlreadyUsedDescription" Style="{StaticResource ParagraphTextBlock}" />
-                    <Button HorizontalAlignment="Center" Content="choose file" Command="{Binding CreateFromExistingFile}" />
+
+                <StackPanel Style="{StaticResource ContentStackPanel}">
+                    <RadioButton Content="{Binding Path=[WelcomePageFirstTimeChoice], Source={StaticResource Localized}}" x:Name="FirstTimeRadio" GroupName="InitializeGroup" Style="{StaticResource WelcomeRadioButton}" />
+                </StackPanel>
+                <StackPanel Style="{StaticResource SmallStackPanel}" Visibility="{Binding IsChecked, ElementName=FirstTimeRadio, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock Text="{Binding Path=[WelcomePageFirstTimeChoiceHelp], Source={StaticResource Localized}}" Style="{StaticResource ParagraphTextBlock}" />
+                    <TextBlock Text="{Binding Path=[WelcomePageConfirmNewPassword], Source={StaticResource Localized}}" Style="{StaticResource LabelTextBlock}" />
+                    <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}" />
+                    <Button Content="{Binding Path=[WelcomePageConfirmPasswordAction], Source={StaticResource Localized}}" Command="{Binding ConfirmPasswordCommand}" Style="{StaticResource PrimaryButton}" />
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource ContentStackPanel}">
+                    <RadioButton Content="{Binding Path=[WelcomePageAlreadyUsedChoice], Source={StaticResource Localized}}" x:Name="AlreadyUsedRadio" GroupName="InitializeGroup" Style="{StaticResource WelcomeRadioButton}" />
+                </StackPanel>
+                <StackPanel Style="{StaticResource SmallStackPanel}" Visibility="{Binding IsChecked, ElementName=AlreadyUsedRadio, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock Text="{Binding Path=[WelcomePageAlreadyUsedChoiceHelp], Source={StaticResource Localized}}" Style="{StaticResource ParagraphTextBlock}" />
+                    <Button Content="{Binding Path=[WelcomePageImportCredentialsAction], Source={StaticResource Localized}}" Style="{StaticResource PrimaryButton}" Command="{Binding ImportCredentialsCommand}" />
                 </StackPanel>
             </StackPanel>
         </Grid>

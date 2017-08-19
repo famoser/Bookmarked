@@ -13,12 +13,14 @@
             <StackPanel>
                 <StackPanel Style="{StaticResource HeaderStackPanel}">
                     <TextBlock Text="{Binding Path=[LoginPageTitle], Source={StaticResource Localized}}" Style="{StaticResource H1TextBlock}" />
+                    <TextBlock Text="{Binding Path=[LoginPageDescription], Source={StaticResource Localized}}" Style="{StaticResource H1DescriptionTextBlock}" />
                     <Border Style="{StaticResource HeaderBottomBorder}" />
-                    <TextBlock Text="{Binding Path=[LoginPageDescription], Source={StaticResource Localized}}" Style="{StaticResource H2TextBlock}" />
                 </StackPanel>
-                <TextBlock Text="{Binding Path=[PasswordLabel], Source={StaticResource Localized}}" Style="{StaticResource LabelTextBlock}" />
-                <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />
-                <Button Content="{Binding Path=[LoginAction], Source={StaticResource Localized}}" Command="{Binding LoginCommand}" Style="{StaticResource PrimaryButton}"/>
+                <StackPanel Style="{StaticResource ContentStackPanel}">
+                    <TextBlock Text="{Binding Path=[PasswordLabel], Source={StaticResource Localized}}" Style="{StaticResource LabelTextBlock}" />
+                    <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />
+                    <Button Content="{Binding Path=[LoginAction], Source={StaticResource Localized}}" Command="{Binding LoginCommand}" Style="{StaticResource PrimaryButton}"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>

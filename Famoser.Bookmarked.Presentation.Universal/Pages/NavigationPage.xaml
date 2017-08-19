@@ -40,8 +40,10 @@
     </Page.Resources>
 
 
+
     <Grid Style="{StaticResource LayoutGrid}">
         <Grid Style="{StaticResource FullContentGrid}">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -58,7 +60,7 @@
                 <StackPanel>
                     <StackPanel Visibility="{Binding InSearchMode, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=invert}">
                         <ListView CanDragItems="True" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" IsItemClickEnabled="True" AllowDrop="True" SelectionMode="None" ItemClick="ListView_ItemClick" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" />
-                        <ListView Margin="0,20,0,0" CanDragItems="True" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemTemplate="{StaticResource EntryDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" ItemsSource="{Binding SelectedFolder.Entries}"   />
+                        <ListView Style="{StaticResource FullListView}" ItemTemplate="{StaticResource EntryDataTemplate}" ItemsSource="{Binding SelectedFolder.Entries}" IsItemClickEnabled="True" CanDragItems="True" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"    />
                     </StackPanel>
                     <StackPanel Visibility="{Binding InSearchMode, Converter={StaticResource BoolToVisibilityConverter}}">
                         <ListView IsItemClickEnabled="True" ItemClick="ListView_ItemClick" ItemsSource="{Binding SearchFolders}" ItemTemplate="{StaticResource FolderDataTemplate}" ItemContainerStyle="{StaticResource StretchListViewItemStyle}" />
