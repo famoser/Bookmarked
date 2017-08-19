@@ -12,9 +12,9 @@
         <Grid Style="{StaticResource SmallContentGrid}">
             <StackPanel>
                 <StackPanel Style="{StaticResource HeaderStackPanel}">
-                    <TextBlock x:Uid="WelcomePageTitle" Style="{StaticResource H1TextBlock}" />
+                    <TextBlock Text="{Binding Path=[WelcomePageTitle], Source={StaticResource Localized}}" Style="{StaticResource H1TextBlock}" />
                     <Border Style="{StaticResource HeaderBottomBorder}" />
-                    <TextBlock x:Uid="WelcomePageDescription" Style="{StaticResource H2TextBlock}" />
+                    <TextBlock Text="{Binding Path=[WelcomePageDescription], Source={StaticResource Localized}}" Style="{StaticResource H2TextBlock}" />
                 </StackPanel>
                 <TextBlock x:Uid="WelcomePagePasswordLabel" Style="{StaticResource LabelTextBlock}" />
                 <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />

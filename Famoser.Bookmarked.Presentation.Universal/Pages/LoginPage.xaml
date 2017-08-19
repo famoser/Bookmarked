@@ -13,13 +13,13 @@
         <Grid Style="{StaticResource SmallContentGrid}">
             <StackPanel>
                 <StackPanel Style="{StaticResource HeaderStackPanel}">
-                    <TextBlock x:Uid="LoginPageTitle" Style="{StaticResource H1TextBlock}" Text="{Binding Source={StaticResource Localized}, Path=[LoginPageTitle\\Text]}" />
+                    <TextBlock Text="{Binding Path=[LoginPageTitle], Source={StaticResource Localized}}" Style="{StaticResource H1TextBlock}" />
                     <Border Style="{StaticResource HeaderBottomBorder}" />
-                    <TextBlock x:Uid="LoginPageDescription" Style="{StaticResource H2TextBlock}" />
+                    <TextBlock Text="{Binding Path=[LoginPageDescription], Source={StaticResource Localized}}" Style="{StaticResource H2TextBlock}" />
                 </StackPanel>
-                <TextBlock x:Uid="LoginPagePasswordLabel" Style="{StaticResource LabelTextBlock}" />
+                <TextBlock Text="{Binding Path=[PasswordLabel], Source={StaticResource Localized}}" Style="{StaticResource LabelTextBlock}" />
                 <PasswordBox Password="{Binding Password, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}"  />
-                <Button x:Uid="LoginPageLoginButton" Command="{Binding LoginCommand}" Style="{StaticResource PrimaryButton}"/>
+                <Button Content="{Binding Path=[LoginAction], Source={StaticResource Localized}}" Command="{Binding LoginCommand}" Style="{StaticResource PrimaryButton}"/>
             </StackPanel>
         </Grid>
     </Grid>

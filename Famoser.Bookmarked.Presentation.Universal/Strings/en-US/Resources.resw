@@ -117,82 +117,97 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="InfoPageAboutAlgorythmsAnswer.Text" xml:space="preserve">
+  <data name="InfoPage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="InfoPageAboutAlgorythmsAnswer" xml:space="preserve">
     <value>your password is hashed with SHA256. The resulting hash is used with AES (AesCbcPkcs7) to decrypt / encrypt your data.</value>
   </data>
-  <data name="InfoPageAboutAlgorythmsQuestion.Text" xml:space="preserve">
+  <data name="InfoPageAboutAlgorythmsQuestion" xml:space="preserve">
     <value>what algorythms are used for encryption?</value>
   </data>
-  <data name="InfoPageAboutApplicationAnswer.Text" xml:space="preserve">
+  <data name="InfoPageAboutApplicationAnswer" xml:space="preserve">
     <value>bookmarked provides a provides a convenient way to store bookmarks and other simple things you want to remember. All entries are synced across your devices, and are accessible with a password of your choosing</value>
   </data>
-  <data name="InfoPageAboutApplicationQuestion.Text" xml:space="preserve">
+  <data name="InfoPageAboutApplicationQuestion" xml:space="preserve">
     <value>what is bookmarked?</value>
   </data>
-  <data name="InfoPageAboutEncryptionAnswer.Text" xml:space="preserve">
+  <data name="InfoPageAboutEncryptionAnswer" xml:space="preserve">
     <value>each one of your bookmarks is encrypted with your chosen password (except the name &amp; description field). any of your personal data is only decrypted on your device, and will never be transfered in clear text to the server. all server requests are encrypted by SSL</value>
   </data>
-  <data name="InfoPageAboutEncryptionQuestion.Text" xml:space="preserve">
+  <data name="InfoPageAboutEncryptionQuestion" xml:space="preserve">
     <value>how is my private data encrypted?</value>
   </data>
-  <data name="InfoPageAboutPasswordAnswer.Text" xml:space="preserve">
+  <data name="InfoPageAboutPasswordAnswer" xml:space="preserve">
     <value>choose a password which only you know, and choose different passwords for different services. If you use a password generate to create a new one make it at least 8 chars long, use numbers, letters &amp; special chars. You can also create a password by combining words (probably forming a phrase) but to keep it secure make it about 20 chars long.</value>
   </data>
-  <data name="InfoPageAboutPasswordQuestion.Text" xml:space="preserve">
+  <data name="InfoPageAboutPasswordQuestion" xml:space="preserve">
     <value>how do I choose a safe password?</value>
   </data>
-  <data name="InfoPageAboutSecurityAnswer.Text" xml:space="preserve">
+  <data name="InfoPageAboutSecurityAnswer" xml:space="preserve">
     <value>the security of this application depends mostly on your chosen password, so choose a secure one! on supported devices windows hello is also available for login, so make sure you choose a strong PIN there too (or disable windows hello in settings)  </value>
   </data>
-  <data name="InfoPageAboutSecurityQuestion.Text" xml:space="preserve">
+  <data name="InfoPageAboutSecurityQuestion" xml:space="preserve">
     <value>how secure is this?</value>
   </data>
-  <data name="InfoPageDescription.Text" xml:space="preserve">
+  <data name="InfoPageDescription" xml:space="preserve">
     <value>about bookmarked</value>
   </data>
-  <data name="InfoPageQATitle.Text" xml:space="preserve">
+  <data name="InfoPageExportDataDescription" xml:space="preserve">
+    <value>export all your saved bookmarks</value>
+  </data>
+  <data name="InfoPageExportImportCredentialsTitle" xml:space="preserve">
+    <value>export / import credentials &amp; data</value>
+  </data>
+  <data name="InfoPageExportImportDataTitle" xml:space="preserve">
+    <value>export / import bookmarks</value>
+  </data>
+  <data name="InfoPageImportCredentialsDescription" xml:space="preserve">
+    <value>import your credentials from another installation of this application. your currently active credentials will be replaced, and your data wi</value>
+  </data>
+  <data name="InfoPageImportDataDescription" xml:space="preserve">
+    <value>import bookmarks into this application. please use the same .csv file as provided by the export function</value>
+  </data>
+  <data name="InfoPageQATitle" xml:space="preserve">
     <value>q&amp;a</value>
   </data>
-  <data name="InfoPageSyncLogTitle.Text" xml:space="preserve">
+  <data name="InfoPageSyncLogTitle" xml:space="preserve">
     <value>synchronization log</value>
   </data>
-  <data name="InfoPageTitle.Text" xml:space="preserve">
+  <data name="InfoPageTitle" xml:space="preserve">
     <value>info</value>
   </data>
-  <data name="LoginPageDescription.Text" xml:space="preserve">
+  <data name="LoginAction" xml:space="preserve">
+    <value>login</value>
+  </data>
+  <data name="LoginPageDescription" xml:space="preserve">
     <value>welcome!</value>
   </data>
-  <data name="LoginPageLoginButton.Content" xml:space="preserve">
+  <data name="LoginPageTitle" xml:space="preserve">
     <value>login</value>
   </data>
-  <data name="LoginPagePasswordLabel.Text" xml:space="preserve">
+  <data name="PasswordLabel" xml:space="preserve">
     <value>password</value>
   </data>
-  <data name="LoginPageTitle.Text" xml:space="preserve">
-    <value>login</value>
-  </data>
-  <data name="WelcomePageAlreadyUsedDescription.Text" xml:space="preserve">
-    <value>please choose the encrypted credentials file you've exported from another installation. the password above must match the password from the other installation</value>
-  </data>
-  <data name="WelcomePageAlreadyUsedRadio.Content" xml:space="preserve">
+  <data name="WelcomePageAlreadyUsedChoice" xml:space="preserve">
     <value>I use this app somewhere else, and want to import my credentials</value>
   </data>
-  <data name="WelcomePageConfirmPassword.Text" xml:space="preserve">
+  <data name="WelcomePageAlreadyUsedChoiceDescription" xml:space="preserve">
+    <value>please choose the encrypted credentials file you've exported from another installation. the password above must match the password from the other installation</value>
+  </data>
+  <data name="WelcomePageConfirmNewPassword" xml:space="preserve">
     <value>please confirm your new password</value>
   </data>
-  <data name="WelcomePageDescription.Text" xml:space="preserve">
+  <data name="WelcomePageDescription" xml:space="preserve">
     <value>you can use this application to safely save and sync your bookmarks on all windows devices.</value>
   </data>
-  <data name="WelcomePageFirstTimeDescription.Text" xml:space="preserve">
-    <value>set a master password which only you know. It will be used to encrypt all your data and allow you to unlock the application the next time you open it</value>
-  </data>
-  <data name="WelcomePageFirstTimeRadio.Content" xml:space="preserve">
+  <data name="WelcomePageFirstTimeChoice" xml:space="preserve">
     <value>I use this app for the first time and want to set a new password</value>
   </data>
-  <data name="WelcomePagePasswordLabel.Text" xml:space="preserve">
-    <value>password</value>
+  <data name="WelcomePageFirstTimeChoiceDescription" xml:space="preserve">
+    <value>set a master password which only you know. It will be used to encrypt all your data and allow you to unlock the application the next time you open it</value>
   </data>
-  <data name="WelcomePageTitle.Text" xml:space="preserve">
+  <data name="WelcomePageTitle" xml:space="preserve">
     <value>hi!</value>
   </data>
 </root>
