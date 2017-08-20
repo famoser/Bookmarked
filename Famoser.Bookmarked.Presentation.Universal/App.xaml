@@ -99,12 +99,19 @@
             <Style x:Key="FullContentGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
             </Style>
 
-            <Style x:Key="SmallContentGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
-                <Setter Property="MaxWidth" Value="450" />
+            <Style x:Key="PartContentGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
             </Style>
-            
+
+            <Style x:Key="SmallContentGrid" TargetType="Grid" BasedOn="{StaticResource PartContentGrid}">
+                <Setter Property="MaxWidth" Value="450" />
+            </Style>
+
+            <Style x:Key="DoubleContentGrid" TargetType="Grid" BasedOn="{StaticResource PartContentGrid}">
+                <Setter Property="MaxWidth" Value="900" />
+            </Style>
+
             <!-- header wrapper -->
             <Style x:Key="HeaderStackPanel" TargetType="StackPanel">
                 <Setter Property="Background" Value="#FAFAFA" />

@@ -15,100 +15,101 @@
     </Page.Resources>
 
     <Grid Style="{StaticResource LayoutGrid}">
-        <Grid Style="{StaticResource SmallContentGrid}">
-            <StackPanel>
-                <StackPanel Style="{StaticResource HeaderStackPanel}">
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageTitle]}" Style="{StaticResource H1TextBlock}"  />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDescription]}" Style="{StaticResource H1DescriptionTextBlock}" />
-                    <Border Style="{StaticResource HeaderBottomBorder}" />
-                </StackPanel>
+        <ScrollViewer Style="{StaticResource ContentScrollViewer}">
+            <Grid Style="{StaticResource DoubleContentGrid}">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource HeaderStackPanel}">
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageTitle]}" Style="{StaticResource H1TextBlock}"  />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDescription]}" Style="{StaticResource H1DescriptionTextBlock}" />
+                        <Border Style="{StaticResource HeaderBottomBorder}" />
+                    </StackPanel>
 
-                <!-- Q&A -->
-                <StackPanel Style="{StaticResource ContentStackPanel}">
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageQATitle]}" Style="{StaticResource H2TextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageQADescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
-                    <Border Style="{StaticResource ContentBottomBorder}" />
-                </StackPanel>
-                <StackPanel Style="{StaticResource SmallStackPanel}">
-                    <!-- Q&A content -->
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutApplicationQuestion]}" Style="{StaticResource QuestionTextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutApplicationAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+                    <!-- Q&A -->
+                    <StackPanel Style="{StaticResource ContentStackPanel}">
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageQATitle]}" Style="{StaticResource H2TextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageQADescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
+                        <Border Style="{StaticResource ContentBottomBorder}" />
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource SmallStackPanel}">
+                        <!-- Q&A content -->
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutApplicationQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutApplicationAnswer]}" Style="{StaticResource AnswerTextBlock}" />
 
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSetupQuestion]}" Style="{StaticResource QuestionTextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSetupAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSetupQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSetupAnswer]}" Style="{StaticResource AnswerTextBlock}" />
 
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSecurityQuestion]}" Style="{StaticResource QuestionTextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSecurityAnswer]}" Style="{StaticResource AnswerTextBlock}" />
-                    
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutEncryptionQuestion]}" Style="{StaticResource QuestionTextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutEncryptionAnswer]}" Style="{StaticResource AnswerTextBlock}" />
-                    
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutPasswordQuestion]}" Style="{StaticResource QuestionTextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutPasswordAnswer]}" Style="{StaticResource AnswerTextBlock}" />
-                    
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutAlgorithmQuestion]}" Style="{StaticResource QuestionTextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutAlgorithmAnswer]}" Style="{StaticResource AnswerTextBlock}" />
-                </StackPanel>
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSecurityQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSecurityAnswer]}" Style="{StaticResource AnswerTextBlock}" />
 
-                <!-- sync log -->
-                <StackPanel Style="{StaticResource ContentStackPanel}">
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageSyncLogTitle]}" Style="{StaticResource H2TextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageSyncLogDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
-                </StackPanel>
-                <StackPanel Style="{StaticResource SmallStackPanel}">
-                    <ListView Style="{StaticResource SmallListView}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformation, Source={StaticResource Locator}}" />
-                </StackPanel>
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutEncryptionQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutEncryptionAnswer]}" Style="{StaticResource AnswerTextBlock}" />
 
-                <!-- import/export data -->
-                <StackPanel Style="{StaticResource ContentStackPanel}">
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
-                </StackPanel>
-                <StackPanel Style="{StaticResource SmallStackPanel}">
-                    <!-- import data -->
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
-                    <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportSaveTemplateFile]}" Command="{Binding ImportCredentialsCommand}" />
-                    <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportChooseImportFile]}" Command="{Binding ImportCredentialsCommand}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutPasswordQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutPasswordAnswer]}" Style="{StaticResource AnswerTextBlock}" />
 
-                    <!-- export data -->
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeExportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
-                    <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeExportSaveExportFile]}" Command="{Binding ExportCredentialsCommand}" />
-                </StackPanel>
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutAlgorithmQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutAlgorithmAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+                    </StackPanel>
 
-                <!-- import/export credentials -->
-                <StackPanel Style="{StaticResource ContentStackPanel}">
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
-                </StackPanel>
-                <StackPanel Style="{StaticResource SmallStackPanel}">
-                    <!-- import credentials -->
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeImportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
-                    <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeImportChooseImportFile]}" Command="{Binding ImportCredentialsCommand}" />
+                    <!-- sync log -->
+                    <StackPanel Style="{StaticResource ContentStackPanel}">
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageSyncLogTitle]}" Style="{StaticResource H2TextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageSyncLogDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource SmallStackPanel}">
+                        <ListView Style="{StaticResource SmallListView}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformation, Source={StaticResource Locator}}" />
+                    </StackPanel>
 
-                    <!-- export credentials -->
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeExportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
-                    <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeExportSaveExportFile]}" Command="{Binding ExportCredentialsCommand}" />
-                </StackPanel>
+                    <!-- import/export data -->
+                    <StackPanel Style="{StaticResource ContentStackPanel}">
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource SmallStackPanel}">
+                        <!-- import data -->
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                        <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportSaveTemplateFile]}" Command="{Binding ImportCredentialsCommand}" />
+                        <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportChooseImportFile]}" Command="{Binding ImportCredentialsCommand}" />
 
-                <!-- danger functions -->
-                <StackPanel Style="{StaticResource ContentStackPanel}">
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsTitle]}" Style="{StaticResource H2TextBlock}" />
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
-                </StackPanel>
-                <StackPanel Style="{StaticResource SmallStackPanel}">
-                    <!-- clear cache -->
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsClearCacheHelp]}" Style="{StaticResource ParagraphTextBlock}" />
-                    <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsClearCacheAction]}" Command="{Binding ClearCacheCommand}" />
+                        <!-- export data -->
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeExportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                        <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeExportSaveExportFile]}" Command="{Binding ExportCredentialsCommand}" />
+                    </StackPanel>
 
-                    <!-- reset application -->
-                    <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsResetHelp]}" Style="{StaticResource ParagraphTextBlock}" />
-                    <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsResetAction]}" Command="{Binding ResetApplicationCommand}" />
-                </StackPanel>
+                    <!-- import/export credentials -->
+                    <StackPanel Style="{StaticResource ContentStackPanel}">
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource SmallStackPanel}">
+                        <!-- import credentials -->
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeImportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                        <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeImportChooseImportFile]}" Command="{Binding ImportCredentialsCommand}" />
 
-                <!-- signature -->
-                <StackPanel Style="{StaticResource ContentStackPanel}">
-                    <TextBlock Style="{StaticResource ParagraphTextBlock}">
+                        <!-- export credentials -->
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeExportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                        <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageCredentialsExchangeExportSaveExportFile]}" Command="{Binding ExportCredentialsCommand}" />
+                    </StackPanel>
+
+                    <!-- danger functions -->
+                    <StackPanel Style="{StaticResource ContentStackPanel}">
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsTitle]}" Style="{StaticResource H2TextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource SmallStackPanel}">
+                        <!-- clear cache -->
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsClearCacheHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                        <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsClearCacheAction]}" Command="{Binding ClearCacheCommand}" />
+
+                        <!-- reset application -->
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsResetHelp]}" Style="{StaticResource ParagraphTextBlock}" />
+                        <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDangerFunctionsResetAction]}" Command="{Binding ResetApplicationCommand}" />
+                    </StackPanel>
+
+                    <!-- signature -->
+                    <StackPanel Style="{StaticResource ContentStackPanel}">
+                        <TextBlock Style="{StaticResource ParagraphTextBlock}">
                         <Run Text="made with &#x2661; by" />
                         <Hyperlink NavigateUri="http://famoser.ch">
                             <Run Text="famoser"/>
@@ -118,9 +119,10 @@
                         <Hyperlink NavigateUri="https://github.com/famoser/Bookmarked" Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                             <Run Text="github"/>
                         </Hyperlink>
-                    </TextBlock>
+                        </TextBlock>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </Grid>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

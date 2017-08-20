@@ -17,16 +17,14 @@ namespace Famoser.Bookmarked.View.ViewModels
         private readonly IInteractionService _interactionService;
         private readonly IFolderRepository _folderRepository;
         private readonly ILoginService _loginService;
-        private readonly IImportExportService _importExportService;
 
-        public WelcomeViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService, IFolderRepository folderRepository, ILoginService loginService, IImportExportService importExportService)
+        public WelcomeViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService, IFolderRepository folderRepository, ILoginService loginService)
         {
             _navigationService = navigationService;
             _passwordService = passwordService;
             _interactionService = interactionService;
             _folderRepository = folderRepository;
             _loginService = loginService;
-            _importExportService = importExportService;
         }
 
         private string _password;
