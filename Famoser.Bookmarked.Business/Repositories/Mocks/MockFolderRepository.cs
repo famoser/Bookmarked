@@ -68,11 +68,6 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return new FolderModel();
         }
 
-        public async Task<bool> SaveEntryAsync(EntryModel entryModel)
-        {
-            return true;
-        }
-
         public async Task<bool> MoveEntryToGarbageAsync(EntryModel entryModel)
         {
             return true;
@@ -156,7 +151,7 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return "hi mom";
         }
 
-        public async Task<bool> ImportDataAsync(string content)
+        public async Task<bool> ImportDataAsync(string content, string password)
         {
             return true;
         }
@@ -166,7 +161,7 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return "hi dad";
         }
 
-        public async Task<bool> ImportCredentialsAsync(string content)
+        public async Task<bool> ImportCredentialsAsync(string content, string password)
         {
             return true;
         }
@@ -177,11 +172,6 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
         }
 
         public async  Task<bool> UpgradeEntryAsync<T>(EntryModel entryModel, ContentType target) where T : ContentModel, new()
-        {
-            return true;
-        }
-
-        public async Task<bool> UpgradeEntryAsync(EntryModel entryModel)
         {
             return true;
         }

@@ -67,16 +67,18 @@ namespace Famoser.Bookmarked.View.ViewModels
             if (string.IsNullOrEmpty(Password))
             {
                 await _interactionService.ShowMessageAsync("password is empty");
+                return;
             }
             var importFile = await _interactionService.GetFileContentAsync("bmd_cred");
             if (string.IsNullOrEmpty(importFile))
             {
                 await _interactionService.ShowMessageAsync("file is empty");
+                return;
             }
 
-            await _passwordService.SetPasswordAsync(Password);
-            if (await _folderRepository.ImportCredentialsAsync(importFile))
+            if (await _folderRepository.ImportCredentialsAsync(importFile, Password))
             {
+                await _passwordService.SetPasswordAsync(Password);
                 await _interactionService.ShowMessageAsync("import successful!");
                 _interactionService.CloseApplication();
             }

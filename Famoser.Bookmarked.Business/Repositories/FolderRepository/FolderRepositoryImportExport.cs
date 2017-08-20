@@ -62,12 +62,12 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             return null;
         }
 
-        public async Task<bool> ImportDataAsync(string content)
+        public async Task<bool> ImportDataAsync(string content, string password)
         {
             try
             {
                 //decrypt 
-                var decrypted = _encryptionService.Decrypt(content, _passwordService.GetPassword());
+                var decrypted = _encryptionService.Decrypt(content, password);
                 var importModel = JsonConvert.DeserializeObject<ImportModel>(decrypted);
 
                 foreach (var importModelFolder in importModel.Folders)
@@ -136,14 +136,14 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             return null;
         }
 
-        public async Task<bool> ImportCredentialsAsync(string content)
+        public async Task<bool> ImportCredentialsAsync(string content, string password)
         {
             try
             {
                 if (string.IsNullOrEmpty(content))
                     return false;
 
-                var decrypted = _encryptionService.Decrypt(content, _passwordService.GetPassword());
+                var decrypted = _encryptionService.Decrypt(content, password);
                 var newCred = JsonConvert.DeserializeObject<UserModel>(decrypted);
                 return await _apiService.SetApiUserAsync(newCred);
             }

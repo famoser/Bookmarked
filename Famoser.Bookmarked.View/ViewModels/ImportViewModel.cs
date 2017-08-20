@@ -23,13 +23,20 @@ namespace Famoser.Bookmarked.View.ViewModels
             _loginService = loginService;
         }
 
+        private string _password;
+        public string Password
+        {
+            get => _password;
+            set => Set(ref _password, value);
+        }
+
         public ICommand ImportCommand => new MyLoadingRelayCommand(ImportAsync);
 
         private async Task ImportAsync()
         {
             var str = await _interactionService.GetFileContentAsync("bmd_data");
             if (str != null)
-                await _folderRepository.ImportDataAsync(str);
+                await _folderRepository.ImportDataAsync(str, Password);
         }
 
         public ICommand ExportCommand => new MyLoadingRelayCommand(ExportAsync);
@@ -49,22 +56,6 @@ namespace Famoser.Bookmarked.View.ViewModels
         {
             var exportString = await _folderRepository.ExportCredentialsAsync();
             await _interactionService.SaveFileAsync(exportString, "bmd_cred", "bookmarked_credentials");
-        }
-
-        public ICommand ImportCredentialsCommand => new MyLoadingRelayCommand(ImportCredentialsAsync);
-
-        private async Task ImportCredentialsAsync()
-        {
-            var str = await _interactionService.GetFileContentAsync("bmd_cred");
-            if (await _folderRepository.ImportCredentialsAsync(str))
-            {
-                await _interactionService.ShowMessageAsync("import successful, the application will close now");
-                _interactionService.CloseApplication();
-            }
-            else
-            {
-                await _interactionService.ShowMessageAsync("the import failed, are you sure the password is correct?");
-            }
         }
 
         /*
@@ -94,10 +85,6 @@ namespace Famoser.Bookmarked.View.ViewModels
                 await _interactionService.ClearCacheAsync();
                 await _interactionService.ShowMessageAsync("reset successful, the application will close now");
                 _interactionService.CloseApplication();
-            }
-            else
-            {
-
             }
         }
     }

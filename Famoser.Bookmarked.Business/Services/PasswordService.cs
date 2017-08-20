@@ -25,6 +25,7 @@ namespace Famoser.Bookmarked.Business.Services
         {
             try
             {
+                _password = password;
                 return await _storageService.SetCachedTextFileAsync(".pw", password);
             }
             catch (Exception ex)
