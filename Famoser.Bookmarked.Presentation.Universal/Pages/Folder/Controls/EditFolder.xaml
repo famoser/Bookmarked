@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Folder.EditFolder"
+    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Folder.Controls.EditFolder"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"

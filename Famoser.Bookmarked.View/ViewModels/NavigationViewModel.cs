@@ -129,6 +129,15 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public List<ContentTypeModel> ContentTypeModels { get; } = ContentHelper.GetContentTypeModels();
 
+
+        private NavigationViewMode _navigationViewMode = NavigationViewMode.Default;
+        public NavigationViewMode NavigationViewMode
+        {
+            get => _navigationViewMode;
+            set => Set(ref _navigationViewMode, value);
+        }
+
+        #region search
         private bool _inSearchMode;
         public bool InSearchMode
         {
@@ -137,9 +146,9 @@ namespace Famoser.Bookmarked.View.ViewModels
             {
                 if (Set(ref _inSearchMode, value))
                 {
-                    if (InTrashMode)
+                    if (InGarbageMode)
                     {
-                        Set(ref _inTrashMode);
+                        Set(ref _inGarbageMode);
                         NavigationViewMode = NavigationViewMode.Search;
                     }
                     else
@@ -148,33 +157,6 @@ namespace Famoser.Bookmarked.View.ViewModels
                     }
                 }
             }
-        }
-        private bool _inTrashMode;
-        public bool InTrashMode
-        {
-            get => _inTrashMode;
-            set
-            {
-                if (Set(ref _inTrashMode, value))
-                {
-                    if (InTrashMode)
-                    {
-                        Set(ref _inSearchMode);
-                        NavigationViewMode = NavigationViewMode.Trash;
-                    }
-                    else
-                    {
-                        NavigationViewMode = NavigationViewMode.Default;
-                    }
-                }
-            }
-        }
-
-        private NavigationViewMode _navigationViewMode;
-        public NavigationViewMode NavigationViewMode
-        {
-            get => _navigationViewMode;
-            set => Set(ref _navigationViewMode, value);
         }
 
         private string _searchTerm;
@@ -204,5 +186,44 @@ namespace Famoser.Bookmarked.View.ViewModels
             get => _searchFolders;
             set => Set(ref _searchFolders, value);
         }
+        #endregion
+
+        #region garbage
+        private bool _inGarbageMode;
+        public bool InGarbageMode
+        {
+            get => _inGarbageMode;
+            set
+            {
+                if (Set(ref _inGarbageMode, value))
+                {
+                    if (InGarbageMode)
+                    {
+                        Set(ref _inSearchMode);
+                        NavigationViewMode = NavigationViewMode.Garbage;
+                    }
+                    else
+                    {
+                        NavigationViewMode = NavigationViewMode.Default;
+                    }
+                }
+            }
+        }
+        private FolderModel _garbageFolder;
+        public FolderModel GarbageFolder
+        {
+            get => _garbageFolder;
+            set => Set(ref _garbageFolder, value);
+        }
+        
+        public ICommand RemoveFolderCommand => new MyLoadingRelayCommand<FolderModel>(c => _folderRepository.RemoveFolderAsync(c));
+
+        public ICommand RecoverFolderCommand => new MyLoadingRelayCommand<FolderModel>(c => _folderRepository.MoveFolderOutOfGarbageAsync(c));
+
+        public ICommand RemoveEntryCommand => new MyLoadingRelayCommand<EntryModel>(c => _folderRepository.RemoveEntryAsync(c));
+
+        public ICommand RecoverEntryCommand => new MyLoadingRelayCommand<EntryModel>(c => _folderRepository.MoveEntryOutOfGarbageAsync(c));
+
+        #endregion
     }
 }

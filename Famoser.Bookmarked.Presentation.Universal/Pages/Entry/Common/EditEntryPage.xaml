@@ -10,21 +10,20 @@
     mc:Ignorable="d"
     d:DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
 
-    <Page.Resources>
-        <DataTemplate x:Key="ContentTypeModelTemplate">
-            <TextBlock Text="{Binding Name}" Padding="5" />
-        </DataTemplate>
-    </Page.Resources>
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Style="{StaticResource LayoutGrid}">
+        <Grid Style="{StaticResource DoubleContentGrid}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock x:Name="Title" Grid.Row="0" Text="Edit " Style="{StaticResource BigTexBlock}" />
-            <ScrollViewer  Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
-                <StackPanel>
+            <StackPanel Grid.Row="0" Style="{StaticResource HeaderStackPanel}">
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[EditEntryPageTitle]}" Style="{StaticResource H1TextBlock}"  />
+                <TextBlock Text="{Binding SelectedEntry.Name}" Style="{StaticResource H1DescriptionTextBlock}" />
+                <Border Style="{StaticResource HeaderBottomBorder}" />
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" Style="{StaticResource ContentScrollViewer}">
+                <StackPanel Style="{StaticResource ContentStackPanel}">
                     <controls:EditEntry DataContext="{Binding SelectedEntry}" />
                     <Frame x:Name="EntryFrame" />
                 </StackPanel>
@@ -32,19 +31,17 @@
         </Grid>
     </Grid>
 
-
-
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
-                <AppBarButton IsCompact="True" Icon="Remove" Label="Remove" >
+                <AppBarButton Icon="Remove" Label="Remove" >
                     <AppBarButton.Flyout>
                         <Flyout>
                             <Button Content="are you sure?" Command="{Binding RemoveEntryCommand}"></Button>
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
-                <AppBarButton IsCompact="True" Command="{Binding SaveEntryCommand}" Icon="Save" Label="Save" />
+                <AppBarButton Command="{Binding SaveEntryCommand}" Icon="Save" Label="Save" />
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

@@ -4,21 +4,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:webpage="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"
-    xmlns:folder="using:Famoser.Bookmarked.Presentation.Universal.Pages.Folder"
+    xmlns:controls="using:Famoser.Bookmarked.Presentation.Universal.Pages.Folder.Controls"
     mc:Ignorable="d"
     DataContext="{Binding AddFolderViewModel, Source={StaticResource Locator}}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+
+    <Grid Style="{StaticResource LayoutGrid}">
+        <Grid Style="{StaticResource DoubleContentGrid}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="Add Folder" Style="{StaticResource BigTexBlock}" />
-            <ScrollViewer Style="{StaticResource ContentScrollViewer}" Grid.Row="1" VerticalScrollMode="Enabled">
-                <StackPanel>
-                    <folder:EditFolder DataContext="{Binding }" />
+            <StackPanel Grid.Row="0" Style="{StaticResource HeaderStackPanel}">
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[AddFolderPageTitle]}" Style="{StaticResource H1TextBlock}"  />
+                <TextBlock Text="{Binding Folder.Name}" Style="{StaticResource H1DescriptionTextBlock}" />
+                <Border Style="{StaticResource HeaderBottomBorder}" />
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" Style="{StaticResource ContentScrollViewer}">
+                <StackPanel Style="{StaticResource ContentStackPanel}">
+                    <controls:EditFolder DataContext="{Binding }" />
                 </StackPanel>
             </ScrollViewer>
         </Grid>

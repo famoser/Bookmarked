@@ -23,7 +23,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common
             if (e.Parameter is NavigationParameter pm)
             {
                 DataContext = SimpleIoc.Default.GetInstance(pm.ViewModelType);
-                Title.Text = "Add " + pm.Name;
                 EntryFrame.Navigate(pm.EditFrameType);
             }
         }

@@ -15,6 +15,30 @@
                 <TextBlock Style="{StaticResource ItemDescription}" Text="{Binding Description}" />
             </StackPanel>
         </DataTemplate>
+        <DataTemplate x:Key="GarbageFolderDataTemplate">
+            <Grid Style="{StaticResource ListViewDataTemplateGrid}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Style="{StaticResource ItemHeader}" Text="{Binding Name}" />
+                    <TextBlock Style="{StaticResource ItemDescription}" Text="{Binding Description}" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding RecoverFolderCommand}" CommandParameter="{Binding }">
+                        <Button.Content>
+                            <SymbolIcon Symbol="Accept" />
+                        </Button.Content>
+                    </Button>
+                    <Button Style="{StaticResource SecondaryButton}" Command="{Binding RemoveFolderCommand}" CommandParameter="{Binding }">
+                        <Button.Content>
+                            <SymbolIcon Symbol="Delete" />
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
         <DataTemplate x:Key="EntryDataTemplate">
             <Grid Style="{StaticResource ListViewDataTemplateGrid}">
                 <Grid.ColumnDefinitions>
@@ -39,32 +63,33 @@
         </DataTemplate>
     </Page.Resources>
 
-
-
     <Grid Style="{StaticResource LayoutGrid}">
         <Grid Style="{StaticResource FullContentGrid}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <ProgressBar Grid.Row="0" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" VerticalAlignment="Top" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" IsIndeterminate="False"/>
             <Grid Grid.Row="0">
                 <navigationPage:FolderHeader DataContext="{Binding }" Visibility="{Binding InSearchMode, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=invert}"/>
                 <navigationPage:SearchHeader DataContext="{Binding }" Visibility="{Binding InSearchMode, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Grid AllowDrop="True" x:Name="MoveUpGrid" Visibility="Collapsed" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="70">
                     <SymbolIcon Symbol="Up" Foreground="White" />
                 </Grid>
-                <ProgressBar VerticalAlignment="Top" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Minimum="0" />
+                <ProgressBar VerticalAlignment="Top" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Minimum="0" />
             </Grid>
             <ScrollViewer Grid.Row="1" Style="{StaticResource ContentScrollViewer}">
                 <StackPanel>
-                    <StackPanel Visibility="{Binding InSearchMode, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=invert}">
-                        <ListView Style="{StaticResource DropListView}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" />
-                        <ListView Style="{StaticResource FullListView}" ItemTemplate="{StaticResource EntryDataTemplate}" ItemsSource="{Binding SelectedFolder.Entries}" IsItemClickEnabled="True" CanDragItems="True" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"    />
+                    <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Default}">
+                        <ListView Style="{StaticResource DropListView}" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" Visibility="{Binding SelectedFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"  />
+                        <ListView Style="{StaticResource DragListView}" ItemsSource="{Binding SelectedFolder.Entries}" ItemTemplate="{StaticResource EntryDataTemplate}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"    />
                     </StackPanel>
-                    <StackPanel Visibility="{Binding InSearchMode, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <ListView Style="{StaticResource ClickListView}" ItemClick="ListView_ItemClick" ItemsSource="{Binding SearchFolders}" ItemTemplate="{StaticResource FolderDataTemplate}" />
-                        <ListView Style="{StaticResource FullListView}" ItemClick="ListView_ItemClick" ItemTemplate="{StaticResource EntryDataTemplate}" ItemsSource="{Binding SearchEntries}"   />
+                    <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Search}">
+                        <ListView Style="{StaticResource ClickListView}" ItemsSource="{Binding SearchFolders}" ItemTemplate="{StaticResource FolderDataTemplate}" Visibility="{Binding SearchFolders, Converter={StaticResource CollectionToVisibilityConverter}}" ItemClick="ListView_ItemClick" />
+                        <ListView Style="{StaticResource ClickListView}" ItemsSource="{Binding SearchEntries}" ItemTemplate="{StaticResource EntryDataTemplate}" ItemClick="ListView_ItemClick" />
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Garbage}">
+                        <ListView Style="{StaticResource FullListView}" ItemsSource="{Binding GarbageFolder.Folders}" ItemTemplate="{StaticResource GarbageFolderDataTemplate}" Visibility="{Binding GarbageFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" />
+                        <ListView Style="{StaticResource FullListView}" ItemsSource="{Binding GarbageFolder.Entries}" ItemTemplate="{StaticResource EntryDataTemplate}"    />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
@@ -75,7 +100,7 @@
     <Page.BottomAppBar>
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarToggleButton IsChecked="{Binding InTrashMode, Mode=TwoWay}" Icon="Delete" Label="Trash" />
+                <AppBarToggleButton IsChecked="{Binding InGarbageMode, Mode=TwoWay}" Icon="Delete" Label="Garbage" />
                 <AppBarToggleButton IsChecked="{Binding InSearchMode, Mode=TwoWay}" Icon="Find" Label="Find" />
                 <AppBarButton Command="{Binding RefreshCommand}" Icon="Refresh" Label="Refresh" />
                 <AppBarButton Icon="Add" Label="New Entry" >

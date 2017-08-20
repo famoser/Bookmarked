@@ -6,7 +6,6 @@
         Welcome,
         Navigation,
         Info,
-        Garbage,
 
         AddFolder,
         EditFolder,

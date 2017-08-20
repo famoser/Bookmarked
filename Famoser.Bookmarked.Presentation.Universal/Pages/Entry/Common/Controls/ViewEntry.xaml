@@ -10,8 +10,4 @@
     d:DesignWidth="400"
     d:DataContext="{Binding WebpageViewModel.SelectedEntry, Source={StaticResource Locator}}">
 
-    <StackPanel>
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="description" />
-        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding Description}" />
-    </StackPanel>
 </UserControl>

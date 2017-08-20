@@ -10,6 +10,6 @@ namespace Famoser.Bookmarked.View.Enum
     {
         Default = 1,
         Search = 2,
-        Trash = 3
+        Garbage = 3
     }
 }

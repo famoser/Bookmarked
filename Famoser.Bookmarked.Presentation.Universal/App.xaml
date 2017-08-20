@@ -16,6 +16,7 @@
             <visibility:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:UriToStringConverter x:Key="UriToStringConverter" />
             <converters:EnumVisibilityConverter x:Key="EnumVisibilityConverter" />
+            <converters:CollectionToVisibilityConverter x:Key="CollectionToVisibilityConverter" />
 
             <!-- ListView controls -->
             <Style x:Key="SmallStretchListViewItemStyle" TargetType="ListViewItem">
@@ -79,12 +80,16 @@
             </Style>
             
             <!-- content grids inside ListView -->
-            <Style x:Key="ListViewDataTemplateStackPanel" TargetType="StackPanel" BasedOn="{StaticResource ContentStackPanel}">
-                
+            <Style x:Key="ListViewDataTemplateStackPanel" TargetType="StackPanel">
+                <Setter Property="Background" Value="#fff" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="Padding" Value="10" />
             </Style>
 
-            <Style x:Key="ListViewDataTemplateGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
-                
+            <Style x:Key="ListViewDataTemplateGrid" TargetType="Grid">
+                <Setter Property="Background" Value="#fff" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="Padding" Value="10" />
             </Style>
 
             <!-- layout -->
@@ -100,16 +105,18 @@
             </Style>
 
             <Style x:Key="PartContentGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
-                <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
             </Style>
 
             <Style x:Key="SmallContentGrid" TargetType="Grid" BasedOn="{StaticResource PartContentGrid}">
+                <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="MaxWidth" Value="450" />
             </Style>
 
             <Style x:Key="DoubleContentGrid" TargetType="Grid" BasedOn="{StaticResource PartContentGrid}">
+                <Setter Property="VerticalAlignment" Value="Top" />
                 <Setter Property="MaxWidth" Value="900" />
+                <Setter Property="Margin" Value="20" />
             </Style>
 
             <!-- header wrapper -->

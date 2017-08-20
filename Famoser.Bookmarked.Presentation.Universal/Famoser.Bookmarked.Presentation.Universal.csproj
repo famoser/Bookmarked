@@ -106,6 +106,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ByteToBitmapConverter.cs" />
+    <Compile Include="Converters\CollectionToVisibilityConverter.cs" />
     <Compile Include="Converters\DateToStringConverter.cs" />
     <Compile Include="Converters\EnumVisibilityConverter.cs" />
     <Compile Include="Converters\UriToStringConverter.cs" />
@@ -166,7 +167,7 @@
     <Compile Include="Pages\Folder\AddFolderPage.xaml.cs">
       <DependentUpon>AddFolderPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Folder\EditFolder.xaml.cs">
+    <Compile Include="Pages\Folder\Controls\EditFolder.xaml.cs">
       <DependentUpon>EditFolder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Folder\EditFolderPage.xaml.cs">
@@ -177,9 +178,6 @@
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\GarbagePage.xaml.cs">
-      <DependentUpon>GarbagePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\NavigationPage.xaml.cs">
       <DependentUpon>NavigationPage.xaml</DependentUpon>
@@ -324,7 +322,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Folder\EditFolder.xaml">
+    <Page Include="Pages\Folder\Controls\EditFolder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -339,10 +337,6 @@
     <Page Include="Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\GarbagePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\NavigationPage.xaml">
       <Generator>MSBuild:Compile</Generator>

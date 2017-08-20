@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    
     DataContext="{Binding ImportViewModel, Source={StaticResource Locator}}">
 
     <Page.Resources>
@@ -15,15 +16,18 @@
     </Page.Resources>
 
     <Grid Style="{StaticResource LayoutGrid}">
-        <ScrollViewer Style="{StaticResource ContentScrollViewer}">
-            <Grid Style="{StaticResource DoubleContentGrid}">
+        <Grid Style="{StaticResource DoubleContentGrid}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Style="{StaticResource HeaderStackPanel}">
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageTitle]}" Style="{StaticResource H1TextBlock}"  />
+                <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDescription]}" Style="{StaticResource H1DescriptionTextBlock}" />
+                <Border Style="{StaticResource HeaderBottomBorder}" />
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" Style="{StaticResource ContentScrollViewer}">
                 <StackPanel>
-                    <StackPanel Style="{StaticResource HeaderStackPanel}">
-                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageTitle]}" Style="{StaticResource H1TextBlock}"  />
-                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDescription]}" Style="{StaticResource H1DescriptionTextBlock}" />
-                        <Border Style="{StaticResource HeaderBottomBorder}" />
-                    </StackPanel>
-
                     <!-- Q&A -->
                     <StackPanel Style="{StaticResource ContentStackPanel}">
                         <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageQATitle]}" Style="{StaticResource H2TextBlock}" />
@@ -51,18 +55,8 @@
                         <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutAlgorithmAnswer]}" Style="{StaticResource AnswerTextBlock}" />
                     </StackPanel>
 
-                    <!-- sync log -->
-                    <StackPanel Style="{StaticResource ContentStackPanel}">
-                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageSyncLogTitle]}" Style="{StaticResource H2TextBlock}" />
-                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageSyncLogDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
-                    </StackPanel>
-                    <StackPanel Style="{StaticResource SmallStackPanel}">
-                        <ListView Style="{StaticResource SmallListView}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformation, Source={StaticResource Locator}}" />
-                    </StackPanel>
-
                     <!-- import/export data -->
                     <StackPanel Style="{StaticResource ContentStackPanel}">
-                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
                         <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
                         <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
                     </StackPanel>
@@ -121,8 +115,17 @@
                         </Hyperlink>
                         </TextBlock>
                     </StackPanel>
+
+                    <!-- sync log -->
+                    <StackPanel Style="{StaticResource ContentStackPanel}">
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageSyncLogTitle]}" Style="{StaticResource H2TextBlock}" />
+                        <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageSyncLogDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource SmallStackPanel}">
+                        <ListView Style="{StaticResource SmallListView}" ItemTemplate="{StaticResource ApiTraceDataTemplate}" ItemsSource="{Binding ApiViewModel.SyncActionInformation, Source={StaticResource Locator}}" />
+                    </StackPanel>
                 </StackPanel>
-            </Grid>
-        </ScrollViewer>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

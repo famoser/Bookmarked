@@ -20,6 +20,8 @@ using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.FrameworkEssentials.UniversalWindows.Platform;
 using GalaSoft.MvvmLight.Ioc;
+using EditCreditCard = Famoser.Bookmarked.Presentation.Universal.Pages.Entry.CreditCard.EditCreditCard;
+using ViewCreditCard = Famoser.Bookmarked.Presentation.Universal.Pages.Entry.CreditCard.ViewCreditCard;
 
 namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
 {
@@ -63,7 +65,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             ngs.Configure(PageKeys.Welcome.ToString(), typeof(WelcomePage));
             ngs.Configure(PageKeys.Navigation.ToString(), typeof(NavigationPage));
             ngs.Configure(PageKeys.Info.ToString(), typeof(InfoPage));
-            ngs.Configure(PageKeys.Garbage.ToString(), typeof(GarbagePage));
 
             //add folder pages
             ngs.Configure(PageKeys.AddFolder.ToString(), typeof(AddFolderPage));
