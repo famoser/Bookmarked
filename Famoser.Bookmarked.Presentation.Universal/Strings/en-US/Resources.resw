@@ -129,6 +129,12 @@
   <data name="EditFolderPageTitle" xml:space="preserve">
     <value>edit folder</value>
   </data>
+  <data name="GarbagePageDescription" xml:space="preserve">
+    <value>recover accidentially removed items or delete them for good</value>
+  </data>
+  <data name="GarbagePageTitle" xml:space="preserve">
+    <value>garbage</value>
+  </data>
   <data name="InfoPageAboutAlgorithmAnswer" xml:space="preserve">
     <value>your password is hashed with SHA256. The resulting hash is used with AES (AesCbcPkcs7) to decrypt / encrypt your data.</value>
   </data>
@@ -251,6 +257,9 @@
   </data>
   <data name="PasswordLabel" xml:space="preserve">
     <value>password</value>
+  </data>
+  <data name="SearchPageDescription" xml:space="preserve">
+    <value>look for specific bookmarks</value>
   </data>
   <data name="WelcomePageAlreadyUsedChoice" xml:space="preserve">
     <value>I already use this app somewhere else</value>

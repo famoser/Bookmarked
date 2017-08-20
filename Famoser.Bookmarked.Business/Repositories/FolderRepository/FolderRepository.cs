@@ -222,10 +222,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
         {
             if (!FixParentModel(folder))
                 return;
-
-            //put it into lookup
-            _folderDic.AddOrUpdate(folder.GetId(), folder, (guid, model) => model);
-
+            
             //add itself to parents
             if (folder.ParentIds.Contains(_garbageGuid))
             {
@@ -233,6 +230,9 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             }
             else
             {
+                //put it into lookup
+                _folderDic.AddOrUpdate(folder.GetId(), folder, (guid, model) => model);
+
                 foreach (var entryParentId in folder.ParentIds)
                 {
                     if (_folderDic.ContainsKey(entryParentId) && !_folderDic[entryParentId].Folders.Contains(folder))

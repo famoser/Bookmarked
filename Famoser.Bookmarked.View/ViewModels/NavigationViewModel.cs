@@ -27,6 +27,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             _folderRepository = folderRepository;
             _navigationService = navigationService;
             SelectedFolder = _folderRepository.GetRootFolder();
+            GarbageFolder = _folderRepository.GetGarbageFolder();
 
             if (IsInDesignMode)
             {
@@ -96,11 +97,6 @@ namespace Famoser.Bookmarked.View.ViewModels
             SimpleIoc.Default.GetInstance<AddFolderViewModel>().SetFolder(folder);
         });
 
-        public ICommand FindCommand => new MyLoadingRelayCommand(() =>
-        {
-            InSearchMode = !InSearchMode;
-        });
-
         public ICommand AddContentTypeCommand => new MyLoadingRelayCommand<ContentTypeModel>((cm) =>
         {
             if (cm != null)
@@ -146,9 +142,13 @@ namespace Famoser.Bookmarked.View.ViewModels
             {
                 if (Set(ref _inSearchMode, value))
                 {
-                    if (InGarbageMode)
+                    if (InSearchMode)
                     {
-                        Set(ref _inGarbageMode);
+                        if (_inGarbageMode)
+                        {
+                            _inGarbageMode = false;
+                            RaisePropertyChanged(() => InGarbageMode);
+                        }
                         NavigationViewMode = NavigationViewMode.Search;
                     }
                     else
@@ -199,7 +199,11 @@ namespace Famoser.Bookmarked.View.ViewModels
                 {
                     if (InGarbageMode)
                     {
-                        Set(ref _inSearchMode);
+                        if (_inSearchMode)
+                        {
+                            _inSearchMode = false;
+                            RaisePropertyChanged(() => InSearchMode);
+                        }
                         NavigationViewMode = NavigationViewMode.Garbage;
                     }
                     else
@@ -215,7 +219,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             get => _garbageFolder;
             set => Set(ref _garbageFolder, value);
         }
-        
+
         public ICommand RemoveFolderCommand => new MyLoadingRelayCommand<FolderModel>(c => _folderRepository.RemoveFolderAsync(c));
 
         public ICommand RecoverFolderCommand => new MyLoadingRelayCommand<FolderModel>(c => _folderRepository.MoveFolderOutOfGarbageAsync(c));

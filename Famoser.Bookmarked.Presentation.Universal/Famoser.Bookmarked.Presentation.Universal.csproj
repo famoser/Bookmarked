@@ -191,12 +191,6 @@
     <Compile Include="Platform\NavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings\LocalizedStrings.cs" />
-    <Compile Include="UserControls\NavigationPage\FolderHeader.xaml.cs">
-      <DependentUpon>FolderHeader.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\NavigationPage\SearchHeader.xaml.cs">
-      <DependentUpon>SearchHeader.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -343,14 +337,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\WelcomePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\NavigationPage\FolderHeader.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\NavigationPage\SearchHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

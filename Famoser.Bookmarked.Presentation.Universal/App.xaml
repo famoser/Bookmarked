@@ -11,7 +11,7 @@
         <ResourceDictionary>
             <viewModels:ViewModelLocator x:Key="Locator" />
             <strings:LocalizedStrings x:Key="Localized"/>
-            
+
             <visibility:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
             <visibility:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:UriToStringConverter x:Key="UriToStringConverter" />
@@ -35,7 +35,7 @@
             <Style x:Key="SmallListView" TargetType="ListView" BasedOn="{StaticResource BasicControl}">
                 <Setter Property="ItemContainerStyle" Value="{StaticResource SmallStretchListViewItemStyle}" />
             </Style>
-            
+
             <Style x:Key="StretchListViewItemStyle" TargetType="ListViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="0" />
@@ -61,24 +61,24 @@
             <Style x:Key="DropListView" TargetType="ListView" BasedOn="{StaticResource DragListView}">
                 <Setter Property="AllowDrop" Value="True" />
             </Style>
-            
+
             <!-- basic style elements -->
             <Style x:Key="BasicBorder" TargetType="Border" BasedOn="{StaticResource BasicElement}">
                 <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="Margin" Value="10,0" />
             </Style>
-            
+
             <Style x:Key="HeaderBottomBorder" TargetType="Border" BasedOn="{StaticResource BasicBorder}">
                 <Setter Property="BorderThickness" Value="0,8,0,0" />
                 <Setter Property="Width" Value="34" />
             </Style>
-            
+
             <Style x:Key="ContentBottomBorder" TargetType="Border" BasedOn="{StaticResource BasicBorder}">
                 <Setter Property="BorderThickness" Value="0,5,0,0" />
                 <Setter Property="Width" Value="21" />
             </Style>
-            
+
             <!-- content grids inside ListView -->
             <Style x:Key="ListViewDataTemplateStackPanel" TargetType="StackPanel">
                 <Setter Property="Background" Value="#fff" />
@@ -100,7 +100,7 @@
             <!-- content grids -->
             <Style x:Key="ContentGrid" TargetType="Grid">
             </Style>
-            
+
             <Style x:Key="FullContentGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
             </Style>
 
@@ -141,7 +141,7 @@
             <Style x:Key="SmallStackPanel" TargetType="StackPanel" BasedOn="{StaticResource ContentStackPanel}">
                 <Setter Property="Margin" Value="0,10,0,0" />
             </Style>
-            
+
             <!-- Basic elements -->
             <Style x:Key="BasicElement" TargetType="FrameworkElement">
                 <Setter Property="Margin" Value="0" />
@@ -170,7 +170,7 @@
             </Style>
 
             <Style x:Key="H3DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
-                
+
             </Style>
 
             <Style x:Key="H2TextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
@@ -264,7 +264,9 @@
             <Style x:Key="WelcomeRadioButton" TargetType="RadioButton" BasedOn="{StaticResource BasicRadioButton}" />
 
             <!-- search -->
-            <Style x:Key="SearchBox" TargetType="SearchBox" BasedOn="{StaticResource BasicSearchBox}" />
+            <Style x:Key="SearchBox" TargetType="SearchBox" BasedOn="{StaticResource BasicSearchBox}">
+                <Setter Property="Margin" Value="0,26,0,20" />
+            </Style>
 
             <!-- info -->
             <Style x:Key="TraceTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
