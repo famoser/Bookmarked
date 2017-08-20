@@ -31,7 +31,7 @@ namespace Famoser.Bookmarked.View.ViewModels
 
             if (IsInDesignMode)
             {
-                InSearchMode = true;
+                NavigationViewMode = NavigationViewMode.Default;
             }
         }
 

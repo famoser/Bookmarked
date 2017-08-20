@@ -25,12 +25,12 @@
                     <TextBlock Style="{StaticResource ItemDescription}" Text="{Binding Description}" />
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding RecoverFolderCommand}" CommandParameter="{Binding }">
+                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding NavigationViewModel.RecoverFolderCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }">
                         <Button.Content>
                             <SymbolIcon Symbol="Accept" />
                         </Button.Content>
                     </Button>
-                    <Button Style="{StaticResource SecondaryButton}" Command="{Binding RemoveFolderCommand}" CommandParameter="{Binding }">
+                    <Button Style="{StaticResource SecondaryButton}" Command="{Binding NavigationViewModel.RemoveFolderCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }">
                         <Button.Content>
                             <SymbolIcon Symbol="Delete" />
                         </Button.Content>
@@ -76,12 +76,12 @@
                     <TextBlock Style="{StaticResource ItemDescription}" Text="{Binding Description}" />
                 </StackPanel>
                 <StackPanel Grid.Column="4">
-                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding RecoverEntryCommand}" CommandParameter="{Binding }">
+                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding NavigationViewModel.RecoverEntryCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }">
                         <Button.Content>
                             <SymbolIcon Symbol="Accept" />
                         </Button.Content>
                     </Button>
-                    <Button Style="{StaticResource SecondaryButton}" Command="{Binding RemoveEntryCommand}" CommandParameter="{Binding }">
+                    <Button Style="{StaticResource SecondaryButton}" Command="{Binding NavigationViewModel.RemoveEntryCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }">
                         <Button.Content>
                             <SymbolIcon Symbol="Delete" />
                         </Button.Content>
@@ -118,14 +118,16 @@
                 <StackPanel Style="{StaticResource HeaderStackPanel}" Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Search}">
                     <SearchBox QueryText="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SearchBox}" />
                     <TextBlock Text="{Binding Path=[SearchPageDescription], Source={StaticResource Localized}}" Style="{StaticResource H1DescriptionTextBlock}" />
+                    <Border Style="{StaticResource HeaderBottomBorder}" />
                 </StackPanel>
 
                 <StackPanel Style="{StaticResource HeaderStackPanel}" Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Garbage}">
                     <TextBlock Text="{Binding Path=[GarbagePageTitle], Source={StaticResource Localized}}" Style="{StaticResource H1TextBlock}" />
                     <TextBlock Text="{Binding Path=[GarbagePageDescription], Source={StaticResource Localized}}" Style="{StaticResource H1DescriptionTextBlock}" />
+                    <Border Style="{StaticResource HeaderBottomBorder}" />
                 </StackPanel>
 
-                <Grid AllowDrop="True" x:Name="MoveUpGrid" Visibility="Collapsed" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Background="{ThemeResource SystemControlBackgroundAccentBrush}" Width="70">
+                <Grid x:Name="MoveUpGrid" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Background="{ThemeResource SystemControlBackgroundAccentBrush}" AllowDrop="True" Margin="20, 40" HorizontalAlignment="Right" Width="89" Height="55" VerticalAlignment="Top">
                     <SymbolIcon Symbol="Up" Foreground="White" />
                 </Grid>
 
