@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Models;
-using Famoser.Bookmarked.Business.Services.Interfaces;
 
 namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
 {

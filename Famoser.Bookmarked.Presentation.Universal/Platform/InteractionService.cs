@@ -8,7 +8,6 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.FrameworkEssentials.Logging;
-using GalaSoft.MvvmLight.Threading;
 
 namespace Famoser.Bookmarked.Presentation.Universal.Platform
 {

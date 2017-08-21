@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Famoser.Bookmarked.Presentation.Universal.Models
+﻿namespace Famoser.Bookmarked.Presentation.Universal.Models
 {
     public class PasswordInfoModel
     {

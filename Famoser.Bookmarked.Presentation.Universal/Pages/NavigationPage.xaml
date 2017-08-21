@@ -91,7 +91,9 @@
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="ContentTypeModelTemplate">
-            <TextBlock Text="{Binding Name}" Style="{StaticResource ParagraphTextBlock}" />
+            <StackPanel Style="{StaticResource ListViewDataTemplateStackPanel}">
+                <TextBlock Text="{Binding Name}" Style="{StaticResource ParagraphTextBlock}" />
+            </StackPanel>
         </DataTemplate>
     </Page.Resources>
 
@@ -164,11 +166,11 @@
                     <AppBarButton.Flyout>
                         <Flyout Placement="Bottom">
                             <StackPanel>
-                                <Button Content="add Folder" Command="{Binding AddFolderCommand}"></Button>
+                                <Button Content="add Folder" Margin="20,0" Width="100" Command="{Binding AddFolderCommand}" Style="{StaticResource PrimaryButton}" />
                                 <ListView 
                                     ItemsSource="{Binding ContentTypeModels}" 
                                     ItemTemplate="{StaticResource ContentTypeModelTemplate}"
-                                    ItemContainerStyle="{StaticResource ClickListView}" 
+                                    Style="{StaticResource ClickListView}" 
                                     ItemClick="ListView_ItemClick"/>
                             </StackPanel>
                         </Flyout>

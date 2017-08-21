@@ -1,10 +1,8 @@
-﻿using Famoser.Bookmarked.Business.Repositories;
-using Famoser.Bookmarked.Business.Repositories.FolderRepository;
+﻿using Famoser.Bookmarked.Business.Repositories.FolderRepository;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Repositories.Mocks;
 using Famoser.Bookmarked.Business.Services;
 using Famoser.Bookmarked.Business.Services.Interfaces;
-using Famoser.Bookmarked.View.Services;
 using Famoser.Bookmarked.View.ViewModels.Entry;
 using Famoser.Bookmarked.View.ViewModels.Folder;
 using Famoser.SyncApi.Services.Interfaces;
@@ -43,7 +41,6 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
             SimpleIoc.Default.Register<NoteViewModel>();
             SimpleIoc.Default.Register<CreditCardViewModel>();
             SimpleIoc.Default.Register<OnlineAccountViewModel>();
-            SimpleIoc.Default.Register<ExportViewModel>();
             SimpleIoc.Default.Register<BookViewModel>();
             SimpleIoc.Default.Register<PersonViewModel>();
         }

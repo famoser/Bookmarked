@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
-using Famoser.Bookmarked.Business.Services;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Command;
 using Famoser.Bookmarked.View.Services.Interfaces;
@@ -12,7 +11,7 @@ namespace Famoser.Bookmarked.View.ViewModels
     public class ExchangeViewModel : SetCredentialsViewModel
     {
         private readonly IFolderRepository _folderRepository;
-        private IInteractionService _interactionService;
+        private readonly IInteractionService _interactionService;
 
         public ExchangeViewModel(IFolderRepository folderRepository, IInteractionService interactionService, IPasswordService passwordService)
             : base(interactionService,  passwordService, folderRepository)

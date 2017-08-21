@@ -6,7 +6,7 @@ namespace Famoser.Bookmarked.Business.Helper
 {
     public class BinaryDecoder
     {
-        private byte[] _payload;
+        private readonly byte[] _payload;
         private string _result;
         private int _faillureCode = 0;
         public BinaryDecoder(byte[] payload)

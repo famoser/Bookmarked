@@ -1,8 +1,6 @@
 ﻿using Windows.Foundation.Metadata;
-using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Famoser.Bookmarked.View.ViewModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238

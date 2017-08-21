@@ -12,7 +12,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry
 {
     public class OnlineAccountViewModel : WithUrlViewModel<OnlineAccountModel>
     {
-        private IInteractionService _interactionService;
+        private readonly IInteractionService _interactionService;
         public OnlineAccountViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService, IInteractionService interactionService) : base(folderRepository, navigationService, apiService)
         {
             _interactionService = interactionService;

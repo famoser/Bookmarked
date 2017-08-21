@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Famoser.Bookmarked.Business.Services.Interfaces;
 
 namespace Famoser.Bookmarked.View.Services.Interfaces
 {

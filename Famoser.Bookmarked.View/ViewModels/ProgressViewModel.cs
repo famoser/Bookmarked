@@ -1,5 +1,4 @@
 ﻿using Famoser.Bookmarked.Business.Services.Interfaces;
-using Famoser.Bookmarked.View.Services.Interfaces;
 using Famoser.Bookmarked.View.ViewModels.Base;
 
 namespace Famoser.Bookmarked.View.ViewModels
