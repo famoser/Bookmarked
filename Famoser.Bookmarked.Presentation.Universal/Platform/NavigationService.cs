@@ -11,22 +11,17 @@ using Famoser.Bookmarked.View.Services.Interfaces;
 
 namespace Famoser.Bookmarked.Presentation.Universal.Platform
 {
-    class NavigationService : INavigationService
+    public class NavigationService : INavigationService
     {
         private readonly ConcurrentDictionary<string, Tuple<Type, object>> _pagesByKey = new ConcurrentDictionary<string, Tuple<Type, object>>();
         private readonly ConcurrentStack<Action> _goBackActions = new ConcurrentStack<Action>();
 
-        public string RootPageKey => "-- ROOT--";
-        public string UnknownPageKey => "-- UNKNOWN--";
+        private string RootPageKey => "-- ROOT--";
+        private string UnknownPageKey => "-- UNKNOWN--";
 
         private void ConfigureBackButton()
         {
-            if (_goBackActions.Count < 1)
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    AppViewBackButtonVisibility.Collapsed;
-            else
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    AppViewBackButtonVisibility.Visible;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = CanGoBack() ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
         private bool _executed;
@@ -68,6 +63,11 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
                     return UnknownPageKey;
                 return _pagesByKey.FirstOrDefault(i => i.Value.Item1 == currentType).Key;
             }
+        }
+
+        public bool CanGoBack()
+        {
+            return _goBackActions.Count > 0;
         }
 
         /// <summary>

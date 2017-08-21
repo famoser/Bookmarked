@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Famoser.Bookmarked.Business.Models;
@@ -25,19 +29,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
         }
 
         private NavigationViewModel ViewModel => DataContext as NavigationViewModel;
-
-        private static bool _firstTime = true;
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (!_firstTime)
-                return;
-
-            _firstTime = false;
-
-
-            if (ViewModel.RefreshCommand.CanExecute(null))
-                ViewModel.RefreshCommand.Execute(null);
-        }
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -84,23 +75,36 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
             MoveUpGrid.Visibility = Visibility.Collapsed;
         }
 
-        private bool IsValidDropData(DragEventArgs e)
+        private bool IsValidDropData(DragEventArgs e, StackPanel target = null)
         {
-            return e.DataView?.Properties != null &&
-                (
-                   e.DataView.Properties.Any(x => x.Key == ItemDragData && x.Value.GetType() == typeof(EntryModel)) ||
-                   e.DataView.Properties.Any(x => x.Key == ItemDragData && x.Value.GetType() == typeof(FolderModel))
-                );
+            if (e.DataView?.Properties != null)
+            {
+                var entryKeyValue = e.DataView.Properties.FirstOrDefault(x => x.Key == ItemDragData && x.Value.GetType() == typeof(EntryModel));
+                if (!entryKeyValue.Equals(default(KeyValuePair<string, object>)))
+                    return true;
+
+                var folderKeyValue = e.DataView.Properties.FirstOrDefault(x => x.Key == ItemDragData && x.Value.GetType() == typeof(FolderModel));
+                if (!folderKeyValue.Equals(default(KeyValuePair<string, object>)))
+                {
+                    if (target != null)
+                    {
+                        var folder = folderKeyValue.Value as FolderModel;
+                        return folder != (target.DataContext as FolderModel);
+                    }
+                    return true;
+                }
+            }
+            return false;
         }
 
-        private void UIElement_OnDragOver(object sender, DragEventArgs e)
+        private void Folder_OnDragOver(object sender, DragEventArgs e)
         {
-            e.AcceptedOperation = IsValidDropData(e) ? DataPackageOperation.Move : DataPackageOperation.None;
+            e.AcceptedOperation = IsValidDropData(e, sender as StackPanel) ? DataPackageOperation.Move : DataPackageOperation.None;
         }
 
-        private async void UIElement_OnDrop(object sender, DragEventArgs e)
+        private async void Folder_OnDrop(object sender, DragEventArgs e)
         {
-            if (IsValidDropData(e))
+            if (IsValidDropData(e, sender as StackPanel))
             {
                 try
                 {
@@ -180,6 +184,74 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
             {
                 e.AcceptedOperation = DataPackageOperation.None;
             }
+        }
+
+        private void NavigationPage_OnUnloaded(object sender, RoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.KeyDown -= CoreWindowOnKeyDown;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.KeyDown += CoreWindowOnKeyDown;
+        }
+
+        private void CoreWindowOnKeyDown(CoreWindow sender, KeyEventArgs args)
+        {
+            if (args.VirtualKey == VirtualKey.Escape)
+            {
+                //deactivate Search & Garbage before navigating back
+                if (ViewModel.InSearchMode)
+                {
+                    ViewModel.InSearchMode = false;
+                }
+                else if (ViewModel.InGarbageMode)
+                {
+                    ViewModel.InGarbageMode = false;
+                }
+                else
+                {
+                    ViewModel.GoBackCommand.Execute(null);
+                }
+                return;
+            }
+
+            //if in SearchBox prevent KeyBindings
+            if (ViewModel.InSearchMode)
+            {
+                //SearchBox.FocusState foes not work as expected
+                //as FocusState does not represent the active state of the control
+                //it still returns Unfocused even if this event has been invoked while writing into the SearchBox
+                return;
+            }
+
+            if (args.VirtualKey == VirtualKey.Back)
+            {
+                ViewModel.GoBackCommand.Execute(null);
+            }
+            else if (args.VirtualKey == VirtualKey.F)
+            {
+                FolderListView.Focus(FocusState.Programmatic);
+            }
+            else if (args.VirtualKey == VirtualKey.E)
+            {
+                EntryListView.Focus(FocusState.Programmatic);
+            }
+            else if (args.VirtualKey == VirtualKey.S)
+            {
+                ViewModel.InSearchMode = !ViewModel.InSearchMode;
+            }
+            else if (args.VirtualKey == VirtualKey.G)
+            {
+                ViewModel.InGarbageMode = !ViewModel.InGarbageMode;
+            }
+        }
+
+        private void SearchBox_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            var sb = sender as SearchBox;
+            if (sb?.IsEnabled == true)
+                sb.Focus(FocusState.Programmatic);
         }
     }
 }

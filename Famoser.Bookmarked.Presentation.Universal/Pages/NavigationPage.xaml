@@ -5,11 +5,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded"
-    DataContext="{Binding NavigationViewModel, Source={StaticResource Locator}}">
+    DataContext="{Binding NavigationViewModel, Source={StaticResource Locator}}"
+    Unloaded="NavigationPage_OnUnloaded">
 
     <Page.Resources>
         <DataTemplate x:Key="FolderDataTemplate">
-            <StackPanel Style="{StaticResource ListViewDataTemplateStackPanel}" AllowDrop="True" DragOver="UIElement_OnDragOver" Drop="UIElement_OnDrop">
+            <StackPanel Style="{StaticResource ListViewDataTemplateStackPanel}" AllowDrop="True" DragOver="Folder_OnDragOver" Drop="Folder_OnDrop">
                 <TextBlock Style="{StaticResource ItemHeader}" Text="{Binding Name}" />
                 <TextBlock Style="{StaticResource ItemDescription}" Text="{Binding Description}" />
             </StackPanel>
@@ -116,7 +117,7 @@
                 </StackPanel>
 
                 <StackPanel Style="{StaticResource HeaderStackPanel}" Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Search}">
-                    <SearchBox QueryText="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SearchBox}" />
+                    <SearchBox x:Name="SearchBox" QueryText="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SearchBox}" IsEnabled="{Binding InSearchMode}" IsEnabledChanged="SearchBox_IsEnabledChanged" />
                     <TextBlock Text="{Binding Path=[SearchPageDescription], Source={StaticResource Localized}}" Style="{StaticResource H1DescriptionTextBlock}" />
                     <Border Style="{StaticResource HeaderBottomBorder}" />
                 </StackPanel>
@@ -136,8 +137,8 @@
             <ScrollViewer Grid.Row="1" Style="{StaticResource ContentScrollViewer}">
                 <StackPanel>
                     <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Default}">
-                        <ListView Style="{StaticResource DropListView}" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" Visibility="{Binding SelectedFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"  />
-                        <ListView Style="{StaticResource DragListView}" ItemsSource="{Binding SelectedFolder.Entries}" ItemTemplate="{StaticResource EntryDataTemplate}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"    />
+                        <ListView x:Name="FolderListView" Style="{StaticResource DropListView}" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" Visibility="{Binding SelectedFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"  />
+                        <ListView x:Name="EntryListView" Style="{StaticResource DragListView}" ItemsSource="{Binding SelectedFolder.Entries}" ItemTemplate="{StaticResource EntryDataTemplate}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"    />
                     </StackPanel>
                     <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Search}">
                         <ListView Style="{StaticResource ClickListView}" ItemsSource="{Binding SearchFolders}" ItemTemplate="{StaticResource FolderDataTemplate}" Visibility="{Binding SearchFolders, Converter={StaticResource CollectionToVisibilityConverter}}" ItemClick="ListView_ItemClick" />
@@ -156,8 +157,8 @@
     <Page.BottomAppBar>
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarToggleButton IsChecked="{Binding InGarbageMode, Mode=TwoWay}" Icon="Delete" Label="Garbage" />
-                <AppBarToggleButton IsChecked="{Binding InSearchMode, Mode=TwoWay}" Icon="Find" Label="Find" />
+                <AppBarToggleButton x:Name="SearchButton" IsChecked="{Binding InGarbageMode, Mode=TwoWay}" Icon="Delete" Label="Garbage" />
+                <AppBarToggleButton x:Name="FindButton" IsChecked="{Binding InSearchMode, Mode=TwoWay}" Icon="Find" Label="Find" />
                 <AppBarButton Command="{Binding RefreshCommand}" Icon="Refresh" Label="Refresh" />
                 <AppBarButton Icon="Add" Label="New Entry" >
                     <AppBarButton.Flyout>

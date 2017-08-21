@@ -4,11 +4,7 @@ namespace Famoser.Bookmarked.View.Services.Interfaces
 {
     public interface INavigationService
     {
-        string RootPageKey { get; }
-
-        string UnknownPageKey { get; }
-
-        string CurrentPageKey { get; }
+        bool CanGoBack();
 
         bool GoBack();
 

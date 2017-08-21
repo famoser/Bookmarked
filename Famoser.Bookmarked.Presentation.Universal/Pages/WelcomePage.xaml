@@ -40,7 +40,7 @@
                     <TextBlock Text="{Binding Path=[WelcomePageAlreadyUsedChoiceHelp], Source={StaticResource Localized}}" Style="{StaticResource ParagraphTextBlock}" />
                     <Button Content="{Binding Path=[WelcomePageImportCredentialsAction], Source={StaticResource Localized}}" Style="{StaticResource PrimaryButton}" Command="{Binding ImportCredentialsCommand}" />
                 </StackPanel>
-                
+
                 <!-- Q&A -->
                 <info:QAndA />
             </StackPanel>

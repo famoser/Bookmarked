@@ -2,7 +2,7 @@
 
 namespace Famoser.Bookmarked.Presentation.Universal.Entity
 {
-    internal class NavigationParameter
+    public class NavigationParameter
     {
         public string Name { get; set; }
         public Type EditFrameType { get; set; }
