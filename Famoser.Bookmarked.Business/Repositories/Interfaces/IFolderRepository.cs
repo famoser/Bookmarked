@@ -33,7 +33,8 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
         ObservableCollection<EntryModel> SearchEntry(string searchTerm);
         ObservableCollection<FolderModel> SearchFolder(string searchTerm);
         Task<string> ExportDataAsync();
-        Task<bool> ImportDataAsync(string content, string password);
+        Task<bool> ImportDataAsync(string content);
+        Task<string> GetImportDataTemplateAsync();
         Task<string> ExportCredentialsAsync();
         Task<bool> ImportCredentialsAsync(string content, string password);
         Task<bool> ClearAllDataAsync();

@@ -58,6 +58,7 @@
     <Compile Include="ViewModels\ApiViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModelLocator.cs" />
+    <Compile Include="ViewModels\Base\SetCredentialsViewModel.cs" />
     <Compile Include="ViewModels\Entry\Abstract\EntryViewModel.cs" />
     <Compile Include="ViewModels\Entry\PersonViewModel.cs" />
     <Compile Include="ViewModels\Entry\BookViewModel.cs" />
@@ -67,7 +68,7 @@
     <Compile Include="ViewModels\Entry\WebpageViewModel.cs" />
     <Compile Include="ViewModels\Entry\Base\WithUrlViewModel.cs" />
     <Compile Include="ViewModels\ExportViewModel.cs" />
-    <Compile Include="ViewModels\ImportViewModel.cs" />
+    <Compile Include="ViewModels\ExchangeViewModel.cs" />
     <Compile Include="ViewModels\Interface\IEntryViewModel.cs" />
     <Compile Include="ViewModels\WelcomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

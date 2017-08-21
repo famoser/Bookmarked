@@ -10,28 +10,20 @@ using Famoser.Bookmarked.View.ViewModels.Base;
 
 namespace Famoser.Bookmarked.View.ViewModels
 {
-    public class WelcomeViewModel : BaseViewModel
+    public class WelcomeViewModel : SetCredentialsViewModel
     {
         private readonly INavigationService _navigationService;
         private readonly IPasswordService _passwordService;
         private readonly IInteractionService _interactionService;
-        private readonly IFolderRepository _folderRepository;
         private readonly ILoginService _loginService;
 
         public WelcomeViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService, IFolderRepository folderRepository, ILoginService loginService)
+            : base(interactionService, passwordService, folderRepository)
         {
             _navigationService = navigationService;
             _passwordService = passwordService;
             _interactionService = interactionService;
-            _folderRepository = folderRepository;
             _loginService = loginService;
-        }
-
-        private string _password;
-        public string Password
-        {
-            get => _password;
-            set => Set(ref _password, value);
         }
 
         private string _confirmationPassword;
@@ -61,32 +53,5 @@ namespace Famoser.Bookmarked.View.ViewModels
                 }
             }
         });
-
-        public ICommand ImportCredentialsCommand => new MyLoadingRelayCommand(async () =>
-        {
-            if (string.IsNullOrEmpty(Password))
-            {
-                await _interactionService.ShowMessageAsync("password is empty");
-                return;
-            }
-            var importFile = await _interactionService.GetFileContentAsync("bmd_cred");
-            if (string.IsNullOrEmpty(importFile))
-            {
-                await _interactionService.ShowMessageAsync("file is empty");
-                return;
-            }
-
-            if (await _folderRepository.ImportCredentialsAsync(importFile, Password))
-            {
-                await _passwordService.SetPasswordAsync(Password);
-                await _interactionService.ShowMessageAsync("import successful!");
-                _interactionService.CloseApplication();
-            }
-            else
-            {
-                await _interactionService.ShowMessageAsync("import failed; is the password correct?");
-            }
-        });
-
     }
 }

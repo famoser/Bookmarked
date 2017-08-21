@@ -127,7 +127,7 @@
                     <Border Style="{StaticResource HeaderBottomBorder}" />
                 </StackPanel>
 
-                <Grid x:Name="MoveUpGrid" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Background="{ThemeResource SystemControlBackgroundAccentBrush}" AllowDrop="True" Margin="20, 40" HorizontalAlignment="Right" Width="89" Height="55" VerticalAlignment="Top">
+                <Grid x:Name="MoveUpGrid" Visibility="Collapsed" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Background="{ThemeResource SystemControlBackgroundAccentBrush}" AllowDrop="True" Margin="20, 40" HorizontalAlignment="Right" Width="89" Height="55" VerticalAlignment="Top">
                     <SymbolIcon Symbol="Up" Foreground="White" />
                 </Grid>
 

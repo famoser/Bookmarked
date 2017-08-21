@@ -16,6 +16,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
 
         public async Task<string> ExportDataAsync()
         {
+            //todo: switch to .csv export
             try
             {
                 //ensure everything up to date
@@ -62,13 +63,19 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             return null;
         }
 
-        public async Task<bool> ImportDataAsync(string content, string password)
+        public async Task<string> GetImportDataTemplateAsync()
+        {
+            //todo
+            return "";
+        }
+
+        public async Task<bool> ImportDataAsync(string content)
         {
             try
             {
                 //decrypt 
-                var decrypted = _encryptionService.Decrypt(content, password);
-                var importModel = JsonConvert.DeserializeObject<ImportModel>(decrypted);
+                //TODO: replace with excel import/export
+                var importModel = JsonConvert.DeserializeObject<ImportModel>(content);
 
                 foreach (var importModelFolder in importModel.Folders)
                 {

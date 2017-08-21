@@ -151,9 +151,14 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
             return "hi mom";
         }
 
-        public async Task<bool> ImportDataAsync(string content, string password)
+        public async Task<bool> ImportDataAsync(string content)
         {
             return true;
+        }
+
+        public async Task<string> GetImportDataTemplateAsync()
+        {
+            return "";
         }
 
         public async Task<string> ExportCredentialsAsync()

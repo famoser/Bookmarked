@@ -1,0 +1,39 @@
+﻿<UserControl
+    x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Info.QAndA"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <StackPanel>
+        <!-- Q&A -->
+        <StackPanel Style="{StaticResource ContentStackPanel}">
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageQATitle]}" Style="{StaticResource H2TextBlock}" />
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageQADescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
+            <Border Style="{StaticResource ContentBottomBorder}" />
+        </StackPanel>
+        <StackPanel Style="{StaticResource SmallContentStackPanel}">
+            <!-- Q&A content -->
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutApplicationQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutApplicationAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSetupQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSetupAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSecurityQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutSecurityAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutEncryptionQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutEncryptionAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutPasswordQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutPasswordAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutAlgorithmQuestion]}" Style="{StaticResource QuestionTextBlock}" />
+            <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageAboutAlgorithmAnswer]}" Style="{StaticResource AnswerTextBlock}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

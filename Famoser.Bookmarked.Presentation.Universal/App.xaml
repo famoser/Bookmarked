@@ -138,7 +138,7 @@
                 <Setter Property="Padding" Value="10" />
             </Style>
 
-            <Style x:Key="SmallStackPanel" TargetType="StackPanel" BasedOn="{StaticResource ContentStackPanel}">
+            <Style x:Key="SmallContentStackPanel" TargetType="StackPanel" BasedOn="{StaticResource ContentStackPanel}">
                 <Setter Property="Margin" Value="0,10,0,0" />
             </Style>
 
@@ -265,7 +265,7 @@
 
             <!-- search -->
             <Style x:Key="SearchBox" TargetType="SearchBox" BasedOn="{StaticResource BasicSearchBox}">
-                <Setter Property="Margin" Value="0,26,0,20" />
+                <Setter Property="Margin" Value="0,28,0,20" />
             </Style>
 
             <!-- info -->

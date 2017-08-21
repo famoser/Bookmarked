@@ -4,12 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:info="using:Famoser.Bookmarked.Presentation.Universal.Pages.Info"
     mc:Ignorable="d"
     DataContext="{Binding WelcomeViewModel, Source={StaticResource Locator}}">
 
 
     <Grid Style="{StaticResource LayoutGrid}">
-        <Grid Style="{StaticResource SmallContentGrid}">
+        <Grid Style="{StaticResource DoubleContentGrid}">
             <StackPanel>
                 <StackPanel Style="{StaticResource HeaderStackPanel}">
                     <TextBlock Text="{Binding Path=[WelcomePageTitle], Source={StaticResource Localized}}" Style="{StaticResource H1TextBlock}" />
@@ -25,7 +26,7 @@
                 <StackPanel Style="{StaticResource ContentStackPanel}">
                     <RadioButton Content="{Binding Path=[WelcomePageFirstTimeChoice], Source={StaticResource Localized}}" x:Name="FirstTimeRadio" GroupName="InitializeGroup" Style="{StaticResource WelcomeRadioButton}" />
                 </StackPanel>
-                <StackPanel Style="{StaticResource SmallStackPanel}" Visibility="{Binding IsChecked, ElementName=FirstTimeRadio, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel Style="{StaticResource SmallContentStackPanel}" Visibility="{Binding IsChecked, ElementName=FirstTimeRadio, Converter={StaticResource BoolToVisibilityConverter}}">
                     <TextBlock Text="{Binding Path=[WelcomePageFirstTimeChoiceHelp], Source={StaticResource Localized}}" Style="{StaticResource ParagraphTextBlock}" />
                     <TextBlock Text="{Binding Path=[WelcomePageConfirmNewPassword], Source={StaticResource Localized}}" Style="{StaticResource LabelTextBlock}" />
                     <PasswordBox Password="{Binding ConfirmationPassword, Mode=TwoWay}" Style="{StaticResource LoginPasswordBox}" />
@@ -35,10 +36,13 @@
                 <StackPanel Style="{StaticResource ContentStackPanel}">
                     <RadioButton Content="{Binding Path=[WelcomePageAlreadyUsedChoice], Source={StaticResource Localized}}" x:Name="AlreadyUsedRadio" GroupName="InitializeGroup" Style="{StaticResource WelcomeRadioButton}" />
                 </StackPanel>
-                <StackPanel Style="{StaticResource SmallStackPanel}" Visibility="{Binding IsChecked, ElementName=AlreadyUsedRadio, Converter={StaticResource BoolToVisibilityConverter}}">
+                <StackPanel Style="{StaticResource SmallContentStackPanel}" Visibility="{Binding IsChecked, ElementName=AlreadyUsedRadio, Converter={StaticResource BoolToVisibilityConverter}}">
                     <TextBlock Text="{Binding Path=[WelcomePageAlreadyUsedChoiceHelp], Source={StaticResource Localized}}" Style="{StaticResource ParagraphTextBlock}" />
                     <Button Content="{Binding Path=[WelcomePageImportCredentialsAction], Source={StaticResource Localized}}" Style="{StaticResource PrimaryButton}" Command="{Binding ImportCredentialsCommand}" />
                 </StackPanel>
+                
+                <!-- Q&A -->
+                <info:QAndA />
             </StackPanel>
         </Grid>
     </Grid>

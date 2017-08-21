@@ -15,6 +15,6 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
             this.InitializeComponent();
         }
 
-        private ImportViewModel ImportViewModel => DataContext as ImportViewModel;
+        private ExchangeViewModel ExchangeViewModel => DataContext as ExchangeViewModel;
     }
 }

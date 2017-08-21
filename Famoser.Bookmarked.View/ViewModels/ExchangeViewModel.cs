@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Famoser.Bookmarked.Business.Repositories.Interfaces;
+using Famoser.Bookmarked.Business.Services;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Command;
 using Famoser.Bookmarked.View.Services.Interfaces;
@@ -8,44 +9,44 @@ using Famoser.Bookmarked.View.ViewModels.Base;
 
 namespace Famoser.Bookmarked.View.ViewModels
 {
-    public class ImportViewModel : BaseViewModel
+    public class ExchangeViewModel : SetCredentialsViewModel
     {
         private readonly IFolderRepository _folderRepository;
-        private IApiService _apiService;
-        private readonly ILoginService _loginService;
         private IInteractionService _interactionService;
 
-        public ImportViewModel(IFolderRepository folderRepository, IApiService apiService, IInteractionService interactionService, ILoginService loginService)
+        public ExchangeViewModel(IFolderRepository folderRepository, IInteractionService interactionService, IPasswordService passwordService)
+            : base(interactionService,  passwordService, folderRepository)
         {
             _folderRepository = folderRepository;
-            _apiService = apiService;
             _interactionService = interactionService;
-            _loginService = loginService;
         }
 
-        private string _password;
-        public string Password
-        {
-            get => _password;
-            set => Set(ref _password, value);
-        }
-
-        public ICommand ImportCommand => new MyLoadingRelayCommand(ImportAsync);
+        public ICommand ImportDataCommand => new MyLoadingRelayCommand(ImportAsync);
 
         private async Task ImportAsync()
         {
             var str = await _interactionService.GetFileContentAsync("bmd_data");
             if (str != null)
-                await _folderRepository.ImportDataAsync(str, Password);
+                await _folderRepository.ImportDataAsync(str);
         }
 
-        public ICommand ExportCommand => new MyLoadingRelayCommand(ExportAsync);
+        public ICommand ExportDataCommand => new MyLoadingRelayCommand(ExportAsync);
 
         private async Task ExportAsync()
         {
             var exportString = await _folderRepository.ExportDataAsync();
-            await _interactionService.SaveFileAsync(exportString, "bmd_data", "bookmarked_data");
+            await _interactionService.SaveFileAsync(exportString, "csv", "bookmarked_export");
         }
+
+        public ICommand SaveImportTemplateCommand => new MyLoadingRelayCommand(SaveImportTemplateAsync);
+
+        private async Task SaveImportTemplateAsync()
+        {
+            var exportString = await _folderRepository.GetImportDataTemplateAsync();
+            await _interactionService.SaveFileAsync(exportString, "csv", "bookmarked_import_template");
+        }
+
+        
 
         /*
          * export / import credentials
