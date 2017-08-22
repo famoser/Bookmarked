@@ -13,8 +13,8 @@ namespace Famoser.Bookmarked.View.ViewModels
         private readonly IFolderRepository _folderRepository;
         private readonly IInteractionService _interactionService;
 
-        public ExchangeViewModel(IFolderRepository folderRepository, IInteractionService interactionService, IPasswordService passwordService)
-            : base(interactionService,  passwordService, folderRepository)
+        public ExchangeViewModel(IFolderRepository folderRepository, IInteractionService interactionService, IPasswordService passwordService, ILoginService loginService)
+            : base(interactionService,  passwordService, folderRepository, loginService)
         {
             _folderRepository = folderRepository;
             _interactionService = interactionService;

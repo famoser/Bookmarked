@@ -16,7 +16,7 @@ namespace Famoser.Bookmarked.View.ViewModels
         private readonly ILoginService _loginService;
 
         public WelcomeViewModel(INavigationService navigationService, IPasswordService passwordService, IInteractionService interactionService, IFolderRepository folderRepository, ILoginService loginService)
-            : base(interactionService, passwordService, folderRepository)
+            : base(interactionService, passwordService, folderRepository, loginService)
         {
             _navigationService = navigationService;
             _passwordService = passwordService;

@@ -11,14 +11,16 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
         private readonly IInteractionService _interactionService;
         private readonly IFolderRepository _folderRepository;
         private readonly IPasswordService _passwordService;
+        private readonly ILoginService _loginService;
 
         private string _password;
 
-        public SetCredentialsViewModel(IInteractionService interactionService, IPasswordService passwordService, IFolderRepository folderRepository)
+        public SetCredentialsViewModel(IInteractionService interactionService, IPasswordService passwordService, IFolderRepository folderRepository, ILoginService loginService)
         {
             _interactionService = interactionService;
             _passwordService = passwordService;
             _folderRepository = folderRepository;
+            _loginService = loginService;
         }
 
         public string Password
@@ -41,9 +43,10 @@ namespace Famoser.Bookmarked.View.ViewModels.Base
                 return;
             }
 
-            if (await _folderRepository.ImportCredentialsAsync(importFile, Password))
+            var hash = _loginService.HashPassword(Password);
+            if (await _folderRepository.ImportCredentialsAsync(importFile, hash))
             {
-                await _passwordService.SetPasswordAsync(Password);
+                await _passwordService.SetPasswordAsync(hash);
                 await _interactionService.ShowMessageAsync("import successful!");
                 _interactionService.CloseApplication();
             }
