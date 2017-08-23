@@ -34,11 +34,11 @@
                     <info:QAndA />
 
                     <!-- import/export data -->
-                    <StackPanel Style="{StaticResource ContentStackPanel}">
+                    <StackPanel Style="{StaticResource ContentStackPanel}" Visibility="Collapsed">
                         <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeTitle]}" Style="{StaticResource H2TextBlock}" />
                         <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeDescription]}" Style="{StaticResource H2DescriptionTextBlock}" />
                     </StackPanel>
-                    <StackPanel Style="{StaticResource SmallContentStackPanel}">
+                    <StackPanel Style="{StaticResource SmallContentStackPanel}" Visibility="Collapsed">
                         <!-- import data -->
                         <TextBlock Text="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportHelp]}" Style="{StaticResource ParagraphTextBlock}" />
                         <Button Content="{Binding Source={StaticResource Localized}, Path=[InfoPageDataExchangeImportSaveTemplateFile]}" Command="{Binding SaveImportTemplateCommand}" Style="{StaticResource SecondaryButton}"/>

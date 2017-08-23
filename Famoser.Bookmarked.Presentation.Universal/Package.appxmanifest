@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="10401FlorianMoser.Bookmarked" Publisher="CN=11675D3B-05AA-4B24-A422-AD2FB58E21ED" Version="2017.3.27.0" />
+  <Identity Name="10401FlorianMoser.Bookmarked" Publisher="CN=famoser" Version="2017.3.27.0" />
   <mp:PhoneIdentity PhoneProductId="dbf1e671-5db4-4580-a648-de4f9e522342" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Bookmarked</DisplayName>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Famoser.Bookmarked.Presentation.Universal.App">
-      <uap:VisualElements DisplayName="Bookmarked" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="bookmarked app" BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Bookmarked" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="save &amp; sync bookmarks encrypted with a master password" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Study" Square71x71Logo="Assets\Square71x71Logo.png" Square310x310Logo="Assets\Square310x310Logo.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
