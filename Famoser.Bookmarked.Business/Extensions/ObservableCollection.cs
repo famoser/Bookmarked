@@ -5,20 +5,20 @@ namespace Famoser.Bookmarked.Business.Extensions
 {
     public static class ObservableCollection
     {
-        public static void AddUniqueSorted<TValue>(this ObservableCollection<TValue> source, TValue value) where TValue : IComparable
+        public static void AddUniqueSorted<TValue>(this ObservableCollection<TValue> target, TValue value) where TValue : IComparable
         {
-            if (source.Contains(value))
+            if (target.Contains(value))
                 return;
-            for (var index = 0; index < source.Count; index++)
+            for (var index = 0; index < target.Count; index++)
             {
-                var source1 = source[index];
+                var source1 = target[index];
                 if (source1.CompareTo(value) < 0)
                 {
-                    source.Insert(index, value);
+                    target.Insert(index, value);
                     return;
                 }
             }
-            source.Add(value);
+            target.Add(value);
         }
     }
 }

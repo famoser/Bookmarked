@@ -149,7 +149,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             {
                 if (string.IsNullOrEmpty(content))
                     return false;
-
+                
                 var decrypted = _encryptionService.Decrypt(content, password);
                 var newCred = JsonConvert.DeserializeObject<UserModel>(decrypted);
                 return await _apiService.SetApiUserAsync(newCred);
