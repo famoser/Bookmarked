@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
@@ -8,6 +9,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Famoser.Bookmarked.Business.Models;
+using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.ViewModels;
 
@@ -23,6 +25,8 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
         public NavigationPage()
         {
             this.InitializeComponent();
+            ViewModel.PropertyChanged += ViewModelOnPropertyChanged;
+            _currentIdentifier = ViewModel.SelectedFolder;
         }
 
         private NavigationViewModel ViewModel => DataContext as NavigationViewModel;
@@ -249,6 +253,56 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
             var sb = sender as SearchBox;
             if (sb?.IsEnabled == true)
                 sb.Focus(FocusState.Programmatic);
+        }
+
+        private Dictionary<object, double> _savedScrollPosition = new Dictionary<object, double>();
+        private double _currentScrollPosition = 0;
+        private object _currentIdentifier = null;
+        private void ScrollViewer_ViewChanging(object sender, ScrollViewerViewChangingEventArgs e)
+        {
+            _currentScrollPosition = e.FinalView.VerticalOffset;
+        }
+
+        private void ViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs eventArgs)
+        {
+            if (eventArgs.PropertyName == nameof(ViewModel.NavigationViewMode) ||
+                eventArgs.PropertyName == nameof(ViewModel.SelectedFolder))
+            {
+                _savedScrollPosition[_currentIdentifier] = _currentScrollPosition;
+
+                if (ViewModel.NavigationViewMode == NavigationViewMode.Garbage)
+                {
+                    _currentIdentifier = "garbage";
+                }
+                else if (ViewModel.NavigationViewMode == NavigationViewMode.Search)
+                {
+                    _currentIdentifier = "search";
+                }
+                else
+                {
+                    _currentIdentifier = ViewModel.SelectedFolder;
+                }
+
+                if (_savedScrollPosition.ContainsKey(_currentIdentifier))
+                {
+                    _targetScrollPositionAfterResize = _savedScrollPosition[_currentIdentifier];
+                }
+                else
+                {
+                    _targetScrollPositionAfterResize = -1;
+                }
+            }
+        }
+
+        private double _targetScrollPositionAfterResize;
+
+        private void StackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_targetScrollPositionAfterResize >= 0)
+            {
+                ContentScrollViewer.ChangeView(0, _targetScrollPositionAfterResize, 1);
+                _targetScrollPositionAfterResize = -1;
+            }
         }
     }
 }

@@ -136,8 +136,8 @@
 
                 <ProgressBar VerticalAlignment="Top" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Minimum="0" />
             </Grid>
-            <ScrollViewer Grid.Row="1" Style="{StaticResource ContentScrollViewer}">
-                <StackPanel>
+            <ScrollViewer x:Name="ContentScrollViewer"  Grid.Row="1" Style="{StaticResource ContentScrollViewer}" ViewChanging="ScrollViewer_ViewChanging">
+                <StackPanel SizeChanged="StackPanel_SizeChanged" >
                     <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Default}">
                         <ListView x:Name="FolderListView" Style="{StaticResource DropListView}" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" Visibility="{Binding SelectedFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"  />
                         <ListView x:Name="EntryListView" Style="{StaticResource DragListView}" ItemsSource="{Binding SelectedFolder.Entries}" ItemTemplate="{StaticResource EntryDataTemplate}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"    />
