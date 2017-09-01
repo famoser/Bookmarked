@@ -9,9 +9,13 @@ namespace Famoser.Bookmarked.Business.Extensions
         {
             if (target.Contains(value))
                 return;
+
+            //you can find a O(log n) solution here with binary search
+            //currently performance not important because average size is <10
             for (var index = 0; index < target.Count; index++)
             {
                 var source1 = target[index];
+                
                 if (source1.CompareTo(value) < 0)
                 {
                     target.Insert(index, value);

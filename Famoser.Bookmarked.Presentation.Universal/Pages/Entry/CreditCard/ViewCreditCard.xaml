@@ -24,7 +24,7 @@
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="pin" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.Pin}" />
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="expiry date" />
-        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.ExpiryDate, Converter={StaticResource DateToStringConverter}}" />
+        <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.ExpireDate, Converter={StaticResource DateToStringConverter}}" />
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.IssuingBank}" />
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank number" />

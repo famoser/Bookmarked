@@ -7,8 +7,8 @@ namespace Famoser.Bookmarked.Presentation.Universal.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var date = (DateTime) value;
-            return date == DateTime.MinValue ? "-" : date.ToString("MM/yy");
+            var date = (DateTimeOffset) value;
+            return date == DateTimeOffset.MinValue ? "-" : date.ToString("MM/yy");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

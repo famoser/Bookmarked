@@ -22,7 +22,6 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
         private readonly IFolderRepository _folderRepository;
         private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
-        private readonly Stack<FolderModel> _folderHistory = new Stack<FolderModel>();
 
         protected EntryViewModel(IFolderRepository folderRepository, INavigationService navigationService, IApiService apiService)
         {
@@ -41,6 +40,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
                     ParentIds = new List<Guid>()
                 };
                 SelectedEntryContent = new T();
+                SelectedEntryContent.SetDefaultValues();
             }
         }
 

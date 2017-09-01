@@ -16,5 +16,15 @@ namespace Famoser.Bookmarked.Business.Models.Entries
         {
             return ContentType.Note;
         }
+
+        public override void SetDefaultValues()
+        {
+            //no defaults
+        }
+
+        public override void SetExampleValues()
+        {
+            PrivateNote = "my cat is green!";
+        }
     }
 }

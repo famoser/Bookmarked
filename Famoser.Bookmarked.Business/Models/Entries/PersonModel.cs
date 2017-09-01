@@ -18,7 +18,17 @@ namespace Famoser.Bookmarked.Business.Models.Entries
 
         public void WriteProperties(NoteModel note)
         {
-            
+
+        }
+
+        public override void SetDefaultValues()
+        {
+            //no defaults
+        }
+
+        public override void SetExampleValues()
+        {
+            BirthDay = "01.01.1990";
         }
     }
 }

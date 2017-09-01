@@ -32,7 +32,19 @@ namespace Famoser.Bookmarked.Business.Models.Entries
 
         public void WriteProperties(WebpageModel webpage)
         {
-            
+
+        }
+
+        public override void SetDefaultValues()
+        {
+            //no defaults
+        }
+
+        public override void SetExampleValues()
+        {
+            Email = "git@famoser.ch";
+            Password = "password1234";
+            UserName = "famoser";
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Famoser.Bookmarked.Business.Models.Base
         {
             if (other is BaseModel obj)
             {
-                return String.Compare(obj.Name, Name, StringComparison.Ordinal);
+                return String.Compare(obj.Name, Name, StringComparison.OrdinalIgnoreCase);
             }
             return -1;
         }

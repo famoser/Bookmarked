@@ -16,5 +16,15 @@ namespace Famoser.Bookmarked.Business.Models.Entries
         {
             return ContentType.Webpage;
         }
+
+        public override void SetDefaultValues()
+        {
+            //no defaults
+        }
+
+        public override void SetExampleValues()
+        {
+            WebpageUrl = new Uri("http://famoser.ch");
+        }
     }
 }

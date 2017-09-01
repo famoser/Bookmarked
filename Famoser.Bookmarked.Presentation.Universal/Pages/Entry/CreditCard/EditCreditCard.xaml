@@ -29,7 +29,7 @@
         <TextBox InputScope="NumericPin" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.Pin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
 
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="expiry date" />
-        <DatePicker Style="{StaticResource ValueDatePicker}" DayVisible="False" YearVisible="True" MonthVisible="True" Date="{Binding SelectedEntryContent.ExpiryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></DatePicker>
+        <DatePicker Style="{StaticResource ValueDatePicker}" DayVisible="False" YearVisible="True" MonthVisible="True" Date="{Binding SelectedEntryContent.ExpireDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></DatePicker>
         
         <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank" />
         <TextBox InputScope="PersonalFullName" Style="{StaticResource ValueTextBox}" Text="{Binding SelectedEntryContent.IssuingBank, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />

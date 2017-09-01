@@ -33,11 +33,11 @@ namespace Famoser.Bookmarked.Business.Models.Entries
             set { Set(ref _pin, value); }
         }
 
-        private DateTime _expiryDate;
-        public DateTime ExpiryDate
+        private DateTimeOffset _expireDate;
+        public DateTimeOffset ExpireDate
         {
-            get { return _expiryDate; }
-            set { Set(ref _expiryDate, value); }
+            get { return _expireDate; }
+            set { Set(ref _expireDate, value); }
         }
 
         private string _issuingBank;
@@ -57,6 +57,22 @@ namespace Famoser.Bookmarked.Business.Models.Entries
         public override ContentType GetContentType()
         {
             return ContentType.CreditCard;
+        }
+
+        public override void SetDefaultValues()
+        {
+            ExpireDate = DateTimeOffset.Now;
+        }
+
+        public override void SetExampleValues()
+        {
+            CardholderName = "DENNIS HERMAN";
+            ExpireDate = DateTimeOffset.Now;
+            IssuingBank = "Alternative";
+            IssuingBankNumber = "6123";
+            Number = "9123-1231-2314-2412";
+            Pin = "1234";
+            VerificationNumber = "123";
         }
     }
 }

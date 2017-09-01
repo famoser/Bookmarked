@@ -90,16 +90,14 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                         return JsonConvert.DeserializeObject<T>(json);
                     }
                 }
-                else
-                {
-                    //Repair();
-                }
             }
             catch (Exception e)
             {
                 LogHelper.Instance.LogException(e, this);
             }
-            return new T();
+            var newObj = new T();
+            newObj.SetDefaultValues();
+            return newObj;
         }
     }
 }
