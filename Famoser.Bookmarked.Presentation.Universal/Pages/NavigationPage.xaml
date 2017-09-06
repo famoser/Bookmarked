@@ -4,11 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
     mc:Ignorable="d" Loaded="Page_Loaded"
     DataContext="{Binding NavigationViewModel, Source={StaticResource Locator}}"
     Unloaded="NavigationPage_OnUnloaded">
 
     <Page.Resources>
+        <converters:PasswordTypeToTranslation x:Key="PasswordTypeToTranslation" />
         <DataTemplate x:Key="FolderDataTemplate">
             <StackPanel Style="{StaticResource ListViewDataTemplateStackPanel}" AllowDrop="True" DragOver="Folder_OnDragOver" Drop="Folder_OnDrop">
                 <TextBlock Style="{StaticResource ItemHeader}" Text="{Binding Name}" />
@@ -95,6 +97,12 @@
                 <TextBlock Text="{Binding Name}" Style="{StaticResource ParagraphTextBlock}" />
             </StackPanel>
         </DataTemplate>
+        <DataTemplate x:Key="PasswordTypeEnumTemplate">
+            <StackPanel Style="{StaticResource ListViewDataTemplateStackPanel}">
+                <TextBlock Text="{Binding Value, Converter={StaticResource PasswordTypeToTranslation}}" Style="{StaticResource QuestionTextBlock}" />
+                <TextBlock Text="{Binding Value, Converter={StaticResource PasswordTypeToTranslation}, ConverterParameter=Description}" Style="{StaticResource AnswerTextBlock}" />
+            </StackPanel>
+        </DataTemplate>
     </Page.Resources>
 
     <Grid Style="{StaticResource LayoutGrid}">
@@ -136,7 +144,7 @@
 
                 <ProgressBar VerticalAlignment="Top" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Minimum="0" />
             </Grid>
-            <ScrollViewer x:Name="ContentScrollViewer"  Grid.Row="1" Style="{StaticResource ContentScrollViewer}" ViewChanging="ScrollViewer_ViewChanging">
+            <ScrollViewer BringIntoViewOnFocusChange="True" x:Name="ContentScrollViewer"  Grid.Row="1" Style="{StaticResource ContentScrollViewer}" ViewChanging="ScrollViewer_ViewChanging">
                 <StackPanel SizeChanged="StackPanel_SizeChanged" >
                     <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Default}">
                         <ListView x:Name="FolderListView" Style="{StaticResource DropListView}" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" Visibility="{Binding SelectedFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"  />
@@ -159,14 +167,34 @@
     <Page.BottomAppBar>
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarToggleButton x:Name="SearchButton" IsChecked="{Binding InGarbageMode, Mode=TwoWay}" Icon="Delete" Label="Garbage" />
-                <AppBarToggleButton x:Name="FindButton" IsChecked="{Binding InSearchMode, Mode=TwoWay}" Icon="Find" Label="Find" />
+                <AppBarButton Icon="Keyboard" Label="Generate Password" >
+                    <AppBarButton.Flyout>
+                        <Flyout Placement="Bottom">
+                            <StackPanel>
+                                <ListView HorizontalAlignment="Stretch"
+                                    ItemsSource="{Binding GeneratePasswordViewModel.PasswordTypes, Source={StaticResource Locator}, Mode=TwoWay}"
+                                    ItemTemplate="{StaticResource PasswordTypeEnumTemplate}"
+                                    SelectedItem="{Binding GeneratePasswordViewModel.SelectedPasswordType, Source={StaticResource Locator}, Mode=TwoWay}"
+                                          Style="{StaticResource ClickListView}"
+                                    />
+
+                                <Slider Minimum="4" Maximum="45" Value="{Binding GeneratePasswordViewModel.PasswordLength, Source={StaticResource Locator}, Mode=TwoWay}" Style="{StaticResource BasicControl}" />
+                                <TextBox Text="{Binding GeneratePasswordViewModel.Password, Source={StaticResource Locator}, Mode=TwoWay}" />
+
+                                <TextBlock Text="{Binding Path=[GeneratePasswordClipboardHelp], Source={StaticResource Localized}}" Style="{StaticResource QuestionTextBlock}" />
+                            </StackPanel>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+
+                <AppBarToggleButton IsChecked="{Binding InGarbageMode, Mode=TwoWay}" Icon="Delete" Label="Garbage" />
+                <AppBarToggleButton IsChecked="{Binding InSearchMode, Mode=TwoWay}" Icon="Find" Label="Find" />
                 <AppBarButton Command="{Binding RefreshCommand}" Icon="Refresh" Label="Refresh" />
                 <AppBarButton Icon="Add" Label="New Entry" >
                     <AppBarButton.Flyout>
                         <Flyout Placement="Bottom">
                             <StackPanel>
-                                <Button Content="add Folder" Margin="20,0" Width="100" Command="{Binding AddFolderCommand}" Style="{StaticResource PrimaryButton}" />
+                                <Button Content="add Folder" Margin="20,0" Width="200" Command="{Binding AddFolderCommand}" Style="{StaticResource PrimaryButton}" />
                                 <ListView 
                                     ItemsSource="{Binding ContentTypeModels}" 
                                     ItemTemplate="{StaticResource ContentTypeModelTemplate}"

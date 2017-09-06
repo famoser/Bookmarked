@@ -1,6 +1,12 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.System;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Famoser.Bookmarked.Presentation.Universal.Entity;
+using Famoser.Bookmarked.View.Services.Interfaces;
+using Famoser.Bookmarked.View.ViewModels.Entry.Abstract;
+using Famoser.Bookmarked.View.ViewModels.Folder;
 using GalaSoft.MvvmLight.Ioc;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238

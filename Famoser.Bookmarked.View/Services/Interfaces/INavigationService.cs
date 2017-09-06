@@ -8,6 +8,10 @@ namespace Famoser.Bookmarked.View.Services.Interfaces
 
         bool GoBack();
 
+        void DisableBack();
+
+        void EnableBack();
+
         void NavigateTo(string pageKey, bool removeCurrent = false);
 
         void FakeNavigation(Action execute);

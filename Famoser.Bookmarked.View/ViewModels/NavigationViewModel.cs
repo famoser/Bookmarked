@@ -53,7 +53,6 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public ICommand RefreshCommand => new MyLoadingRelayCommand(() => _folderRepository.SyncAsync());
         public ICommand HelpCommand => new MyLoadingRelayCommand(() => _navigationService.NavigateTo(PageKeys.Info.ToString()));
-        public ICommand GoBackCommand => new MyLoadingRelayCommand(() => _navigationService.GoBack(), () => _navigationService.CanGoBack());
 
         public ICommand SelectFolderCommand => new MyLoadingRelayCommand<FolderModel>(c =>
         {
@@ -118,6 +117,12 @@ namespace Famoser.Bookmarked.View.ViewModels
             var model = ContentHelper.GetContentTypeModel(c.ContentType);
             if (model != null)
             {
+                if (!c.ParentIds.Contains(SelectedFolder.GetId()))
+                {
+                    //entry was accessed from search or similar
+                    //to not confuse user try to find folder with that id
+                    SelectedFolder = _folderRepository.GetBestGuessParentFolder(c);
+                }
                 _navigationService.NavigateTo(model.ViewPageKey.ToString());
                 ((IEntryViewModel)SimpleIoc.Default.GetInstance(model.ViewModelType)).SetEntry(c, CrudState.Add);
             }
@@ -150,10 +155,12 @@ namespace Famoser.Bookmarked.View.ViewModels
                             RaisePropertyChanged(() => InGarbageMode);
                         }
                         NavigationViewMode = NavigationViewMode.Search;
+                        _navigationService.DisableBack();
                     }
                     else
                     {
                         NavigationViewMode = NavigationViewMode.Default;
+                        _navigationService.EnableBack();
                     }
                 }
             }
@@ -205,10 +212,12 @@ namespace Famoser.Bookmarked.View.ViewModels
                             RaisePropertyChanged(() => InSearchMode);
                         }
                         NavigationViewMode = NavigationViewMode.Garbage;
+                        _navigationService.DisableBack();
                     }
                     else
                     {
                         NavigationViewMode = NavigationViewMode.Default;
+                        _navigationService.EnableBack();
                     }
                 }
             }

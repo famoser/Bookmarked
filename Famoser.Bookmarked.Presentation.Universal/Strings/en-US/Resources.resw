@@ -135,6 +135,33 @@
   <data name="GarbagePageTitle" xml:space="preserve">
     <value>garbage</value>
   </data>
+  <data name="GeneratePasswordClipboardHelp" xml:space="preserve">
+    <value>the password is copied to your clipboard</value>
+  </data>
+  <data name="GeneratePasswordToCommunicate" xml:space="preserve">
+    <value>to communicate</value>
+  </data>
+  <data name="GeneratePasswordToCommunicateDescription" xml:space="preserve">
+    <value>if you have to dictate the password</value>
+  </data>
+  <data name="GeneratePasswordToCopy" xml:space="preserve">
+    <value>to copy</value>
+  </data>
+  <data name="GeneratePasswordToCopyDescription" xml:space="preserve">
+    <value>if you only ever copy the password</value>
+  </data>
+  <data name="GeneratePasswordToRemember" xml:space="preserve">
+    <value>to remember</value>
+  </data>
+  <data name="GeneratePasswordToRememberDescription" xml:space="preserve">
+    <value>if you want to remember this password</value>
+  </data>
+  <data name="GeneratePasswordToType" xml:space="preserve">
+    <value>to type</value>
+  </data>
+  <data name="GeneratePasswordToTypeDescription" xml:space="preserve">
+    <value>if you need to type this password</value>
+  </data>
   <data name="InfoPageAboutAlgorithmAnswer" xml:space="preserve">
     <value>your password is hashed with SHA256. The resulting hash is used with AES (AesCbcPkcs7) to decrypt / encrypt your data.</value>
   </data>

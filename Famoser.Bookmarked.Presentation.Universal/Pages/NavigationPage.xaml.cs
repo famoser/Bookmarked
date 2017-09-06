@@ -8,6 +8,7 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using AppStudio.Uwp;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Model;
@@ -205,14 +206,12 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                 if (ViewModel.InSearchMode)
                 {
                     ViewModel.InSearchMode = false;
+                    args.Handled = true;
                 }
                 else if (ViewModel.InGarbageMode)
                 {
                     ViewModel.InGarbageMode = false;
-                }
-                else
-                {
-                    ViewModel.GoBackCommand.Execute(null);
+                    args.Handled = true;
                 }
                 return;
             }
@@ -226,17 +225,13 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                 return;
             }
 
-            if (args.VirtualKey == VirtualKey.Back)
+            if (args.VirtualKey == VirtualKey.F)
             {
-                ViewModel.GoBackCommand.Execute(null);
-            }
-            else if (args.VirtualKey == VirtualKey.F)
-            {
-                FolderListView.Focus(FocusState.Programmatic);
+                FolderListView.Focus(FocusState.Keyboard);
             }
             else if (args.VirtualKey == VirtualKey.E)
             {
-                EntryListView.Focus(FocusState.Programmatic);
+                EntryListView.Focus(FocusState.Keyboard);
             }
             else if (args.VirtualKey == VirtualKey.S)
             {
@@ -290,6 +285,17 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                 else
                 {
                     _targetScrollPositionAfterResize = -1;
+                }
+            }
+            if (eventArgs.PropertyName == nameof(ViewModel.SelectedFolder))
+            {
+                if (ViewModel.InSearchMode)
+                {
+                    ViewModel.InSearchMode = false;
+                }
+                if (ViewModel.InGarbageMode)
+                {
+                    ViewModel.InGarbageMode = false;
                 }
             }
         }

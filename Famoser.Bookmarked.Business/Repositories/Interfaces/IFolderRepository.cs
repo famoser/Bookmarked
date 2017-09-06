@@ -39,5 +39,7 @@ namespace Famoser.Bookmarked.Business.Repositories.Interfaces
         Task<bool> ImportCredentialsAsync(string content, string password);
         Task<bool> ClearAllDataAsync();
         Task<bool> UpgradeEntryAsync<T>(EntryModel entryModel, ContentType target) where T : ContentModel, new();
+
+        FolderModel GetBestGuessParentFolder(EntryModel model);
     }
 }

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.System;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.Presentation.Universal.Entity;
@@ -20,6 +24,7 @@ using Famoser.Bookmarked.View.ViewModels.Base;
 using Famoser.FrameworkEssentials.Services.Interfaces;
 using Famoser.FrameworkEssentials.UniversalWindows.Platform;
 using GalaSoft.MvvmLight.Ioc;
+using PCLCrypto;
 using EditCreditCard = Famoser.Bookmarked.Presentation.Universal.Pages.Entry.CreditCard.EditCreditCard;
 using ViewCreditCard = Famoser.Bookmarked.Presentation.Universal.Pages.Entry.CreditCard.ViewCreditCard;
 
@@ -34,6 +39,21 @@ namespace Famoser.Bookmarked.Presentation.Universal.ViewModels
             SimpleIoc.Default.Register<IInteractionService, InteractionService>();
             SimpleIoc.Default.Register<IDispatchService, DispatchService>();
             SimpleIoc.Default.Register<ILoginService, LoginService>();
+            SimpleIoc.Default.Register<IRandomNumberService, RandomNumberService>();
+
+
+            Window.Current.CoreWindow.KeyDown += delegate (CoreWindow window, KeyEventArgs args)
+            {
+                if (!args.Handled)
+                {
+                    if (args.VirtualKey == VirtualKey.Escape)
+                    {
+                        var service = SimpleIoc.Default.GetInstance<INavigationService>();
+                        service.GoBack();
+                        args.Handled = true;
+                    }
+                }
+            };
         }
 
         private static async Task ClearAll()

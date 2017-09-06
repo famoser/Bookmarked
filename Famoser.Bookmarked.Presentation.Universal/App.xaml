@@ -224,6 +224,9 @@
             <Style x:Key="BasicTimePicker" TargetType="TimePicker" BasedOn="{StaticResource BasicControl}">
 
             </Style>
+            <Style x:Key="BasicComboBox" TargetType="ComboBox" BasedOn="{StaticResource BasicControl}">
+
+            </Style>
 
             <Style x:Key="BasicPasswordBox" TargetType="PasswordBox" BasedOn="{StaticResource BasicControl}">
                 <Setter Property="PasswordRevealMode" Value="Peek" />
@@ -245,6 +248,8 @@
             <Style x:Key="ValueDatePicker" TargetType="DatePicker" BasedOn="{StaticResource BasicDatePicker}" />
 
             <Style x:Key="ValueTimePicker" TargetType="TimePicker" BasedOn="{StaticResource BasicTimePicker}" />
+            
+            <Style x:Key="ValueComboBox" TargetType="ComboBox" BasedOn="{StaticResource BasicComboBox}" />
 
             <!-- navigation -->
             <Style x:Key="ItemHeader" TargetType="TextBlock" BasedOn="{StaticResource H2TextBlock}" />

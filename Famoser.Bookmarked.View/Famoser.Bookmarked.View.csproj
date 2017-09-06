@@ -51,6 +51,7 @@
     <Compile Include="Helper\ContentHelper.cs" />
     <Compile Include="Helper\ReflectionHelper.cs" />
     <Compile Include="Model\ContentTypeModel.cs" />
+    <Compile Include="Model\EnumWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Interfaces\IInteractionService.cs" />
     <Compile Include="Services\Interfaces\INavigationService.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="ViewModels\Entry\WebpageViewModel.cs" />
     <Compile Include="ViewModels\Entry\Base\WithUrlViewModel.cs" />
     <Compile Include="ViewModels\ExchangeViewModel.cs" />
+    <Compile Include="ViewModels\GeneratePasswordViewModel.cs" />
     <Compile Include="ViewModels\Interface\IEntryViewModel.cs" />
     <Compile Include="ViewModels\WelcomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

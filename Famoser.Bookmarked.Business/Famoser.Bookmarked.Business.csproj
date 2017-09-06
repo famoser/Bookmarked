@@ -43,6 +43,7 @@
     <Compile Include="Entity\BetterIdeaIconEntry.cs" />
     <Compile Include="Entity\DebugSyncModel.cs" />
     <Compile Include="Enum\ContentType.cs" />
+    <Compile Include="Enum\PasswordType.cs" />
     <Compile Include="Extensions\ObservableCollection.cs" />
     <Compile Include="Helper\StringDecoder.cs" />
     <Compile Include="Helper\BinaryDecoder.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Services\Interfaces\IDispatchService.cs" />
     <Compile Include="Services\Interfaces\IEncryptionService.cs" />
     <Compile Include="Services\Interfaces\IPasswordService.cs" />
+    <Compile Include="Services\Interfaces\IRandomNumberGenerator.cs" />
     <Compile Include="Services\Interfaces\ISimpleProgressService.cs" />
     <Compile Include="Services\PasswordService.cs" />
   </ItemGroup>

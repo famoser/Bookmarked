@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Famoser.Bookmarked.Business.Models;
 
@@ -197,6 +198,30 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             _folderNewSearches.Push(searchTerm);
             EnsureSearchFolderTaskActive();
             return _folderSearchCache[searchTerm];
+        }
+
+        public FolderModel GetBestGuessParentFolder(EntryModel model)
+        {
+            var start = GetRootFolder();
+            var res = TryFindFolderModel(start, model.ParentIds.FirstOrDefault());
+            return res ?? start;
+        }
+
+        private FolderModel TryFindFolderModel(FolderModel model, Guid guid)
+        {
+            if (model.GetId() == guid)
+            {
+                return model;
+            }
+            foreach (var modelFolder in model.Folders)
+            {
+                var folder = TryFindFolderModel(modelFolder, guid);
+                if (folder != null)
+                {
+                    return folder;
+                }
+            }
+            return null;
         }
 
         private Task _folderSearchTask;

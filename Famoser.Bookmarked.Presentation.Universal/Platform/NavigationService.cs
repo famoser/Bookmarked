@@ -67,7 +67,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
 
         public bool CanGoBack()
         {
-            return _goBackActions.Count > 0;
+            return _backEnabled && _goBackActions.Count > 0;
         }
 
         /// <summary>
@@ -75,6 +75,10 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
         /// </summary>
         public bool GoBack()
         {
+            if (!CanGoBack())
+            {
+                return false;
+            }
             Action res;
             while (!_goBackActions.TryPop(out res))
             {
@@ -83,6 +87,19 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
             }
             res.Invoke();
             return true;
+        }
+
+        private bool _backEnabled = true;
+        public void DisableBack()
+        {
+            _backEnabled = false;
+            ConfigureBackButton();
+        }
+
+        public void EnableBack()
+        {
+            _backEnabled = true;
+            ConfigureBackButton();
         }
 
         public void NavigateTo(string pageKey, bool removeCurrent = false)

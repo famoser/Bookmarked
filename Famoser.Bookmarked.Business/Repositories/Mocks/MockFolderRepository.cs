@@ -180,5 +180,10 @@ namespace Famoser.Bookmarked.Business.Repositories.Mocks
         {
             return true;
         }
+
+        public FolderModel GetBestGuessParentFolder(EntryModel model)
+        {
+            return GetRootFolder();
+        }
     }
 }
