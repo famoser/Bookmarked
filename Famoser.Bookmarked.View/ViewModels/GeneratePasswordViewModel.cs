@@ -63,15 +63,16 @@ namespace Famoser.Bookmarked.View.ViewModels
 
         public ICommand GeneratePasswordCommand => new RelayCommand(() =>
         {
-            if (SelectedPasswordType != null)
-            {
-                Password = _passwordService.GeneratePassword(SelectedPasswordType.Value, PasswordLength);
-                _interactionService.CopyToClipboard(Password);
-                if (Password.Length > 30)
-                {
-                    SelectedPasswordType = PasswordTypes[2];
-                }
-            }
+
+            //if (SelectedPasswordType != null)
+            //{
+            //    Password = _passwordService.GeneratePassword(SelectedPasswordType.Value, PasswordLength);
+            //    _interactionService.CopyToClipboard(Password);
+            //    if (Password.Length > 30)
+            //    {
+            //        SelectedPasswordType = PasswordTypes[2];
+            //    }
+            //}
         });
 
         private ObservableCollection<ValueWrapper<PasswordType>> _passwordTypes;

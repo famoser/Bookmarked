@@ -171,11 +171,11 @@
                     <AppBarButton.Flyout>
                         <Flyout Placement="Bottom">
                             <StackPanel>
-                                <ListView HorizontalAlignment="Stretch"
+                                <ComboBox HorizontalAlignment="Stretch"
                                     ItemsSource="{Binding GeneratePasswordViewModel.PasswordTypes, Source={StaticResource Locator}, Mode=TwoWay}"
                                     ItemTemplate="{StaticResource PasswordTypeEnumTemplate}"
                                     SelectedItem="{Binding GeneratePasswordViewModel.SelectedPasswordType, Source={StaticResource Locator}, Mode=TwoWay}"
-                                          Style="{StaticResource ClickListView}"
+                                         
                                     />
 
                                 <Slider Minimum="4" Maximum="45" Value="{Binding GeneratePasswordViewModel.PasswordLength, Source={StaticResource Locator}, Mode=TwoWay}" Style="{StaticResource BasicControl}" />
