@@ -310,5 +310,21 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                 _targetScrollPositionAfterResize = -1;
             }
         }
+
+        private void AppBarButton_Loaded(object sender, RoutedEventArgs e)
+        {
+            var allowFocusOnInteractionAvailable =
+                Windows.Foundation.Metadata.ApiInformation.IsPropertyPresent(
+                    "Windows.UI.Xaml.FrameworkElement",
+                    "AllowFocusOnInteraction");
+
+            if (allowFocusOnInteractionAvailable)
+            {
+                if (sender is FrameworkElement s)
+                {
+                    s.AllowFocusOnInteraction = true;
+                }
+            }
+        }
     }
 }
