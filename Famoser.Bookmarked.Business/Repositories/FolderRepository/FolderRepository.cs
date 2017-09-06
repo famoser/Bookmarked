@@ -231,7 +231,8 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             else
             {
                 //put it into lookup
-                _folderDic.AddOrUpdate(folder.GetId(), folder, (guid, model) => model);
+                if (!_folderDic.TryAdd(folder.GetId(), folder))
+                    return;
 
                 foreach (var entryParentId in folder.ParentIds)
                 {
