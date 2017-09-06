@@ -167,7 +167,7 @@
     <Page.BottomAppBar>
         <CommandBar >
             <CommandBar.PrimaryCommands>
-                <AppBarButton Icon="Keyboard" Label="Generate Password" >
+                <AppBarButton Icon="Keyboard" Label="Generate Password" Loaded="AppBarButton_Loaded">
                     <AppBarButton.Flyout>
                         <Flyout Placement="Bottom">
                             <StackPanel>
