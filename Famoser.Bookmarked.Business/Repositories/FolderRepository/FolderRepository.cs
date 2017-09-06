@@ -126,14 +126,18 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             }
             else
             {
+                var once = false;
                 foreach (var entryParentId in entry.ParentIds)
                 {
                     if (_folderDic.ContainsKey(entryParentId))
                     {
-                        _folderDic[entryParentId].Entries.AddUniqueSorted(entry);
+                        once |= _folderDic[entryParentId].Entries.AddUniqueSorted(entry);
                     }
                 }
-                AddToSearchIndex(entry);
+                if (once)
+                {
+                    AddToSearchIndex(entry);
+                }
             }
         }
 
@@ -234,12 +238,17 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                 if (!_folderDic.TryAdd(folder.GetId(), folder))
                     return;
 
+                var once = false;
                 foreach (var entryParentId in folder.ParentIds)
                 {
                     if (_folderDic.ContainsKey(entryParentId) && !_folderDic[entryParentId].Folders.Contains(folder))
                     {
-                        _folderDic[entryParentId].Folders.AddUniqueSorted(folder);
+                        once |= _folderDic[entryParentId].Folders.AddUniqueSorted(folder);
                     }
+                }
+                if (once)
+                {
+                    AddToSearchIndex(folder);
                 }
             }
 

@@ -5,10 +5,10 @@ namespace Famoser.Bookmarked.Business.Extensions
 {
     public static class ObservableCollection
     {
-        public static void AddUniqueSorted<TValue>(this ObservableCollection<TValue> target, TValue value) where TValue : IComparable
+        public static bool AddUniqueSorted<TValue>(this ObservableCollection<TValue> target, TValue value) where TValue : IComparable
         {
             if (target.Contains(value))
-                return;
+                return false;
 
             //you can find a O(log n) solution here with binary search
             //currently performance not important because average size is <10
@@ -19,14 +19,15 @@ namespace Famoser.Bookmarked.Business.Extensions
                 if (compare < 0)
                 {
                     target.Insert(index, value);
-                    return;
+                    return true;
                 }
                 if (compare == 0)
                 {
-                    return;
+                    return false;
                 }
             }
             target.Add(value);
+            return true;
         }
     }
 }
