@@ -35,6 +35,20 @@ namespace Famoser.Bookmarked.View.ViewModels
             private set => Set(ref _password, value);
         }
 
+        private bool _copyToClipboardEnabled;
+        public bool CopyToClipboardEnabled
+        {
+            get => _copyToClipboardEnabled;
+            set
+            {
+                Set(ref _copyToClipboardEnabled, value);
+                if (CopyToClipboardEnabled)
+                {
+                    GeneratePasswordCommand.Execute(null);
+                }
+            }
+        }
+
         private int _passwordLength = 16;
         public int PasswordLength
         {
@@ -66,10 +80,9 @@ namespace Famoser.Bookmarked.View.ViewModels
             if (SelectedPasswordType != null)
             {
                 Password = _passwordService.GeneratePassword(SelectedPasswordType.Value, PasswordLength);
-                _interactionService.CopyToClipboard(Password);
-                if (Password.Length > 30)
+                if (CopyToClipboardEnabled)
                 {
-                    SelectedPasswordType = PasswordTypes[2];
+                    _interactionService.CopyToClipboard(Password);
                 }
             }
         });

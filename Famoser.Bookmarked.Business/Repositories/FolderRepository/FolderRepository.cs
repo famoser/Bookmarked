@@ -127,7 +127,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             else
             {
                 var once = false;
-                foreach (var entryParentId in entry.ParentIds)
+                foreach (var entryParentId in entry.ParentIds.Distinct())
                 {
                     if (_folderDic.ContainsKey(entryParentId))
                     {
@@ -239,7 +239,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                     return;
 
                 var once = false;
-                foreach (var entryParentId in folder.ParentIds)
+                foreach (var entryParentId in folder.ParentIds.Distinct())
                 {
                     if (_folderDic.ContainsKey(entryParentId) && !_folderDic[entryParentId].Folders.Contains(folder))
                     {
@@ -288,7 +288,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
 
             model.Entries.Clear();
             model.Folders.Clear();
-            foreach (var modelParentId in model.ParentIds)
+            foreach (var modelParentId in model.ParentIds.Distinct())
             {
                 if (_folderDic.ContainsKey(modelParentId) && _folderDic[modelParentId].Folders.Contains(model))
                     _folderDic[modelParentId].Folders.Remove(model);

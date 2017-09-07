@@ -169,13 +169,12 @@
             <CommandBar.PrimaryCommands>
                 <AppBarButton Icon="Keyboard" Label="Generate Password" Loaded="AppBarButton_Loaded">
                     <AppBarButton.Flyout>
-                        <Flyout Placement="Bottom">
+                        <Flyout Placement="Bottom" Opened="PasswordFlyout_Openend" Closed="PasswordFlyout_Closed">
                             <StackPanel>
                                 <ComboBox HorizontalAlignment="Stretch"
                                     ItemsSource="{Binding GeneratePasswordViewModel.PasswordTypes, Source={StaticResource Locator}, Mode=TwoWay}"
                                     ItemTemplate="{StaticResource PasswordTypeEnumTemplate}"
                                     SelectedItem="{Binding GeneratePasswordViewModel.SelectedPasswordType, Source={StaticResource Locator}, Mode=TwoWay}"
-                                         
                                     />
 
                                 <Slider Minimum="4" Maximum="45" Value="{Binding GeneratePasswordViewModel.PasswordLength, Source={StaticResource Locator}, Mode=TwoWay}" Style="{StaticResource BasicControl}" />

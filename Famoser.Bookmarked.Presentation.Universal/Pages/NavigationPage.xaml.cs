@@ -13,6 +13,7 @@ using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.View.Enum;
 using Famoser.Bookmarked.View.Model;
 using Famoser.Bookmarked.View.ViewModels;
+using GalaSoft.MvvmLight.Ioc;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -325,6 +326,18 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                     s.AllowFocusOnInteraction = true;
                 }
             }
+        }
+
+        private GeneratePasswordViewModel GeneratePasswordViewModel => SimpleIoc.Default.GetInstance<GeneratePasswordViewModel>();
+
+        private void PasswordFlyout_Closed(object sender, object e)
+        {
+            GeneratePasswordViewModel.CopyToClipboardEnabled = false;
+        }
+
+        private void PasswordFlyout_Openend(object sender, object e)
+        {
+            GeneratePasswordViewModel.CopyToClipboardEnabled = true;
         }
     }
 }
