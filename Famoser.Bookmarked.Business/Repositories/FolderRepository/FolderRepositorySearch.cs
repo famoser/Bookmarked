@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Famoser.Bookmarked.Business.List;
+using Famoser.Bookmarked.Business.List.Comparators;
 using Famoser.Bookmarked.Business.Models;
 
 namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
@@ -11,9 +13,6 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
     {
         private readonly ConcurrentDictionary<string, EntryModel> _entryLookup = new ConcurrentDictionary<string, EntryModel>();
         private readonly ConcurrentDictionary<string, FolderModel> _folderLookup = new ConcurrentDictionary<string, FolderModel>();
-
-        private DateTime _entryLookupChangeDateTime = DateTime.MaxValue;
-        private DateTime _folderLookupChangeDateTime = DateTime.MaxValue;
 
         private string GetSearchString(FolderModel folder)
         {
@@ -33,7 +32,6 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                 //add a character which likely won't be searched for
                 myKey += "_";
             }
-            _folderLookupChangeDateTime = DateTime.Now;
         }
 
         private void AddToSearchIndex(EntryModel entry)
@@ -44,20 +42,10 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                 //add a character which likely won't be searched for
                 myKey += "_";
             }
-            _entryLookupChangeDateTime = DateTime.Now;
         }
 
         private void RemoveFromSearchIndex(FolderModel folder)
         {
-            //remove from caches
-            foreach (var result in _folderSearchCache.Values)
-            {
-                if (result.Contains(folder))
-                {
-                    result.Remove(folder);
-                }
-            }
-
             var key = GetSearchString(folder);
 
             //try a fast approach
@@ -82,15 +70,6 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
 
         private void RemoveFromSearchIndex(EntryModel entry)
         {
-            //remove from caches
-            foreach (var result in _entrySearchCache.Values)
-            {
-                if (result.Contains(entry))
-                {
-                    result.Remove(entry);
-                }
-            }
-
             var key = GetSearchString(entry);
 
             //try a fast approach
@@ -113,91 +92,41 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             }
         }
 
-        private readonly ConcurrentDictionary<string, ObservableCollection<EntryModel>> _entrySearchCache = new ConcurrentDictionary<string, ObservableCollection<EntryModel>>();
-        private readonly ConcurrentDictionary<string, ObservableCollection<FolderModel>> _folderSearchCache = new ConcurrentDictionary<string, ObservableCollection<FolderModel>>();
-
-        private readonly ConcurrentDictionary<string, DateTime> _entrySearchCacheHistory = new ConcurrentDictionary<string, DateTime>();
-        private readonly ConcurrentDictionary<string, DateTime> _folderSearchCacheHistory = new ConcurrentDictionary<string, DateTime>();
-
-        private readonly ConcurrentStack<string> _entryNewSearches = new ConcurrentStack<string>();
-        private readonly ConcurrentStack<string> _folderNewSearches = new ConcurrentStack<string>();
-
         public ObservableCollection<EntryModel> SearchEntry(string searchTerm)
         {
-            if (searchTerm.Length < 2)
-            {
-                return new ObservableCollection<EntryModel>();
-            }
-            if (!_entrySearchCache.ContainsKey(searchTerm))
-            {
-                _entrySearchCache.TryAdd(searchTerm, new ObservableCollection<EntryModel>());
-            }
-            _entryNewSearches.Push(searchTerm);
-            EnsureSearchEntryTaskActive();
-            return _entrySearchCache[searchTerm];
+            var list = new SortedObservableCollection<EntryModel>(new BaseModelComparator<EntryModel>());
+            if (searchTerm.Length >= 2)
+                Task.Run(() => SearchEntries(searchTerm, list)).ConfigureAwait(false);
+            return list;
         }
 
-        private Task _entrySearchTask;
-        private void EnsureSearchEntryTaskActive()
+        private void SearchEntries(string search, SortedObservableCollection<EntryModel> myList)
         {
-            if (_entrySearchTask == null || _entrySearchTask.IsCompleted)
+            foreach (var entryLookupKey in _entryLookup.Keys)
             {
-                _entrySearchTask = Task.Run(() => SearchEntries());
-            }
-        }
+                if (
+                    //if entry contains search parameter
+                    entryLookupKey.Contains(search) ||
 
-        private void SearchEntries()
-        {
-            while (_entryNewSearches.TryPop(out var search))
-            {
-                if (_entrySearchCacheHistory.ContainsKey(search))
+                    //if search parameter contains entry
+                    search.Contains(entryLookupKey)
+                )
                 {
-                    if (_entrySearchCacheHistory[search] > _entryLookupChangeDateTime)
-                    {
-                        return;
-                    }
+                    _dispatchService.CheckBeginInvokeOnUi(
+                        () => myList.Add(_entryLookup[entryLookupKey])
+                    );
                 }
-
-                var myList = _entrySearchCache[search];
-
-                _dispatchService.CheckBeginInvokeOnUi(
-                    () => myList.Clear()
-                );
-
-                foreach (var entryLookupKey in _entryLookup.Keys)
-                {
-                    if (
-                        //if entry contains search parameter
-                        entryLookupKey.Contains(search) ||
-
-                        //if search parameter contains entry
-                        search.Contains(entryLookupKey)
-                    )
-                    {
-                        _dispatchService.CheckBeginInvokeOnUi(
-                            () => myList.Add(_entryLookup[entryLookupKey])
-                        );
-                    }
-                    //can make search arbitrary complex! try with weighting etc
-                }
-
-                _entrySearchCacheHistory[search] = DateTime.Now;
+                //can make search arbitrary complex! try with weighting etc
             }
+
         }
 
         public ObservableCollection<FolderModel> SearchFolder(string searchTerm)
         {
-            if (searchTerm.Length < 2)
-            {
-                return new ObservableCollection<FolderModel>();
-            }
-            if (!_folderSearchCache.ContainsKey(searchTerm))
-            {
-                _folderSearchCache.TryAdd(searchTerm, new ObservableCollection<FolderModel>());
-            }
-            _folderNewSearches.Push(searchTerm);
-            EnsureSearchFolderTaskActive();
-            return _folderSearchCache[searchTerm];
+            var list = new SortedObservableCollection<FolderModel>(new BaseModelComparator<FolderModel>());
+            if (searchTerm.Length >= 2)
+                Task.Run(() => SearchFolders(searchTerm, list)).ConfigureAwait(false);
+            return list;
         }
 
         public FolderModel GetBestGuessParentFolder(EntryModel model)
@@ -224,50 +153,23 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             return null;
         }
 
-        private Task _folderSearchTask;
-        private void EnsureSearchFolderTaskActive()
+        private void SearchFolders(string search, SortedObservableCollection<FolderModel> myList)
         {
-            if (_folderSearchTask == null || _folderSearchTask.IsCompleted)
+            foreach (var folderLookupKey in _folderLookup.Keys)
             {
-                _folderSearchTask = Task.Run(() => SearchFolders());
-            }
-        }
+                if (
+                    //if entry contains search parameter
+                    folderLookupKey.Contains(search) ||
 
-        private void SearchFolders()
-        {
-            while (_folderNewSearches.TryPop(out var search))
-            {
-                if (_folderSearchCacheHistory.ContainsKey(search))
+                    //if search parameter contains entry
+                    search.Contains(folderLookupKey)
+                )
                 {
-                    if (_folderSearchCacheHistory[search] > _folderLookupChangeDateTime)
-                    {
-                        return;
-                    }
+                    _dispatchService.CheckBeginInvokeOnUi(
+                        () => myList.Add(_folderLookup[folderLookupKey])
+                    );
                 }
-                
-                var myList = _folderSearchCache[search];
-
-                _dispatchService.CheckBeginInvokeOnUi(
-                    () => myList.Clear()
-                );
-                foreach (var folderLookupKey in _folderLookup.Keys)
-                {
-                    if (
-                        //if entry contains search parameter
-                        folderLookupKey.Contains(search) ||
-
-                        //if search parameter contains entry
-                        search.Contains(folderLookupKey)
-                    )
-                    {
-                        _dispatchService.CheckBeginInvokeOnUi(
-                            () => myList.Add(_folderLookup[folderLookupKey])
-                        );
-                    }
-                    //can make search arbitrary complex! try with weighting etc
-                }
-
-                _folderSearchCacheHistory[search] = DateTime.Now;
+                //can make search arbitrary complex! try with weighting etc
             }
         }
     }
