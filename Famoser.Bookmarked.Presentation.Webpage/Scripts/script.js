@@ -6,7 +6,25 @@
     return hashHex;
 }
 
-function setPassword() {
-    const $val = $("#password").value;
-    sha256($val).then(hash => window.location=hash);
+$(document).ready(function () {
+    $('#guid').val(localStorage.getItem("guid"));
+
+    $('form').on(
+        "submit",
+        function(e) {
+            e.preventDefault();
+            return false;
+        }
+    );
+});
+
+function bootApplication() {
+    const $val = $("#password").val();
+    const $guid = $("#guid").val();
+    (async function (guid) {
+        const hash = await sha256($val);
+        sessionStorage.setItem("password", hash);
+        localStorage.setItem("guid", guid);
+        window.location = "View/Navigate/" + guid;
+    }($guid));
 }

@@ -12,6 +12,7 @@ namespace Famoser.Bookmarked.Presentation.Webpage.Platform
     public class StorageService : IStorageService
     {
         private readonly Guid _folderGuid;
+        private HttpServerUtilityBase _server;
         public StorageService(Guid folderGuid)
         {
             _folderGuid = folderGuid;
@@ -21,8 +22,9 @@ namespace Famoser.Bookmarked.Presentation.Webpage.Platform
          * returns true if user is already initialized
          * else initialized the user & returns false
          */
-        public bool EnsureUserInitialized()
+        public bool EnsureUserInitialized(HttpServerUtilityBase server)
         {
+            _server = server;
             var targetFolder = GetTargetFolder();
             if (!Directory.Exists(targetFolder))
             {
@@ -35,7 +37,7 @@ namespace Famoser.Bookmarked.Presentation.Webpage.Platform
 
         private string GetTargetFolder()
         {
-            return HttpContext.Current.Server.MapPath("~/private/cache/" + _folderGuid);
+            return _server.MapPath("~/private/cache/" + _folderGuid);
         }
 
         private bool SaveFile(string filePath, string content)
@@ -48,7 +50,7 @@ namespace Famoser.Bookmarked.Presentation.Webpage.Platform
         private string GetFile(string filePath)
         {
             var targetPath = Path.Combine(GetTargetFolder(), filePath);
-            return File.ReadAllText(targetPath);
+            return !File.Exists(targetPath) ? null : File.ReadAllText(targetPath);
         }
 
         private bool SaveFile(string filePath, byte[] content)
@@ -61,7 +63,7 @@ namespace Famoser.Bookmarked.Presentation.Webpage.Platform
         private byte[] GetFileBytes(string filePath)
         {
             var targetPath = Path.Combine(GetTargetFolder(), filePath);
-            return File.ReadAllBytes(targetPath);
+            return !File.Exists(targetPath) ? null : File.ReadAllBytes(targetPath);
         }
 
         private bool RemoveFile(string filePath)

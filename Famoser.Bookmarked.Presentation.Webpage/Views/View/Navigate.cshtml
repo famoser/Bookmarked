@@ -1,0 +1,29 @@
+﻿@model Famoser.Bookmarked.Presentation.Webpage.Models.NavigationModel
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>hi, your path is @Model.Path</h2>
+
+@{
+    if (Model.IsNotFoundView)
+    {
+        <p>We did not find this :(</p>
+    }
+    else if (Model.IsFolderView)
+    {
+        foreach (var folderModelFolder in Model.FolderModel.Folders)
+        {
+            <p>
+                <a href="/Views/Navigate/@Model.AccountId/@Model.Path _@folderModelFolder.GetId()">
+                    @folderModelFolder.Name
+                    <br />
+                    <small>@folderModelFolder.Description</small>
+                </a>
+            </p>
+        }
+        <hr />
+    }
+}
+

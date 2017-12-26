@@ -20,9 +20,9 @@ namespace Famoser.Bookmarked.Presentation.Webpage
             );
 
             routes.MapRoute(
-                name: "LoggedIn",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                "LoggedIn",
+                "{controller}/{action}/{accountId}/{path}",
+                new { controller = "View", action = "Navigate", actionId = UrlParameter.Optional, path = UrlParameter.Optional }
             );
         }
     }
