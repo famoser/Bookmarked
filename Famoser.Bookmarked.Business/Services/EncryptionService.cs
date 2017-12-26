@@ -11,8 +11,11 @@ namespace Famoser.Bookmarked.Business.Services
         /// random init Vector (I swear, I've rolled a dice!)
         /// </summary>
         private static readonly byte[] InitVector = {
-                2, 1, 42, 14, 1, 2, 12, 4, 51, 21, 12, 3, 12, 3, 14, 12
-            };
+            2, 1, 42, 14,
+            1, 2, 12, 4,
+            51, 21, 12, 3,
+            12, 3, 14, 12
+        };
 
         public string Decrypt(string content, string password)
         {
