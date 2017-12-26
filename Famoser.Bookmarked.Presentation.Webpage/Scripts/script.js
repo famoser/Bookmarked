@@ -1,13 +1,6 @@
-﻿async function sha256(message) {
-    const msgBuffer = new TextEncoder('utf-8').encode(message);                     // encode as UTF-8
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);            // hash the message
-    const hashArray = Array.from(new Uint8Array(hashBuffer));                       // convert ArrayBuffer to Array
-    const hashHex = hashArray.map(b => ('00' + b.toString(16)).slice(-2)).join(''); // convert bytes to hex string
-    return hashHex;
-}
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('#guid').val(localStorage.getItem("guid"));
+    $('#password').val(sessionStorage.getItem("password"));
 
     $('form').on(
         "submit",
@@ -19,39 +12,47 @@ $(document).ready(function () {
 });
 
 function bootApplication() {
-    const $val = $("#password").val();
+    const $password = $("#password").val();
     const $guid = $("#guid").val();
-    (async function (guid) {
-        const hash = await sha256($val);
-        sessionStorage.setItem("password", hash);
+    (async function (guid, password) {
+        const hash = await getPasswordHash(password);
+        sessionStorage.setItem("password_hash", hash);
+        sessionStorage.setItem("password", password);
         localStorage.setItem("guid", guid);
         window.location = "View/Navigate/" + guid;
-    }($guid));
+    }($guid, $password));
 }
 
 function setGuid() {
-    readFile(document.getElementById('file').files[0]);
-}
+    const file = document.getElementById('file').files[0];
 
-decryptFile = async (bytes) => {
-    const val = $("#password").val();
-    const text = await decryptText(bytes, val);
-    console.log(text);
-    $("#guid").val(text);
-}
-
-function readFile(file) {
     const reader = new FileReader();
-
-    // If we use onloadend, we need to check the readyState.
     reader.onloadend = function (evt) {
-        if (evt.target.readyState == FileReader.DONE) {
+        if (evt.target.readyState === FileReader.DONE) {
             const bytes = evt.target.result;
             decryptFile(bytes);
         }
     };
-    reader.readAsArrayBuffer(file);
 
+    var blob = file.slice(0, file.length);
+    reader.readAsText(blob);
+}
+
+decryptFile = async (base64) => {
+    const val = $("#password").val();
+
+    //decrypt base64
+    var binaryString = window.atob(base64);
+    var length = binaryString.length;
+    var bytes = new Uint8Array(length);
+    for (var i = 0; i < length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    //decrypt cypher text
+    const text = await decryptText(bytes.buffer, val);
+    console.log(text);
+    $("#guid").val(text);
 }
 
 const testEncryption = async () => {
@@ -126,14 +127,19 @@ const encryptText = async (plainText, password) => {
 
 
 const decryptText = async (bytes, password) => {
-    //create password hash
-    const pwHash = await getPasswordHash(password);
+    try {
+        //create password hash
+        const pwHash = await getPasswordHash(password);
 
-    //create key
-    const alg = { name: 'AES-CBC', iv: getIvArray() };
-    const key = await crypto.subtle.importKey('raw', pwHash, alg, false, ['decrypt']);
+        //create key
+        const alg = { name: 'AES-CBC', iv: getIvArray() };
+        const key = await crypto.subtle.importKey('raw', pwHash, alg, false, ['decrypt']);
 
-    //decrypt
-    const ptBuffer = await crypto.subtle.decrypt(alg, key, bytes);
-    return new TextDecoder().decode(ptBuffer);
+        //decrypt
+        const ptBuffer = await crypto.subtle.decrypt(alg, key, bytes);
+        return new TextDecoder().decode(ptBuffer);
+    } catch (e) {
+        console.log(e);
+    }
+    return "failed";
 }
