@@ -3,8 +3,9 @@ using Famoser.Bookmarked.Business.Repositories.Interfaces;
 using Famoser.Bookmarked.Business.Services.Interfaces;
 using Famoser.Bookmarked.View.Command;
 using Famoser.Bookmarked.View.Services.Interfaces;
+using Famoser.Bookmarked.View.ViewModels.Base;
 
-namespace Famoser.Bookmarked.View.ViewModels.Base
+namespace Famoser.Bookmarked.View.ViewModels
 {
     public class SetCredentialsViewModel : BaseViewModel
     {
