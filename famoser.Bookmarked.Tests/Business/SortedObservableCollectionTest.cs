@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Famoser.Bookmarked.Business.List;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
 
-namespace famoser.Bookmarked.Tests.Business
+namespace Famoser.Bookmarked.Tests.Business
 {
     [TestClass]
     public class SortedObservableCollectionTest

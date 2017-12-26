@@ -7,8 +7,8 @@
     <ProjectGuid>{B951D9E7-6D65-4A64-A388-9A87D887A7E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>famoser.Bookmarked.Tests</RootNamespace>
-    <AssemblyName>famoser.Bookmarked.Tests</AssemblyName>
+    <RootNamespace>Famoser.Bookmarked.Tests</RootNamespace>
+    <AssemblyName>Famoser.Bookmarked.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

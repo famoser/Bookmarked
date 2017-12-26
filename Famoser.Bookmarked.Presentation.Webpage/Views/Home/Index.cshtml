@@ -3,10 +3,30 @@
 }
 
 <div class="jumbotron">
-    <h1>Password & Guid please!</h1>
-    <form method="POST">
-    <input type="text" id="guid" />
-    <input type="password" id="password" />
-    <button type="submit" onclick="bootApplication()">submit</button>
+    <h1>Password & GUID please!</h1>
+    <form>
+        <div class="form-group">
+            <label for="guid">GUID</label>
+            <input type="email" class="form-control" id="guid" aria-describedby="guidHelp" placeholder="Your guid">
+            <small id="guidHelp" class="form-text text-muted">Don't know what this is? Fill in the password below, and use the tool below to set it automatically.</small>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="bootApplication()">Login</button>
+    </form>
+</div>
+
+
+<div class="jumbotron">
+    <h1>Import the GUID please!</h1>
+    <form>
+        <div class="form-group">
+            <label for="file">Password file</label>
+            <input type="file" class="form-control" id="file" aria-describedby="fileHelp" placeholder="Your file">
+            <small id="emailHelp" class="form-text text-muted">You can export your bookmarked file directly in your app in the "About" menu. Don't forget to set your password above</small>
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="setGuid()">Readout file</button>
     </form>
 </div>

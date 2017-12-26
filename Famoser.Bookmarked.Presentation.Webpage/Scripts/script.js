@@ -30,20 +30,24 @@ function bootApplication() {
 }
 
 function setGuid() {
-    const files = $("#file").files;
-    readFile(files[0]);
+    readFile(document.getElementById('file').files[0]);
+}
+
+decryptFile = async (bytes) => {
+    const val = $("#password").val();
+    const text = await decryptText(bytes, val);
+    console.log(text);
+    $("#guid").val(text);
 }
 
 function readFile(file) {
-    const val = $("#password").val();
-
     const reader = new FileReader();
 
     // If we use onloadend, we need to check the readyState.
     reader.onloadend = function (evt) {
         if (evt.target.readyState == FileReader.DONE) {
             const bytes = evt.target.result;
-            console.log(decryptText(bytes, val));
+            decryptFile(bytes);
         }
     };
     reader.readAsArrayBuffer(file);
@@ -89,10 +93,25 @@ function getIvArray() {
     return array;
 }
 
+const getPasswordHash = async (password) => {
+    //get hash
+    const pwUtf8 = new TextEncoder().encode(password);
+    const hash = await crypto.subtle.digest('SHA-256', pwUtf8);
+
+    //apply Pkcs7 padding
+    var maxSize = 256 / 8;
+    var padSize = maxSize - (hash.byteLength % maxSize);
+    var padCode = padSize;
+    var res = new ArrayBuffer(maxSize);
+    for (var i = hash.byteLength; i < res.length; i++) {
+        res[i] = padCode;
+    }
+    return res;
+}
+
 const encryptText = async (plainText, password) => {
     //create password hash
-    const pwUtf8 = new TextEncoder().encode(password);
-    const pwHash = await crypto.subtle.digest('SHA-256', pwUtf8);
+    const pwHash = await getPasswordHash(password);
 
     //encode plain text
     const ptUtf8 = new TextEncoder().encode(plainText);
@@ -108,8 +127,7 @@ const encryptText = async (plainText, password) => {
 
 const decryptText = async (bytes, password) => {
     //create password hash
-    const pwUtf8 = new TextEncoder().encode(password);
-    const pwHash = await crypto.subtle.digest('SHA-256', pwUtf8);
+    const pwHash = await getPasswordHash(password);
 
     //create key
     const alg = { name: 'AES-CBC', iv: getIvArray() };
