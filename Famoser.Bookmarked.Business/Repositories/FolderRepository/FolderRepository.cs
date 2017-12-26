@@ -253,7 +253,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             }
 
             //look for missing children
-            foreach (var entryModel in _entries)
+            foreach (var entryModel in _entries.ToList())
             {
                 if (entryModel.ParentIds.Contains(folder.GetId()))
                 {
@@ -262,7 +262,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             }
 
             //look for missing folders
-            foreach (var folderModel in _folders)
+            foreach (var folderModel in _folders.ToList())
             {
                 if (folderModel.ParentIds.Contains(folder.GetId()) && !folder.Folders.Contains(folderModel))
                 {

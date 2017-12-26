@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.Bookmarked.View", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FB113878-FFD5-4AE2-9DE1-09223D754B6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "famoser.Bookmarked.Tests", "famoser.Bookmarked.Tests\famoser.Bookmarked.Tests.csproj", "{B951D9E7-6D65-4A64-A388-9A87D887A7E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.Bookmarked.Tests", "famoser.Bookmarked.Tests\Famoser.Bookmarked.Tests.csproj", "{B951D9E7-6D65-4A64-A388-9A87D887A7E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Famoser.Bookmarked.Presentation.Webpage", "Famoser.Bookmarked.Presentation.Webpage\Famoser.Bookmarked.Presentation.Webpage.csproj", "{B6606568-3A3A-472A-ADFC-7F9ACAA2611E}"
 EndProject
