@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
-namespace famoser.Bookmarked.Tests
+namespace Famoser.Bookmarked.Tests
 {
     [TestClass]
     public class CSharpTests
