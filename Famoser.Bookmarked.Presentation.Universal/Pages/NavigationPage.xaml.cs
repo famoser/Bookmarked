@@ -164,10 +164,9 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
                     var def = e.GetDeferral();
 
                     var item = e.Data.Properties.FirstOrDefault(x => x.Key == ItemDragData);
-                    var entry = item.Value as EntryModel;
                     var folder = item.Value as FolderModel;
 
-                    if (entry != null)
+                    if (item.Value is EntryModel entry)
                     {
                         await ViewModel.MoveOneFolderUpAsync(entry);
                     }
@@ -323,7 +322,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Pages
             {
                 if (sender is FrameworkElement s)
                 {
-                    s.AllowFocusOnInteraction = true;
+                    //s.AllowFocusOnInteraction = true;
                 }
             }
         }

@@ -2,10 +2,10 @@
     x:Class="Famoser.Bookmarked.Presentation.Universal.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:visibility="using:Famoser.FrameworkEssentials.UniversalWindows.Converters.Visibility"
-    xmlns:viewModels="using:Famoser.Bookmarked.Presentation.Universal.ViewModels"
     xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
     xmlns:strings="using:Famoser.Bookmarked.Presentation.Universal.Strings"
+    xmlns:viewModels="using:Famoser.Bookmarked.Presentation.Universal.ViewModels"
+    xmlns:visibility="using:Famoser.FrameworkEssentials.UniversalWindows.Converters.Visibility"
     RequestedTheme="Light">
     <Application.Resources>
         <ResourceDictionary>
@@ -18,21 +18,47 @@
             <converters:EnumVisibilityConverter x:Key="EnumVisibilityConverter" />
             <converters:CollectionToVisibilityConverter x:Key="CollectionToVisibilityConverter" />
 
-            <!-- ListView controls -->
+            <!--  ListView controls  -->
             <Style x:Key="SmallStretchListViewItemStyle" TargetType="ListViewItem">
-                <Setter Property="MinHeight" Value="0"/>
+                <Setter Property="MinHeight" Value="0" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="0,2" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListViewItem">
                             <!--<ContentPresenter />-->
-                            <ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="Inline" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}" SelectionCheckMarkVisualEnabled="True" SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}" SelectedBackground="{ThemeResource SystemControlHighlightListAccentLowBrush}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ListViewItemPresenter
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                CheckMode="Inline"
+                                ContentMargin="{TemplateBinding Padding}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                                DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                                DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                                DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                                FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}"
+                                FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                                PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
+                                PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                                PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}"
+                                ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                SelectedBackground="{ThemeResource SystemControlHighlightListAccentLowBrush}"
+                                SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                                SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}"
+                                SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}"
+                                SelectionCheckMarkVisualEnabled="True" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="SmallListView" TargetType="ListView" BasedOn="{StaticResource BasicControl}">
+            <Style
+                x:Key="SmallListView"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="ListView">
                 <Setter Property="ItemContainerStyle" Value="{StaticResource SmallStretchListViewItemStyle}" />
             </Style>
 
@@ -44,42 +70,86 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="ListViewItem">
                             <!--<ContentPresenter />-->
-                            <ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="Inline" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}" SelectionCheckMarkVisualEnabled="True" SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}" SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}" SelectedBackground="{ThemeResource SystemControlHighlightListAccentLowBrush}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            <ListViewItemPresenter
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                CheckBoxBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}"
+                                CheckMode="Inline"
+                                ContentMargin="{TemplateBinding Padding}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                                DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                                DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                                DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                                FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}"
+                                FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                                PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                                PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
+                                PointerOverForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                                PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}"
+                                ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                SelectedBackground="{ThemeResource SystemControlHighlightListAccentLowBrush}"
+                                SelectedForeground="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                                SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}"
+                                SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}"
+                                SelectionCheckMarkVisualEnabled="True" />
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="FullListView" TargetType="ListView" BasedOn="{StaticResource BasicControl}">
+            <Style
+                x:Key="FullListView"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="ListView">
                 <Setter Property="ItemContainerStyle" Value="{StaticResource StretchListViewItemStyle}" />
             </Style>
-            <Style x:Key="ClickListView" TargetType="ListView" BasedOn="{StaticResource FullListView}">
+            <Style
+                x:Key="ClickListView"
+                BasedOn="{StaticResource FullListView}"
+                TargetType="ListView">
                 <Setter Property="IsItemClickEnabled" Value="True" />
             </Style>
-            <Style x:Key="DragListView" TargetType="ListView" BasedOn="{StaticResource ClickListView}">
+            <Style
+                x:Key="DragListView"
+                BasedOn="{StaticResource ClickListView}"
+                TargetType="ListView">
                 <Setter Property="CanDragItems" Value="True" />
             </Style>
-            <Style x:Key="DropListView" TargetType="ListView" BasedOn="{StaticResource DragListView}">
+            <Style
+                x:Key="DropListView"
+                BasedOn="{StaticResource DragListView}"
+                TargetType="ListView">
                 <Setter Property="AllowDrop" Value="True" />
             </Style>
 
-            <!-- basic style elements -->
-            <Style x:Key="BasicBorder" TargetType="Border" BasedOn="{StaticResource BasicElement}">
+            <!--  basic style elements  -->
+            <Style
+                x:Key="BasicBorder"
+                BasedOn="{StaticResource BasicElement}"
+                TargetType="Border">
                 <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="Margin" Value="10,0" />
             </Style>
 
-            <Style x:Key="HeaderBottomBorder" TargetType="Border" BasedOn="{StaticResource BasicBorder}">
+            <Style
+                x:Key="HeaderBottomBorder"
+                BasedOn="{StaticResource BasicBorder}"
+                TargetType="Border">
                 <Setter Property="BorderThickness" Value="0,8,0,0" />
                 <Setter Property="Width" Value="34" />
             </Style>
 
-            <Style x:Key="ContentBottomBorder" TargetType="Border" BasedOn="{StaticResource BasicBorder}">
+            <Style
+                x:Key="ContentBottomBorder"
+                BasedOn="{StaticResource BasicBorder}"
+                TargetType="Border">
                 <Setter Property="BorderThickness" Value="0,5,0,0" />
                 <Setter Property="Width" Value="21" />
             </Style>
 
-            <!-- content grids inside ListView -->
+            <!--  content grids inside ListView  -->
             <Style x:Key="ListViewDataTemplateStackPanel" TargetType="StackPanel">
                 <Setter Property="Background" Value="#fff" />
                 <Setter Property="Margin" Value="10" />
@@ -92,41 +162,51 @@
                 <Setter Property="Padding" Value="10" />
             </Style>
 
-            <!-- layout -->
+            <!--  layout  -->
             <Style x:Key="LayoutGrid" TargetType="Grid">
                 <Setter Property="Background" Value="#efefef" />
             </Style>
 
-            <!-- content grids -->
-            <Style x:Key="ContentGrid" TargetType="Grid">
-            </Style>
+            <!--  content grids  -->
+            <Style x:Key="ContentGrid" TargetType="Grid" />
 
-            <Style x:Key="FullContentGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
-            </Style>
+            <Style
+                x:Key="FullContentGrid"
+                BasedOn="{StaticResource ContentGrid}"
+                TargetType="Grid" />
 
-            <Style x:Key="PartContentGrid" TargetType="Grid" BasedOn="{StaticResource ContentGrid}">
+            <Style
+                x:Key="PartContentGrid"
+                BasedOn="{StaticResource ContentGrid}"
+                TargetType="Grid">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
             </Style>
 
-            <Style x:Key="SmallContentGrid" TargetType="Grid" BasedOn="{StaticResource PartContentGrid}">
+            <Style
+                x:Key="SmallContentGrid"
+                BasedOn="{StaticResource PartContentGrid}"
+                TargetType="Grid">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="MaxWidth" Value="450" />
             </Style>
 
-            <Style x:Key="DoubleContentGrid" TargetType="Grid" BasedOn="{StaticResource PartContentGrid}">
+            <Style
+                x:Key="DoubleContentGrid"
+                BasedOn="{StaticResource PartContentGrid}"
+                TargetType="Grid">
                 <Setter Property="VerticalAlignment" Value="Top" />
                 <Setter Property="MaxWidth" Value="900" />
                 <Setter Property="Margin" Value="20" />
             </Style>
 
-            <!-- header wrapper -->
+            <!--  header wrapper  -->
             <Style x:Key="HeaderStackPanel" TargetType="StackPanel">
                 <Setter Property="Background" Value="#FAFAFA" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="Padding" Value="10" />
             </Style>
 
-            <!-- content wrapper -->
+            <!--  content wrapper  -->
             <Style x:Key="ContentScrollViewer" TargetType="ScrollViewer">
                 <Setter Property="HorizontalScrollMode" Value="Disabled" />
                 <Setter Property="VerticalScrollBarVisibility" Value="Hidden" />
@@ -138,144 +218,243 @@
                 <Setter Property="Padding" Value="10" />
             </Style>
 
-            <Style x:Key="SmallContentStackPanel" TargetType="StackPanel" BasedOn="{StaticResource ContentStackPanel}">
+            <Style
+                x:Key="SmallContentStackPanel"
+                BasedOn="{StaticResource ContentStackPanel}"
+                TargetType="StackPanel">
                 <Setter Property="Margin" Value="0,10,0,0" />
             </Style>
 
-            <!-- Basic elements -->
+            <!--  Basic elements  -->
             <Style x:Key="BasicElement" TargetType="FrameworkElement">
                 <Setter Property="Margin" Value="0" />
             </Style>
 
-            <Style x:Key="BasicTextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicElement}">
+            <Style
+                x:Key="BasicTextBlock"
+                BasedOn="{StaticResource BasicElement}"
+                TargetType="TextBlock">
                 <Setter Property="Padding" Value="10" />
                 <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
 
-            <Style x:Key="BasicControl" TargetType="Control" BasedOn="{StaticResource BasicElement}">
+            <Style
+                x:Key="BasicControl"
+                BasedOn="{StaticResource BasicElement}"
+                TargetType="Control">
                 <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="Padding" Value="10" />
             </Style>
 
-            <!-- text fields -->
-            <Style x:Key="ParagraphTextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
+            <!--  text fields  -->
+            <Style
+                x:Key="ParagraphTextBlock"
+                BasedOn="{StaticResource BasicTextBlock}"
+                TargetType="TextBlock">
                 <Setter Property="FontSize" Value="13" />
                 <Setter Property="FontWeight" Value="Normal" />
             </Style>
 
-            <Style x:Key="H3TextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
+            <Style
+                x:Key="H3TextBlock"
+                BasedOn="{StaticResource BasicTextBlock}"
+                TargetType="TextBlock">
                 <Setter Property="FontSize" Value="21" />
                 <Setter Property="FontWeight" Value="SemiLight" />
             </Style>
 
-            <Style x:Key="H3DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
+            <Style
+                x:Key="H3DescriptionTextBlock"
+                BasedOn="{StaticResource ParagraphTextBlock}"
+                TargetType="TextBlock" />
 
-            </Style>
-
-            <Style x:Key="H2TextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
+            <Style
+                x:Key="H2TextBlock"
+                BasedOn="{StaticResource BasicTextBlock}"
+                TargetType="TextBlock">
                 <Setter Property="FontSize" Value="34" />
                 <Setter Property="FontWeight" Value="Light" />
             </Style>
 
-            <Style x:Key="H2DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
+            <Style
+                x:Key="H2DescriptionTextBlock"
+                BasedOn="{StaticResource ParagraphTextBlock}"
+                TargetType="TextBlock">
                 <Setter Property="Margin" Value="0,-13,0,0" />
             </Style>
 
-            <Style x:Key="H1TextBlock" TargetType="TextBlock" BasedOn="{StaticResource BasicTextBlock}">
+            <Style
+                x:Key="H1TextBlock"
+                BasedOn="{StaticResource BasicTextBlock}"
+                TargetType="TextBlock">
                 <Setter Property="FontSize" Value="55" />
                 <Setter Property="FontWeight" Value="ExtraLight" />
+                <Setter Property="MaxLines" Value="1" />
             </Style>
 
-            <Style x:Key="H1DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
+            <Style
+                x:Key="H1DescriptionTextBlock"
+                BasedOn="{StaticResource ParagraphTextBlock}"
+                TargetType="TextBlock">
                 <Setter Property="Margin" Value="0,-20,0,0" />
+                <Setter Property="MaxLines" Value="1" />
             </Style>
 
-            <Style x:Key="LabelTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
+            <Style
+                x:Key="LabelTextBlock"
+                BasedOn="{StaticResource ParagraphTextBlock}"
+                TargetType="TextBlock" />
 
 
-            <!-- buttons -->
-            <Style x:Key="BasicButton" TargetType="Button" BasedOn="{StaticResource BasicControl}">
+            <!--  buttons  -->
+            <Style
+                x:Key="BasicButton"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="Button">
                 <Setter Property="Margin" Value="0,10" />
             </Style>
 
-            <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource BasicButton}">
+            <Style
+                x:Key="PrimaryButton"
+                BasedOn="{StaticResource BasicButton}"
+                TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource SystemAccentColor}" />
-                <Setter Property="Foreground" Value="#FAFAFA"></Setter>
+                <Setter Property="Foreground" Value="#FAFAFA" />
             </Style>
 
-            <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource BasicButton}">
-                
-            </Style>
+            <Style
+                x:Key="SecondaryButton"
+                BasedOn="{StaticResource BasicButton}"
+                TargetType="Button" />
 
-            <!-- edit boxes / pickers -->
-            <Style x:Key="BasicSearchBox" TargetType="SearchBox" BasedOn="{StaticResource BasicControl}">
+            <!--  edit boxes / pickers  -->
+            <Style
+                x:Key="BasicSearchBox"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="SearchBox">
                 <Setter Property="SearchHistoryEnabled" Value="True" />
             </Style>
 
-            <Style x:Key="BasicTextBox" TargetType="TextBox" BasedOn="{StaticResource BasicControl}">
+            <Style
+                x:Key="BasicTextBox"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="TextBox">
                 <Setter Property="IsSpellCheckEnabled" Value="True" />
             </Style>
 
-            <Style x:Key="BasicDatePicker" TargetType="DatePicker" BasedOn="{StaticResource BasicControl}">
+            <Style
+                x:Key="BasicDatePicker"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="DatePicker" />
 
-            </Style>
+            <Style
+                x:Key="BasicTimePicker"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="TimePicker" />
+            <Style
+                x:Key="BasicComboBox"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="ComboBox" />
 
-            <Style x:Key="BasicTimePicker" TargetType="TimePicker" BasedOn="{StaticResource BasicControl}">
-
-            </Style>
-            <Style x:Key="BasicComboBox" TargetType="ComboBox" BasedOn="{StaticResource BasicControl}">
-
-            </Style>
-
-            <Style x:Key="BasicPasswordBox" TargetType="PasswordBox" BasedOn="{StaticResource BasicControl}">
+            <Style
+                x:Key="BasicPasswordBox"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="PasswordBox">
                 <Setter Property="PasswordRevealMode" Value="Peek" />
             </Style>
 
-            <Style x:Key="BasicRadioButton" TargetType="RadioButton" BasedOn="{StaticResource BasicControl}" />
+            <Style
+                x:Key="BasicRadioButton"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="RadioButton" />
 
-            <!-- individual styles -->
-            <!-- display entry -->
-            <Style x:Key="DescriptionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlock}" />
+            <!--  individual styles  -->
+            <!--  display entry  -->
+            <Style
+                x:Key="DescriptionTextBlock"
+                BasedOn="{StaticResource LabelTextBlock}"
+                TargetType="TextBlock" />
 
-            <Style x:Key="ValueTextBlock" TargetType="TextBlock" BasedOn="{StaticResource H3TextBlock}">
+            <Style
+                x:Key="ValueTextBlock"
+                BasedOn="{StaticResource H3TextBlock}"
+                TargetType="TextBlock">
                 <Setter Property="IsTextSelectionEnabled" Value="True" />
             </Style>
 
-            <!-- edit entry -->
-            <Style x:Key="ValueTextBox" TargetType="TextBox" BasedOn="{StaticResource BasicTextBox}" />
+            <!--  edit entry  -->
+            <Style
+                x:Key="ValueTextBox"
+                BasedOn="{StaticResource BasicTextBox}"
+                TargetType="TextBox" />
 
-            <Style x:Key="ValueDatePicker" TargetType="DatePicker" BasedOn="{StaticResource BasicDatePicker}" />
+            <Style
+                x:Key="ValueDatePicker"
+                BasedOn="{StaticResource BasicDatePicker}"
+                TargetType="DatePicker" />
 
-            <Style x:Key="ValueTimePicker" TargetType="TimePicker" BasedOn="{StaticResource BasicTimePicker}" />
-            
-            <Style x:Key="ValueComboBox" TargetType="ComboBox" BasedOn="{StaticResource BasicComboBox}" />
+            <Style
+                x:Key="ValueTimePicker"
+                BasedOn="{StaticResource BasicTimePicker}"
+                TargetType="TimePicker" />
 
-            <!-- navigation -->
-            <Style x:Key="ItemHeader" TargetType="TextBlock" BasedOn="{StaticResource H2TextBlock}" />
-            <Style x:Key="ItemDescription" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
+            <Style
+                x:Key="ValueComboBox"
+                BasedOn="{StaticResource BasicComboBox}"
+                TargetType="ComboBox" />
 
-            <!-- login -->
-            <Style x:Key="LoginPasswordBox" TargetType="PasswordBox" BasedOn="{StaticResource BasicPasswordBox}" />
+            <!--  navigation  -->
+            <Style
+                x:Key="ItemHeader"
+                BasedOn="{StaticResource H2TextBlock}"
+                TargetType="TextBlock">
+                <Setter Property="MaxLines" Value="1" />
+            </Style>
+            <Style
+                x:Key="ItemDescription"
+                BasedOn="{StaticResource ParagraphTextBlock}"
+                TargetType="TextBlock" />
 
-            <!-- info -->
-            <Style x:Key="QuestionTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
+            <!--  login  -->
+            <Style
+                x:Key="LoginPasswordBox"
+                BasedOn="{StaticResource BasicPasswordBox}"
+                TargetType="PasswordBox" />
+
+            <!--  info  -->
+            <Style
+                x:Key="QuestionTextBlock"
+                BasedOn="{StaticResource ParagraphTextBlock}"
+                TargetType="TextBlock">
                 <Setter Property="FontWeight" Value="Bold" />
             </Style>
-            <Style x:Key="AnswerTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}">
+            <Style
+                x:Key="AnswerTextBlock"
+                BasedOn="{StaticResource ParagraphTextBlock}"
+                TargetType="TextBlock">
                 <Setter Property="Margin" Value="0,-8,0,8" />
             </Style>
 
-            <!-- welcome -->
-            <Style x:Key="WelcomeRadioButton" TargetType="RadioButton" BasedOn="{StaticResource BasicRadioButton}" />
+            <!--  welcome  -->
+            <Style
+                x:Key="WelcomeRadioButton"
+                BasedOn="{StaticResource BasicRadioButton}"
+                TargetType="RadioButton" />
 
-            <!-- search -->
-            <Style x:Key="SearchBox" TargetType="SearchBox" BasedOn="{StaticResource BasicSearchBox}">
+            <!--  search  -->
+            <Style
+                x:Key="SearchBox"
+                BasedOn="{StaticResource BasicSearchBox}"
+                TargetType="SearchBox">
                 <Setter Property="Margin" Value="0,28,0,20" />
             </Style>
 
-            <!-- info -->
-            <Style x:Key="TraceTextBlock" TargetType="TextBlock" BasedOn="{StaticResource ParagraphTextBlock}" />
+            <!--  info  -->
+            <Style
+                x:Key="TraceTextBlock"
+                BasedOn="{StaticResource ParagraphTextBlock}"
+                TargetType="TextBlock" />
 
 
 
