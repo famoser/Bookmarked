@@ -65,7 +65,7 @@
                 </Grid.ColumnDefinitions>
                 <Image
                     Grid.Column="1"
-                    Width="80"
+                    Width="50"
                     Stretch="Uniform">
                     <Image.Source>
                         <BitmapImage UriSource="{Binding IconUri}" />
@@ -88,7 +88,7 @@
                 </Grid.ColumnDefinitions>
                 <Image
                     Grid.Column="1"
-                    Width="80"
+                    Width="50"
                     Stretch="Uniform">
                     <Image.Source>
                         <BitmapImage UriSource="{Binding IconUri}" />

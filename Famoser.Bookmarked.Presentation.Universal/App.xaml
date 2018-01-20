@@ -18,6 +18,9 @@
             <converters:EnumVisibilityConverter x:Key="EnumVisibilityConverter" />
             <converters:CollectionToVisibilityConverter x:Key="CollectionToVisibilityConverter" />
 
+            <Thickness x:Key="BaseMargin">4</Thickness>
+            <Thickness x:Key="ExtraMargin">8</Thickness>
+
             <!--  ListView controls  -->
             <Style x:Key="SmallStretchListViewItemStyle" TargetType="ListViewItem">
                 <Setter Property="MinHeight" Value="0" />
@@ -130,7 +133,7 @@
                 TargetType="Border">
                 <Setter Property="BorderBrush" Value="{ThemeResource SystemAccentColor}" />
                 <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Margin" Value="10,0" />
+                <Setter Property="Margin" Value="5,0" />
             </Style>
 
             <Style
@@ -152,14 +155,14 @@
             <!--  content grids inside ListView  -->
             <Style x:Key="ListViewDataTemplateStackPanel" TargetType="StackPanel">
                 <Setter Property="Background" Value="#fff" />
-                <Setter Property="Margin" Value="10" />
-                <Setter Property="Padding" Value="10" />
+                <Setter Property="Margin" Value="{StaticResource BaseMargin}" />
+                <Setter Property="Padding" Value="{StaticResource BaseMargin}" />
             </Style>
 
             <Style x:Key="ListViewDataTemplateGrid" TargetType="Grid">
                 <Setter Property="Background" Value="#fff" />
-                <Setter Property="Margin" Value="10" />
-                <Setter Property="Padding" Value="10" />
+                <Setter Property="Margin" Value="{StaticResource BaseMargin}" />
+                <Setter Property="Padding" Value="{StaticResource BaseMargin}" />
             </Style>
 
             <!--  layout  -->
@@ -234,7 +237,7 @@
                 x:Key="BasicTextBlock"
                 BasedOn="{StaticResource BasicElement}"
                 TargetType="TextBlock">
-                <Setter Property="Padding" Value="10" />
+                <Setter Property="Padding" Value="{StaticResource BaseMargin}" />
                 <Setter Property="FontFamily" Value="Segoe UI" />
                 <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
@@ -244,7 +247,7 @@
                 BasedOn="{StaticResource BasicElement}"
                 TargetType="Control">
                 <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="Padding" Value="10" />
+                <Setter Property="Padding" Value="{StaticResource ExtraMargin}" />
             </Style>
 
             <!--  text fields  -->
@@ -260,20 +263,23 @@
                 x:Key="H3TextBlock"
                 BasedOn="{StaticResource BasicTextBlock}"
                 TargetType="TextBlock">
-                <Setter Property="FontSize" Value="21" />
+                <Setter Property="FontSize" Value="13" />
                 <Setter Property="FontWeight" Value="SemiLight" />
             </Style>
 
             <Style
                 x:Key="H3DescriptionTextBlock"
                 BasedOn="{StaticResource ParagraphTextBlock}"
-                TargetType="TextBlock" />
+                TargetType="TextBlock">
+
+                <Setter Property="Margin" Value="0,-3,0,0" />
+            </Style>
 
             <Style
                 x:Key="H2TextBlock"
                 BasedOn="{StaticResource BasicTextBlock}"
                 TargetType="TextBlock">
-                <Setter Property="FontSize" Value="34" />
+                <Setter Property="FontSize" Value="21" />
                 <Setter Property="FontWeight" Value="Light" />
             </Style>
 
@@ -281,14 +287,14 @@
                 x:Key="H2DescriptionTextBlock"
                 BasedOn="{StaticResource ParagraphTextBlock}"
                 TargetType="TextBlock">
-                <Setter Property="Margin" Value="0,-13,0,0" />
+                <Setter Property="Margin" Value="0,-5,0,0" />
             </Style>
 
             <Style
                 x:Key="H1TextBlock"
                 BasedOn="{StaticResource BasicTextBlock}"
                 TargetType="TextBlock">
-                <Setter Property="FontSize" Value="55" />
+                <Setter Property="FontSize" Value="34" />
                 <Setter Property="FontWeight" Value="ExtraLight" />
                 <Setter Property="MaxLines" Value="1" />
             </Style>
@@ -297,8 +303,8 @@
                 x:Key="H1DescriptionTextBlock"
                 BasedOn="{StaticResource ParagraphTextBlock}"
                 TargetType="TextBlock">
-                <Setter Property="Margin" Value="0,-20,0,0" />
                 <Setter Property="MaxLines" Value="1" />
+                <Setter Property="Margin" Value="0,-8,0,0" />
             </Style>
 
             <Style
@@ -433,7 +439,7 @@
                 x:Key="AnswerTextBlock"
                 BasedOn="{StaticResource ParagraphTextBlock}"
                 TargetType="TextBlock">
-                <Setter Property="Margin" Value="0,-8,0,8" />
+                <Setter Property="Margin" Value="0,0,0,8" />
             </Style>
 
             <!--  welcome  -->
@@ -455,8 +461,6 @@
                 x:Key="TraceTextBlock"
                 BasedOn="{StaticResource ParagraphTextBlock}"
                 TargetType="TextBlock" />
-
-
 
         </ResourceDictionary>
     </Application.Resources>
