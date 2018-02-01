@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="10401FlorianMoser.Bookmarked" Publisher="CN=11675D3B-05AA-4B24-A422-AD2FB58E21ED" Version="2018.1.37.0" />
-  <mp:PhoneIdentity PhoneProductId="2cd87398-29d1-44d9-9591-4ffadd06d025" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="10401FlorianMoser.Bookmarked" Publisher="CN=11675D3B-05AA-4B24-A422-AD2FB58E21ED" Version="2018.1.38.0" />
+  <mp:PhoneIdentity PhoneProductId="696f5514-3a90-4c91-ad34-c171e5316ca7" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Bookmarked</DisplayName>
     <PublisherDisplayName>Florian Moser</PublisherDisplayName>

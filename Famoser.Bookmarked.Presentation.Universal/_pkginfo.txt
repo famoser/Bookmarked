@@ -1,1 +1,1 @@
-D:\Repos\Bookmarked\Famoser.Bookmarked.Presentation.Universal\bin\ARM\Release\Upload\Famoser.Bookmarked.Presentation.Universal_2018.1.37.0\Famoser.Bookmarked.Presentation.Universal_2018.1.37.0_x86_x64_arm.appxbundle
+D:\Repos\Bookmarked\Famoser.Bookmarked.Presentation.Universal\bin\ARM\Release\Upload\Famoser.Bookmarked.Presentation.Universal_2018.1.38.0\Famoser.Bookmarked.Presentation.Universal_2018.1.38.0_x86_x64_arm.appxbundle
