@@ -48,7 +48,7 @@ namespace Famoser.Bookmarked.View.ViewModels
             if (await _folderRepository.ImportCredentialsAsync(importFile, hash))
             {
                 await _passwordService.SetPasswordAsync(hash);
-                await _interactionService.ShowMessageAsync("import successful!");
+                await _interactionService.ShowMessageAsync("import successful; the application will close now");
                 _interactionService.CloseApplication();
             }
             else

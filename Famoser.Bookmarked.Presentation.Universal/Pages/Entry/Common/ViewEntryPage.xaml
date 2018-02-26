@@ -2,29 +2,32 @@
     x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.ViewEntryPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common"
+    xmlns:controls="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:webpage="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Webpage"
-    xmlns:common="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common"
-    xmlns:controls="using:Famoser.Bookmarked.Presentation.Universal.Pages.Entry.Common.Controls"
-    mc:Ignorable="d"
-    d:DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}">
+    d:DataContext="{Binding WebpageViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d">
 
     <Page.Resources>
         <DataTemplate x:Key="ContentTypeModelTemplate">
-            <TextBlock Text="{Binding Name}" Padding="5" />
+            <TextBlock Padding="5" Text="{Binding Name}" />
         </DataTemplate>
     </Page.Resources>
 
     <Grid Style="{StaticResource LayoutGrid}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid Style="{StaticResource DoubleContentGrid}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Style="{StaticResource HeaderStackPanel}">
-                <TextBlock Text="{Binding SelectedEntry.Name}" Style="{StaticResource H1TextBlock}"  />
-                <TextBlock Text="{Binding SelectedEntry.Description}" Style="{StaticResource H1DescriptionTextBlock}" />
+                <TextBlock Style="{StaticResource H1TextBlock}" Text="{Binding SelectedEntry.Name}" />
+                <TextBlock Style="{StaticResource H1DescriptionTextBlock}" Text="{Binding SelectedEntry.Description}" />
                 <Border Style="{StaticResource HeaderBottomBorder}" />
             </StackPanel>
             <ScrollViewer Grid.Row="1" Style="{StaticResource ContentScrollViewer}">
@@ -39,25 +42,29 @@
     <Page.BottomAppBar>
         <CommandBar>
             <CommandBar.PrimaryCommands>
-                <AppBarButton Icon="Remove" Label="Remove" >
+                <AppBarButton Icon="Remove" Label="Remove">
                     <AppBarButton.Flyout>
                         <Flyout>
-                            <Button Content="are you sure?" Command="{Binding RemoveEntryCommand}"></Button>
+                            <Button Command="{Binding RemoveEntryCommand}" Content="are you sure?" />
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
-                <AppBarButton Icon="Up" Label="Upgrade" >
+                <AppBarButton Icon="Up" Label="Upgrade">
                     <AppBarButton.Flyout>
                         <Flyout Placement="Bottom">
-                            <ListView 
-                                ItemsSource="{Binding UpgradableContentTypes}" 
+                            <ListView
+                                IsItemClickEnabled="True"
+                                ItemClick="ListView_ItemClick"
+                                ItemContainerStyle="{StaticResource StretchListViewItemStyle}"
                                 ItemTemplate="{StaticResource ContentTypeModelTemplate}"
-                                ItemContainerStyle="{StaticResource StretchListViewItemStyle}" 
-                                IsItemClickEnabled="True" ItemClick="ListView_ItemClick"/>
+                                ItemsSource="{Binding UpgradableContentTypes}" />
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
-                <AppBarButton Command="{Binding EditEntryCommand}" Icon="Edit" Label="Edit" />
+                <AppBarButton
+                    Command="{Binding EditEntryCommand}"
+                    Icon="Edit"
+                    Label="Edit" />
             </CommandBar.PrimaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

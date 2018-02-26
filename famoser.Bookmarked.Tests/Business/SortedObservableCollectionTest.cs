@@ -10,10 +10,7 @@ namespace Famoser.Bookmarked.Tests.Business
         [TestMethod]
         public void TestSimpleAdd()
         {
-            var list = new SortedObservableCollection<string>(Comparer<string>.Default);
-            list.Add("a");
-            list.Add("b");
-            list.Add("c");
+            var list = new SortedObservableCollection<string>(Comparer<string>.Default) {"a", "b", "c"};
 
             Assert.IsTrue(list[0] == "a");
             Assert.IsTrue(list[1] == "b");
@@ -23,10 +20,7 @@ namespace Famoser.Bookmarked.Tests.Business
         [TestMethod]
         public void TestReverseAdd()
         {
-            var list = new SortedObservableCollection<string>(Comparer<string>.Default);
-            list.Add("c");
-            list.Add("b");
-            list.Add("a");
+            var list = new SortedObservableCollection<string>(Comparer<string>.Default) {"c", "b", "a"};
 
             Assert.IsTrue(list[0] == "a");
             Assert.IsTrue(list[1] == "b");
@@ -36,10 +30,7 @@ namespace Famoser.Bookmarked.Tests.Business
         [TestMethod]
         public void TestComplexAdd()
         {
-            var list = new SortedObservableCollection<string>(Comparer<string>.Default);
-            list.Add("b");
-            list.Add("c");
-            list.Add("a");
+            var list = new SortedObservableCollection<string>(Comparer<string>.Default) {"b", "c", "a"};
 
             Assert.IsTrue(list[0] == "a");
             Assert.IsTrue(list[1] == "b");

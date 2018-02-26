@@ -2,19 +2,27 @@
     x:Class="Famoser.Bookmarked.Presentation.Universal.Pages.NavigationPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
-    mc:Ignorable="d" Loaded="Page_Loaded"
     DataContext="{Binding NavigationViewModel, Source={StaticResource Locator}}"
-    Unloaded="NavigationPage_OnUnloaded">
+    Loaded="Page_Loaded"
+    Unloaded="NavigationPage_OnUnloaded"
+    mc:Ignorable="d">
 
     <Page.Resources>
         <converters:PasswordTypeToTranslation x:Key="PasswordTypeToTranslation" />
         <DataTemplate x:Key="FolderDataTemplate">
-            <StackPanel Style="{StaticResource ListViewDataTemplateStackPanel}" AllowDrop="True" DragOver="Folder_OnDragOver" Drop="Folder_OnDrop">
+            <StackPanel
+                AllowDrop="True"
+                DragOver="Folder_OnDragOver"
+                Drop="Folder_OnDrop"
+                Style="{StaticResource ListViewDataTemplateStackPanel}">
                 <TextBlock Style="{StaticResource ItemHeader}" Text="{Binding Name}" />
-                <TextBlock Style="{StaticResource ItemDescription}" Text="{Binding Description}" />
+                <TextBlock
+                    MaxLines="3"
+                    Style="{StaticResource ItemDescription}"
+                    Text="{Binding Description}" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="GarbageFolderDataTemplate">
@@ -28,12 +36,18 @@
                     <TextBlock Style="{StaticResource ItemDescription}" Text="{Binding Description}" />
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding NavigationViewModel.RecoverFolderCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }">
+                    <Button
+                        Command="{Binding NavigationViewModel.RecoverFolderCommand, Source={StaticResource Locator}}"
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource PrimaryButton}">
                         <Button.Content>
                             <SymbolIcon Symbol="Accept" />
                         </Button.Content>
                     </Button>
-                    <Button Style="{StaticResource SecondaryButton}" Command="{Binding NavigationViewModel.RemoveFolderCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }">
+                    <Button
+                        Command="{Binding NavigationViewModel.RemoveFolderCommand, Source={StaticResource Locator}}"
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource SecondaryButton}">
                         <Button.Content>
                             <SymbolIcon Symbol="Delete" />
                         </Button.Content>
@@ -49,7 +63,10 @@
                     <ColumnDefinition Width="6" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Image Stretch="Uniform" Grid.Column="1" Width="80">
+                <Image
+                    Grid.Column="1"
+                    Width="50"
+                    Stretch="Uniform">
                     <Image.Source>
                         <BitmapImage UriSource="{Binding IconUri}" />
                     </Image.Source>
@@ -69,7 +86,10 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Image Stretch="Uniform" Grid.Column="1" Width="80">
+                <Image
+                    Grid.Column="1"
+                    Width="50"
+                    Stretch="Uniform">
                     <Image.Source>
                         <BitmapImage UriSource="{Binding IconUri}" />
                     </Image.Source>
@@ -79,12 +99,18 @@
                     <TextBlock Style="{StaticResource ItemDescription}" Text="{Binding Description}" />
                 </StackPanel>
                 <StackPanel Grid.Column="4">
-                    <Button Style="{StaticResource PrimaryButton}" Command="{Binding NavigationViewModel.RecoverEntryCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }">
+                    <Button
+                        Command="{Binding NavigationViewModel.RecoverEntryCommand, Source={StaticResource Locator}}"
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource PrimaryButton}">
                         <Button.Content>
                             <SymbolIcon Symbol="Accept" />
                         </Button.Content>
                     </Button>
-                    <Button Style="{StaticResource SecondaryButton}" Command="{Binding NavigationViewModel.RemoveEntryCommand, Source={StaticResource Locator}}" CommandParameter="{Binding }">
+                    <Button
+                        Command="{Binding NavigationViewModel.RemoveEntryCommand, Source={StaticResource Locator}}"
+                        CommandParameter="{Binding}"
+                        Style="{StaticResource SecondaryButton}">
                         <Button.Content>
                             <SymbolIcon Symbol="Delete" />
                         </Button.Content>
@@ -94,13 +120,13 @@
         </DataTemplate>
         <DataTemplate x:Key="ContentTypeModelTemplate">
             <StackPanel Style="{StaticResource ListViewDataTemplateStackPanel}">
-                <TextBlock Text="{Binding Name}" Style="{StaticResource ParagraphTextBlock}" />
+                <TextBlock Style="{StaticResource ParagraphTextBlock}" Text="{Binding Name}" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate x:Key="PasswordTypeEnumTemplate">
             <StackPanel Style="{StaticResource ListViewDataTemplateStackPanel}">
-                <TextBlock Text="{Binding Value, Converter={StaticResource PasswordTypeToTranslation}}" Style="{StaticResource QuestionTextBlock}" />
-                <TextBlock Text="{Binding Value, Converter={StaticResource PasswordTypeToTranslation}, ConverterParameter=Description}" Style="{StaticResource AnswerTextBlock}" />
+                <TextBlock Style="{StaticResource QuestionTextBlock}" Text="{Binding Value, Converter={StaticResource PasswordTypeToTranslation}}" />
+                <TextBlock Style="{StaticResource AnswerTextBlock}" Text="{Binding Value, Converter={StaticResource PasswordTypeToTranslation}, ConverterParameter=Description}" />
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
@@ -113,10 +139,13 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <StackPanel Style="{StaticResource HeaderStackPanel}" Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Default}">
-                    <TextBlock Text="{Binding SelectedFolder.Name}" Style="{StaticResource H1TextBlock}" />
+                    <TextBlock Style="{StaticResource H1TextBlock}" Text="{Binding SelectedFolder.Name}" />
                     <Grid>
-                        <TextBlock Text="{Binding SelectedFolder.Description}" Style="{StaticResource H1DescriptionTextBlock}" />
-                        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Style="{StaticResource H1DescriptionTextBlock}">
+                        <TextBlock Style="{StaticResource H1DescriptionTextBlock}" Text="{Binding SelectedFolder.Description}" />
+                        <TextBlock
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Style="{StaticResource H1DescriptionTextBlock}">
                             <Run Text="{Binding TotalEntries}" />
                             <Run Text="entries" />
                             <Run Text="{Binding TotalFolders}" />
@@ -127,36 +156,93 @@
                 </StackPanel>
 
                 <StackPanel Style="{StaticResource HeaderStackPanel}" Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Search}">
-                    <SearchBox x:Name="SearchBox" QueryText="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource SearchBox}" IsEnabled="{Binding InSearchMode}" IsEnabledChanged="SearchBox_IsEnabledChanged" />
-                    <TextBlock Text="{Binding Path=[SearchPageDescription], Source={StaticResource Localized}}" Style="{StaticResource H1DescriptionTextBlock}" />
+                    <SearchBox
+                        x:Name="SearchBox"
+                        IsEnabled="{Binding InSearchMode}"
+                        IsEnabledChanged="SearchBox_IsEnabledChanged"
+                        QueryText="{Binding SearchTerm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Style="{StaticResource SearchBox}" />
+                    <TextBlock Style="{StaticResource H1DescriptionTextBlock}" Text="{Binding Path=[SearchPageDescription], Source={StaticResource Localized}}" />
                     <Border Style="{StaticResource HeaderBottomBorder}" />
                 </StackPanel>
 
                 <StackPanel Style="{StaticResource HeaderStackPanel}" Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Garbage}">
-                    <TextBlock Text="{Binding Path=[GarbagePageTitle], Source={StaticResource Localized}}" Style="{StaticResource H1TextBlock}" />
-                    <TextBlock Text="{Binding Path=[GarbagePageDescription], Source={StaticResource Localized}}" Style="{StaticResource H1DescriptionTextBlock}" />
+                    <TextBlock Style="{StaticResource H1TextBlock}" Text="{Binding Path=[GarbagePageTitle], Source={StaticResource Localized}}" />
+                    <TextBlock Style="{StaticResource H1DescriptionTextBlock}" Text="{Binding Path=[GarbagePageDescription], Source={StaticResource Localized}}" />
                     <Border Style="{StaticResource HeaderBottomBorder}" />
                 </StackPanel>
 
-                <Grid x:Name="MoveUpGrid" Visibility="Collapsed" Drop="MoveUpGrid_OnDrop" DragOver="MoveUpGrid_OnDragOver" Background="{ThemeResource SystemControlBackgroundAccentBrush}" AllowDrop="True" Margin="20, 40" HorizontalAlignment="Right" Width="89" Height="55" VerticalAlignment="Top">
-                    <SymbolIcon Symbol="Up" Foreground="White" />
+                <Grid
+                    x:Name="MoveUpGrid"
+                    Width="89"
+                    Height="55"
+                    Margin="20,40"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    AllowDrop="True"
+                    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                    DragOver="MoveUpGrid_OnDragOver"
+                    Drop="MoveUpGrid_OnDrop"
+                    Visibility="Collapsed">
+                    <SymbolIcon Foreground="White" Symbol="Up" />
                 </Grid>
 
-                <ProgressBar VerticalAlignment="Top" Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}" Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}" Minimum="0" />
+                <ProgressBar
+                    VerticalAlignment="Top"
+                    Maximum="{Binding ProgressViewModel.MaxProgress, Source={StaticResource Locator}}"
+                    Minimum="0"
+                    Visibility="{Binding ProgressViewModel.ShowProgress, Source={StaticResource Locator}, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Value="{Binding ProgressViewModel.ActiveProgress, Source={StaticResource Locator}, Mode=TwoWay}" />
             </Grid>
-            <ScrollViewer BringIntoViewOnFocusChange="True" x:Name="ContentScrollViewer"  Grid.Row="1" Style="{StaticResource ContentScrollViewer}" ViewChanging="ScrollViewer_ViewChanging">
-                <StackPanel SizeChanged="StackPanel_SizeChanged" >
+            <ScrollViewer
+                x:Name="ContentScrollViewer"
+                Grid.Row="1"
+                BringIntoViewOnFocusChange="True"
+                Style="{StaticResource ContentScrollViewer}"
+                ViewChanging="ScrollViewer_ViewChanging">
+                <StackPanel SizeChanged="StackPanel_SizeChanged">
                     <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Default}">
-                        <ListView x:Name="FolderListView" Style="{StaticResource DropListView}" ItemsSource="{Binding SelectedFolder.Folders}" ItemTemplate="{StaticResource FolderDataTemplate}" Visibility="{Binding SelectedFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"  />
-                        <ListView x:Name="EntryListView" Style="{StaticResource DragListView}" ItemsSource="{Binding SelectedFolder.Entries}" ItemTemplate="{StaticResource EntryDataTemplate}" DragItemsStarting="ListView_OnDragItemsStarting" DragItemsCompleted="ListView_DragItemsCompleted" ItemClick="ListView_ItemClick"    />
+                        <ListView
+                            x:Name="FolderListView"
+                            DragItemsCompleted="ListView_DragItemsCompleted"
+                            DragItemsStarting="ListView_OnDragItemsStarting"
+                            ItemClick="ListView_ItemClick"
+                            ItemTemplate="{StaticResource FolderDataTemplate}"
+                            ItemsSource="{Binding SelectedFolder.Folders}"
+                            Style="{StaticResource DropListView}"
+                            Visibility="{Binding SelectedFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" />
+                        <ListView
+                            x:Name="EntryListView"
+                            DragItemsCompleted="ListView_DragItemsCompleted"
+                            DragItemsStarting="ListView_OnDragItemsStarting"
+                            ItemClick="ListView_ItemClick"
+                            ItemTemplate="{StaticResource EntryDataTemplate}"
+                            ItemsSource="{Binding SelectedFolder.Entries}"
+                            Style="{StaticResource DragListView}" />
                     </StackPanel>
                     <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Search}">
-                        <ListView Style="{StaticResource ClickListView}" ItemsSource="{Binding SearchFolders}" ItemTemplate="{StaticResource FolderDataTemplate}" Visibility="{Binding SearchFolders, Converter={StaticResource CollectionToVisibilityConverter}}" ItemClick="ListView_ItemClick" />
-                        <ListView Style="{StaticResource ClickListView}" ItemsSource="{Binding SearchEntries}" ItemTemplate="{StaticResource EntryDataTemplate}" ItemClick="ListView_ItemClick" />
+                        <ListView
+                            ItemClick="ListView_ItemClick"
+                            ItemTemplate="{StaticResource FolderDataTemplate}"
+                            ItemsSource="{Binding SearchFolders}"
+                            Style="{StaticResource ClickListView}"
+                            Visibility="{Binding SearchFolders, Converter={StaticResource CollectionToVisibilityConverter}}" />
+                        <ListView
+                            ItemClick="ListView_ItemClick"
+                            ItemTemplate="{StaticResource EntryDataTemplate}"
+                            ItemsSource="{Binding SearchEntries}"
+                            Style="{StaticResource ClickListView}" />
                     </StackPanel>
                     <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Garbage}">
-                        <ListView Style="{StaticResource FullListView}" ItemsSource="{Binding GarbageFolder.Folders}" ItemTemplate="{StaticResource GarbageFolderDataTemplate}" Visibility="{Binding GarbageFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" />
-                        <ListView Style="{StaticResource FullListView}" ItemsSource="{Binding GarbageFolder.Entries}" ItemTemplate="{StaticResource GarbageEntryDataTemplate}"    />
+                        <ListView
+                            ItemTemplate="{StaticResource GarbageFolderDataTemplate}"
+                            ItemsSource="{Binding GarbageFolder.Folders}"
+                            Style="{StaticResource FullListView}"
+                            Visibility="{Binding GarbageFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" />
+                        <ListView
+                            ItemTemplate="{StaticResource GarbageEntryDataTemplate}"
+                            ItemsSource="{Binding GarbageFolder.Entries}"
+                            Style="{StaticResource FullListView}" />
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
@@ -165,48 +251,79 @@
 
 
     <Page.BottomAppBar>
-        <CommandBar >
+        <CommandBar>
             <CommandBar.PrimaryCommands>
-                <AppBarButton Icon="Keyboard" Label="Generate Password" Loaded="AppBarButton_Loaded">
+                <AppBarButton
+                    Icon="Keyboard"
+                    Label="Generate Password"
+                    Loaded="AppBarButton_Loaded">
                     <AppBarButton.Flyout>
-                        <Flyout Placement="Bottom" Opened="PasswordFlyout_Openend" Closed="PasswordFlyout_Closed">
+                        <Flyout
+                            Closed="PasswordFlyout_Closed"
+                            Opened="PasswordFlyout_Openend"
+                            Placement="Bottom">
                             <StackPanel>
-                                <ComboBox HorizontalAlignment="Stretch"
-                                    ItemsSource="{Binding GeneratePasswordViewModel.PasswordTypes, Source={StaticResource Locator}, Mode=TwoWay}"
+                                <ComboBox
+                                    HorizontalAlignment="Stretch"
                                     ItemTemplate="{StaticResource PasswordTypeEnumTemplate}"
-                                    SelectedItem="{Binding GeneratePasswordViewModel.SelectedPasswordType, Source={StaticResource Locator}, Mode=TwoWay}"
-                                    />
+                                    ItemsSource="{Binding GeneratePasswordViewModel.PasswordTypes, Source={StaticResource Locator}, Mode=TwoWay}"
+                                    SelectedItem="{Binding GeneratePasswordViewModel.SelectedPasswordType, Source={StaticResource Locator}, Mode=TwoWay}" />
 
-                                <Slider Minimum="4" Maximum="45" Value="{Binding GeneratePasswordViewModel.PasswordLength, Source={StaticResource Locator}, Mode=TwoWay}" Style="{StaticResource BasicControl}" />
+                                <Slider
+                                    Maximum="45"
+                                    Minimum="4"
+                                    Style="{StaticResource BasicControl}"
+                                    Value="{Binding GeneratePasswordViewModel.PasswordLength, Source={StaticResource Locator}, Mode=TwoWay}" />
                                 <TextBox Text="{Binding GeneratePasswordViewModel.Password, Source={StaticResource Locator}, Mode=TwoWay}" />
 
-                                <TextBlock Text="{Binding Path=[GeneratePasswordClipboardHelp], Source={StaticResource Localized}}" Style="{StaticResource QuestionTextBlock}" />
+                                <TextBlock Style="{StaticResource QuestionTextBlock}" Text="{Binding Path=[GeneratePasswordClipboardHelp], Source={StaticResource Localized}}" />
                             </StackPanel>
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
 
-                <AppBarToggleButton IsChecked="{Binding InGarbageMode, Mode=TwoWay}" Icon="Delete" Label="Garbage" />
-                <AppBarToggleButton IsChecked="{Binding InSearchMode, Mode=TwoWay}" Icon="Find" Label="Find" />
-                <AppBarButton Command="{Binding RefreshCommand}" Icon="Refresh" Label="Refresh" />
-                <AppBarButton Icon="Add" Label="New Entry" >
+                <AppBarToggleButton
+                    Icon="Delete"
+                    IsChecked="{Binding InGarbageMode, Mode=TwoWay}"
+                    Label="Garbage" />
+                <AppBarToggleButton
+                    Icon="Find"
+                    IsChecked="{Binding InSearchMode, Mode=TwoWay}"
+                    Label="Find" />
+                <AppBarButton
+                    Command="{Binding RefreshCommand}"
+                    Icon="Refresh"
+                    Label="Refresh" />
+                <AppBarButton Icon="Add" Label="New Entry">
                     <AppBarButton.Flyout>
                         <Flyout Placement="Bottom">
                             <StackPanel>
-                                <Button Content="add Folder" Margin="20,0" Width="200" Command="{Binding AddFolderCommand}" Style="{StaticResource PrimaryButton}" />
-                                <ListView 
-                                    ItemsSource="{Binding ContentTypeModels}" 
+                                <Button
+                                    Width="200"
+                                    Margin="20,0"
+                                    Command="{Binding AddFolderCommand}"
+                                    Content="add Folder"
+                                    Style="{StaticResource PrimaryButton}" />
+                                <ListView
+                                    ItemClick="ListView_ItemClick"
                                     ItemTemplate="{StaticResource ContentTypeModelTemplate}"
-                                    Style="{StaticResource ClickListView}" 
-                                    ItemClick="ListView_ItemClick"/>
+                                    ItemsSource="{Binding ContentTypeModels}"
+                                    Style="{StaticResource ClickListView}" />
                             </StackPanel>
                         </Flyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
             </CommandBar.PrimaryCommands>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Command="{Binding HelpCommand}" Icon="Help" Label="About" />
-                <AppBarButton Command="{Binding EditFolderCommand}" CommandParameter="{Binding SelectedFolder}" Icon="Edit" Label="Edit Folder" />
+                <AppBarButton
+                    Command="{Binding HelpCommand}"
+                    Icon="Help"
+                    Label="About" />
+                <AppBarButton
+                    Command="{Binding EditFolderCommand}"
+                    CommandParameter="{Binding SelectedFolder}"
+                    Icon="Edit"
+                    Label="Edit Folder" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

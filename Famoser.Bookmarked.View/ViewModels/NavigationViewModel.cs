@@ -121,7 +121,7 @@ namespace Famoser.Bookmarked.View.ViewModels
                 {
                     //entry was accessed from search or similar
                     //to not confuse user try to find folder with that id
-                    SelectedFolder = _folderRepository.GetBestGuessParentFolder(c);
+                    SelectFolderCommand.Execute(_folderRepository.GetBestGuessParentFolder(c));
                 }
                 _navigationService.NavigateTo(model.ViewPageKey.ToString());
                 ((IEntryViewModel)SimpleIoc.Default.GetInstance(model.ViewModelType)).SetEntry(c, CrudState.Add);

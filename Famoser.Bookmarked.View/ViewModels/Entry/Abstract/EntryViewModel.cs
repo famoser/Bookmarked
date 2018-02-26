@@ -115,7 +115,7 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
             if (_state == CrudState.Edit)
             {
                 //resets vm
-                 SetEntry(SelectedEntry, CrudState.View);
+                SetEntry(SelectedEntry, CrudState.View);
                 _navigationService.GoBack();
             }
             else if (_state == CrudState.Add)
@@ -153,8 +153,13 @@ namespace Famoser.Bookmarked.View.ViewModels.Entry.Abstract
                 if (string.IsNullOrEmpty(SelectedEntry.Name))
                 {
                     var newName = await _apiService.GetWebpageNameAsync(uri);
-                    if (string.IsNullOrEmpty(SelectedEntry.Name))
+                    if (string.IsNullOrEmpty(SelectedEntry.Name) && newName.Length > 0)
                     {
+                        newName = newName.Trim();
+                        if (newName.Length > 100)
+                            newName = newName.Substring(0, 100);
+                        if (newName.Contains("\n"))
+                            newName = newName.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries)[0];
                         SelectedEntry.Name = newName;
                     }
                 }
