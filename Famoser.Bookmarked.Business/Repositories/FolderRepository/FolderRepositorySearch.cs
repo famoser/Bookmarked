@@ -102,23 +102,33 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
 
         private void SearchEntries(string search, SortedObservableCollection<EntryModel> myList)
         {
-            foreach (var entryLookupKey in _entryLookup.Keys)
+            int cachedCount;
+            do
             {
-                if (
-                    //if entry contains search parameter
-                    entryLookupKey.Contains(search) ||
-
-                    //if search parameter contains entry
-                    search.Contains(entryLookupKey)
-                )
+                cachedCount = _entryLookup.Count;
+                if (myList.Count != 0)
                 {
-                    _dispatchService.CheckBeginInvokeOnUi(
-                        () => myList.Add(_entryLookup[entryLookupKey])
-                    );
+                    _dispatchService.CheckBeginInvokeOnUi(myList.Clear);
                 }
-                //can make search arbitrary complex! try with weighting etc
-            }
 
+                foreach (var entryLookupKey in _entryLookup.Keys)
+                {
+                    if (
+                        //if entry contains search parameter
+                        entryLookupKey.Contains(search) ||
+
+                        //if search parameter contains entry
+                        search.Contains(entryLookupKey)
+                    )
+                    {
+                        _dispatchService.CheckBeginInvokeOnUi(
+                            () => myList.Add(_entryLookup[entryLookupKey])
+                        );
+                    }
+
+                    //can make search arbitrary complex! try with weighting etc
+                }
+            } while (cachedCount != _entryLookup.Count);
         }
 
         public ObservableCollection<FolderModel> SearchFolder(string searchTerm)
