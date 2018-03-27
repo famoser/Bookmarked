@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -30,6 +31,9 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
 
         //lookup
         private readonly ConcurrentDictionary<Guid, FolderModel> _folderDic;
+        private readonly ConcurrentDictionary<Guid, List<FolderModel>> _folderGuidToFolderDic;
+        private readonly ConcurrentDictionary<Guid, List<EntryModel>> _folderGuidToEntryDic;
+        private readonly HashSet<Guid> _entryGuids;
 
         //services
         private readonly IPasswordService _passwordService;
@@ -50,6 +54,9 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             _apiService = apiService;
 
             _folderDic = new ConcurrentDictionary<Guid, FolderModel>();
+            _folderGuidToFolderDic = new ConcurrentDictionary<Guid, List<FolderModel>>();
+            _folderGuidToEntryDic = new ConcurrentDictionary<Guid, List<EntryModel>>();
+            _entryGuids = new HashSet<Guid>();
             _folderDic.TryAdd(_rootGuid, new FolderModel { Name = "root", Description = "the root folder" });
             _folderDic.TryAdd(_garbageGuid, new FolderModel { Name = "garbage", Description = "the garbage collection" });
             _folderDic.TryAdd(_parentNotFound, new FolderModel());
@@ -120,24 +127,63 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             if (!FixParentModel(entry))
                 return;
 
+            //already added
+            if (_entryGuids.Contains(entry.GetId()))
+                return;
+
+            //if only garbage guid we are finished here
             if (entry.ParentIds.Contains(_garbageGuid))
             {
                 _folderDic[_garbageGuid].Entries.AddUniqueSorted(entry);
             }
+            //else add to tree structure
             else
             {
-                var once = false;
-                foreach (var entryParentId in entry.ParentIds.Distinct())
+                List<FolderModel> parentsToAdd = new List<FolderModel>();
+                lock (this)
                 {
-                    if (_folderDic.ContainsKey(entryParentId))
+                    //already added
+                    if (_entryGuids.Contains(entry.GetId()))
+                        return;
+
+                    _entryGuids.Add(entry.GetId());
+
+                    //if only garbage guid we are finished here
+                    if (entry.ParentIds.Contains(_garbageGuid))
                     {
-                        once |= _folderDic[entryParentId].Entries.AddUniqueSorted(entry);
+                        _folderDic[_garbageGuid].Entries.AddUniqueSorted(entry);
+                    }
+                    else
+                    {
+                        //do children stuff
+                        foreach (var folderParentId in entry.ParentIds)
+                        {
+                            if (!_folderDic.ContainsKey(folderParentId))
+                            {
+                                //parent folder not initialized yet
+                                if (!_folderGuidToEntryDic.ContainsKey(folderParentId))
+                                {
+                                    _folderGuidToEntryDic[folderParentId] = new List<EntryModel>();
+                                }
+
+                                _folderGuidToEntryDic[folderParentId].Add(entry);
+                            }
+                            else
+                            {
+                                //parent folder active
+                                parentsToAdd.Add(_folderDic[folderParentId]);
+                            }
+                        }
                     }
                 }
-                if (once)
+
+                //add itself to all parents
+                foreach (var folderModel in parentsToAdd)
                 {
-                    AddToSearchIndex(entry);
+                    folderModel.Entries.AddUniqueSorted(entry);
                 }
+
+                AddToSearchIndex(entry);
             }
         }
 
@@ -226,48 +272,78 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
         {
             if (!FixParentModel(folder))
                 return;
-            
-            //add itself to parents
-            if (folder.ParentIds.Contains(_garbageGuid))
+
+            //already added
+            if (_folderDic.ContainsKey(folder.GetId()))
+                return;
+
+            //else add to tree structure
+
+            List<FolderModel> children;
+            List<EntryModel> entries;
+            var parentsToAdd = new List<FolderModel>();
+            lock (this)
             {
-                _folderDic[_garbageGuid].Folders.AddUniqueSorted(folder);
-            }
-            else
-            {
-                //put it into lookup
-                if (!_folderDic.TryAdd(folder.GetId(), folder))
+                //already added
+                if (_folderDic.ContainsKey(folder.GetId()))
                     return;
 
-                var once = false;
-                foreach (var entryParentId in folder.ParentIds.Distinct())
+                //do parent stuff
+                _folderGuidToFolderDic.TryRemove(folder.GetId(), out children);
+                _folderGuidToEntryDic.TryRemove(folder.GetId(), out entries);
+                _folderDic[folder.GetId()] = folder;
+
+                //if only garbage guid we are finished here
+                if (folder.ParentIds.Contains(_garbageGuid))
                 {
-                    if (_folderDic.ContainsKey(entryParentId) && !_folderDic[entryParentId].Folders.Contains(folder))
+                    _folderDic[_garbageGuid].Folders.AddUniqueSorted(folder);
+                }
+                else
+                {
+                    //do children stuff
+                    foreach (var folderParentId in folder.ParentIds)
                     {
-                        once |= _folderDic[entryParentId].Folders.AddUniqueSorted(folder);
+                        if (!_folderDic.ContainsKey(folderParentId))
+                        {
+                            //parent folder not initialized yet
+                            if (!_folderGuidToFolderDic.ContainsKey(folderParentId))
+                            {
+                                _folderGuidToFolderDic[folderParentId] = new List<FolderModel>();
+                            }
+
+                            _folderGuidToFolderDic[folderParentId].Add(folder);
+                        }
+                        else
+                        {
+                            //parent folder active
+                            parentsToAdd.Add(_folderDic[folderParentId]);
+                        }
                     }
                 }
-                if (once)
-                {
-                    AddToSearchIndex(folder);
-                }
             }
 
-            //look for missing children
-            foreach (var entryModel in _entries.ToList())
+            //add children
+            if (children != null)
             {
-                if (entryModel.ParentIds.Contains(folder.GetId()))
-                {
-                    folder.Entries.AddUniqueSorted(entryModel);
-                }
-            }
-
-            //look for missing folders
-            foreach (var folderModel in _folders.ToList())
-            {
-                if (folderModel.ParentIds.Contains(folder.GetId()) && !folder.Folders.Contains(folderModel))
+                foreach (var folderModel in children)
                 {
                     folder.Folders.AddUniqueSorted(folderModel);
                 }
+            }
+
+            //add entries
+            if (entries != null)
+            {
+                foreach (var entry in entries)
+                {
+                    folder.Entries.AddUniqueSorted(entry);
+                }
+            }
+
+            //add itself to all parents
+            foreach (var folderModel in parentsToAdd)
+            {
+                folderModel.Folders.AddUniqueSorted(folder);
             }
 
             AddToSearchIndex(folder);
