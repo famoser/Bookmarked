@@ -140,6 +140,18 @@
                 TargetType="labs:ResponsiveGridView">
                 <Setter Property="AllowDrop" Value="True" />
             </Style>
+            <Style
+                x:Key="DragListView"
+                BasedOn="{StaticResource ClickListView}"
+                TargetType="ListView">
+                <Setter Property="CanDragItems" Value="True" />
+            </Style>
+            <Style
+                x:Key="DropListView"
+                BasedOn="{StaticResource DragListView}"
+                TargetType="ListView">
+                <Setter Property="AllowDrop" Value="True" />
+            </Style>
 
             <!--  basic style elements  -->
             <Style
@@ -428,8 +440,9 @@
             <!--  navigation  -->
             <Style
                 x:Key="ItemHeader"
-                BasedOn="{StaticResource H1TextBlock}"
+                BasedOn="{StaticResource H2TextBlock}"
                 TargetType="TextBlock">
+                <Setter Property="MaxLines" Value="1" />
             </Style>
             <Style
                 x:Key="ItemDescription"
