@@ -14,20 +14,23 @@
     </UserControl.Resources>
 
     <StackPanel>
+
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" TextWrapping="Wrap" Text="Please do not use this to store any kind of credit card / payment card (even if the fields exactly match), and remove the information if you previously have used it such."></TextBlock>
+
         <local:ViewWebpage DataContext="{Binding }" />
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="cardholder name" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="name" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.CardholderName}" />
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="number" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="long number" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.Number}" />
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="verification number" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="short number" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.VerificationNumber}" />
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="pin" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="supporting number" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.Pin}" />
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="expiry date" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="end date" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.ExpireDate, Converter={StaticResource DateToStringConverter}}" />
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="author" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.IssuingBank}" />
-        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="issuing bank number" />
+        <TextBlock Style="{StaticResource DescriptionTextBlock}" Text="author phone number" />
         <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding SelectedEntryContent.IssuingBankNumber}" />
     </StackPanel>
 </Page>

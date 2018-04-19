@@ -6,6 +6,8 @@
     xmlns:strings="using:Famoser.Bookmarked.Presentation.Universal.Strings"
     xmlns:viewModels="using:Famoser.Bookmarked.Presentation.Universal.ViewModels"
     xmlns:visibility="using:Famoser.FrameworkEssentials.UniversalWindows.Converters.Visibility"
+    xmlns:controls="using:AppStudio.Uwp.Controls"
+    xmlns:labs="using:AppStudio.Uwp.Labs"
     RequestedTheme="Light">
     <Application.Resources>
         <ResourceDictionary>
@@ -102,10 +104,23 @@
                 </Setter>
             </Style>
             <Style
+                x:Key="FullResponsiveGridView"
+                BasedOn="{StaticResource BasicControl}"
+                TargetType="labs:ResponsiveGridView">
+                <Setter Property="DesiredWidth" Value="400" />
+                <Setter Property="Height" Value="120" />
+            </Style>
+            <Style
                 x:Key="FullListView"
                 BasedOn="{StaticResource BasicControl}"
                 TargetType="ListView">
                 <Setter Property="ItemContainerStyle" Value="{StaticResource StretchListViewItemStyle}" />
+            </Style>
+            <Style
+                x:Key="ClickResponsiveGridView"
+                BasedOn="{StaticResource FullResponsiveGridView}"
+                TargetType="labs:ResponsiveGridView">
+                <Setter Property="IsItemClickEnabled" Value="True" />
             </Style>
             <Style
                 x:Key="ClickListView"
@@ -114,15 +129,15 @@
                 <Setter Property="IsItemClickEnabled" Value="True" />
             </Style>
             <Style
-                x:Key="DragListView"
-                BasedOn="{StaticResource ClickListView}"
-                TargetType="ListView">
+                x:Key="DragResponsiveGridView"
+                BasedOn="{StaticResource ClickResponsiveGridView}"
+                TargetType="labs:ResponsiveGridView">
                 <Setter Property="CanDragItems" Value="True" />
             </Style>
             <Style
-                x:Key="DropListView"
-                BasedOn="{StaticResource DragListView}"
-                TargetType="ListView">
+                x:Key="DropResponsiveGridView"
+                BasedOn="{StaticResource DragResponsiveGridView}"
+                TargetType="labs:ResponsiveGridView">
                 <Setter Property="AllowDrop" Value="True" />
             </Style>
 
@@ -198,7 +213,7 @@
                 BasedOn="{StaticResource PartContentGrid}"
                 TargetType="Grid">
                 <Setter Property="VerticalAlignment" Value="Top" />
-                <Setter Property="MaxWidth" Value="900" />
+                <Setter Property="MaxWidth" Value="600" />
                 <Setter Property="Margin" Value="20" />
             </Style>
 
@@ -413,9 +428,8 @@
             <!--  navigation  -->
             <Style
                 x:Key="ItemHeader"
-                BasedOn="{StaticResource H2TextBlock}"
+                BasedOn="{StaticResource H1TextBlock}"
                 TargetType="TextBlock">
-                <Setter Property="MaxLines" Value="1" />
             </Style>
             <Style
                 x:Key="ItemDescription"

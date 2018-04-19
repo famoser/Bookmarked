@@ -5,6 +5,8 @@
     xmlns:converters="using:Famoser.Bookmarked.Presentation.Universal.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:AppStudio.Uwp.Controls"
+    xmlns:labs="using:AppStudio.Uwp.Labs"
     DataContext="{Binding NavigationViewModel, Source={StaticResource Locator}}"
     Loaded="Page_Loaded"
     Unloaded="NavigationPage_OnUnloaded"
@@ -13,17 +15,25 @@
     <Page.Resources>
         <converters:PasswordTypeToTranslation x:Key="PasswordTypeToTranslation" />
         <DataTemplate x:Key="FolderDataTemplate">
-            <StackPanel
+            <Grid 
                 AllowDrop="True"
                 DragOver="Folder_OnDragOver"
                 Drop="Folder_OnDrop"
-                Style="{StaticResource ListViewDataTemplateStackPanel}">
-                <TextBlock Style="{StaticResource ItemHeader}" Text="{Binding Name}" />
-                <TextBlock
-                    MaxLines="3"
-                    Style="{StaticResource ItemDescription}"
-                    Text="{Binding Description}" />
-            </StackPanel>
+                Style="{StaticResource ListViewDataTemplateGrid}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1" Grid.ColumnSpan="3">
+                    <TextBlock Style="{StaticResource ItemHeader}" Text="{Binding Name}" />
+                    <TextBlock
+                        MaxLines="3"
+                        Style="{StaticResource ItemDescription}"
+                        Text="{Binding Description}" />
+                </StackPanel>
+            </Grid>
         </DataTemplate>
         <DataTemplate x:Key="GarbageFolderDataTemplate">
             <Grid Style="{StaticResource ListViewDataTemplateGrid}">
@@ -58,14 +68,14 @@
         <DataTemplate x:Key="EntryDataTemplate">
             <Grid Style="{StaticResource ListViewDataTemplateGrid}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="6" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="6" />
+                    <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
                 <Image
                     Grid.Column="1"
-                    Width="50"
+                    Width="100"
                     Stretch="Uniform">
                     <Image.Source>
                         <BitmapImage UriSource="{Binding IconUri}" />
@@ -202,23 +212,23 @@
                 ViewChanging="ScrollViewer_ViewChanging">
                 <StackPanel SizeChanged="StackPanel_SizeChanged">
                     <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Default}">
-                        <ListView
+                        <labs:ResponsiveGridView
                             x:Name="FolderListView"
                             DragItemsCompleted="ListView_DragItemsCompleted"
                             DragItemsStarting="ListView_OnDragItemsStarting"
                             ItemClick="ListView_ItemClick"
                             ItemTemplate="{StaticResource FolderDataTemplate}"
                             ItemsSource="{Binding SelectedFolder.Folders}"
-                            Style="{StaticResource DropListView}"
+                            Style="{StaticResource FullResponsiveGridView}"
                             Visibility="{Binding SelectedFolder.Folders, Converter={StaticResource CollectionToVisibilityConverter}}" />
-                        <ListView
+                        <labs:ResponsiveGridView
                             x:Name="EntryListView"
                             DragItemsCompleted="ListView_DragItemsCompleted"
                             DragItemsStarting="ListView_OnDragItemsStarting"
                             ItemClick="ListView_ItemClick"
                             ItemTemplate="{StaticResource EntryDataTemplate}"
                             ItemsSource="{Binding SelectedFolder.Entries}"
-                            Style="{StaticResource DragListView}" />
+                            Style="{StaticResource DragResponsiveGridView}" />
                     </StackPanel>
                     <StackPanel Visibility="{Binding NavigationViewMode, Converter={StaticResource EnumVisibilityConverter}, ConverterParameter=Search}">
                         <ListView

@@ -56,7 +56,7 @@ namespace Famoser.Bookmarked.View.Helper
                 ContentType.CreditCard,
                 new ContentTypeModel
                 {
-                    Name = "Credit Card",
+                    Name = "Number Collection",
                     ContentType = ContentType.CreditCard,
                     AddPageKey = PageKeys.AddCreditCard,
                     EditPageKey = PageKeys.EditCreditCard,
