@@ -124,6 +124,11 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
 
         private void AddEntry(EntryModel entry)
         {
+            if (entry.Name.ToLower().Contains("league"))
+            {
+                entry.Name.ToLower();
+            }
+
             if (!FixParentModel(entry))
                 return;
 
@@ -224,6 +229,8 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                     _folderDic[entryParentId].Entries.Remove(entry);
                 }
             }
+
+            _entryGuids.Remove(entry.GetId());
             RemoveFromSearchIndex(entry);
         }
 

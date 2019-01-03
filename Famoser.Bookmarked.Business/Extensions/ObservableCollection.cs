@@ -16,14 +16,10 @@ namespace Famoser.Bookmarked.Business.Extensions
             {
                 var source1 = target[index];
                 var compare = source1.CompareTo(value);
-                if (compare < 0)
+                if (compare <= 0)
                 {
                     target.Insert(index, value);
                     return true;
-                }
-                if (compare == 0)
-                {
-                    return false;
                 }
             }
             target.Add(value);
