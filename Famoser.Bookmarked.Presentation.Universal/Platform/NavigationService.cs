@@ -109,6 +109,7 @@ namespace Famoser.Bookmarked.Presentation.Universal.Platform
             if (!_pagesByKey.ContainsKey(pageKey))
                 throw new ArgumentException(string.Format("No such page: {0}. Did you forget to call NavigationService.Configure?", pageKey), "pageKey");
 
+            this.EnableBack();
             lock (this)
             {
                 var frame = (Frame)Window.Current.Content;
