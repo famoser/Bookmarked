@@ -26,5 +26,14 @@ namespace Famoser.Bookmarked.Business.Models.Entries
         {
             WebpageUrl = new Uri("http://famoser.ch");
         }
+
+        public override CsvExportEntry ConvertToCsvExportEntry()
+        {
+            var entry = base.ConvertToCsvExportEntry();
+
+            entry.WebpageUrl = WebpageUrl?.ToString();
+
+            return entry;
+        }
     }
 }

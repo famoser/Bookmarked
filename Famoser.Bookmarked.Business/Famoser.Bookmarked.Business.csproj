@@ -52,6 +52,7 @@
     <Compile Include="List\SortedObservableCollection.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Base\ParentModel.cs" />
+    <Compile Include="Models\CsvExportEntry.cs" />
     <Compile Include="Models\Entries\Base\ContentModel.cs" />
     <Compile Include="Models\Entries\PersonModel.cs" />
     <Compile Include="Models\Entries\NoteModel.cs" />

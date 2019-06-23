@@ -8,5 +8,6 @@ namespace Famoser.Bookmarked.Business.Models.Entries.Base
         public abstract ContentType GetContentType();
         public abstract void SetDefaultValues();
         public abstract void SetExampleValues();
+        public abstract CsvExportEntry ConvertToCsvExportEntry();
     }
 }

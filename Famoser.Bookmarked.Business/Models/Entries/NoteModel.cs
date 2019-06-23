@@ -26,5 +26,13 @@ namespace Famoser.Bookmarked.Business.Models.Entries
         {
             PrivateNote = "my cat is green!";
         }
+
+        public override CsvExportEntry ConvertToCsvExportEntry()
+        {
+            return new CsvExportEntry
+            {
+                PrivateNote = PrivateNote
+            };
+        }
     }
 }

@@ -74,5 +74,20 @@ namespace Famoser.Bookmarked.Business.Models.Entries
             Pin = "1234";
             VerificationNumber = "123";
         }
+
+        public override CsvExportEntry ConvertToCsvExportEntry()
+        {
+            var entry = base.ConvertToCsvExportEntry();
+
+            entry.CardholderName = CardholderName;
+            entry.Number = Number;
+            entry.VerificationNumber = VerificationNumber;
+            entry.Pin = Pin;
+            entry.ExpireDate = ExpireDate.ToString("d");
+            entry.IssuingBank = IssuingBank;
+            entry.IssuingBankNumber = IssuingBankNumber;
+
+            return entry;
+        }
     }
 }

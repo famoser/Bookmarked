@@ -30,11 +30,6 @@ namespace Famoser.Bookmarked.Business.Models.Entries
             return ContentType.OnlineAccount;
         }
 
-        public void WriteProperties(WebpageModel webpage)
-        {
-
-        }
-
         public override void SetDefaultValues()
         {
             //no defaults
@@ -45,6 +40,17 @@ namespace Famoser.Bookmarked.Business.Models.Entries
             Email = "git@famoser.ch";
             Password = "password1234";
             UserName = "famoser";
+        }
+
+        public override CsvExportEntry ConvertToCsvExportEntry()
+        {
+            var entry = base.ConvertToCsvExportEntry();
+
+            entry.Username = UserName;
+            entry.Password = Password;
+            entry.Email = Email;
+
+            return entry;
         }
     }
 }

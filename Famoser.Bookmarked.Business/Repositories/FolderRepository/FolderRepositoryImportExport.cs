@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using CsvHelper;
 using Famoser.Bookmarked.Business.Enum;
 using Famoser.Bookmarked.Business.Models;
 using Famoser.Bookmarked.Business.Models.Entries;
@@ -23,44 +26,75 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
                 await _folderRepository.SyncAsync();
                 await _entryRepository.SyncAsync();
 
-                //create import model
-                var importModel = new ImportModel()
+                using (var memoryStream = new MemoryStream())
                 {
-                    ExportDate = DateTime.Now,
-                    Entries = _entries.ToList(),
-                    Folders = _folders.ToList(),
-                    CreditCardModels = new Dictionary<Guid, CreditCardModel>(),
-                    NoteModels = new Dictionary<Guid, NoteModel>(),
-                    OnlineAccountModels = new Dictionary<Guid, OnlineAccountModel>(),
-                    WebpageModels = new Dictionary<Guid, WebpageModel>()
-                };
-                foreach (var importModelEntry in importModel.Entries)
-                {
-                    switch (importModelEntry.ContentType)
+                    using (var streamWriter = new StreamWriter(memoryStream, Encoding.UTF8))
                     {
-                        case ContentType.CreditCard:
-                            importModel.CreditCardModels.Add(importModelEntry.GetId(), GetEntryContent<CreditCardModel>(importModelEntry));
-                            break;
-                        case ContentType.Note:
-                            importModel.NoteModels.Add(importModelEntry.GetId(), GetEntryContent<NoteModel>(importModelEntry));
-                            break;
-                        case ContentType.OnlineAccount:
-                            importModel.OnlineAccountModels.Add(importModelEntry.GetId(), GetEntryContent<OnlineAccountModel>(importModelEntry));
-                            break;
-                        case ContentType.Webpage:
-                            importModel.WebpageModels.Add(importModelEntry.GetId(), GetEntryContent<WebpageModel>(importModelEntry));
-                            break;
+                        using (var csv = new CsvWriter(streamWriter))
+                        {
+                            WriteFolderContent(csv, GetRootFolder());
+
+                            streamWriter.Flush();
+                            memoryStream.Position = 0;
+
+                            using (var reader = new StreamReader(memoryStream, Encoding.UTF8))
+                            {
+                                return reader.ReadToEnd();
+                            }
+                        }
                     }
                 }
-                //encrypt
-                var str = JsonConvert.SerializeObject(importModel);
-                return _encryptionService.Encrypt(str, _passwordService.GetPassword());
             }
             catch (Exception e)
             {
                 LogHelper.Instance.LogException(e);
             }
             return null;
+        }
+
+        private void WriteFolderContent(CsvWriter csv, FolderModel folderModel, string prefix = "")
+        {
+            var folderName = prefix + "/" + folderModel.Name;
+            var exportModels = folderModel.Entries.Select(entry => ConvertToCsvExportEntry(entry, folderName));
+            csv.WriteRecords(exportModels);
+
+            foreach (var childFolder in folderModel.Folders)
+            {
+                WriteFolderContent(csv, childFolder, folderName);
+            }
+        }
+
+        private CsvExportEntry ConvertToCsvExportEntry(EntryModel entryModel, string folder)
+        {
+            CsvExportEntry csvExportEntry;
+            switch (entryModel.ContentType)
+            {
+                case ContentType.CreditCard:
+                    csvExportEntry = GetEntryContent<CreditCardModel>(entryModel).ConvertToCsvExportEntry();
+                    csvExportEntry.ContentType = "Credit Card";
+                    break;
+                case ContentType.Note:
+                    csvExportEntry = GetEntryContent<NoteModel>(entryModel).ConvertToCsvExportEntry();
+                    csvExportEntry.ContentType = "Note";
+                    break;
+                case ContentType.OnlineAccount:
+                    csvExportEntry = GetEntryContent<OnlineAccountModel>(entryModel).ConvertToCsvExportEntry();
+                    csvExportEntry.ContentType = "Online Account";
+                    break;
+                case ContentType.Webpage:
+                    csvExportEntry = GetEntryContent<WebpageModel>(entryModel).ConvertToCsvExportEntry();
+                    csvExportEntry.ContentType = "Webpage";
+                    break;
+                default:
+                    // fail silently to allow export of others
+                    LogHelper.Instance.LogError("Tried to export content type " + entryModel.ContentType);
+                    csvExportEntry = new CsvExportEntry();
+                    break;
+            }
+
+            csvExportEntry.Folder = folder;
+
+            return csvExportEntry;
         }
 
         public async Task<string> GetImportDataTemplateAsync()
@@ -149,7 +183,7 @@ namespace Famoser.Bookmarked.Business.Repositories.FolderRepository
             {
                 if (string.IsNullOrEmpty(content))
                     return false;
-                
+
                 var decrypted = _encryptionService.Decrypt(content, password);
                 var newCred = JsonConvert.DeserializeObject<UserModel>(decrypted);
                 return await _apiService.SetApiUserAsync(newCred);
